@@ -1,0 +1,43 @@
+[
+	{
+		"Alberta" : {
+			"propertyMod" : "0.35"
+		},
+		"British Columbia" : {
+			"propertyMod" : "0.1"
+		},
+		"Manitoba" : {
+			"propertyMod" : "0.35"
+		},
+		"New Brunswick" : {
+			"propertyMod" : "1.15"
+		},
+		"Newfoundland and Labrador" : {
+			"propertyMod" : "1.15"
+		},
+		"Northwest Territories" : {
+			"propertyMod" : "1.15"
+		},
+		"Nova Scotia" : {
+			"propertyMod" : "1.15"
+		},
+		"Nunavut" : {
+			"propertyMod" : "1.15"
+		},
+		"Ontario" : {
+			"propertyMod" : "0.2"
+		},
+		"Prince Edward Island" : {
+			"propertyMod" : "1.15"
+		},
+		"Quebec" : {
+			"propertyMod" : "0.95"
+		},
+		"Saskatchewan" : {
+			"propertyMod" : "0.35"
+		},
+		"Yukon" : {
+			"propertyMod" : "1.15"
+		}
+	}
+]

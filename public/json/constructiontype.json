@@ -1,0 +1,25 @@
+[
+	{
+		"Fire Resistive" : {
+			"code" : "1",
+			"mod" : "0"
+		},
+		"Frame-Brick Veneer" : {
+			"code" : "4",
+			"mod" : "175"
+		},
+		"Masonary Steel Deck Roof" : {
+			"code" : "2",
+			"mod" : "35"
+		},
+		"Masonary Wood Joist Roof" : {
+			"code" : "3",
+			"mod" : "100"
+		},
+		"Other" : {
+			"code" : "5",
+			"mod" : "Refer"
+		}
+		
+	}
+]

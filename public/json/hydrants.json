@@ -1,0 +1,15 @@
+[
+	{
+		"Within 75m" : {
+			"value" : "4"
+		},
+	
+		"Within 150m" : {
+			"value" : "2"
+		},
+		"Over 150m" : {
+			"value" : "1"
+		}
+		
+	}
+]

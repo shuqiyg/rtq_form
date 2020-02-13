@@ -1,0 +1,40 @@
+body{
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+section{
+	padding-top: 10px;
+}
+.form-group{
+	margin-bottom: 5px !important;
+}
+.hmm_sections,.noc5_sections{
+	margin-bottom: 5px;
+	border-bottom: 1px solid green;
+	padding:5px 10px;
+	border-left: 3px solid rosybrown;
+}
+
+.optionalBox {
+	border-left: 2px solid orange;
+	padding-left: 5px;
+	margin-left: 20px;
+}
+.nestedBox{
+	border-left: 2px solid green;
+	padding-left: 5px;
+	margin-left: 20px;
+}
+
+#priceBox{
+	padding: 20px;
+}
+.totalRow{
+	background-color: #cfcecc;
+}
+
+#finish{
+	float: right;
+}

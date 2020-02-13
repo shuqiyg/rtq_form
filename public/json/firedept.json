@@ -1,0 +1,19 @@
+[
+	{
+		"Within 3km" : {
+			"value" : "8"
+		},
+	
+		"Within 5km" : {
+			"value" : "4"
+		},
+	
+		"Within 10km" : {
+			"value" : "2"
+		},
+		"Over 10km" : {
+			"value" : "1"
+		}
+		
+	}
+]
