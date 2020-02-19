@@ -7,6 +7,15 @@ body{
 section{
 	padding-top: 10px;
 }
+.err2{
+	color: red;
+}
+.invalid{
+	border:1px solid red;
+}
+.valid{
+	border:1px solid ;
+}
 .form-group{
 	margin-bottom: 5px !important;
 }

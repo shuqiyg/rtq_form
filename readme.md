@@ -7,6 +7,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+
+## About RTQ-Form
+
+RTQ-Form is a web application for broker to fill up form and see real time quote based on some required fields value and submit data by sending email and broker also get email with PDF of entered data.
+
+RTQ-Form is outside company project for broker. After getting email of entered data by broker, we process it using RTQ-Process application inside company network.
+
+## Reference link
+
+Jquery SmartWizard  :  http://techlaboratory.net/smartwizard
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:

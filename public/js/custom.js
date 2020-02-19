@@ -4,8 +4,77 @@ $(document).ready(function(){
   		contentCache : false
   	});
 
+  	//writing validation on next step
+	$('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
+		//checks valid on leave field
+		$.each( $(anchorObject.attr('href')).find('input.required'), function( key, value ) {
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+  			// do nothing
+        // removing class if user has open element and then hidden it so need to remove added class
+        $(this).prev('label').find('span').removeClass('err2');
+        $(this).removeClass('invalid');
+      }else{
+        console.log($(this).attr('name')+'   '+$(this).val());
+        if($(this).val()){
+          $(this).prev('label').find('span').removeClass('err2');
+          $(this).removeClass('invalid');
+        }else{
+          $(this).prev('label').find('span').addClass('err2');
+          $(this).addClass('invalid');
+        }
+      }
+		});
+		$.each( $(anchorObject.attr('href')).find('select.required'), function( key, value ) {
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+        // do nothing
+        $(this).prev('label').find('span').removeClass('err2');
+        $(this).removeClass('invalid');
+      }else{
+        console.log($(this).attr('name')+'   '+$(this).val());
+        if($(this).val()){
+          $(this).prev('label').find('span').removeClass('err2');
+          $(this).removeClass('invalid');
+        }else{
+          $(this).prev('label').find('span').addClass('err2');
+          $(this).addClass('invalid');
+        }
+      }
+		});
 
-  	// only number allwed to input in some of field
+		/*
+		if ($(anchorObject.attr('href')).find('input.required').length > 0) {
+			if($(anchorObject.attr('href')).find('input.required').val()){
+				$(anchorObject.attr('href')).find('input.required').prev('label').find('span').removeClass('err2');
+				//$(anchorObject.attr('href')).find('input.required').addClass('valid');
+				$(anchorObject.attr('href')).find('input.required').removeClass('invalid');
+			}else{
+				$(anchorObject.attr('href')).find('input.required').prev('label').find('span').addClass('err2')	;
+				$(anchorObject.attr('href')).find('input.required').addClass('invalid');
+				//$(anchorObject.attr('href')).find('input.required').removeClass('valid');
+			}
+			//$(anchorObject.attr('href')).find('input.required').prev('label').find('span').addClass('err2');	
+		}
+		
+		if ($(anchorObject.attr('href')).find('select.required').length > 0) {
+			$(anchorObject.attr('href')).find('select.required').prev('label').find('span').addClass('err2');
+		}
+*/
+		$.when(e).then(function() {
+			let total_error = $(anchorObject.attr('href')).find('input.required').prev('label').find('.err2').length + $(anchorObject.attr('href')).find('select.required').prev('label').find('.err2').length;
+			
+			if (total_error > 0 ) {	
+				anchorObject.parent().addClass('danger');
+			} else {
+				anchorObject.parent().removeClass('danger');
+			}
+			//checks valid on leave field
+			//scroll window to top everytime on leave step.
+			window.scrollTo(0, 0);
+		});
+	});
+	
+
+  	// only number allowed to input in some of field
   	$('.onlyNumbers').keyup(function(e)
 	                                {
 	  	if (/\D/g.test(this.value))
@@ -102,7 +171,7 @@ $(document).ready(function(){
 	  		var html = '';
 	  		// loop following fields for number of mortgagees
 	  		for (var i = 1; i <= risk_address_noOfClaims; i++) {
-	  			html += '<div class="noc5_sections"><label class="col-md-4" style="float: left;">'+i+'. Type of claims </label><select class="form-control col-md-8" id="risk_address_noc5_type_'+i+'" name="risk_address_noc5_type_'+i+'"><option value="">-Select value-</option><option value="fire">Fire</option> <option value="vandalism">Vandalism</option><option value="theft/burglary">Theft/Burglary</option><option value="windstorm">Windstorm</option> <option value="burst pipes">Burst pipes</option><option value="sewer backup">Sewer Backup</option><option value="flood">Flood including overland water</option><option value="other">Other</option></select><label class="col-md-4" style="float: left;"> Description of other </label><input type="text" id="risk_address_noc5_description_'+i+'" name="risk_address_noc5_description_'+i+'" class="form-control col-md-8"  value=""><label class="col-md-4" style="float: left;"> Open or Closed </label><select id="risk_address_noc5_openOrClosed_'+i+'" name="risk_address_noc5_openOrClosed_'+i+'" class="form-control col-md-8" ><option value="">-Select value-</option><option value="open">Open</option><option value="closed">Closed</option></select><label class="col-md-4" style="float: left;"> Amount of claim <span class="err">*</span></label><input type="text" id="risk_address_noc5_amount_'+i+'" name="risk_address_noc5_amount_'+i+'" class="form-control col-md-8"  value=""></div>';	
+	  			html += '<div class="noc5_sections"><label class="col-md-4" style="float: left;">'+i+'. Type of claims </label><select class="form-control col-md-8" id="risk_address_noc5_type_'+i+'" name="risk_address_noc5_type_'+i+'"><option value="">-Select value-</option><option value="fire">Fire</option> <option value="vandalism">Vandalism</option><option value="theft/burglary">Theft/Burglary</option><option value="windstorm">Windstorm</option> <option value="burst pipes">Burst pipes</option><option value="sewer backup">Sewer Backup</option><option value="flood">Flood including overland water</option><option value="other">Other</option></select><label class="col-md-4" style="float: left;"> Description of other </label><input type="text" id="risk_address_noc5_description_'+i+'" name="risk_address_noc5_description_'+i+'" class="form-control col-md-8"  value=""><label class="col-md-4" style="float: left;"> Open or Closed </label><select id="risk_address_noc5_openOrClosed_'+i+'" name="risk_address_noc5_openOrClosed_'+i+'" class="form-control col-md-8" ><option value="">-Select value-</option><option value="open">Open</option><option value="closed">Closed</option></select><label class="col-md-4" style="float: left;"> Amount of claim <span class="err">*</span></label><input type="text" id="risk_address_noc5_amount_'+i+'" name="risk_address_noc5_amount_'+i+'" class="form-control col-md-8 required"  value=""></div>';	
 	  		}
 	  		$("#numberOfClaims").html(html);
 	  	}else{
@@ -230,20 +299,82 @@ $(document).ready(function(){
   	/**
 	Finish button will gather all form data in json format and send it to controller to process
   	**/
-  	$("#finish").on('click',function(){
+  $("#finish").on('click',function(){
+  	var valid = false;
+  	// check if all required fields are filled up or not
+  	$.each($('.required'), function( key, value ) {
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+        console.log($(this).attr('name')+'    not visible');
+      }else{
+        if($(this).val()){
+          valid = true;
+        }else{
+          valid = false; 
+          return false;
+        }  
+        //console.log($(this).attr('name')+'    '+valid);
+      }
+    });
+
+  	if(valid == true){
   		var formData = JSON.stringify($('#rtq_form').serializeArray());
+  		// formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
+  		var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
+  		var noOfClaims = $.trim($('#risk_address_noOfClaims').val());
+  		var noOfMortgageesArray = {};
+  		var noOfClaimsArray = {};
+  		for(var i=1;i<=noOfMortgagees;i++){
+  			var mortgageesName = $('#risk_address_hmm_name_'+i).val();
+  			var mortgageesAdd = $('#risk_address_hmm_address_'+i).val();
+  			var mortgageesAmount = $('#risk_address_hmm_amount_'+i).val();
+  			var  a = {};
+  			a["mortgageesName_"+i] = mortgageesName;
+  			a["mortgageesAdd_"+i] = mortgageesAdd;
+  			a["mortgageesAmount_"+i] = mortgageesAmount;
+  			noOfMortgageesArray[i]=a;
+  		}
+  		for(var i=1;i<=noOfClaims;i++){
+  			var claimType = $('#risk_address_noc5_type_'+i).val();
+  			var claimDescription = $('#risk_address_noc5_description_'+i).val();
+  			var claimOpenOrClosed = $('#risk_address_noc5_openOrClosed_'+i).val();
+  			var claimAmount = $('#risk_address_noc5_amount_'+i).val();
+  			var  a = {};
+  			a["claimType_"+i] = claimType;
+  			a["claimDescription_"+i] = claimDescription;
+  			a["claimOpenOrClosed_"+i] = claimOpenOrClosed;
+  			a["claimAmount_"+i] = claimAmount;
+  			noOfClaimsArray[i] = a;
+  		}
+  		noOfMortgageesArray = JSON.stringify(noOfMortgageesArray);
+  		noOfClaimsArray = JSON.stringify(noOfClaimsArray);
+  		//console.log(noOfMortgageesArray);console.log(JSON.stringify(noOfMortgageesArray));
+  		//console.log(noOfClaimsArray);
+  		setTimeout(function(){	},2000);
   		$.ajax({
-			url:"finish",
-			method:"post",
-			data: {formData:formData,_token:$('meta[name="csrf-token"]').attr('content')},
-			datatype: 'json',
-			success: function(msg){
-				console.log(msg);
-			},
-			error: function(data){
-				console.log(data);
-			}
-		});
-  	});
+  			url:"finish",
+  			method:"post",
+  			data: {formData:formData,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray, _token:$('meta[name="csrf-token"]').attr('content')},
+  			datatype: 'json',
+  			success: function(msg){
+  				console.log(msg);
+          if(msg.success){
+            swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
+            //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
+            setTimeout(function(){
+              window.location.href='/';
+            },2000);
+            
+          }else{
+            console.log('There is error');
+          }
+  			},
+  			error: function(data){
+  				console.log(data);
+  			}
+  		});
+    }else{
+			swal('Please fill up all required fields.');
+		}
+  });
 
 });

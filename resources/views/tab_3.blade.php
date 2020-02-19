@@ -4,15 +4,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Street <span class="err">*</span> </label>
-                <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> City <span class="err">*</span> </label>
-                <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
-                <select class="form-control col-md-8" id="risk_address_province" name="risk_address_province">
+                <select class="form-control col-md-8 required" id="risk_address_province" name="risk_address_province">
                     <option value="">-Select province-</option>
                     @foreach ($canState as $s)
                         <option value="{{ $s['name'] }}"> {{ $s['name'] }} </option>
@@ -21,11 +21,11 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Lot Size <span class="err">*</span> </label>
-                <select class="form-control col-md-8" id="risk_address_lot_size" name="risk_address_lot_size">
+                <select class="form-control col-md-8 required" id="risk_address_lot_size" name="risk_address_lot_size">
                     <option value="">-Select lot size-</option>
                     <option value="standard">Standard</option>
                     <option value="over1acre">Over 1 Acre</option>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> How Many Mortgagees ? <span class="err">*</span> </label>
-                <select class="form-control col-md-8" id="risk_address_howmany_mortgagees" name="risk_address_howmany_mortgagees">
+                <select class="form-control col-md-8 required" id="risk_address_howmany_mortgagees" name="risk_address_howmany_mortgagees">
                     <option value="">-Select mortgagees number-</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Existing Insurer <span class="err">*</span> </label>
-                <input type="text" id="risk_address_existingInsurer" name="risk_address_existingInsurer" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurer" name="risk_address_existingInsurer" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Expiry Date</span></label>
@@ -80,7 +80,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Has the insured been cancelled/declined insurance ? <span class="err">*</span> </label>
-                        <select class="form-control col-md-8" id="risk_address_hasInsuredCancelInsurance" name="risk_address_hasInsuredCancelInsurance">
+                        <select class="form-control col-md-8 required" id="risk_address_hasInsuredCancelInsurance" name="risk_address_hasInsuredCancelInsurance">
                             <option value="">-Select value-</option>
                             <option value="y">Yes</option>
                             <option value="n">No</option>
@@ -96,7 +96,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Number of claims in the last 5 years ? </label>
-                        <select class="form-control col-md-8" id="risk_address_noOfClaims" name="risk_address_noOfClaims">
+                        <select class="form-control col-md-8 required" id="risk_address_noOfClaims" name="risk_address_noOfClaims">
                             <option value="">-Select value-</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -120,7 +120,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Are you aware of any incidence that may result in a claim ? <span class="err">*</span></label>
-                        <select class="form-control col-md-8" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
+                        <select class="form-control col-md-8 required" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
                             <option value="">-Select value-</option>
                             <option value="y">Yes</option>
                             <option value="n">No</option>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="form-group" id="risk_address_hasInsuredCancelInsuranceIfYesBox">
                     <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of claims </span> </label>
-                    <select class="form-control col-md-8" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
+                    <select class="form-control col-md-8 required" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
                         <option value="">-Select value-</option>
                         <option value="property">Property</option>
                         <option value="liability">Liability</option>
@@ -146,7 +146,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> In what type of neighborhood is it located ? <span class="err">*</span></label>
-                        <select class="form-control col-md-8" id="risk_address_typeOfNeighborhood" name="risk_address_typeOfNeighborhood">
+                        <select class="form-control col-md-8 required" id="risk_address_typeOfNeighborhood" name="risk_address_typeOfNeighborhood">
                             <option value="">-Select value-</option>
                             <option value="residential">Residential</option>
                             <option value="industrial">Industrial</option>

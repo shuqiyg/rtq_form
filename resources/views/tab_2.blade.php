@@ -4,15 +4,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Insured Name / Legal Entity Name <span class="err">*</span> </label>
-                <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8"  value="">
+                <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contact First Name <span class="err">*</span> </label>
-                <input type="text" id="contact_first_name" name="contact_first_name" class="form-control col-md-8"  value="">
+                <input type="text" id="contact_first_name" name="contact_first_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contact Last Name <span class="err">*</span> </label>
-                <input type="text" id="contact_last_name" name="contact_last_name" class="form-control col-md-8"  value="">
+                <input type="text" id="contact_last_name" name="contact_last_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contact Phone Number  </label>
@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record ? <span class="err">*</span> </label>
-                        <select class="form-control col-md-8" id="insured_criminal_record" name="insured_criminal_record">
+                        <select class="form-control col-md-8 required" id="insured_criminal_record" name="insured_criminal_record">
                             <option value="">-Select Value-</option>
                             <option value="y">Y</option>
                             <option value="n">N</option>
@@ -63,15 +63,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Street <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_street" name="mailing_address_street" class="form-control col-md-8"  value="">
+                <input type="text" id="mailing_address_street" name="mailing_address_street" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> City <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_city" name="mailing_address_city" class="form-control col-md-8"  value="">
+                <input type="text" id="mailing_address_city" name="mailing_address_city" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
-                <select class="form-control col-md-8" id="mailing_address_province" name="mailing_address_province">
+                <select class="form-control col-md-8 required" id="mailing_address_province" name="mailing_address_province">
                     <option value="">-Select province/state-</option>
                     <optgroup label="Canada">
                     @foreach ($canState as $s)
@@ -85,15 +85,15 @@
                     </optgroup>
                     <option value="other">Other State</option>
                 </select>
-                <input type="text" class="form-control col-md-8" name="mailing_address_province_other" id="mailing_address_province_other" style="display: none;">
+                <input type="text" class="form-control col-md-8 required" name="mailing_address_province_other" id="mailing_address_province_other" style="display: none;">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8"  value="">
+                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>
-                <select class="form-control col-md-8" id="mailing_address_country" name="mailing_address_country">
+                <select class="form-control col-md-8 required" id="mailing_address_country" name="mailing_address_country">
                     <option value="">-Select Value-</option>
                     <option value="Canada">Canada</option>
                     <option value="USA">USA</option>
