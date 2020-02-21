@@ -207,7 +207,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="col-md-3" style="float: left;"> Plumbing - Type <span class="err">*</span> </label>
+                <label class="col-md-3" style="float: left;"> Plumbing - Type </label>
                 <input type="text" id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8"  value="">
             </div>
             <div class="form-group">

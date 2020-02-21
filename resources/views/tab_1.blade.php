@@ -8,7 +8,7 @@
                 <input type="text" id="broker_name" name="broker_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Broker Code <span class="err">*</span> </label>
+                <label class="col-md-3" style="float: left;"> Broker Code </label>
                 <input type="text" id="broker_code" name="broker_code" class="form-control col-md-8 onlyNumbers"  value="">
             </div>
             <div class="form-group has-feedback">

@@ -1,25 +1,77 @@
 $(document).ready(function(){
 	// Smart Wizard activation
   	$('#smartwizard').smartWizard({
-  		contentCache : false
+  		contentCache : false,
+      // Show url hash based on step
+      showStepURLhash: false,
+      // initial selected step, 0 = first step
+      selected: 0,
+      // Enable selection of the step based on url hash
+      useURLhash: false,
+      // Effect on navigation, none/slide/fade
+      autoAdjustHeight:true
   	});
 
-  	//writing validation on next step
+  //writing validation on next step
 	$('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
 		//checks valid on leave field
 		$.each( $(anchorObject.attr('href')).find('input.required'), function( key, value ) {
       if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
   			// do nothing
         // removing class if user has open element and then hidden it so need to remove added class
-        $(this).prev('label').find('span').removeClass('err2');
+        // check if span has nestedBox class then remove class err2 from next span
+        if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+          $(this).prev('label').find('span').next('span').removeClass('err2');
+        }else{
+          $(this).prev('label').find('span').removeClass('err2');
+        }
+        // remove class invalid
         $(this).removeClass('invalid');
       }else{
-        console.log($(this).attr('name')+'   '+$(this).val());
+        //console.log($(this).attr('name')+'   '+$(this).val());
+
         if($(this).val()){
-          $(this).prev('label').find('span').removeClass('err2');
-          $(this).removeClass('invalid');
+        
+          // if there is email type field then check email is valid or not
+          if($(this).attr('type') == 'email'){
+            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            console.log(emailReg.test( $(this).val() ));
+            if(emailReg.test( $(this).val() ) == false){
+              if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+              $(this).prev('label').find('span').next('span').addClass('err2');
+              }else{
+                $(this).prev('label').find('span').addClass('err2');
+              }
+              // add class invalid
+              $(this).addClass('invalid');
+            }else{
+              if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+                $(this).prev('label').find('span').next('span').removeClass('err2');
+              }else{
+                $(this).prev('label').find('span').removeClass('err2');
+              }
+              $(this).removeClass('invalid');
+            }
+          }else{
+            // check if span has nestedBox class then remove class err2 from next span
+            if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+              $(this).prev('label').find('span').next('span').removeClass('err2');
+            }else{
+              $(this).prev('label').find('span').removeClass('err2');
+            }
+            // remove class invalid
+            $(this).removeClass('invalid');
+          }
+
+          
         }else{
-          $(this).prev('label').find('span').addClass('err2');
+          // check if span has nestedBox class then add class err2 from next span
+          if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+            $(this).prev('label').find('span').next('span').addClass('err2');
+          }else{
+            $(this).prev('label').find('span').addClass('err2');
+          }
+          // add class invalid
           $(this).addClass('invalid');
         }
       }
@@ -27,15 +79,33 @@ $(document).ready(function(){
 		$.each( $(anchorObject.attr('href')).find('select.required'), function( key, value ) {
       if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
         // do nothing
-        $(this).prev('label').find('span').removeClass('err2');
+        // check if span has nestedBox class then remove class err2 from next span
+        if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+          $(this).prev('label').find('span').next('span').removeClass('err2');
+        }else{
+          $(this).prev('label').find('span').removeClass('err2');
+        }
+        // remove class invalid
         $(this).removeClass('invalid');
       }else{
-        console.log($(this).attr('name')+'   '+$(this).val());
+        //console.log($(this).attr('name')+'   '+$(this).val());
         if($(this).val()){
-          $(this).prev('label').find('span').removeClass('err2');
+          // check if span has nestedBox class then remove class err2 from next span
+          if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+            $(this).prev('label').find('span').next('span').removeClass('err2');
+          }else{
+            $(this).prev('label').find('span').removeClass('err2');  
+          }
+          // remove class invalid
           $(this).removeClass('invalid');
         }else{
-          $(this).prev('label').find('span').addClass('err2');
+          // check if span has nestedBox class then add class err2 from next span
+          if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+            $(this).prev('label').find('span').next('span').addClass('err2');
+          }else{
+            $(this).prev('label').find('span').addClass('err2');  
+          }
+          // add class invalid
           $(this).addClass('invalid');
         }
       }
@@ -59,6 +129,8 @@ $(document).ready(function(){
 			$(anchorObject.attr('href')).find('select.required').prev('label').find('span').addClass('err2');
 		}
 */
+
+    // below code will add and remove red steps based on required fields filled up or not
 		$.when(e).then(function() {
 			let total_error = $(anchorObject.attr('href')).find('input.required').prev('label').find('.err2').length + $(anchorObject.attr('href')).find('select.required').prev('label').find('.err2').length;
 			
@@ -349,7 +421,8 @@ $(document).ready(function(){
   		noOfClaimsArray = JSON.stringify(noOfClaimsArray);
   		//console.log(noOfMortgageesArray);console.log(JSON.stringify(noOfMortgageesArray));
   		//console.log(noOfClaimsArray);
-  		setTimeout(function(){	},2000);
+      $("#finalMSG").html('<b>Processing .......</b>');
+  		setTimeout(function(){ 	},2000);
   		$.ajax({
   			url:"finish",
   			method:"post",
@@ -358,6 +431,7 @@ $(document).ready(function(){
   			success: function(msg){
   				console.log(msg);
           if(msg.success){
+            $("#finalMSG").empty();
             swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
             //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
             setTimeout(function(){
@@ -365,7 +439,8 @@ $(document).ready(function(){
             },2000);
             
           }else{
-            console.log('There is error');
+            console.log('There is error : '+msg.message);
+            swal(msg.message);
           }
   			},
   			error: function(data){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 
 class rtqController extends Controller
 {
@@ -149,9 +150,9 @@ class rtqController extends Controller
 		$ca =  json_encode($calculateArray);
 
 		// now Send email to ..... to process email
-		//$emailSent = $this->emailSent($fd);
-		$emailSent = 1;
-		if($emailSent == 1){
+		$emailSent = $this->emailSent($fd);
+		//$emailSent = 0;
+		if($emailSent == 0){
 			$message = array('message'=>'Form has been sent to AMF.','success'=>'true');
 		}else{
 			$message = array('message'=>'There is something wrong to send form to AMF.','success'=>'false');	
@@ -301,9 +302,9 @@ class rtqController extends Controller
         $result = Mail::send([], [], function ($message) use ($formData) {
 
         	//$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
-            $message->from('');//'no-reply@amfredericks.com'
-            $message->subject('');
-            $message->to('');
+            $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com'
+            $message->subject('RTQ-Form');
+            $message->to('ankit.savaliya@amfredericks.com');
             $message->setBody($formData);
 
             $email = $message->getSwiftMessage();
