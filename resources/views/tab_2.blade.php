@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contact Email </label>
-                <input type="text" id="contact_email" name="contact_email" class="form-control col-md-8"  value="">
+                <input type="email" id="contact_email" name="contact_email" class="form-control col-md-8"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Website </label>
@@ -34,8 +34,8 @@
                 <label class="col-md-4" style="float: left;"> Policy Language  </label>
                 <select class="form-control col-md-8" id="policy_language" name="policy_language">
                     <option value="">-Select Value-</option>
-                    <option value="english">English</option>
-                    <option value="french">French</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
                 </select>
             </div>
             <div class="form-group">
@@ -44,8 +44,8 @@
                         <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record ? <span class="err">*</span> </label>
                         <select class="form-control col-md-8 required" id="insured_criminal_record" name="insured_criminal_record">
                             <option value="">-Select Value-</option>
-                            <option value="y">Y</option>
-                            <option value="n">N</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                 </div>
@@ -85,11 +85,14 @@
                     </optgroup>
                     <option value="other">Other State</option>
                 </select>
-                <input type="text" class="form-control col-md-8 required" name="mailing_address_province_other" id="mailing_address_province_other" style="display: none;">
+                <div id="other_province"  style="display: none;">
+                    <input type="text" class="form-control col-md-7 required" name="mailing_address_province_other" id="mailing_address_province_other" style="float: left;margin-bottom: 5px;" />
+                    <a id="revertProvinceList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 required"  value="">
+                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>

@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+  //activate bootstrap tooltip
+  $('[data-toggle="tooltip"]').tooltip();
+
 	// Smart Wizard activation
   	$('#smartwizard').smartWizard({
   		contentCache : false,
@@ -146,21 +150,40 @@ $(document).ready(function(){
 	});
 	
 
-  	// only number allowed to input in some of field
-  	$('.onlyNumbers').keyup(function(e)
-	                                {
-	  	if (/\D/g.test(this.value))
-	  	{
-		    // Filter non-digits from input value.
-		    this.value = this.value.replace(/\D/g, '');
-	  	}
-	});
+  // Restricts input for the set of matched elements to the given inputFilter function.
+(function($) {
+  $.fn.inputFilter = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  };
+}(jQuery));
 
+  // only number allowed to input in some of field
+  $(".onlyNumbers").inputFilter(function(value) {
+    return /^-?\d*$/.test(value); 
+  });
+
+  // only number & letters allowed to input in some of field
+  $(".onlyNumbersAndLetters").inputFilter(function(value) {
+    return /^[a-zA-Z0-9 ]*$/i.test(value); 
+  });
+
+  
 		
   	// display details of record if insured criminal record is yes
   	$("#insured_criminal_record").on('change',function(){
   		var insured_criminal_record = $("#insured_criminal_record").val();
-	  	if(insured_criminal_record == 'y'){
+	  	if(insured_criminal_record == 'Yes'){
 	  		$("#details_of_record_box").show();
 	  	}else{
 	  		$("#details_of_record_box").hide();
@@ -173,19 +196,27 @@ $(document).ready(function(){
   	$("#mailing_address_province").on('change',function(){
   		var mailing_address_province = $("#mailing_address_province").val();
 	  	if(mailing_address_province == 'other'){
-	  		$("#mailing_address_province_other").show();
+	  		$("#other_province").show();
 	  		$("#mailing_address_province").hide();
 	  	}else{
 	  		$("#mailing_address_province").show();
-	  		$("#mailing_address_province_other").hide();
+	  		$("#other_province").hide();
 	  		$("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
 	  	}
   	});
 
+    // click on revert list
+    $("#revertProvinceList").on('click',function(){
+      $("#mailing_address_province").show();
+      $("#mailing_address_province").val(''); // reset value of province field 
+      $("#other_province").hide();
+      $("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
+    });
+
   	// display descrive use over 1 acre field
   	$("#risk_address_lot_size").on('change',function(){
   		var risk_address_lot_size = $("#risk_address_lot_size").val();
-	  	if(risk_address_lot_size == 'over1acre'){
+	  	if(risk_address_lot_size == 'Over 1 Acre'){
 	  		$("#describeOver1Acre").show();
 	  	}else{
 	  		$("#describeOver1Acre").hide();
@@ -215,7 +246,7 @@ $(document).ready(function(){
   	// display reason for non-renewal field for existing insurer in risk address tab 
   	$("#risk_address_existingInsurerWillRenew").on('change',function(){
   		var risk_address_existingInsurerWillRenew = $("#risk_address_existingInsurerWillRenew").val();
-  		if(risk_address_existingInsurerWillRenew == 'n'){
+  		if(risk_address_existingInsurerWillRenew == 'No'){
   			$("#risk_address_existingInsurerNonRenewalBox").show();
   		}else{
   			$("#risk_address_existingInsurerNonRenewalBox").hide();
@@ -226,7 +257,7 @@ $(document).ready(function(){
   	// display attach details field for has insured cancelled insurance in risk address tab 
   	$("#risk_address_hasInsuredCancelInsurance").on('change',function(){
   		var risk_address_hasInsuredCancelInsurance = $("#risk_address_hasInsuredCancelInsurance").val();
-  		if(risk_address_hasInsuredCancelInsurance == 'y'){
+  		if(risk_address_hasInsuredCancelInsurance == 'Yes'){
   			$("#risk_address_hasInsuredCancelInsuranceIfYesBox").show();
   		}else{
   			$("#risk_address_hasInsuredCancelInsuranceIfYesBox").hide();
@@ -243,7 +274,7 @@ $(document).ready(function(){
 	  		var html = '';
 	  		// loop following fields for number of mortgagees
 	  		for (var i = 1; i <= risk_address_noOfClaims; i++) {
-	  			html += '<div class="noc5_sections"><label class="col-md-4" style="float: left;">'+i+'. Type of claims </label><select class="form-control col-md-8" id="risk_address_noc5_type_'+i+'" name="risk_address_noc5_type_'+i+'"><option value="">-Select value-</option><option value="fire">Fire</option> <option value="vandalism">Vandalism</option><option value="theft/burglary">Theft/Burglary</option><option value="windstorm">Windstorm</option> <option value="burst pipes">Burst pipes</option><option value="sewer backup">Sewer Backup</option><option value="flood">Flood including overland water</option><option value="other">Other</option></select><label class="col-md-4" style="float: left;"> Description of other </label><input type="text" id="risk_address_noc5_description_'+i+'" name="risk_address_noc5_description_'+i+'" class="form-control col-md-8"  value=""><label class="col-md-4" style="float: left;"> Open or Closed </label><select id="risk_address_noc5_openOrClosed_'+i+'" name="risk_address_noc5_openOrClosed_'+i+'" class="form-control col-md-8" ><option value="">-Select value-</option><option value="open">Open</option><option value="closed">Closed</option></select><label class="col-md-4" style="float: left;"> Amount of claim <span class="err">*</span></label><input type="text" id="risk_address_noc5_amount_'+i+'" name="risk_address_noc5_amount_'+i+'" class="form-control col-md-8 required"  value=""></div>';	
+	  			html += '<div class="noc5_sections"><label class="col-md-4" style="float: left;">'+i+'. Type of claims </label><select class="form-control col-md-8" id="risk_address_noc5_type_'+i+'" name="risk_address_noc5_type_'+i+'"><option value="">-Select value-</option><option value="Fire">Fire</option> <option value="Vandalism">Vandalism</option><option value="Theft-Burglary">Theft/Burglary</option><option value="Windstorm">Windstorm</option> <option value="Burst pipes">Burst pipes</option><option value="Sewer Backup">Sewer Backup</option><option value="Flood including overland water">Flood including overland water</option><option value="Other">Other</option></select><label class="col-md-4" style="float: left;"> Description of other </label><input type="text" id="risk_address_noc5_description_'+i+'" name="risk_address_noc5_description_'+i+'" class="form-control col-md-8"  value=""><label class="col-md-4" style="float: left;"> Open or Closed </label><select id="risk_address_noc5_openOrClosed_'+i+'" name="risk_address_noc5_openOrClosed_'+i+'" class="form-control col-md-8" ><option value="">-Select value-</option><option value="open">Open</option><option value="closed">Closed</option></select><label class="col-md-4" style="float: left;"> Amount of claim <span class="err">*</span></label><input type="text" id="risk_address_noc5_amount_'+i+'" name="risk_address_noc5_amount_'+i+'" class="form-control col-md-8 required"  value=""></div>';	
 	  		}
 	  		$("#numberOfClaims").html(html);
 	  	}else{
@@ -255,7 +286,7 @@ $(document).ready(function(){
   	// display attach details field & type of claims for if any incidence in claim happen
   	$("#risk_address_incidenceInClaim").on('change',function(){
   		var risk_address_incidenceInClaim = $("#risk_address_incidenceInClaim").val();
-  		if(risk_address_incidenceInClaim == 'y'){
+  		if(risk_address_incidenceInClaim == 'Yes'){
   			$("#incidenceOfClaimBox").show();
   		}else{
   			$("#incidenceOfClaimBox").hide();
@@ -267,7 +298,7 @@ $(document).ready(function(){
   	// display describe field for commercial operations on premises on occupancy tab
   	$("#occupancy_commercialOperations").on('change',function(){
   		var occupancy_commercialOperations = $("#occupancy_commercialOperations").val();
-  		if(occupancy_commercialOperations == 'y'){
+  		if(occupancy_commercialOperations == 'Yes'){
   			$("#occupancy_commercialOperationsDescribeBox").show();
   		}else{
   			$("#occupancy_commercialOperationsDescribeBox").hide();
@@ -278,7 +309,7 @@ $(document).ready(function(){
   	// display other specify field for Overall construction in building construction section on occupancy tab
   	$("#buildingConstruction_overallConstruction").on('change',function(){
   		var buildingConstruction_overallConstruction = $("#buildingConstruction_overallConstruction").val();
-  		if(buildingConstruction_overallConstruction == 'other'){
+  		if(buildingConstruction_overallConstruction == 'Other'){
   			$("#buildingConstruction_overallConstructionOtherBox").show();
   		}else{
   			$("#buildingConstruction_overallConstructionOtherBox").hide();
@@ -300,7 +331,7 @@ $(document).ready(function(){
   	// display are premises fenced and gated field for liability section in occupancy tab
   	$("#liability_doesPremisesHavePool").on('change',function(){
   		var liability_doesPremisesHavePool = $("#liability_doesPremisesHavePool").val();
-  		if(liability_doesPremisesHavePool == 'y'){
+  		if(liability_doesPremisesHavePool == 'Yes'){
   			$("#ifPremiseHasPoolBox").show();
   		}else{
   			$("#ifPremiseHasPoolBox").hide();
@@ -312,14 +343,69 @@ $(document).ready(function(){
   	$("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
         if(stepNumber == 6){
         	console.log('final step');
-        	var brokerCode = $.trim($('#broker_code').val());
-        	if(brokerCode == '' || brokerCode == null){
-        		console.log('brokerCode : '+brokerCode);
-        		$('#calculateBox').hide();
-        	}else{
-        		console.log('brokerCode 2: '+brokerCode);
-        		$('#calculateBox').show();
-        	}
+          // get broker code
+          var brokerCode = $.trim($('#broker_code').val());
+          
+          // empty review form everytime comes to final step to show new latest values
+          $("#reviewForm").empty();
+
+          // if there is broker code available
+          if(brokerCode != '' && brokerCode != null){
+            // check refer rules matching or not
+            var formData = JSON.stringify($('#rtq_form').serializeArray());
+            //console.log(formData);
+            $.ajax({
+              url:"checkReferRules",
+              method:"post",
+              data: {formData:formData,_token:$('meta[name="csrf-token"]').attr('content')},
+              datatype: 'json',
+              success: function(msg){
+                console.log(msg);
+
+                if( msg != '' && msg !== "Matched"){
+                  //console.log('brokerCode : '+brokerCode);
+
+                  // display referValidationNotMatchBox
+                  $("#referValidationNotMatchBox").show();
+                  var html = "<p>We are not able to provide quote at this time. Your submission will be refer to underwriter to get quote.</p><p>Here are reason for refer : </p>";
+
+                  html += "<ul>";
+                  $.each(msg,function(k,v){
+                    html += "<li>"+v+"</li>";
+                  });
+                  html += "</ul>";
+                  $("#referValidationNotMatchBox").html(html);
+
+                  $('#calculateBox').hide();
+
+                  reviewForm();
+                  $("#bindingBox").hide();
+                  $("#binding").val('');
+                }else{
+                  $('#calculateBox').show();
+                  $("#referValidationNotMatchBox").hide();
+                  $("#referValidationNotMatchBox").empty();
+
+                  reviewForm();
+                  $("#bindingBox").show();
+                  $("#binding").val('');
+                }
+                
+              },
+              error: function(data){
+                console.log(data);
+              }
+            });  
+          }else{
+            reviewForm();
+            $('#calculateBox').hide();
+            $("#bindingBox").hide();
+            $("#binding").val('');
+            $("#referValidationNotMatchBox").hide();
+            $("#referValidationNotMatchBox").empty();
+          }
+
+        	
         	$('#priceBox').empty();
         	
         }
@@ -368,9 +454,9 @@ $(document).ready(function(){
   	});
 
   	
-  	/**
-	Finish button will gather all form data in json format and send it to controller to process
-  	**/
+  /**
+	 Finish button will gather all form data in json format and send it to controller to process
+  **/
   $("#finish").on('click',function(){
   	var valid = false;
   	// check if all required fields are filled up or not
@@ -387,9 +473,38 @@ $(document).ready(function(){
         //console.log($(this).attr('name')+'    '+valid);
       }
     });
+    
+    var binding;
+    // get binding value if binding box is not hidden
+    if($("#bindingBox").css('display') != 'none'){
+      binding = $("#binding").val();
+      if(binding == ''){
+        // add invalid class to binding field if its empty & return false 
+        $("#binding").addClass('invalid');
+        return false;
+      }else{
+        $("#binding").removeClass('invalid');
+      }
+    }
+    
+    var referNotMatchReason;
+    // get refer not matching reason if available
+    if($("#referValidationNotMatchBox").css('display') != 'none'){
+      referNotMatchReason = {};
+      var i  = 0;
+      $("#referValidationNotMatchBox ul li").each(function(){
+        referNotMatchReason[i] = $(this).text();
+        i++;
+      });
+    }else{
+      referNotMatchReason = {};
+    }
 
-  	if(valid == true){
-  		var formData = JSON.stringify($('#rtq_form').serializeArray());
+    // json encode of reasons
+    referNotMatchReason = JSON.stringify(referNotMatchReason);
+
+    if(valid == true){
+  		/*var formData = JSON.stringify($('#rtq_form').serializeArray());
   		// formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
   		var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
   		var noOfClaims = $.trim($('#risk_address_noOfClaims').val());
@@ -418,15 +533,22 @@ $(document).ready(function(){
   			noOfClaimsArray[i] = a;
   		}
   		noOfMortgageesArray = JSON.stringify(noOfMortgageesArray);
-  		noOfClaimsArray = JSON.stringify(noOfClaimsArray);
+  		noOfClaimsArray = JSON.stringify(noOfClaimsArray);*/
   		//console.log(noOfMortgageesArray);console.log(JSON.stringify(noOfMortgageesArray));
   		//console.log(noOfClaimsArray);
+
+      // get all form data including dynamic fields
+      var getFormData = getAllFormData();
+      var formData = getFormData.formData;
+      var noOfMortgageesArray = getFormData.noOfMortgageesArray;
+      var noOfClaimsArray = getFormData.noOfClaimsArray;
+
       $("#finalMSG").html('<b>Processing .......</b>');
   		setTimeout(function(){ 	},2000);
   		$.ajax({
   			url:"finish",
   			method:"post",
-  			data: {formData:formData,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray, _token:$('meta[name="csrf-token"]').attr('content')},
+  			data: {formData:formData,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason, _token:$('meta[name="csrf-token"]').attr('content')},
   			datatype: 'json',
   			success: function(msg){
   				console.log(msg);
@@ -452,4 +574,100 @@ $(document).ready(function(){
 		}
   });
 
+
+  // function to get all form data including dynamic fields
+  function getAllFormData(){
+    var formData = JSON.stringify($('#rtq_form').serializeArray());
+      // formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
+      var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
+      var noOfClaims = $.trim($('#risk_address_noOfClaims').val());
+      var noOfMortgageesArray = {};
+      var noOfClaimsArray = {};
+      for(var i=1;i<=noOfMortgagees;i++){
+        var mortgageesName = $('#risk_address_hmm_name_'+i).val();
+        var mortgageesAdd = $('#risk_address_hmm_address_'+i).val();
+        var mortgageesAmount = $('#risk_address_hmm_amount_'+i).val();
+        var  a = {};
+        a["mortgageesName_"+i] = mortgageesName;
+        a["mortgageesAdd_"+i] = mortgageesAdd;
+        a["mortgageesAmount_"+i] = mortgageesAmount;
+        noOfMortgageesArray[i]=a;
+      }
+      for(var i=1;i<=noOfClaims;i++){
+        var claimType = $('#risk_address_noc5_type_'+i).val();
+        var claimDescription = $('#risk_address_noc5_description_'+i).val();
+        var claimOpenOrClosed = $('#risk_address_noc5_openOrClosed_'+i).val();
+        var claimAmount = $('#risk_address_noc5_amount_'+i).val();
+        var  a = {};
+        a["claimType_"+i] = claimType;
+        a["claimDescription_"+i] = claimDescription;
+        a["claimOpenOrClosed_"+i] = claimOpenOrClosed;
+        a["claimAmount_"+i] = claimAmount;
+        noOfClaimsArray[i] = a;
+      }
+      noOfMortgageesArray = JSON.stringify(noOfMortgageesArray);
+      noOfClaimsArray = JSON.stringify(noOfClaimsArray);
+
+      // return object with all data
+      return {'formData':formData,'noOfMortgageesArray':noOfMortgageesArray,'noOfClaimsArray':noOfClaimsArray};
+  }
+
+  /**
+     function to display all form data for review
+  **/
+  function reviewForm(){
+    // get all form data step by step
+    reviewDataByStep('tab-1');
+    reviewDataByStep('tab-2');
+    reviewDataByStep('tab-3');
+    reviewDataByStep('tab-4');
+    reviewDataByStep('tab-5');
+  }
+
+  // function to display review data by step
+  function reviewDataByStep(step){
+    // get all label & value in
+    
+    var html = '';
+    // Add section label
+    html += "<h4 style='width:90%;float:left;'>"+$('#'+step).find('h3').text()+"</h4> <a href='javascript:window.scrollTo(0,0)' id='goToStep' data-togo='"+step+"'>Go To Top</a>";
+    // create table
+    html += "<table class='table table-bordered rowHover' style='width:100%;'>";
+      
+    // loop through all label in each step
+    $('#'+step).find('label').each(function(index,elem){
+      // add row
+      html += "<tr>";
+      
+      // check parent div or div of parent div display is not none
+      if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none'){
+        // add label 
+        html += "<td style='width:60%;'>"+$(this).text()+"</td>";
+        // check element is input
+        if($(this).next().is('input')){
+          html += "<td  style='width:40%;'>"+$(this).next('input').val()+"</td>";
+        }
+        // check if element is select 
+        if($(this).next().is('select')){
+          html += "<td style='width:40%;'>"+$(this).next('select').val()+"</td>";
+        }
+      }
+      // finish row
+      html += "</tr>";
+
+    });
+    
+    // finish table
+    html += "</table>";
+    
+    // append html to review form  
+    $("#reviewForm").append(html);    
+  }
+
+  // function to goto specific step
+  $("#goToStep").on('click',function(){
+    var step = $(this).attr('data-togo');
+    $('#smartwizard').smartWizard('goToStep', step);
+  });
+  
 });

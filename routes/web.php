@@ -19,5 +19,5 @@ Route::post('/calculate', 'rtqController@calculate');
 
 Route::post('/finish', 'rtqController@finish');
 
-
+Route::post('/checkReferRules','rtqController@checkReferRules');
 

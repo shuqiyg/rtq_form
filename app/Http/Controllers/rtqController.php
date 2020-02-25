@@ -78,6 +78,7 @@ class rtqController extends Controller
 		$priceArray['fee'] = $fee;
 		$priceArray['towngrade'] = $tg;
 		$priceArray['total'] = $total;
+		$priceArray['amfRate'] = $provRate;
 
 		return $priceArray;
 	}
@@ -101,16 +102,20 @@ class rtqController extends Controller
 		$formData = json_decode($req['formData']);
 		$noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
 		$noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
-		$fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray);
+		$referNotMatchReason = json_decode($req['referNotMatchReason'], true);
+		$fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason);
 		$fd = json_decode($fdFormattedJson , true );
+		
 		//echo $fd[0]['contact_phone_number']['value'];
-
+		$binding = $req['binding'];
 		// before closing json, validate rules and add status in json
 		// send json to check refer rules
 		$valid = $this->validation($fd);
 		$status = '';
-		if($valid == true){
+		if($valid['valid'] == true && $binding == "Yes"){
 			$status = "Bound";
+		}else if($valid['valid'] == true && ($binding == "" || $binding == "No") ){
+			$status = "Quoted";
 		}else{
 			$status = "Assigned";
 		}
@@ -165,7 +170,7 @@ class rtqController extends Controller
 	/**
 	Format form data to proper json way so we can get extract data easily from json using key as fieldID 
 	**/
-	function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray){
+	function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason){
 		// check data size to add comma at end of each json value except last one
 		$i = 1;
 		// start json
@@ -187,70 +192,106 @@ class rtqController extends Controller
 			}
 			$i++;
 		}
-		// if there is mortgagees then add comma to append list of mortgagees
-		if(sizeof($noOfMortgageesArray) > 0){
-			$json .= ',';
-		}
-		// list data of mortgagees
-		$j = 0;
-		foreach ($noOfMortgageesArray as $key => $value) {
-			// give name 
-			$json .= '"mortagagee_'.($j+1).'": {';
-			// append value to json
-			$r = 1;
-			foreach ($value as $k => $v) {
-				$json .= '"'.$k.'" : "'.$v.'"';
-				// add comma at end of each value except last
-				if($r < sizeof($value)){
-					$json .= ',';
-				}
-				$r++;
-			}
-			// complete each mortgagee
-			$json .= '}';
-			// here $j start with 0 and we have array started with 1 so we add $j+1 to add comma at end of each mortgagee except last one
-			if(($j+1) < sizeof($noOfMortgageesArray)){
+
+		if($noOfMortgageesArray != ''){
+			// if there is mortgagees then add comma to append list of mortgagees
+			if(sizeof($noOfMortgageesArray) > 0){
 				$json .= ',';
 			}
-			// go out of loop if all data of array added to json
-			if($j == sizeof($noOfMortgageesArray)){
-				goto out;
-			}
-			$j++;
-		}
-		out:
-		// if there is claim then add comma to append list of claims
-		if(sizeof($noOfClaimsArray) > 0){
-			$json .= ',';
-		}
-		// list data of claims
-		$t = 0;
-		foreach ($noOfClaimsArray as $key => $value) {
-			// give name 
-			$json .= '"claim_'.($t+1).'": {';
-			// append value to json
-			$r = 1;
-			foreach ($value as $k => $v) {
-				$json .= '"'.$k.'" : "'.$v.'"';
-				// add comma at end of each value except last
-				if($r < sizeof($value)){
+			// list data of mortgagees
+			$j = 0;
+			foreach ($noOfMortgageesArray as $key => $value) {
+				// give name 
+				$json .= '"mortagagee_'.($j+1).'": {';
+				// append value to json
+				$r = 1;
+				foreach ($value as $k => $v) {
+					$json .= '"'.$k.'" : "'.$v.'"';
+					// add comma at end of each value except last
+					if($r < sizeof($value)){
+						$json .= ',';
+					}
+					$r++;
+				}
+				// complete each mortgagee
+				$json .= '}';
+				// here $j start with 0 and we have array started with 1 so we add $j+1 to add comma at end of each mortgagee except last one
+				if(($j+1) < sizeof($noOfMortgageesArray)){
 					$json .= ',';
+				}
+				// go out of loop if all data of array added to json
+				if($j == sizeof($noOfMortgageesArray)){
+					goto out;
+				}
+				$j++;
+			}
+			out:
+		}
+
+		if($noOfClaimsArray != ''){
+			// if there is claim then add comma to append list of claims
+			if(sizeof($noOfClaimsArray) > 0){
+				$json .= ',';
+			}
+			// list data of claims
+			$t = 0;
+			foreach ($noOfClaimsArray as $key => $value) {
+				// give name 
+				$json .= '"claim_'.($t+1).'": {';
+				// append value to json
+				$r = 1;
+				foreach ($value as $k => $v) {
+					$json .= '"'.$k.'" : "'.$v.'"';
+					// add comma at end of each value except last
+					if($r < sizeof($value)){
+						$json .= ',';
+					}
+					$r++;
+				}
+				// complete each claim
+				$json .= '}';
+				// here $t start with 0 and we have array started with 1 so we add $t+1 to add comma at end of each mortgagee except last one
+				if(($t+1) < sizeof($noOfClaimsArray)){
+					$json .= ',';
+				}
+				// go out of loop if all data of array added to json
+				if($t == sizeof($noOfClaimsArray)){
+					goto out2;
+				}
+				$t++;
+			}
+			out2:
+		}
+
+
+		if($referNotMatchReason != ''){
+			// Show this reasons in last and always add comma before starting for valid json
+			
+			// append value to json
+			$r = 0;
+			$json .= ',"ReferNotPassedReason": {';
+			foreach ($referNotMatchReason as $key => $value) {
+				$json .= '"'.$key.'" : "'.$value.'"';
+					// add comma at end of each value except last
+				
+				if(($r+1) < sizeof($referNotMatchReason)){
+					$json .= ',';
+				}
+				// go out of loop if all data of array added to json
+				if($r == sizeof($referNotMatchReason)){
+					goto out3;
 				}
 				$r++;
 			}
 			// complete each claim
 			$json .= '}';
+					
+			out3:
+			
 			// here $t start with 0 and we have array started with 1 so we add $t+1 to add comma at end of each mortgagee except last one
-			if(($t+1) < sizeof($noOfClaimsArray)){
-				$json .= ',';
-			}
-			// go out of loop if all data of array added to json
-			if($t == sizeof($noOfClaimsArray)){
-				goto out2;
-			}
-			$t++;
+			
+			
 		}
-		out2:
 
 		// end json
 		$json .= '} ]';
@@ -282,14 +323,70 @@ class rtqController extends Controller
 
 		// now check all rules
 		$valid = false;
+		$notMatchArray = array();
 		// if any rule is not matched then make valid false
-		if(($risk_address_howmany_mortgagees > 2) && ($risk_address_existingInsurer == "AMF")  && ($risk_address_hasInsuredCancelInsurance == "y") && ($risk_address_noOfClaims > 0) && ($risk_address_incidenceOfClaim_type == "liability") && ($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units") && ($occupancy_commercialOperations == "y") && ($occupancy_shortTermRentals == "y") && ($building_age > 75) && ($buildingConstruction_isBuildingHeritage == "y") && ($buildingConstruction_wiringType == "knob-tube") && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") && ($buildingConstruction_heatingPrimaryType == "wood/solid") && ($fireAlarmDetectors_fireDeptTye == "volunteer") && ($liability_doesPremisesFenced == "n")){
+		if(($risk_address_howmany_mortgagees > 2) && ($risk_address_existingInsurer == "AMF")  && ($risk_address_hasInsuredCancelInsurance == "Yes") && ($risk_address_noOfClaims > 0) && ($risk_address_incidenceOfClaim_type == "Liability") && ($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units") && ($occupancy_commercialOperations == "Yes") && ($occupancy_shortTermRentals == "Yes") && ($building_age > 75) && ($buildingConstruction_isBuildingHeritage == "Yes") && ($buildingConstruction_wiringType == "Knob & Tube") && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") && ($buildingConstruction_heatingPrimaryType == "Wood-Solid") && ($fireAlarmDetectors_fireDeptTye == "Volunteer") && ($liability_doesPremisesFenced == "No")){
 			$valid = true;
+			$notMatchArray = array();
 		}else{
 			$valid = false;
+
+			// push if no broker code
+			$brokerCode = trim($fd[0]['broker_code']['value']);
+			if($brokerCode == '' || empty($brokerCode)){
+				array_push($notMatchArray, 'There is no broker code.');
+			}
+
+			if($risk_address_howmany_mortgagees <= 2){
+				array_push($notMatchArray, 'Mortgagee is less than or eqauls to 2.');
+			}
+			if($risk_address_existingInsurer != 'AMF'){
+				array_push($notMatchArray, 'Existing insurer is not AMF.');
+			}
+			if($risk_address_hasInsuredCancelInsurance != "Yes"){
+				array_push($notMatchArray, 'Insured has not cancelled insurance.');
+			}
+			if($risk_address_noOfClaims == 0 || $risk_address_noOfClaims == ''){
+				array_push($notMatchArray, 'No claims in last 5 years.');
+			}
+			if($risk_address_incidenceOfClaim_type != "Liability"){
+				array_push($notMatchArray, 'Type of claim incidence is not liablity');
+			}
+			if(!in_array($occupancy_rentedDwellingUnits, array("4-6 units","6+ units") ) ){
+				array_push($notMatchArray, 'Rented Dwelling units is not more than 4 units.');
+			}
+
+			if($occupancy_commercialOperations != "Yes"){
+				array_push($notMatchArray, 'There is no commercial operations in premises.');
+			}
+			if($occupancy_shortTermRentals != "Yes"){
+				array_push($notMatchArray, 'There is no short term rentals allowed.');
+			}
+			if($building_age <= 75){
+				array_push($notMatchArray, 'Building age is less than or equals to 75.');
+			}
+			if($buildingConstruction_isBuildingHeritage != "Yes"){
+				array_push($notMatchArray, 'Building is not heritage.');
+			}
+			if($buildingConstruction_wiringType != "Knob & Tube"){
+				array_push($notMatchArray, 'Building wiring type is not knob & tube.');
+			}
+			if(!in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
+				array_push($notMatchArray, 'Building construnction amperage is not 60 AMP or 100 AMP fuse.');
+			}
+
+			if($buildingConstruction_heatingPrimaryType != "Wood-Solid"){
+				array_push($notMatchArray, 'Building heating primary type is not wood/solid.');
+			}
+			if($fireAlarmDetectors_fireDeptTye != "Volunteer"){
+				array_push($notMatchArray, 'Fire department type is not volunteer.');
+			}
+			if($liability_doesPremisesFenced != "No"){
+				array_push($notMatchArray, 'Premises has fenced and gated.');
+			}
 		}
 
-		return $valid;
+		return array("valid"=>$valid,"matchArray"=>$notMatchArray);
 
 	}
 
@@ -316,6 +413,27 @@ class rtqController extends Controller
         return $result;
 
 	}
+
+	/**
+	This function will check all refer rules match or not 
+	**/
+	public function checkReferRules(Request $req){
+		$formData = json_decode($req['formData']);
+		$fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','');
+		$fd = json_decode($fdFormattedJson , true );
+		// check refer rule is valid or not
+		$referValid = $this->validation($fd);
+
+		if($referValid['valid'] == false){
+			// check which refer vaidation rules is not matched to show it to users
+			$matchedOrNot = $referValid['matchArray'];
+		}else{
+			$matchedOrNot = 'Matched';
+		}
+
+		return $matchedOrNot;
+	}
+
 }
 
 
