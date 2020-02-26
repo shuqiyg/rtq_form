@@ -25,7 +25,7 @@
             <div class="form-group" >
                 <label class="col-md-4" style="float: left;"> Liability Limit <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="coverage_liabilityLimit" name="coverage_liabilityLimit">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select liability limit-</option>
                     <option value="1mm">$1mm</option>
                     <option value="2mm">$2mm</option>
                     <option value="none">None</option>

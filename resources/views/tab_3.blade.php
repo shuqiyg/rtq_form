@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="">
+                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Lot Size <span class="err">*</span> </label>
@@ -96,7 +96,7 @@
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Number of claims in the last 5 years ? <span class="err">*</span> </label>
                         <select class="form-control col-md-8 required" id="risk_address_noOfClaims" name="risk_address_noOfClaims">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select claims-</option>
                             <option value="0">None</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -136,7 +136,7 @@
                 <div class="form-group" id="risk_address_hasInsuredCancelInsuranceIfYesBox">
                     <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of claims </span> <span class="err">*</span></label>
                     <select class="form-control col-md-8 required" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
-                        <option value="">-Select value-</option>
+                        <option value="">-Select claim type-</option>
                         <option value="Property">Property</option>
                         <option value="Liability">Liability</option>
                     </select>
@@ -147,7 +147,7 @@
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> In what type of neighborhood is it located ? <span class="err">*</span></label>
                         <select class="form-control col-md-8 required" id="risk_address_typeOfNeighborhood" name="risk_address_typeOfNeighborhood">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select type of neighborhood-</option>
                             <option value="Residential">Residential</option>
                             <option value="Industrial">Industrial</option>
                             <option value="Urban">Urban</option>

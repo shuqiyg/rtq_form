@@ -311,8 +311,14 @@ class rtqController extends Controller
 		$occupancy_commercialOperations = trim($fd[0]['occupancy_commercialOperations']['value']);
 		$occupancy_shortTermRentals = trim($fd[0]['occupancy_shortTermRentals']['value']);
 		$buildingConstruction_yearBuilt = trim($fd[0]['buildingConstruction_yearBuilt']['value']);
+		
 		// find building age
-		$building_age = date("Y") - $buildingConstruction_yearBuilt;
+		if($buildingConstruction_yearBuilt == '' || empty($buildingConstruction_yearBuilt)){
+			$building_age = 0;
+		}else{
+			$building_age = date("Y") - $buildingConstruction_yearBuilt;	
+		}
+			
 
 		$buildingConstruction_isBuildingHeritage = trim($fd[0]['buildingConstruction_isBuildingHeritage']['value']);
 		$buildingConstruction_wiringType = trim($fd[0]['buildingConstruction_wiringType']['value']);

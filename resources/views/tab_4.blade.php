@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> Rented Dwelling (number of self-contained units)<span class="err">*</span> </label>
                         <select id="occupancy_rentedDwellingUnits" name="occupancy_rentedDwellingUnits" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select rented dwelling units-</option>
                             <option value="Single Family">Single Family</option>
                             <option value="2-3 units">2-3 Units</option>
                             <option value="4-6 units">4-6 Units</option>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Overall Construction <span class="err">*</span> </label>
                 <select id="buildingConstruction_overallConstruction" name="buildingConstruction_overallConstruction" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select overall construction-</option>
                     <option value="Frame-Brick Veneer">Frame-Brick Veneer</option>
                     <option value="Masonary Wood Joist Roof">Masonary Wood Joist Roof</option>
                     <option value="Masonary Steel Deck Roof">Masonary Steel Deck Roof</option>
@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Number of stories <span class="err">*</span> </label>
                 <select id="buildingConstruction_noOfStories" name="buildingConstruction_noOfStories" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select number of stories-</option>
                     <option value="1">1</option>
                     <option value="1.5">1.5</option>
                     <option value="2">2</option>
@@ -81,7 +81,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Area - In sqft <span class="err">*</span> </label>
                 <select id="buildingConstruction_area" name="buildingConstruction_area" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select area-</option>
                     <option value="Less than 1000">Less than 1000</option>
                     <option value="1001-2000">1001-2000</option>
                     <option value="2001-3000">2001-3000</option>
@@ -95,7 +95,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;">Year Built <span class="err">*</span></label>
-                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers required"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear required"  value="" maxlength="4">
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -123,7 +123,7 @@
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> Roof - Type of Construction <span class="err">*</span> </label>
                         <select id="buildingConstruction_roofTypeConstruction" name="buildingConstruction_roofTypeConstruction" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select type of construction-</option>
                             <option value="Metal">Metal</option>
                             <option value="Wood Joist">Wood Joist</option>
                         </select>
@@ -135,7 +135,7 @@
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> <span class="nestedBox">Roof - Type of Covering</span> <span class="err">*</span> </label>
                         <select id="buildingConstruction_roofTypeCovering" name="buildingConstruction_roofTypeCovering" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select type of covering-</option>
                             <option value="Shingles">Shingles</option>
                             <option value="Asphalt">Asphalt</option>
                             <option value="Tar and Gravel">Tar and Gravel</option>
@@ -148,7 +148,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Roof - year updated</span></label>
-                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Roof - % completed</span>  </label>
-                        <select id="buildingConstruction_roofPercentageCompleted" name="buildingConstruction_roofPercentageCompleted" class="form-control col-md-8">
+                        <select id="buildingConstruction_roofPercentageCompleted" name="buildingConstruction_roofPercentageCompleted" class="form-control col-md-8 ">
                             <option value="">-Select value-</option>
                             <option value="Full">Full</option>
                             <option value="Partial">Partial</option>
@@ -169,7 +169,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Wiring - Type <span class="err">*</span> </label>
                 <select id="buildingConstruction_wiringType" name="buildingConstruction_wiringType" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select wiring type-</option>
                     <option value="Copper">Copper</option>
                     <option value="Aluminum">Aluminum</option>
                     <option value="BX">BX</option>
@@ -179,7 +179,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"><span class="nestedBox">Amperage</span> <span class="err">*</span> </label>
                 <select id="buildingConstruction_amperage" name="buildingConstruction_amperage" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select amperage-</option>
                     <option value="60AMP">60AMP</option>
                     <option value="100AMP Fuse">100AMP Fuse</option>
                     <option value="100AMP CB">100AMP CB</option>
@@ -189,18 +189,18 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"><span class="nestedBox">Wiring - year updated</span></label>
-                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"><span class="nestedBox">Wiring - % completed</span></label>
-                <input type="text" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8"  value="">
+                <input type="text" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> Heating - Primary Type <span class="err">*</span> </label>
                         <select id="buildingConstruction_heatingPrimaryType" name="buildingConstruction_heatingPrimaryType" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select heating primary type-</option>
                             <option value="Electricity">Electricity</option>
                             <option value="Gas">Gas</option>
                             <option value="Oil">Oil</option>
@@ -214,7 +214,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Heating - year updated</span></label>
-                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Heating - % completed</span></label>
-                        <input type="text" id="buildingConstruction_heatingPercentageCompleted" name="buildingConstruction_heatingPercentageCompleted" class="form-control col-md-8"  value="">
+                        <input type="text" id="buildingConstruction_heatingPercentageCompleted" name="buildingConstruction_heatingPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
                     </div>
                 </div>
             </div>
@@ -231,7 +231,7 @@
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> Heating - Secondary Type <span class="err">*</span> </label>
                         <select id="buildingConstruction_heatingSecondaryType" name="buildingConstruction_heatingSecondaryType" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select heating secondary type-</option>
                             <option value="Electricity">Electricity</option>
                             <option value="Gas">Gas</option>
                             <option value="Oil">Oil</option>
@@ -254,7 +254,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Plumbing - year updated</span></label>
-                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -262,7 +262,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Plumbing - % completed</span></label>
-                        <input type="text" id="buildingConstruction_plumbingPercentageCompleted" name="buildingConstruction_plumbingPercentageCompleted" class="form-control col-md-8"  value="">
+                        <input type="text" id="buildingConstruction_plumbingPercentageCompleted" name="buildingConstruction_plumbingPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
                     </div>
                 </div>
             </div>
@@ -277,7 +277,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Smoke/Heat Detectors </label>
                 <select id="fireAlarmDetectors_smokeHeatDetectors" name="fireAlarmDetectors_smokeHeatDetectors" class="form-control col-md-8">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select smoke/heat detectors-</option>
                     <option value="Monitored">Monitored</option>
                     <option value="Local">Local</option>
                     <option value="None">None</option>
@@ -286,7 +286,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Sprinklers </label>
                 <select id="fireAlarmDetectors_sprinklers" name="fireAlarmDetectors_sprinklers" class="form-control col-md-8">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select sprinklers-</option>
                     <option value="Monitored">Monitored</option>
                     <option value="Local">Local</option>
                     <option value="None">None</option>
@@ -294,12 +294,12 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"><span class="nestedBox">Sprinkler Coverage</span></label>
-                <input type="text" id="fireAlarmDetectors_sprinklerCoverage" name="fireAlarmDetectors_sprinklerCoverage" class="form-control col-md-8"  value="">
+                <input type="text" id="fireAlarmDetectors_sprinklerCoverage" name="fireAlarmDetectors_sprinklerCoverage" class="form-control col-md-8 onlyNumbers"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Hydrant(s) <span class="err">*</span></label>
                 <select id="fireAlarmDetectors_hydrant" name="fireAlarmDetectors_hydrant" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select hydrant-</option>
                     <option value="Within 75m">Within 75m</option>
                     <option value="Within 150m">Within 150m</option>
                     <option value="Over 150m">Over 150m</option>
@@ -310,7 +310,7 @@
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"> Fire Department - Distance <span class="err">*</span></label>
                         <select id="fireAlarmDetectors_fireDeptDistance" name="fireAlarmDetectors_fireDeptDistance" class="form-control col-md-8 required">
-                            <option value="">-Select value-</option>
+                            <option value="">-Select fire department distance-</option>
                             <option value="Within 3km">Within 3km</option>
                             <option value="Within 5km">Within 5km</option>
                             <option value="Within 10km">Within 10km</option>
@@ -322,7 +322,7 @@
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"> Fire Department - Type <span class="err">*</span></label>
                 <select id="fireAlarmDetectors_fireDeptTye" name="fireAlarmDetectors_fireDeptTye" class="form-control col-md-8 required">
-                    <option value="">-Select value-</option>
+                    <option value="">-Select fire department type-</option>
                     <option value="Paid">Paid</option>
                     <option value="Volunteer">Volunteer</option>
                     <option value="Part Paid/Part Volunteer">Part Paid/Part Volunteer</option>

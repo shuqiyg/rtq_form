@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Policy Language  </label>
                 <select class="form-control col-md-8" id="policy_language" name="policy_language">
-                    <option value="">-Select Value-</option>
+                    <option value="">-Select policy language-</option>
                     <option value="English">English</option>
                     <option value="French">French</option>
                 </select>
@@ -69,7 +69,7 @@
                 <label class="col-md-4" style="float: left;"> City <span class="err">*</span> </label>
                 <input type="text" id="mailing_address_city" name="mailing_address_city" class="form-control col-md-8 required"  value="">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="mailing_address_provBox">
                 <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="mailing_address_province" name="mailing_address_province">
                     <option value="">-Select province/state-</option>
@@ -85,22 +85,30 @@
                     </optgroup>
                     <option value="other">Other State</option>
                 </select>
-                <div id="other_province"  style="display: none;">
-                    <input type="text" class="form-control col-md-7 required" name="mailing_address_province_other" id="mailing_address_province_other" style="float: left;margin-bottom: 5px;" />
-                    <a id="revertProvinceList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
-                </div>
+                
+            </div>
+            <div class="form-group"  id="mailing_address_provOtherBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
+                <input type="text" class="form-control col-md-7 required" name="mailing_address_province_other" id="mailing_address_province_other" style="float: left;margin-bottom: 5px;" />
+                <a id="revertProvinceList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="">
+                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
-            <div class="form-group">
+            <div class="form-group"  id="mailing_address_countryBox">
                 <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="mailing_address_country" name="mailing_address_country">
-                    <option value="">-Select Value-</option>
+                    <option value="">-Select Country-</option>
                     <option value="Canada">Canada</option>
                     <option value="USA">USA</option>
+                    <option value="other">Other Country</option>
                 </select>
+            </div>
+            <div class="form-group"  id="mailing_address_countryOtherBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>
+                <input type="text" class="form-control col-md-7 required" name="mailing_address_countryOther" id="mailing_address_countryOther" style="float: left;margin-bottom: 5px;" />
+                <a id="revertContryList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
 		//checks valid on leave field
 		$.each( $(anchorObject.attr('href')).find('input.required'), function( key, value ) {
-      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
   			// do nothing
         // removing class if user has open element and then hidden it so need to remove added class
         // check if span has nestedBox class then remove class err2 from next span
@@ -73,7 +73,8 @@ $(document).ready(function(){
           if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
             $(this).prev('label').find('span').next('span').addClass('err2');
           }else{
-            $(this).prev('label').find('span').addClass('err2');
+            $(this).prev('label').find('span').addClass('err2');  
+            
           }
           // add class invalid
           $(this).addClass('invalid');
@@ -81,7 +82,7 @@ $(document).ready(function(){
       }
 		});
 		$.each( $(anchorObject.attr('href')).find('select.required'), function( key, value ) {
-      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
         // do nothing
         // check if span has nestedBox class then remove class err2 from next span
         if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
@@ -170,7 +171,7 @@ $(document).ready(function(){
 
   // only number allowed to input in some of field
   $(".onlyNumbers").inputFilter(function(value) {
-    return /^-?\d*$/.test(value); 
+    return /^\d*$/.test(value); 
   });
 
   // only number & letters allowed to input in some of field
@@ -178,6 +179,33 @@ $(document).ready(function(){
     return /^[a-zA-Z0-9 ]*$/i.test(value); 
   });
 
+  
+  // check year is max to current year
+  $(".checkYear").on('keyup',function(){
+    var val = $(this).val();
+    var currentYear = (new Date).getFullYear();
+    //console.log(currentYear);
+    if(val > currentYear || val < 0){
+      $(this).addClass('invalid');
+       $(this).val('');
+      $(this).attr('placeholder','Please add valid year');
+    }else{
+      $(this).removeClass('invalid');
+    }
+  });
+
+  // check percentage is between 0 to 100
+  $(".checkPercentage").on('keyup',function(){
+    var val = $(this).val();
+    //console.log(currentYear);
+    if(val < 0 || val > 100 ){
+      $(this).addClass('invalid');
+       $(this).val('');
+      $(this).attr('placeholder','Please add percentage between 0 to 100');
+    }else{
+      $(this).removeClass('invalid');
+    }
+  });
   
 		
   	// display details of record if insured criminal record is yes
@@ -196,21 +224,48 @@ $(document).ready(function(){
   	$("#mailing_address_province").on('change',function(){
   		var mailing_address_province = $("#mailing_address_province").val();
 	  	if(mailing_address_province == 'other'){
-	  		$("#other_province").show();
-	  		$("#mailing_address_province").hide();
+	  		$("#mailing_address_provOtherBox").show();
+        //$("#revertProvinceList").show();
+	  		$("#mailing_address_provBox").hide();
 	  	}else{
-	  		$("#mailing_address_province").show();
-	  		$("#other_province").hide();
+	  		$("#mailing_address_provBox").show();
+	  		$("#mailing_address_provOtherBox").hide();
+        //$("#revertProvinceList").hide();
 	  		$("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
 	  	}
   	});
 
     // click on revert list
     $("#revertProvinceList").on('click',function(){
-      $("#mailing_address_province").show();
+      $("#mailing_address_provBox").show();
       $("#mailing_address_province").val(''); // reset value of province field 
-      $("#other_province").hide();
+      $("#mailing_address_provOtherBox").hide();
+      //$("#revertProvinceList").hide();
       $("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
+    });
+
+    // display other mailing address province field
+    $("#mailing_address_country").on('change',function(){
+      var mailing_address_country = $("#mailing_address_country").val();
+      if(mailing_address_country == 'other'){
+        $("#mailing_address_countryOtherBox").show();
+        //$("#revertContryList").show();
+        $("#mailing_address_countryBox").hide();
+      }else{
+        $("#mailing_address_countryBox").show();
+        $("#mailing_address_countryOtherBox").hide();
+        //$("#revertContryList").hide();
+        $("#mailing_address_countryOther").val(''); // empty value if user fill up anything with yes and then select no again
+      }
+    });
+
+    // click on revert list
+    $("#revertContryList").on('click',function(){
+      $("#mailing_address_countryBox").show();
+      $("#mailing_address_country").val(''); // reset value of province field 
+      $("#mailing_address_countryOtherBox").hide();
+      //$("#revertContryList").hide();
+      $("#mailing_address_countryOther").val(''); // empty value if user fill up anything with yes and then select no again
     });
 
   	// display descrive use over 1 acre field
@@ -461,15 +516,25 @@ $(document).ready(function(){
   	var valid = false;
   	// check if all required fields are filled up or not
   	$.each($('.required'), function( key, value ) {
-      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'){
+      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none' || $(this).parent('div').css('display') == 'none'){
         console.log($(this).attr('name')+'    not visible');
       }else{
-        if($(this).val()){
+        /*if($(this).val()){
           valid = true;
         }else{
           valid = false; 
           return false;
-        }  
+        } */
+
+        // check if all required fields are correct and there is no error
+        let total_error = $(this).prev('label').find('.err2').length;
+        
+        if (total_error > 0 ) { 
+          valid = false; 
+          return false;
+        } else {
+          valid = true;
+        } 
         //console.log($(this).attr('name')+'    '+valid);
       }
     });
@@ -500,10 +565,9 @@ $(document).ready(function(){
       referNotMatchReason = {};
     }
 
-    // json encode of reasons
-    referNotMatchReason = JSON.stringify(referNotMatchReason);
-
-    if(valid == true){
+    
+    console.log($.isEmptyObject(referNotMatchReason));
+    if(valid == true || ($.isEmptyObject(referNotMatchReason) == false && valid == true) ){
   		/*var formData = JSON.stringify($('#rtq_form').serializeArray());
   		// formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
   		var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
@@ -542,6 +606,8 @@ $(document).ready(function(){
       var formData = getFormData.formData;
       var noOfMortgageesArray = getFormData.noOfMortgageesArray;
       var noOfClaimsArray = getFormData.noOfClaimsArray;
+      // json encode of reasons
+      referNotMatchReason = JSON.stringify(referNotMatchReason);
 
       $("#finalMSG").html('<b>Processing .......</b>');
   		setTimeout(function(){ 	},2000);
@@ -629,8 +695,8 @@ $(document).ready(function(){
     // get all label & value in
     
     var html = '';
-    // Add section label
-    html += "<h4 style='width:90%;float:left;'>"+$('#'+step).find('h3').text()+"</h4> <a href='javascript:window.scrollTo(0,0)' id='goToStep' data-togo='"+step+"'>Go To Top</a>";
+    // Add section label - find only first h3 element and show that text
+    html += "<h4 style='width:90%;float:left;'>"+$('#'+step).find('h3:first').text()+"</h4> <a href='javascript:window.scrollTo(0,0)' id='goToStep' data-togo='"+step+"'>Go To Top</a>";
     // create table
     html += "<table class='table table-bordered rowHover' style='width:100%;'>";
       

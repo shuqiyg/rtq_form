@@ -9,7 +9,7 @@
             </div>
             <div class="form-group has-feedback">
                 <label class="col-md-3" style="float: left;"> Broker Code </label>
-                <input type="text" id="broker_code" name="broker_code" class="form-control col-md-8 onlyNumbers"  value="">
+                <input type="text" id="broker_code" name="broker_code" class="form-control col-md-8 onlyNumbers"  value="" maxlength="4">
             </div>
             <div class="form-group has-feedback">
                 <label class="col-md-3" style="float: left;"> Producer Name <span class="err">*</span> </label>
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group has-feedback">
                 <label class="col-md-3" style="float: left;"> Producer Phone <span class="err">*</span> </label>
-                <input type="text" id="producer_phone" name="producer_phone" class="form-control col-md-8 required"  value="">
+                <input type="tel" id="producer_phone" name="producer_phone" class="form-control col-md-8 required"  value="">
             </div>
         </div>
     </div>
