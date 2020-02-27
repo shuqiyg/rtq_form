@@ -3,6 +3,18 @@ $(document).ready(function(){
   //activate bootstrap tooltip
   $('[data-toggle="tooltip"]').tooltip();
 
+  var clicked = false;
+  // when user try to refresh manually
+  window.onbeforeunload = function(e) {
+    var e = e || window.event;
+    //console.log(e);
+    // if clicked is true then it shows browser default alert prompt confirmation 
+    if(!clicked) {
+        console.log('Manual refresh will not work');
+        return "Manual refresh might loose data";
+      }
+  }
+
 	// Smart Wizard activation
   	$('#smartwizard').smartWizard({
   		contentCache : false,
@@ -13,7 +25,8 @@ $(document).ready(function(){
       // Enable selection of the step based on url hash
       useURLhash: false,
       // Effect on navigation, none/slide/fade
-      autoAdjustHeight:true
+      autoAdjustHeight:true,
+       
   	});
 
   //writing validation on next step
@@ -147,6 +160,7 @@ $(document).ready(function(){
 			//checks valid on leave field
 			//scroll window to top everytime on leave step.
 			window.scrollTo(0, 0);
+
 		});
 	});
 	
@@ -195,19 +209,33 @@ $(document).ready(function(){
   });
 
   // check percentage is between 0 to 100
-  $(".checkPercentage").on('keyup',function(){
-    var val = $(this).val();
-    //console.log(currentYear);
-    if(val < 0 || val > 100 ){
-      $(this).addClass('invalid');
-       $(this).val('');
-      $(this).attr('placeholder','Please add percentage between 0 to 100');
-    }else{
-      $(this).removeClass('invalid');
+  check = function (e,value){
+      if (!e.target.validity.valid) {
+        e.target.value = value.substring(0,value.length - 1);
+        return false;
+      }
+      var idx = value.indexOf('.');
+      if (idx >= 0) {
+        if (value.length - idx > 3 ) {
+          e.target.value = value.substring(0,value.length - 1);
+          return false;
+        }
+      }
+      return true;
     }
-  });
+
+/*  // add comma in values
+  (function($) {
+  $.fn.digits = function(inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+      $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+    });
+  };
+}(jQuery));
   
-		
+  $('.commaValues').digits();
+*/		
+  
   	// display details of record if insured criminal record is yes
   	$("#insured_criminal_record").on('change',function(){
   		var insured_criminal_record = $("#insured_criminal_record").val();
@@ -394,10 +422,19 @@ $(document).ready(function(){
   		}
   	});
 
+    // when click on check box to check risk address is same as mailing address or not
+    $("#sameAsMailingAddress").on('click',function(){
+      checkSameAsMailingAddress();
+    });
+    
   	// check step number and if user click on final step then check broker code to display calculate button
   	$("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
         if(stepNumber == 6){
         	console.log('final step');
+
+          // disable next button when in final step
+          $(".sw-btn-next").hide();
+
           // get broker code
           var brokerCode = $.trim($('#broker_code').val());
           
@@ -417,15 +454,13 @@ $(document).ready(function(){
               success: function(msg){
                 console.log(msg);
 
-                if( msg != '' && msg !== "Matched"){
-                  //console.log('brokerCode : '+brokerCode);
-
+                if(msg.valid == "Empty"){
                   // display referValidationNotMatchBox
                   $("#referValidationNotMatchBox").show();
-                  var html = "<p>We are not able to provide quote at this time. Your submission will be refer to underwriter to get quote.</p><p>Here are reason for refer : </p>";
 
+                  var html = "<p> Please fill up all below required fields to determine quote. </p>";
                   html += "<ul>";
-                  $.each(msg,function(k,v){
+                  $.each(msg.matchArray,function(k,v){
                     html += "<li>"+v+"</li>";
                   });
                   html += "</ul>";
@@ -434,16 +469,37 @@ $(document).ready(function(){
                   $('#calculateBox').hide();
 
                   reviewForm();
-                  $("#bindingBox").hide();
-                  $("#binding").val('');
+                  $(".bindingBox").hide();
+                  $(".binding").val('');
+
+                }else if( msg.matchArray != '' && msg.valid !== "NotMatched"){
+                  //console.log('brokerCode : '+brokerCode);
+
+                  // display referValidationNotMatchBox
+                  $("#referValidationNotMatchBox").show();
+                  var html = "<p>We are not able to provide quote at this time. Your submission will be refer to underwriter to get quote.</p><p>Here are reason for refer : </p>";
+
+                  html += "<ul>";
+                  $.each(msg.matchArray,function(k,v){
+                    html += "<li>"+v+"</li>";
+                  });
+                  html += "</ul>";
+                  $("#referValidationNotMatchBox").html(html);
+
+                  $('#calculateBox').hide();
+
+                  reviewForm();
+                  $(".bindingBox").hide();
+                  $(".binding").val('');
                 }else{
+                  console.log('valid == true');
                   $('#calculateBox').show();
                   $("#referValidationNotMatchBox").hide();
                   $("#referValidationNotMatchBox").empty();
 
                   reviewForm();
-                  $("#bindingBox").show();
-                  $("#binding").val('');
+                  $(".bindingBox").show();
+                  $(".binding").val('');
                 }
                 
               },
@@ -454,8 +510,8 @@ $(document).ready(function(){
           }else{
             reviewForm();
             $('#calculateBox').hide();
-            $("#bindingBox").hide();
-            $("#binding").val('');
+            $(".bindingBox").hide();
+            $(".binding").val('');
             $("#referValidationNotMatchBox").hide();
             $("#referValidationNotMatchBox").empty();
           }
@@ -463,13 +519,40 @@ $(document).ready(function(){
         	
         	$('#priceBox').empty();
         	
+        }else{
+          // hide previous button when on first step
+          if(stepNumber == 0){
+            //console.log('step : '+stepNumber);
+            $(".sw-btn-prev").hide();
+          }else{
+            //console.log('step : '+stepNumber);
+            $(".sw-btn-prev").show();
+          }
+          //console.log($(anchorObject.attr('href')).find('section:first').find('input:first').attr('name'));
+          $(anchorObject.attr('href')).find('section:first').find(':input:enabled:visible:first').focus();
+
+          // enable next button when not in final step
+          $(".sw-btn-next").show();
+
         }
     });
 
-  	/***
-	Calculate data and display price if there is broker code
-	Get all form data
-  	***/
+    // select binding value top one
+    $("#bindingUpper").on('change',function(){
+      var valUp = $("#bindingUpper").val();
+      $("#bindingLower").val(valUp);
+    });
+
+    // select binding value down one
+    $("#bindingLower").on('change',function(){
+      var valDown = $("#bindingLower").val();
+      $("#bindingUpper").val(valDown);
+    });
+
+  /***
+	 Calculate data and display price if there is broker code
+	 Get all form data
+  ***/
   	$("#calculate").on('click',function(){
   		
   		// gather required data to calculate
@@ -513,6 +596,8 @@ $(document).ready(function(){
 	 Finish button will gather all form data in json format and send it to controller to process
   **/
   $("#finish").on('click',function(){
+    clicked = true;
+
   	var valid = false;
   	// check if all required fields are filled up or not
   	$.each($('.required'), function( key, value ) {
@@ -541,14 +626,15 @@ $(document).ready(function(){
     
     var binding;
     // get binding value if binding box is not hidden
-    if($("#bindingBox").css('display') != 'none'){
-      binding = $("#binding").val();
+    if($(".bindingBox").css('display') != 'none'){
+      // here we are taking just lower binding field value [ note : its always changed if upper one change and vice versa ]
+      binding = $("#bindingLower").val();
       if(binding == ''){
         // add invalid class to binding field if its empty & return false 
-        $("#binding").addClass('invalid');
+        $(".binding").addClass('invalid');
         return false;
       }else{
-        $("#binding").removeClass('invalid');
+        $(".binding").removeClass('invalid');
       }
     }
     
@@ -636,6 +722,7 @@ $(document).ready(function(){
   			}
   		});
     }else{
+      clicked = false;
 			swal('Please fill up all required fields.');
 		}
   });
@@ -708,14 +795,20 @@ $(document).ready(function(){
       // check parent div or div of parent div display is not none
       if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none'){
         // add label 
-        html += "<td style='width:60%;'>"+$(this).text()+"</td>";
-        // check element is input
-        if($(this).next().is('input')){
-          html += "<td  style='width:40%;'>"+$(this).next('input').val()+"</td>";
-        }
-        // check if element is select 
-        if($(this).next().is('select')){
-          html += "<td style='width:40%;'>"+$(this).next('select').val()+"</td>";
+        if($(this).prev().is("input[type=checkbox]")){
+          //do nothing
+          console.log('checkbox');
+        }else{
+          html += "<td style='width:60%;'>"+$(this).text()+"</td>";  
+          
+          // check element is input
+          if($(this).next().is('input')){
+            html += "<td  style='width:40%;'>"+$(this).next('input').val()+"</td>";
+          }
+          // check if element is select 
+          if($(this).next().is('select')){
+            html += "<td style='width:40%;'>"+$(this).next('select').val()+"</td>";
+          }
         }
       }
       // finish row
@@ -730,10 +823,46 @@ $(document).ready(function(){
     $("#reviewForm").append(html);    
   }
 
-  // function to goto specific step
-  $("#goToStep").on('click',function(){
-    var step = $(this).attr('data-togo');
-    $('#smartwizard').smartWizard('goToStep', step);
+  // check if risk address is same as mailing address
+  function checkSameAsMailingAddress(){
+    //console.log($(this).is(":checked"));
+      if($('#sameAsMailingAddress').is(":checked")){
+        // get mailing address values and assign to risk address
+        $("#risk_address_street").val($("#mailing_address_street").val());
+        $("#risk_address_city").val($("#mailing_address_city").val());
+        if($("#mailing_address_province").val() != ''){
+          $("#risk_address_province").val($("#mailing_address_province").val());
+        }else{
+          $("#risk_address_province").val($("#mailing_address_province_other").val());
+        }
+        $("#risk_address_postalCode").val($("#mailing_address_postalCode").val());
+
+      }else{
+        // empty risk address
+        $("#risk_address_street").val('');
+        $("#risk_address_city").val('');
+        $("#risk_address_province").val('');
+        $("#risk_address_postalCode").val('');
+      }
+    
+  }
+
+  // when click on go back
+  $("#goBackToFinal").on('click',function(){
+    $(".confirmSection").hide();
+    $(".finalSection").show();
   });
-  
+
+  // when click on both confirm button
+  $("#finishUpper,#finishLower").on('click',function(){
+    $(".confirmSection").show();
+    $(".finalSection").hide();
+  });
+
+  // when reset form button
+  $("#resetForm").on('click',function(){
+    //$('#smartwizard').smartWizard("reset");
+    window.location.href='/';
+  });
+
 });

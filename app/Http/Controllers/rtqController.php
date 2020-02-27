@@ -329,70 +329,123 @@ class rtqController extends Controller
 
 		// now check all rules
 		$valid = false;
-		$notMatchArray = array();
+		$referMatchArray = array();
 		// if any rule is not matched then make valid false
-		if(($risk_address_howmany_mortgagees > 2) && ($risk_address_existingInsurer == "AMF")  && ($risk_address_hasInsuredCancelInsurance == "Yes") && ($risk_address_noOfClaims > 0) && ($risk_address_incidenceOfClaim_type == "Liability") && ($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units") && ($occupancy_commercialOperations == "Yes") && ($occupancy_shortTermRentals == "Yes") && ($building_age > 75) && ($buildingConstruction_isBuildingHeritage == "Yes") && ($buildingConstruction_wiringType == "Knob & Tube") && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") && ($buildingConstruction_heatingPrimaryType == "Wood-Solid") && ($fireAlarmDetectors_fireDeptTye == "Volunteer") && ($liability_doesPremisesFenced == "No")){
-			$valid = true;
-			$notMatchArray = array();
-		}else{
+		if(($risk_address_howmany_mortgagees > 2) || ($risk_address_existingInsurer == "AMF")  || ($risk_address_hasInsuredCancelInsurance == "Yes") || ($risk_address_noOfClaims > 0) || ($risk_address_incidenceOfClaim_type == "Liability") || ($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units") || ($occupancy_commercialOperations == "Yes") || ($occupancy_shortTermRentals == "Yes") || ($building_age > 75) || ($buildingConstruction_isBuildingHeritage == "Yes") || ($buildingConstruction_wiringType == "Knob & Tube") || ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") || ($buildingConstruction_heatingPrimaryType == "Wood-Solid") || ($fireAlarmDetectors_fireDeptTye == "Volunteer") || ($liability_doesPremisesFenced == "No")){
 			$valid = false;
 
-			// push if no broker code
-			$brokerCode = trim($fd[0]['broker_code']['value']);
-			if($brokerCode == '' || empty($brokerCode)){
-				array_push($notMatchArray, 'There is no broker code.');
+			
+			if($risk_address_howmany_mortgagees > 2){
+				array_push($referMatchArray, 'Mortgagee is greater than 2.');
+			}
+			if($risk_address_existingInsurer == 'AMF'){
+				array_push($referMatchArray, 'Existing insurer is AMF.');
+			}
+			if($risk_address_hasInsuredCancelInsurance == "Yes"){
+				array_push($referMatchArray, 'Insured has cancelled insurance.');
+			}
+			if($risk_address_noOfClaims != '0' && $risk_address_noOfClaims != ''){
+				array_push($referMatchArray, 'Claims in last 5 years.');
+			}
+			if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
+				if($risk_address_incidenceOfClaim_type == "Liability"){
+					array_push($referMatchArray, 'Type of claim incidence is liablity');
+				}
+			}
+			if(in_array($occupancy_rentedDwellingUnits, array("4-6 units","6+ units") ) ){
+				array_push($referMatchArray, 'Rented Dwelling units is more than 4 units.');
 			}
 
-			if($risk_address_howmany_mortgagees <= 2){
-				array_push($notMatchArray, 'Mortgagee is less than or eqauls to 2.');
+			if($occupancy_commercialOperations == "Yes"){
+				array_push($referMatchArray, 'There is commercial operations in premises.');
 			}
-			if($risk_address_existingInsurer != 'AMF'){
-				array_push($notMatchArray, 'Existing insurer is not AMF.');
+			if($occupancy_shortTermRentals == "Yes"){
+				array_push($referMatchArray, 'There is short term rentals allowed.');
 			}
-			if($risk_address_hasInsuredCancelInsurance != "Yes"){
-				array_push($notMatchArray, 'Insured has not cancelled insurance.');
+			if($building_age > 75){
+				array_push($referMatchArray, 'Building age is greater than or equals to 75.');
 			}
-			if($risk_address_noOfClaims == 0 || $risk_address_noOfClaims == ''){
-				array_push($notMatchArray, 'No claims in last 5 years.');
+			if($buildingConstruction_isBuildingHeritage == "Yes"){
+				array_push($referMatchArray, 'Building is heritage.');
 			}
-			if($risk_address_incidenceOfClaim_type != "Liability"){
-				array_push($notMatchArray, 'Type of claim incidence is not liablity');
+			if($buildingConstruction_wiringType == "Knob & Tube"){
+				array_push($referMatchArray, 'Building wiring type is knob & tube.');
 			}
-			if(!in_array($occupancy_rentedDwellingUnits, array("4-6 units","6+ units") ) ){
-				array_push($notMatchArray, 'Rented Dwelling units is not more than 4 units.');
-			}
-
-			if($occupancy_commercialOperations != "Yes"){
-				array_push($notMatchArray, 'There is no commercial operations in premises.');
-			}
-			if($occupancy_shortTermRentals != "Yes"){
-				array_push($notMatchArray, 'There is no short term rentals allowed.');
-			}
-			if($building_age <= 75){
-				array_push($notMatchArray, 'Building age is less than or equals to 75.');
-			}
-			if($buildingConstruction_isBuildingHeritage != "Yes"){
-				array_push($notMatchArray, 'Building is not heritage.');
-			}
-			if($buildingConstruction_wiringType != "Knob & Tube"){
-				array_push($notMatchArray, 'Building wiring type is not knob & tube.');
-			}
-			if(!in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
-				array_push($notMatchArray, 'Building construnction amperage is not 60 AMP or 100 AMP fuse.');
+			if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
+				array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
 			}
 
-			if($buildingConstruction_heatingPrimaryType != "Wood-Solid"){
-				array_push($notMatchArray, 'Building heating primary type is not wood/solid.');
+			if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
+				array_push($referMatchArray, 'Building heating primary type is wood/solid.');
 			}
-			if($fireAlarmDetectors_fireDeptTye != "Volunteer"){
-				array_push($notMatchArray, 'Fire department type is not volunteer.');
+			if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
+				array_push($referMatchArray, 'Fire department type is volunteer.');
 			}
-			if($liability_doesPremisesFenced != "No"){
-				array_push($notMatchArray, 'Premises has fenced and gated.');
+			if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
+				if($liability_doesPremisesFenced == "No"){
+					array_push($referMatchArray, 'Premises has not fenced and gated.');
+				}
 			}
+			
+		}else if(($risk_address_howmany_mortgagees == "") || ($risk_address_existingInsurer == "")  || ($risk_address_hasInsuredCancelInsurance == "") || ($risk_address_noOfClaims == "") || ($risk_address_incidenceOfClaim_type == "") || ($occupancy_rentedDwellingUnits == "" ) || ($occupancy_commercialOperations == "") || ($occupancy_shortTermRentals == "") || ($building_age == 0) || ($buildingConstruction_isBuildingHeritage == "") || ($buildingConstruction_wiringType == "") || ($buildingConstruction_amperage == "" ) || ($buildingConstruction_heatingPrimaryType == "") || ($fireAlarmDetectors_fireDeptTye == "") || ($liability_doesPremisesFenced == "")){
+			$valid = 'Empty';
+			if($risk_address_howmany_mortgagees == ""){
+				array_push($referMatchArray, 'Please select how many mortgagee field.');
+			}
+			if($risk_address_existingInsurer == ''){
+				array_push($referMatchArray, 'Plese select existing insurer field.');
+			}
+			if($risk_address_hasInsuredCancelInsurance == ""){
+				array_push($referMatchArray, 'Plese select has the insured been cancelled/declined insurance ? field.');
+			}
+			if($risk_address_noOfClaims == ''){
+				array_push($referMatchArray, 'Plese select  number of claims in the last 5 years ? field.');
+			}
+			if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
+				if($risk_address_incidenceOfClaim_type == ""){
+					array_push($referMatchArray, 'Plese select type of claim field');
+				}
+			}
+			if($occupancy_rentedDwellingUnits == "" ){
+				array_push($referMatchArray, 'Plese select rented dwelling units field.');
+			}
+
+			if($occupancy_commercialOperations == ""){
+				array_push($referMatchArray, 'Plese select are there any commercial operations on the premises ? field.');
+			}
+			if($occupancy_shortTermRentals == ""){
+				array_push($referMatchArray, 'Plese select are short term rentals allowed (e.g. AirBNB) field.');
+			}
+			if($building_age > 75){
+				array_push($referMatchArray, 'Please select year built field.');
+			}
+			if($buildingConstruction_isBuildingHeritage == ""){
+				array_push($referMatchArray, 'Please select is building considered a heritage building ? field.');
+			}
+			if($buildingConstruction_wiringType == ""){
+				array_push($referMatchArray, 'Please select wiring type field.');
+			}
+			if($buildingConstruction_amperage == "" ){
+				array_push($referMatchArray, 'Please select amperage field.');
+			}
+
+			if($buildingConstruction_heatingPrimaryType == ""){
+				array_push($referMatchArray, 'Please select heating primary type field.');
+			}
+			if($fireAlarmDetectors_fireDeptTye == ""){
+				array_push($referMatchArray, 'Please select fire department type field.');
+			}
+			if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
+				if($liability_doesPremisesFenced == ""){
+					array_push($referMatchArray, 'Please select are the premises fenced and gated? field.');
+				}
+			}
+		}else{
+			$valid = true;
+			$referMatchArray = array();
 		}
 
-		return array("valid"=>$valid,"matchArray"=>$notMatchArray);
+		return array("valid"=>$valid,"matchArray"=>$referMatchArray);
 
 	}
 
@@ -433,11 +486,13 @@ class rtqController extends Controller
 		if($referValid['valid'] == false){
 			// check which refer vaidation rules is not matched to show it to users
 			$matchedOrNot = $referValid['matchArray'];
+		}else if($referValid['valid'] == 'Empty'){
+			$matchedOrNot = 'Empty';
 		}else{
-			$matchedOrNot = 'Matched';
+			$referValid['valid'] = 'NotMatched';
 		}
 
-		return $matchedOrNot;
+		return $referValid;
 	}
 
 }

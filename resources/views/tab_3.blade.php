@@ -1,5 +1,11 @@
 <section class="risk_address">
-    <h3>Risk Address</h3>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <h3 class="col-md-4" style="float: left;">Risk Address</h3>
+            <input type="checkbox" class="form-control col-md-1" name="sameAsMailingAddress" id="sameAsMailingAddress" style="float: left;"> 
+            <label class="col-md-7" style="padding-top: 5px;"> Same as mailing address </label>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -39,6 +45,7 @@
                 <label class="col-md-4" style="float: left;"> How Many Mortgagees ? <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_howmany_mortgagees" name="risk_address_howmany_mortgagees">
                     <option value="">-Select mortgagees number-</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

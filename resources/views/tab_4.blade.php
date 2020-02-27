@@ -193,7 +193,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3" style="float: left;"><span class="nestedBox">Wiring - % completed</span></label>
-                <input type="text" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
+                <input type="number" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01"  >
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -222,7 +222,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Heating - % completed</span></label>
-                        <input type="text" id="buildingConstruction_heatingPercentageCompleted" name="buildingConstruction_heatingPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
+                        <input type="number" id="buildingConstruction_heatingPercentageCompleted" name="buildingConstruction_heatingPercentageCompleted" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)" min="0" max="100" step="0.01"  >
                     </div>
                 </div>
             </div>
@@ -262,7 +262,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-3" style="float: left;"><span class="nestedBox">Plumbing - % completed</span></label>
-                        <input type="text" id="buildingConstruction_plumbingPercentageCompleted" name="buildingConstruction_plumbingPercentageCompleted" class="form-control col-md-8 onlyNumbers checkPercentage"  value=""  maxlength="3">
+                        <input type="number" id="buildingConstruction_plumbingPercentageCompleted" name="buildingConstruction_plumbingPercentageCompleted" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01"  >
                     </div>
                 </div>
             </div>
