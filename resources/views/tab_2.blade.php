@@ -6,6 +6,17 @@
                 <label class="col-md-4" style="float: left;"> Insured Name / Legal Entity Name <span class="err">*</span> </label>
                 <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8 required"  value="">
             </div>
+            @if($formVal == "ownerOccupied")
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> <span class="nestedBox"> Is this a Corporation? </span><span class="err">*</span> </label>
+                <select id="insured_isCorporation" name="insured_isCorporation" class="form-control col-md-8 required">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            @endif
+            
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contact First Name <span class="err">*</span> </label>
                 <input type="text" id="contact_first_name" name="contact_first_name" class="form-control col-md-8 required"  value="">
@@ -15,12 +26,14 @@
                 <input type="text" id="contact_last_name" name="contact_last_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group">
+                <p class="validPhoneError" style="display: none;color: red;">Please enter valid phone</p>
                 <label class="col-md-4" style="float: left;"> Contact Phone Number  </label>
-                <input type="tel" id="contact_phone_number" name="contact_phone_number" class="form-control col-md-8"  value="">
+                <input type="tel" id="contact_phone_number" name="contact_phone_number" class="form-control col-md-8 checkPhone"  value=""  placeholder="Please use x or ext if there is extention">
             </div>
             <div class="form-group">
+                <p class="validEmailError" style="display: none;color: red;">Please enter valid email</p>
                 <label class="col-md-4" style="float: left;"> Contact Email </label>
-                <input type="email" id="contact_email" name="contact_email" class="form-control col-md-8"  value="">
+                <input type="email" id="contact_email" name="contact_email" class="form-control col-md-8 checkEmail"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Website </label>
@@ -54,6 +67,12 @@
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Details of record</span> </label>
                 <input type="text" id="details_of_record" name="details_of_record" class="form-control col-md-8"  value="">
             </div>
+            @if($formVal == "ownerOccupied")
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Is there a co-occupant that requires coverage? <span class="err">*</span></label>
+                <input type="text" id="insured_coOccupantCoverage" name="insured_coOccupantCoverage" class="form-control col-md-8 required"  value="">
+            </div>    
+            @endif
         </div>
     </div>
 </section>
@@ -90,7 +109,7 @@
             <div class="form-group"  id="mailing_address_provOtherBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
                 <input type="text" class="form-control col-md-7 required" name="mailing_address_province_other" id="mailing_address_province_other" style="float: left;margin-bottom: 5px;" />
-                <a id="revertProvinceList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
+                <a id="revertProvinceList" class="col-md-1" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
@@ -108,7 +127,7 @@
             <div class="form-group"  id="mailing_address_countryOtherBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>
                 <input type="text" class="form-control col-md-7 required" name="mailing_address_countryOther" id="mailing_address_countryOther" style="float: left;margin-bottom: 5px;" />
-                <a id="revertContryList" class="col-md-2" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
+                <a id="revertContryList" class="col-md-1" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
             </div>
         </div>
     </div>

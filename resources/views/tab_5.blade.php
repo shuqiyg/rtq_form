@@ -4,23 +4,23 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Building Limit </label>
-                <input type="text" id="coverage_buildingLimit" name="coverage_buildingLimit" class="form-control col-md-8 onlyNumbers commaValues"  value="">
+                <input type="text" id="coverage_buildingLimit" name="coverage_buildingLimit" class="form-control col-md-8 commaValues"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Contents Limit  </label>
-                <input type="text" id="coverage_contentsLimit" name="coverage_contentsLimit" class="form-control col-md-8 onlyNumbers commaValues"  value="">
+                <input type="text" id="coverage_contentsLimit" name="coverage_contentsLimit" class="form-control col-md-8 commaValues"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Rental Income Limit  </label>
-                <input type="text" id="coverage_rentalIncomeLimit" name="coverage_rentalIncomeLimit" class="form-control col-md-8 onlyNumbers commaValues"  value="">
+                <input type="text" id="coverage_rentalIncomeLimit" name="coverage_rentalIncomeLimit" class="form-control col-md-8 commaValues"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Garage Limit </label>
-                <input type="text" id="coverage_garageLimit" name="coverage_garageLimit" class="form-control col-md-8 onlyNumbers commaValues"  value="">
+                <input type="text" id="coverage_garageLimit" name="coverage_garageLimit" class="form-control col-md-8 commaValues"  value="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Shed Limit </label>
-                <input type="text" id="coverage_shedLimit" name="coverage_shedLimit" class="form-control col-md-8 onlyNumbers commaValues"  value="">
+                <input type="text" id="coverage_shedLimit" name="coverage_shedLimit" class="form-control col-md-8 commaValues"  value="">
             </div>
             <div class="form-group" >
                 <label class="col-md-4" style="float: left;"> Liability Limit <span class="err">*</span> </label>
@@ -34,4 +34,3 @@
         </div>
     </div>
 </section>
-</form>

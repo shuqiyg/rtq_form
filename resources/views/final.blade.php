@@ -1,5 +1,5 @@
 <section class="finalSection">
-	
+	<input type="hidden" name="bindStatus" id="bindStatus">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group" id="calculateBox" style="display: none;">
@@ -20,12 +20,14 @@
 	<div class='row bindingBox' style="display: none;"> 
 		<div class='col-md-12'> 
 			<div class="form-group">
-				<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
+				<button class="btn btn-warning" style="width: 100%;" id="bindingUpper">Click to Bind</button>
+				<!--<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
 				<select name='binding' id="bindingUpper" class='binding form-control col-md-8'>
 					<option value=''>-Select Value-</option>
 					<option value='Yes'>Yes</option> 
 					<option value='No'>No</option> 
-				</select> 
+				</select> -->
+				<p id="bindMsg"></p>
 			</div> 
 		</div>
 	</div>
@@ -34,7 +36,6 @@
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-12">
 			<div class="form-group">
-				<p id="finalMSG" class="col-md-8" style="float: left;"> </p>
 				<button class="btn btn-success" id="finishUpper" >Confirm</button>
 			</div>
 		</div>
@@ -52,12 +53,14 @@
 	<div class='row bindingBox' style="display: none;"> 
 		<div class='col-md-12'> 
 			<div class="form-group">
-				<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
+				<button class="btn btn-warning" style="width: 100%;" id="bindingLower">Click to Bind</button>
+				<!--<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
 				<select name='binding' id="bindingLower" class='binding form-control col-md-8'>
 					<option value=''>-Select Value-</option>
 					<option value='Yes'>Yes</option> 
 					<option value='No'>No</option> 
-				</select> 
+				</select> -->
+				<p id="bindMsgL"></p>
 			</div> 
 		</div>
 	</div>
@@ -67,7 +70,6 @@
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-12">
 			<div class="form-group">
-				<p id="finalMSG" class="col-md-8" style="float: left;"> </p>
 				<button class="btn btn-success" id="finishLower" >Confirm</button>
 			</div>
 		</div>
@@ -77,6 +79,8 @@
 </section>
 
 	<section class="confirmSection" style="display: none;">
+		<div class="loader" style="display: none;"> </div>
+				
 		<div class="row">
 			<div class="col-md-12">
 				<p>

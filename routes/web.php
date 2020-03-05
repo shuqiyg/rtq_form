@@ -12,12 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('main');
+    return view('welcome');
 });
+
+Route::post('/loadForm', 'rtqController@loadForm');
 
 Route::post('/calculate', 'rtqController@calculate');
 
 Route::post('/finish', 'rtqController@finish');
 
+Route::post('/resetForm','rtqController@resetForm');
+
 Route::post('/checkReferRules','rtqController@checkReferRules');
 
+Route::get('/error', function () {
+    return view('error');
+});
+
+Route::get('/main', function () {
+    return view('main');
+});
