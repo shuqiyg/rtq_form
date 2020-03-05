@@ -8,11 +8,14 @@
         <noscript><meta http-equiv="refresh" content="1;url={{ url('error')}}"></noscript>
 
         <title>Real Time Quote - Forms</title>
+        <link rel="shortcut icon" href="{{ URL::asset('img/amf25logo.png') }}" />
+
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/ouibounce.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -22,11 +25,26 @@
         <script src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        
+        <script type="text/javascript" src="{{ URL::asset('js/ouibounce.js') }}"></script>
         <!--<script type="text/javascript" src="{{ URL::asset('js/form-validate.js') }}"></script>-->
     </head>
     <body>
+        <?php
         
+        if(isset($_SESSION['abs']) && !empty(($_SESSION['abs']))){
+            if($_SESSION['abs'] == "wc"){ ?>
+                <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="false">X</span></button>
+                    <?php
+                        echo  "Form has been reset.";
+                        // now empty session message
+                        $_SESSION['abs'] = '';
+                    ?>
+                </div>
+            <?php 
+            }
+        }
+        ?>
         <h1 style="text-align: center;"> Real Time Quote - Forms  </h1>
         <!-- Show selection of form here -->
         <div class="row">
@@ -49,12 +67,19 @@
         <!-- footer -->
         <footer>
             <hr>
-            <p style="text-align: center;">&copy; Copyright <?php echo date('Y');?> - Present  <a href="https://www.amfredericks.com/" target="_blank"> <b style="color: blue;"> A.M.Fredericks Underwriting Management Ltd.</b> </a></p>
+            <p style="text-align: center;">&copy; Copyright <?php echo date('Y');?> - Present  <a href="https://www.amfredericks.com/" target="_blank" data-toggle="tooltip" title="<img src='{{URL::asset('img/amfsite.png')}}' width='150' height='100'>"> <b style="color: blue;"> A.M.Fredericks Underwriting Management Ltd.</b> </a></p>
         </footer>
         <!-- End footer -->
-
+    
         <script type="text/javascript">
+            
             $(document).ready(function(){
+                //activate bootstrap tooltip
+                $('[data-toggle="tooltip"]').tooltip({
+                    html:true,
+                    placement : 'top'
+                });
+
                 // when form select
                 $("#rtq_forms").on('change',function(){
                     var formVal  = $("#rtq_forms").val();

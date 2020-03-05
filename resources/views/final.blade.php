@@ -1,4 +1,5 @@
 <section class="finalSection">
+	<div class="loader" style="display: none;"> </div>
 	<input type="hidden" name="bindStatus" id="bindStatus">
 	<div class="row">
 		<div class="col-md-12">
@@ -83,19 +84,39 @@
 				
 		<div class="row">
 			<div class="col-md-12">
-				<p>
-					Hope, you have reviewed form and all information filled up are correct. <br/>
-			        <br/>
-			        After click on finish button , We get email with your form information.<br/>
-			        Underwriter will process and send you form back to you to sign .<br/>
-					<br/>
-			        If you don't hear from us in next 30 days, please contact us or send form again.<br/>
-			        <br/>	
-			        If you are sure about fill up information then pleae click on finish button.<br/>
-				</p>
+				<p>Thank you for submitting this application. You must click on the [Finish] button to complete.</p>
+				<p>Once you complete, the following will happen:</p>
+				<ul>
+					<li>If you were provided a quote:
+						<ul>
+							<li>The information will be sent to AMFUM and entered into our system</li>
+							<li>You will receive an email with a copy of the application filled out and,</li>
+							<li>Acknowledgement that we have received your Binding instructions.</li>
+							<li>You must get the application signed and returned to us.</li>
+							<li>Within 5 business days, you will receive Policy Documents electronically.</li>
+						</ul>
+					</li>
+					<li>If you did not get a quote:
+						<ul>
+							<li>The information will be sent to AMFUM and entered into our system</li>
+							<li>You will receive an email with a copy of the application filled out and,</li>
+							<li>An underwriter will review your submission and respond with either a quote or,</li>
+							<li>A request for more information.</li>
+							<li>The application must be signed and returned to us before a policy can be issued.</li>
+						</ul>
+					</li>
+				</ul>
+				<p style="color: orange;"><b>IMPORTANT!</b></p>
+				<p>If you do NOT receive a copy of your application:</p>
+				<ul>
+					<li>Check your Junk Mail folder</li>
+					<li>Contact us at 905-428-1269 or <a href="amfinfo@amfredericks.com" target="_blank">amfinfo@amfredericks.com</a> immediately to see if we received the application.</li>
+					<li>Under no circumstances consider a policy bound if you do not get confirmation from AMFUM.</li>
+				</ul>
+				<p>AMFUM reserves the right to cancel binding or the policy on in-depth review.</p>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="margin-top: 20px">
 			<div class="col-md-12">
 				<button type="button" class="btn btn-secondary" id="resetForm">Reset</button>
 	        	<button type="button" class="btn btn-success" id="finish" style="float: right;">Finish</button>

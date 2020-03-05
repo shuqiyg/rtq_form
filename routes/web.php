@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,4 +34,8 @@ Route::get('/error', function () {
 
 Route::get('/main', function () {
     return view('main');
+});
+
+Route::get('/sessionClose', function () {
+    return view('sessionClose');
 });

@@ -69,6 +69,11 @@ class rtqController extends Controller
 		// make array to store value and return json to display price 
 		$priceArray = array();
 
+		// if province is null or empty then make by default Ontario
+		if($province == null || empty($province)){
+			$province = "Ontario";
+		}
+
 		if($hydrant != '' && $fireDeptDistance != '' &&  $fireDeptType != ''){
 			$hydrantVal = $hydrants[0][$hydrant]['value'];
 			$fd = $firedept[0][$fireDeptDistance]['value'];
@@ -580,10 +585,11 @@ class rtqController extends Controller
 		}else{
 			$valid = true;
 			$referMatchArray = array();
-
-			if($calculateArray['TivLimit'] == "Above"){
-				array_push($referMatchArray, 'TIV limit is going above '.$calculateArray['AvailableTivLimit']);
-			}
+		}
+		
+		// check TIV limit
+		if($calculateArray['TivLimit'] == "Above"){
+			array_push($referMatchArray, 'TIV limit is going above '.$calculateArray['AvailableTivLimit']);
 		}
 
 		return array("valid"=>$valid,"matchArray"=>$referMatchArray);
@@ -650,7 +656,7 @@ class rtqController extends Controller
 		$referNotMatchReason = json_decode($req['referNotMatchReason'], true);
 		$fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm);
 		$fd = json_decode($fdFormattedJson , true );
-		
+		$abandonStatus = $req['abandonStatus'];
 		
 		//echo $fd[0]['contact_phone_number']['value'];
 		$binding = trim($req['binding']);
@@ -659,7 +665,7 @@ class rtqController extends Controller
 		$valid = $this->validation($fd,$rtqForm);
 
 		$status = '';
-		if($valid['valid'] == true && ($binding == "Quoted" || $binding == "" || $binding == "Bound") ){
+		if($valid['valid'] == true && ($binding == "Quoted" || $binding == "" || $binding == "Bound") && $abandonStatus == "reset"){
 			$status = "Quoted";
 		}else{
 			$status = "Not Required";
@@ -667,7 +673,7 @@ class rtqController extends Controller
 		// add status to form data array
 		$fd[0]['status']['value'] = $status;
 		// abandon status
-		$fd[0]['abandonStatus']['value'] = $req['abandonStatus'];
+		$fd[0]['abandonStatus']['value'] = $abandonStatus;
 
 		// encode form data
 		$fdJson = json_encode($fd);
@@ -709,9 +715,23 @@ class rtqController extends Controller
 		$emailSent = $this->emailSent($fd);
 		//$emailSent = 0;
 		if($emailSent == 0){
-			$message = array('message'=>'Form has been sent to AMF.','success'=>'true');
+			if($abandonStatus ==  "windowClose"){
+				$message = array('message'=>'Form has been sent to AMF.','success'=>'true',"abs"=>"wc");
+				$_SESSION['abs'] = "wc";
+			}else{
+				$message = array('message'=>'Form has been sent to AMF.','success'=>'true');
+				$_SESSION['abs'] = "other";
+			}
+			
 		}else{
-			$message = array('message'=>'There is something wrong to send form to AMF.','success'=>'false');	
+			if($abandonStatus ==  "windowClose"){
+				$message = array('message'=>'There is something wrong to send form to AMF.','success'=>'false',"abs"=>"wc");	
+				$_SESSION['abs'] = "wc";
+			}else{
+				$message = array('message'=>'There is something wrong to send form to AMF.','success'=>'false');		
+				$_SESSION['abs'] = "other";
+			}
+			
 		}
 		
 		return $message;

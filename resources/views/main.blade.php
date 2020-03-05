@@ -51,5 +51,32 @@
             </div>
         </div>
     </form>
+
+    <!-- OuiBounce Modal -->
+        <div id="ouibounce-modal">
+            <div class="underlay"></div>
+            <div class="modal" style="display: block;">
+                <div class="modal-title">
+                    <h3>Are sure want to close this page ?</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div  style="text-align: center;">
+                        <img src="{{ URL::asset('img/warning_icon.png') }}" width="100" height="100">
+                    </div>
+                    <div style="padding-top: 10px;text-align: center;">
+                        <p style="font-size: 24px;">Once you close this page, you will loose data.</p>
+                        <p>Click on close window link to succuessfully close session and reset the form.</p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <p><a id="closeWindow">Close Window</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- End OuiBounce Modal -->
+
 <!-- call custom javascript while rendering form data -->        
+
 <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>

@@ -1,12 +1,9 @@
 $(document).ready(function(){
 
-  //activate bootstrap tooltip
-  $('[data-toggle="tooltip"]').tooltip();
-
-  
   var clicked = false;
   var resetClicked = false;
   var finishClicked = false;
+  var closeWindowModal = false;
   // when user try to refresh manually
   /*window.onbeforeunload = function(e) {
     var e = e || window.event;
@@ -32,10 +29,11 @@ $(document).ready(function(){
     activeStay = true;
   });*/
 
+  /** BEFOREUNLOAD METHOD **/
   $(window).bind('beforeunload', function () {
     /*console.log(activeStay);
     activeStay = false;*/
-
+      
       // block user to refresh page by pressing F5 key or ctl+R key
       if(!clicked) {
         console.log('Manual refresh will not work');
@@ -43,19 +41,36 @@ $(document).ready(function(){
         return "Leaving page might loose data";
       }
   });
+  /** END OF BEFOREUNLOAD METHOD **/
+  /** UNLOAD METHOD **/
   $(window).bind('unload', function () {
-    if(resetClicked || finishClicked){
-      // do nothing   
+    console.log("resetClicked "+resetClicked +" finishClicked "+finishClicked);
+    if(resetClicked || finishClicked || closeWindowModal){
+      // do nothing
     }else{
       resetFunction('leavingPage');
     }
+    
       // set 2 sec time to get all form data and sending back to AMF
       setTimeout(function(){  },2000);
       console.log('Leaving');
   });
+  /** END OF UNLOAD METHOD **/
+  
+
+  /** CLOSE WINDOW BUTTON CLICK **/
+  $("#closeWindow").on('click',function(){
+    closeWindowModal = true;
+    resetFunction('windowClose');
+    // set 2 sec time to get all form data and sending back to AMF
+      setTimeout(function(){ 
+
+      },2000);
+  });
+  /** END OF CLOSE WINDOW BUTTON CLICK **/
 
 
-  // Smart Wizard activation
+  /** SMARTWIZARD ACTIVATION **/
     $('#smartwizard').smartWizard({
       contentCache : false,
       // Show url hash based on step
@@ -70,6 +85,7 @@ $(document).ready(function(){
       keyNavigation:false, 
             
     });
+  /** END OF SMARTWIZARD ACTIVATION **/
 
   //writing validation on next step
   $('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
@@ -704,6 +720,28 @@ $(document).ready(function(){
           // disable next button when in final step
           $(".sw-btn-next").hide();
 
+          /** OUIBOUNCE MODAL **/
+          var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
+            aggressive: true,
+            sensitivity: 40,
+            cookieExpire: 0,
+            timer: 0 ,
+            callback: function() { console.log('ouibounce fired!'); }
+          });
+
+          $('body').on('click', function() {
+            $('#ouibounce-modal').hide();
+          });
+
+          $('#ouibounce-modal .modal-footer').on('click', function() {
+            $('#ouibounce-modal').hide();
+          });
+
+          $('#ouibounce-modal .modal').on('click', function(e) {
+            e.stopPropagation();
+          });
+
+          /** END OF OUIBOUNCE MODAL **/
           
           // get broker code
           var brokerCode = $.trim($('#broker_code').val());
@@ -791,6 +829,9 @@ $(document).ready(function(){
           $('#priceBox').empty();
           
         }else{
+          // hide ouibounce modal
+          $("#ouibounce-modal").hide();
+
           // hide previous button when on first step
           if(stepNumber == 0){
             //console.log('step : '+stepNumber);
@@ -1284,7 +1325,12 @@ $(document).ready(function(){
 
       var rtqForm = $("#rtq_forms option:selected").val();
 
-      
+      if(abandonStatus == "windowClose"){
+        $(".loader").show(); 
+      }else{
+        $(".loader").hide(); 
+      }
+
       setTimeout(function(){  },2000);
       $.ajax({
         url:"resetForm",
@@ -1296,6 +1342,10 @@ $(document).ready(function(){
 
           if(abandonStatus == "reset"){
             // to make reset, make clicked = true and send location to root
+            clicked = true;
+            window.location.href='/';
+          }else if(abandonStatus == "windowClose"){
+            $(".loader").hide(); 
             clicked = true;
             window.location.href='/';
           }else{

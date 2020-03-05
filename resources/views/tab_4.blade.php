@@ -318,7 +318,7 @@
                 <label class="col-md-3" style="float: left;"> Smoke/Heat Detectors </label>
                 <select id="fireAlarmDetectors_smokeHeatDetectors" name="fireAlarmDetectors_smokeHeatDetectors" class="form-control col-md-8">
                     <option value="">-Select smoke/heat detectors-</option>
-                    <option value="Monitored">Monitored</option>
+                    <option value="Central">Central</option>
                     <option value="Local">Local</option>
                     <option value="None">None</option>
                 </select>
