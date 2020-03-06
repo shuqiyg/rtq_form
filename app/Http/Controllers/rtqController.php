@@ -605,9 +605,9 @@ class rtqController extends Controller
         $result = Mail::send([], [], function ($message) use ($formData) {
 
         	//$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
-            $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com'
+            $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com' // test@amfum.com
             $message->subject('RTQ-Form');
-            $message->to('ankit.savaliya@amfredericks.com');
+            $message->to('ankit.savaliya@amfredericks.com'); // rtq@amfredericks.com
             $message->setBody($formData);
 
             $email = $message->getSwiftMessage();

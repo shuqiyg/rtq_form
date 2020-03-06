@@ -1,5 +1,3 @@
-
-                    
 <section class="brokerInfo">
     <h3>Broker</h3>
     <div class="row">

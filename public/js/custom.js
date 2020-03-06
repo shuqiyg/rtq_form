@@ -33,7 +33,7 @@ $(document).ready(function(){
   $(window).bind('beforeunload', function () {
     /*console.log(activeStay);
     activeStay = false;*/
-      
+      console.log('clicked '+clicked);
       // block user to refresh page by pressing F5 key or ctl+R key
       if(!clicked) {
         console.log('Manual refresh will not work');
@@ -971,8 +971,7 @@ $(document).ready(function(){
    Finish button will gather all form data in json format and send it to controller to process
   **/
   $("#finish").on('click',function(){
-    clicked = true;
-
+    
     var valid = false;
     // check if all required fields are filled up or not
     $.each($('.required'), function( key, value ) {
@@ -1064,6 +1063,8 @@ $(document).ready(function(){
 
       $(".loader").show(); 
       finishClicked = true;
+      clicked = true;
+
       setTimeout(function(){  },2000);
       $.ajax({
         url:"finish",

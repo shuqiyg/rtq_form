@@ -1,4 +1,3 @@
-
 <section class="legalTerms">
 	<h3 class="legalHeader"> Purpose of this Form </h3>
 	<p>This application can provide an actual quote that can be bound by the Broker’s Representative. Certain conditions must be met: </p>
