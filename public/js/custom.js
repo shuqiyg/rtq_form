@@ -4,31 +4,7 @@ $(document).ready(function(){
   var resetClicked = false;
   var finishClicked = false;
   var closeWindowModal = false;
-  // when user try to refresh manually
-  /*window.onbeforeunload = function(e) {
-    var e = e || window.event;
-    console.log(e);
-    // if clicked is true then it shows browser default alert prompt confirmation 
-    if(!clicked) {
-        console.log('Manual refresh will not work');
-        resetFunction('leavingPage');
-        return "Manual refresh might loose data";
-      }
-    
-  }*/
-  /*var activeStay = true;
-
-  document.onkeydown = function() {
-      console.log('KeyCode : '+event.keyCode);
-      activeStay = true;
-  }
-  $( "body" ).mouseup(function() {
-    activeStay = true;
-  })
-  .mousedown(function() {
-    activeStay = true;
-  });*/
-
+  
   /** BEFOREUNLOAD METHOD **/
   $(window).bind('beforeunload', function () {
     /*console.log(activeStay);
@@ -44,12 +20,18 @@ $(document).ready(function(){
   /** END OF BEFOREUNLOAD METHOD **/
   /** UNLOAD METHOD **/
   $(window).bind('unload', function () {
+    clicked = true;
+    console.log('clickedunload '+clicked);
     console.log("resetClicked "+resetClicked +" finishClicked "+finishClicked);
-    if(resetClicked || finishClicked || closeWindowModal){
+    if(resetClicked || finishClicked || closeWindowModal ){
       // do nothing
+      //remove cookies
+      Cookies.remove('loadedForm');
+      
     }else{
       resetFunction('leavingPage');
     }
+    
     
       // set 2 sec time to get all form data and sending back to AMF
       setTimeout(function(){  },2000);
@@ -61,6 +43,7 @@ $(document).ready(function(){
   /** CLOSE WINDOW BUTTON CLICK **/
   $("#closeWindow").on('click',function(){
     closeWindowModal = true;
+    clicked = true;
     resetFunction('windowClose');
     // set 2 sec time to get all form data and sending back to AMF
       setTimeout(function(){ 
@@ -776,7 +759,7 @@ $(document).ready(function(){
                   $("#referValidationNotMatchBox").html(html);
 
                   $('#calculateBox').hide();
-
+                  $("#doesCalculated").val('');
                   reviewForm();
                   $(".bindingBox").hide();
                   
@@ -796,13 +779,14 @@ $(document).ready(function(){
                   $("#referValidationNotMatchBox").html(html);
 
                   $('#calculateBox').hide();
-
+                  $("#doesCalculated").val('');
                   reviewForm();
                   $(".bindingBox").hide();
                   
                 }else{
                   console.log('valid == true');
                   $('#calculateBox').show();
+                  $("#doesCalculated").val('quoted');
                   $("#referValidationNotMatchBox").hide();
                   $("#referValidationNotMatchBox").empty();
 
@@ -819,6 +803,7 @@ $(document).ready(function(){
           }else{
             reviewForm();
             $('#calculateBox').hide();
+            $("#doesCalculated").val('');
             $(".bindingBox").hide();
             $(".binding").val('');
             $("#referValidationNotMatchBox").hide();
@@ -1277,7 +1262,7 @@ $(document).ready(function(){
     
   });
 
-  // when reset form button
+ // when reset form button
   $("#resetForm").on('click',function(){
     //$('#smartwizard').smartWizard("reset");
     swal({
@@ -1289,8 +1274,9 @@ $(document).ready(function(){
       .then(function(reset) {
       if (reset) {
         resetClicked = true;
+        clicked = true;
         resetFunction('reset');
-        
+        $(".loader").show();
       } else {
         // make clicked false
         clicked = false;
@@ -1309,6 +1295,7 @@ $(document).ready(function(){
       var noOfMortgageesArray = getFormData.noOfMortgageesArray;
       var noOfClaimsArray = getFormData.noOfClaimsArray;
       var binding = $("#bindStatus").val();
+      var doesCalculated = $("#doesCalculated").val();
       var referNotMatchReason;
       // get refer not matching reason if available
       if($("#referValidationNotMatchBox").css('display') != 'none'){
@@ -1336,21 +1323,22 @@ $(document).ready(function(){
       $.ajax({
         url:"resetForm",
         method:"post",
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,abandonStatus:abandonStatus, _token:$('meta[name="csrf-token"]').attr('content')},
+        async: true,
+        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,abandonStatus:abandonStatus,doesCalculated:doesCalculated, _token:$('meta[name="csrf-token"]').attr('content')},
         datatype: 'json',
         success: function(msg){
           console.log(msg);
-
+          clicked = true;
+            
           if(abandonStatus == "reset"){
             // to make reset, make clicked = true and send location to root
-            clicked = true;
             window.location.href='/';
           }else if(abandonStatus == "windowClose"){
             $(".loader").hide(); 
-            clicked = true;
+            //clicked = true;
             window.location.href='/';
           }else{
-            clicked = false;
+            //clicked = true;
           }
         },
         error: function(data){

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <noscript><meta http-equiv="refresh" content="1;url={{ url('error')}}"></noscript>
 
-        <title>Real Time Quote - Forms</title>
+        <title>Automated Submissions</title>
         <link rel="shortcut icon" href="{{ URL::asset('img/amf25logo.png') }}" />
 
         <!-- Fonts -->
@@ -26,9 +26,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script type="text/javascript" src="{{ URL::asset('js/ouibounce.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
         <!--<script type="text/javascript" src="{{ URL::asset('js/form-validate.js') }}"></script>-->
+        
+        <!-- call custom javascript while rendering form data [loaded dynamically from jquery]      
+            <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>-->  
+
+        <style type="text/css">
+            .frontText{
+                /*font-size: 12px;
+                line-height: 80%;*/
+            }
+            .frontText p{
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+
     </head>
     <body>
+        
         <?php
         
         if(isset($_SESSION['abs']) && !empty(($_SESSION['abs']))){
@@ -45,7 +62,10 @@
             }
         }
         ?>
-        <h1 style="text-align: center;"> Real Time Quote - Forms  </h1>
+        <div style="text-align: center;width: 100%;">
+            <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="80" alt="AM Fredericks">
+        </div>
+        <h1 style="text-align: center;"> Automated Submissions  </h1>
         <!-- Show selection of form here -->
         <div class="row">
             <div class="col-md-12">
@@ -55,11 +75,29 @@
                     <option value="ownerOccupied">Owner Occupied</option>
                 </select>
             </div>
-            <p id="rtqSelectedForm" style="text-decoration: underline;"></p>
-        
+            <p id="rtqSelectedForm" style="text-decoration: underline;float: left;"></p>
+            <span class="col-md-1" style="cursor:pointer;float: right;padding-right: 0px;display: none;" id="openFT"> <i class="fa fa-angle-down"></i> </span>
+            
         </div>
         <!-- END -->
-
+        <div class="loader" style="display: none;"> </div>
+        <div class="frontAutText" style="margin-bottom: 10px;">
+            <div style="text-align: center;width: 100%;" class="frontText">
+                <p>BETA</p>
+                <p>Welcome to our automated submission system</p>
+                <p>&lt; we are adding application rapidly so please bear with us &gt;</p>
+            </div>
+            <div style="width: 100%;" class="frontText">
+                <p>Why use this system ?</p>
+                <ul>
+                    <li>Brokers that are approved by A.M. Fredericks may get a real-time quote that can be bound online. <span style="color: red;">*</span> </li>
+                    <li>If you are not an approved broker or ,if the risk information precludes quoting the application, will be automatically entered into our system and an Underwriter will respond to you directly. </li>
+                    <li>We will email you the form data back as a PDF which you can use to requote if you so desire. </li>
+                </ul>
+                <p style="color: red"><b>* Important </b> </p>
+                <p>Underwriting rules may trigger depending on the data entered which requires manual review. In those cases, an automatic quote is not possible. Approved Brokers will be told the trigger reasons. </p>
+            </div>
+        </div>
         <!-- Show selected form here -->
         <div id="showForm"></div>
         <!-- END -->
@@ -80,6 +118,11 @@
                     placement : 'top'
                 });
 
+                // if cookie assign and have value then show form with selected value
+                if(Cookies.get('loadedForm') != '' && Cookies.get('loadedForm') != undefined){
+                    showForm(Cookies.get('loadedForm'));
+                }
+                
                 // when form select
                 $("#rtq_forms").on('change',function(){
                     var formVal  = $("#rtq_forms").val();
@@ -97,8 +140,18 @@
                             })
                             .then(function(willDelete) {
                               if (willDelete) {
-                                // empty show form div area & show new form
-                                  showForm(formVal);
+                                //  unbind before unload event [ its assigned in custom.js so it shows alert when user try to leave page],
+                                $(window).unbind('beforeunload');
+                                /**
+                                NOTE: First we used dynamic js in main.php which load js each time form loaded without refresh page so if we change form, it load it second time and if we close page then it sends email for unload event whatever time js loaded so here we set selected form in cookie and load page so it will have only one js at time
+                                **/
+                                // set cookie with selected form value for one hour time period
+                                var forOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+                                Cookies.set('loadedForm',formVal,{
+                                    expires: forOneHour
+                                });
+                                // reload page
+                                window.location.href="/";
                               } else {
                                 return false;//swal("Your imaginary file is safe!");
                               }
@@ -112,16 +165,53 @@
                 //function show form
                 function showForm(formVal){
                     $("#showForm").empty();
+                    $(".loader").show();
                     $.ajax({
                         url:'loadForm',
                         data:{formVal:formVal,_token:$('meta[name="csrf-token"]').attr('content')},
                         type:'post',
                         success: function(data){
+                            $(".loader").hide();
+                            // if cookie is assigned then set form select value
+                            if( (Cookies.get('loadedForm') != '' || Cookies.get('loadedForm') != undefined) && (Cookies.get('loadedForm') == formVal)){
+                                $("#rtq_forms").val(Cookies.get('loadedForm'));
+                            }
                             $("#rtqSelectedForm").text($("#rtq_forms option:selected").text()+' form has been selected :');
                             $('#showForm').html(data);
+                            $(".frontAutText").toggle();
+                            $("#openFT").show();
+                            // dynamically load js
+                            loadJS();
                         }
                     });
                 }
+                
+                // load dynamic custom js when select form
+                function loadJS(){
+                    jQuery.loadScript = function (url, callback) {
+                        jQuery.ajax({
+                            url: url,
+                            dataType: 'script',
+                            success: callback,
+                            async: true
+                        });
+                    }
+                    if (typeof someObject == 'undefined') $.loadScript('/js/custom.js', function(){
+                        //Stuff to do after someScript has loaded
+                        console.log("js loaded");
+                    });
+                    
+                }
+
+                // toggle to up and down submission create area
+                $("#openFT").click(function(){
+                    $(".frontAutText").toggle();
+                    var $el = $(this);
+                    //textNode = this.lastChild;
+                    $el.find('i').toggleClass('fa-angle-up fa-angle-down');
+                    //textNode.nodeValue = 'Show ' + ($el.hasClass('showArchieved') ? 'Incomplete' : 'Archived')
+                    //$el.toggleClass('showArchieved');
+                });
             });
         </script>
     </body>

@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Do you know the Applicant Personally  </label>
+                <label class="col-md-3" style="float: left;"> Do you know the Applicant Personally  <span class="err">*</span></label>
                 <select id="brokerSurvey_applicantPersonally" name="brokerSurvey_applicantPersonally" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -53,7 +53,7 @@
      <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Did you receive the order direct from the Applicant  </label>
+                <label class="col-md-3" style="float: left;"> Did you receive the order direct from the Applicant  <span class="err">*</span></label>
                 <select id="brokerSurvey_OrderDirectApplicant" name="brokerSurvey_OrderDirectApplicant" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -73,7 +73,7 @@
     </div><div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Do you handle other Insurance for the Applicant  </label>
+                <label class="col-md-3" style="float: left;"> Do you handle other Insurance for the Applicant  <span class="err">*</span></label>
                 <select id="brokerSurvey_handleOtherInsurance" name="brokerSurvey_handleOtherInsurance" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -93,7 +93,7 @@
     </div><div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Do you recommend this risk in every Respect  </label>
+                <label class="col-md-3" style="float: left;"> Do you recommend this risk in every Respect  <span class="err">*</span></label>
                 <select id="brokerSurvey_recommandRisk" name="brokerSurvey_recommandRisk" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -113,7 +113,7 @@
     </div><div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-3" style="float: left;"> Is this risk a renewal to your office </label>
+                <label class="col-md-3" style="float: left;"> Is this risk a renewal to your office <span class="err">*</span></label>
                 <select id="brokerSurvey_riskRenewalToOffice" name="brokerSurvey_riskRenewalToOffice" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>

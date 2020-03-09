@@ -77,6 +77,6 @@
         </div>
         <!-- End OuiBounce Modal -->
 
-<!-- call custom javascript while rendering form data -->        
+    <!-- call custom javascript while rendering form data         
+    <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>-->
 
-<script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>

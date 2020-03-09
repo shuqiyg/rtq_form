@@ -1,6 +1,8 @@
+<div class="loader" style="display: none;"> </div>
+	
 <section class="finalSection">
-	<div class="loader" style="display: none;"> </div>
 	<input type="hidden" name="bindStatus" id="bindStatus">
+	<input type="hidden" name="doesCalculated" id="doesCalculated">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group" id="calculateBox" style="display: none;">
@@ -80,7 +82,6 @@
 </section>
 
 	<section class="confirmSection" style="display: none;">
-		<div class="loader" style="display: none;"> </div>
 				
 		<div class="row">
 			<div class="col-md-12">
@@ -110,7 +111,7 @@
 				<p>If you do NOT receive a copy of your application:</p>
 				<ul>
 					<li>Check your Junk Mail folder</li>
-					<li>Contact us at 905-428-1269 or <a href="amfinfo@amfredericks.com" target="_blank">amfinfo@amfredericks.com</a> immediately to see if we received the application.</li>
+					<li>Contact us at 905-428-1269 or <a href="mailto:amfinfo@amfredericks.com" target="_top">amfinfo@amfredericks.com</a> immediately to see if we received the application.</li>
 					<li>Under no circumstances consider a policy bound if you do not get confirmation from AMFUM.</li>
 				</ul>
 				<p>AMFUM reserves the right to cancel binding or the policy on in-depth review.</p>
@@ -124,7 +125,7 @@
 		</div>
 		<div class="row" style="margin-top: 50px;">
 			<div class="col-md-12">
-				<p><a id="goBackToFinal" style="color: blue;cursor: pointer;"><- Go Back </a></p>
+				<!--<p><a id="goBackToFinal" style="color: blue;cursor: pointer;"><- Go Back </a></p>-->
 			</div>
 		</div>
 	</section>

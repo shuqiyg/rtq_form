@@ -17,6 +17,7 @@ RTQ-Form is outside company project for broker. After getting email of entered d
 ## Reference link
 
 Jquery SmartWizard  :  http://techlaboratory.net/smartwizard
+Set cookie in JS : https://github.com/js-cookie/js-cookie
 
 
 ## About Laravel

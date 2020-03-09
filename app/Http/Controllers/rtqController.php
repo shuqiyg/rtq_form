@@ -12,6 +12,7 @@ class rtqController extends Controller
 	**/
 	public function loadForm(Request $req){
 		$formVal = trim($req['formVal']);
+		$_SESSION['selectedTab'] = $formVal;
 		return view('main')->with('formVal',$formVal);
 	}
 
@@ -58,6 +59,10 @@ class rtqController extends Controller
 		$provincerate = json_decode(file_get_contents(public_path().'/json/provincerate.json'), true);
 		$towngrade = json_decode(file_get_contents(public_path().'/json/towngrade.json'), true);
 
+		if($yearsBuilt == null || empty($yearsBuilt)){
+			$yearsBuilt = date("Y");
+		}
+
 		// find building age
 		$age = date("Y") - $yearsBuilt;
 		if($age <= 25){
@@ -94,7 +99,7 @@ class rtqController extends Controller
 			$provRate = $amf_rates[$age_rate][0][$province][$tg];
 			$rentalIncomeLimitRate = $provRate * 0.75;
 
-			if($liability != 'none'){
+			if($liability != 'none' && $liability != ''){
 				$liabilityVal = $amf_rates[$age_rate][0][$province][$liability];
 			}else{
 				$liabilityVal = 0;
@@ -664,8 +669,11 @@ class rtqController extends Controller
 		// send json to check refer rules
 		$valid = $this->validation($fd,$rtqForm);
 
+		$ReferNotPassedReason = sizeof($fd[0]['ReferNotPassedReason']);
+		$doesCalculated = trim($req['doesCalculated']);
+
 		$status = '';
-		if($valid['valid'] == true && ($binding == "Quoted" || $binding == "" || $binding == "Bound") && $abandonStatus == "reset"){
+		if($ReferNotPassedReason == 0 && $doesCalculated == "quoted"){
 			$status = "Quoted";
 		}else{
 			$status = "Not Required";
