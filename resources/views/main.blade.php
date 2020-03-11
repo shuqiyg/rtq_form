@@ -13,9 +13,17 @@
                 <li><a href="#legal">Legal<br /><small>T&C</small></a></li>
                 <li><a href="#tab-1">Broker<br /><small>Broker Info</small></a></li>
                 <li><a href="#tab-2">Insured<br /><small>Insured Info</small></a></li>
+                @if($formVal == "homeInspector")
+                <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
+                <li><a href="#tab-7">Claim History<br /><small>Claim and loss</small></a></li> 
+                <li><a href="#tab-8">OPS<br /><small>Industry general</small></a></li> 
+                <li><a href="#tab-9">OPS<br /><small>Industry specific</small></a></li> 
+                <li><a href="#tab-10">CGL<br /><small>Some Info</small></a></li>     
+                @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
                 <li><a href="#tab-4">Occupancy<br /><small>Building details</small></a></li>
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
+                @endif
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
             </ul>
          

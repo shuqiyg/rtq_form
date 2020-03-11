@@ -4,12 +4,15 @@ $(document).ready(function(){
   var resetClicked = false;
   var finishClicked = false;
   var closeWindowModal = false;
+
+  var brokerCodeValidation = false;
+    
   
   /** BEFOREUNLOAD METHOD **/
   $(window).bind('beforeunload', function () {
     /*console.log(activeStay);
     activeStay = false;*/
-      console.log('clicked '+clicked);
+      //console.log('clicked '+clicked);
       // block user to refresh page by pressing F5 key or ctl+R key
       if(!clicked) {
         console.log('Manual refresh will not work');
@@ -21,15 +24,15 @@ $(document).ready(function(){
   /** UNLOAD METHOD **/
   $(window).bind('unload', function () {
     clicked = true;
-    console.log('clickedunload '+clicked);
-    console.log("resetClicked "+resetClicked +" finishClicked "+finishClicked);
+    //console.log('clickedunload '+clicked);
+    //console.log("resetClicked "+resetClicked +" finishClicked "+finishClicked);
     if(resetClicked || finishClicked || closeWindowModal ){
       // do nothing
       //remove cookies
       Cookies.remove('loadedForm');
       
     }else{
-      resetFunction('leavingPage');
+      //resetFunction('leavingPage');
     }
     
     
@@ -72,18 +75,31 @@ $(document).ready(function(){
 
   //writing validation on next step
   $('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
-
+    var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
     // if legal step 
     if(stepNumber == 0){
-      // get acknowledgements value
-      if($('#cb1').is(":checked") && $('#cb2').is(":checked") && $('#cb3').is(":checked")){
-        // allow to go next
-        $(".acknowledgeError").hide();
-      }else{
-        $(".acknowledgeError").show();
-        $(".acknowledgeError").text("Please select acknowledgements.");
-        return false;
+      if(rtqForm == "homeInspector"){
+        if($("input[name=hiAgreeDisAgree]:checked").val() == "agree"){
+          $("#agreeDisagreeError").hide();
+        }else{
+          $("#agreeDisagreeError").show();
+          $("#agreeDisagreeError").text("Please select agree or disagree");
+          return false;
+        }
       }
+      
+      if(rtqForm !== "homeInspector"){
+        // get acknowledgements value
+        if($('#cb1').is(":checked") && $('#cb2').is(":checked") && $('#cb3').is(":checked")){
+          // allow to go next
+          $(".acknowledgeError").hide();
+        }else{
+          $(".acknowledgeError").show();
+          $(".acknowledgeError").text("Please select acknowledgements.");
+          return false;
+        }
+      } 
+
     }
 
     //checks valid on leave field - all required fields
@@ -374,8 +390,8 @@ $(document).ready(function(){
        validPhone = validPhone.replace(/\./g,'');
        validPhone = validPhone.replace(/ /g,'');
        validPhone = validPhone.toLowerCase();
-      console.log(validPhone);
-      console.log(validPhone.indexOf("x"));
+      //console.log(validPhone);
+      //console.log(validPhone.indexOf("x"));
       
       if(validPhone.indexOf("ext") > 0){
         var phoneArray = validPhone.split("ext");
@@ -386,11 +402,11 @@ $(document).ready(function(){
         phoneArray[0] = validPhone;
         phoneArray[1] = '';
       }
-      console.log(phoneArray);
+      //console.log(phoneArray);
       // first part of array will be phone number and other will be extention
       var phone1 = phoneArray[0];
-      console.log('phone : '+ phone1.length);
-      console.log('Ext : '+ phoneArray[1]);
+      //console.log('phone : '+ phone1.length);
+      //console.log('Ext : '+ phoneArray[1]);
 
       if(phone1.length < 10 || phone1.length > 10){
         return false;
@@ -399,22 +415,128 @@ $(document).ready(function(){
       }
     }
 
+    /** validating broker using broker code if entered **/
+    $(document).on("focusout", ".validateBroker", function(){
+      validateBroker();
+    });
 
+    /** Function to validate broker **/
+    function validateBroker(){
+      var brokerCode = $.trim($("#broker_code").val());
+      var producer_email = $.trim($("#producer_email").val());
+      var brokerDomain = producer_email.split('@')[1];
+      
+      //console.log(brokerDomain);
+      // if broker code is not empty
+      if((brokerCode == '' || brokerCode == null || brokerCode == 0) && (brokerDomain == '' || brokerDomain == null ) ){
+        //console.log("Empty Broker Code");
+        // hide error msg if added broker code and then removed
+        $("#bcMsg").hide();
+        $(".sw-btn-next").removeAttr('disabled');
+        brokerCodeValidation = true;
+      }else{
+        $.ajax({
+          url:"brokerValidation",
+          method:"post",
+          data: {brokerCode:brokerCode,brokerDomain:brokerDomain,_token:$('meta[name="csrf-token"]').attr('content')},
+          datatype: 'json',
+          success: function(msg){
+            console.log(msg);
+            if(msg == "cancelled" || msg == "error"){
+              $("#bcMsg").show();
+              
+              brokerCodeValidation = false;
+              
+              // if broker cancelled then not allowed to do anything 
+              // disable all step if user went ahead and then entered invalid code
+              if(msg == "cancelled"){
+                $("#bcMsg").text("Broker code is not valid. Please contact AM Fredericks.");
+                // disable next button
+                $(".sw-btn-next").attr('disabled','true');
+                // get all step with done
+                $.each($(".step-anchor li"),function(k,v){
+                  if($(this).hasClass('done')){
+                    if($(this).find('a').attr("href") == "#tab-1" || $(this).find('a').attr("href") == "#legal"){
+                      // do nothing
+                    }else{
+                      $(this).removeClass('done');
+                      // if step has danger class , remove it
+                      if($(this).hasClass('danger')){
+                        $(this).removeClass('danger');
+                      }
+                    }
+                  }
+                }); 
+              }else if(msg == "error"){
+                $("#bcMsg").text("Broker code is not validate with our system. Please contact AM Fredericks.");
+                $(".sw-btn-next").removeAttr('disabled');
+              }
+
+            }else if(msg == "Not available"){
+              $("#bcMsg").show();
+              $("#bcMsg").text("This broker code is not available in our system.");
+              $(".sw-btn-next").removeAttr('disabled');
+              brokerCodeValidation = false;
+            }else{
+              $("#bcMsg").hide();
+              $(".sw-btn-next").removeAttr('disabled');
+              brokerCodeValidation = true;
+            }
+          },
+          error: function(data){
+            console.log(data);
+          }
+        });
+      }
+    }
+
+
+    /** Function to open and hide nested field based on parent field value **/
+    function fieldOpenHide(field,fieldVal,fieldBox='',otherFieldBox,otherFieldArray,hideFieldBox=''){
+      var field_var = $("#"+field).val();
+        if(field_var == fieldVal){
+          if(hideFieldBox == 'Yes' && fieldBox != ''){
+            $("#"+fieldBox).hide();
+          }
+          $("#"+otherFieldBox).show();
+        }else{
+          $("#"+otherFieldBox).hide();
+          for(var i=0;i<otherFieldArray.length;i++){
+            $("#"+otherFieldArray[i]).val('');
+          }
+          if(hideFieldBox == 'Yes'  && fieldBox != ''){
+            $("#"+fieldBox).show();
+          }
+        }
+      
+    }
+
+    /** Function to revert list when clicked on revert icon **/
+    function revertList(fieldBox,field,otherField,otherFieldBox){
+      $("#"+fieldBox).show();
+      $("#"+field).val('');
+      $("#"+otherFieldBox).hide();
+      $("#"+otherField).val('');
+    }
+
+    
     // display details of record if insured criminal record is yes
     $("#insured_criminal_record").on('change',function(){
-      var insured_criminal_record = $("#insured_criminal_record").val();
+      fieldOpenHide('insured_criminal_record','Yes','','details_of_record_box',['details_of_record'],'');
+      /*var insured_criminal_record = $("#insured_criminal_record").val();
       if(insured_criminal_record == 'Yes'){
         $("#details_of_record_box").show();
       }else{
         $("#details_of_record_box").hide();
         $("#details_of_record").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
 
     // display other mailing address province field
     $("#mailing_address_province").on('change',function(){
-      var mailing_address_province = $("#mailing_address_province").val();
+      fieldOpenHide('mailing_address_province','other','mailing_address_provBox','mailing_address_provOtherBox',['mailing_address_province_other'],'Yes');
+      /*var mailing_address_province = $("#mailing_address_province").val();
       if(mailing_address_province == 'other'){
         $("#mailing_address_provOtherBox").show();
         //$("#revertProvinceList").show();
@@ -424,21 +546,23 @@ $(document).ready(function(){
         $("#mailing_address_provOtherBox").hide();
         //$("#revertProvinceList").hide();
         $("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // click on revert list
     $("#revertProvinceList").on('click',function(){
-      $("#mailing_address_provBox").show();
+      revertList('mailing_address_provBox','mailing_address_province','mailing_address_province_other','mailing_address_provOtherBox');
+      /*$("#mailing_address_provBox").show();
       $("#mailing_address_province").val(''); // reset value of province field 
       $("#mailing_address_provOtherBox").hide();
       //$("#revertProvinceList").hide();
-      $("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again
+      $("#mailing_address_province_other").val(''); // empty value if user fill up anything with yes and then select no again*/
     });
 
     // display other mailing address province field
     $("#mailing_address_country").on('change',function(){
-      var mailing_address_country = $("#mailing_address_country").val();
+      fieldOpenHide('mailing_address_country','other','mailing_address_countryBox','mailing_address_countryOtherBox',['mailing_address_countryOther'],'Yes');
+      /*var mailing_address_country = $("#mailing_address_country").val();
       if(mailing_address_country == 'other'){
         $("#mailing_address_countryOtherBox").show();
         //$("#revertContryList").show();
@@ -448,21 +572,23 @@ $(document).ready(function(){
         $("#mailing_address_countryOtherBox").hide();
         //$("#revertContryList").hide();
         $("#mailing_address_countryOther").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // click on revert list
     $("#revertContryList").on('click',function(){
-      $("#mailing_address_countryBox").show();
+      revertList('mailing_address_countryBox','mailing_address_country','mailing_address_countryOther','mailing_address_countryOtherBox');
+      /*$("#mailing_address_countryBox").show();
       $("#mailing_address_country").val(''); // reset value of province field 
       $("#mailing_address_countryOtherBox").hide();
       //$("#revertContryList").hide();
-      $("#mailing_address_countryOther").val(''); // empty value if user fill up anything with yes and then select no again
+      $("#mailing_address_countryOther").val(''); // empty value if user fill up anything with yes and then select no again*/
     });
 
     // display other existing Insurer field
     $("#risk_address_existingInsurer").on('change',function(){
-      var risk_address_existingInsurer = $("#risk_address_existingInsurer").val();
+      fieldOpenHide('risk_address_existingInsurer','Other','risk_address_existingInsurerBox','risk_address_existingInsurerOtherBox',['risk_address_existingInsurerOther'],'Yes');
+      /*var risk_address_existingInsurer = $("#risk_address_existingInsurer").val();
       if(risk_address_existingInsurer == 'Other'){
         $("#risk_address_existingInsurerOtherBox").show();
         //$("#revertExistingInsurerList").show();
@@ -472,27 +598,29 @@ $(document).ready(function(){
         $("#risk_address_existingInsurerOtherBox").hide();
         //$("#revertExistingInsurerList").hide();
         $("#risk_address_existingInsurerOther").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // click on revert list existing insurer
     $("#revertExistingInsurerList").on('click',function(){
-      $("#risk_address_existingInsurerBox").show();
+      revertList('risk_address_existingInsurerBox','risk_address_existingInsurer','risk_address_existingInsurerOther','risk_address_existingInsurerOtherBox');
+      $/*("#risk_address_existingInsurerBox").show();
       $("#risk_address_existingInsurer").val(''); // reset value of province field 
       $("#risk_address_existingInsurerOtherBox").hide();
       //$("#revertExistingInsurerList").hide();
-      $("#risk_address_existingInsurerOther").val(''); // empty value if user fill up anything with yes and then select no again
+      $("#risk_address_existingInsurerOther").val(''); // empty value if user fill up anything with yes and then select no again*/
     });
 
     // display descrive use over 1 acre field
     $("#risk_address_lot_size").on('change',function(){
-      var risk_address_lot_size = $("#risk_address_lot_size").val();
+      fieldOpenHide('risk_address_lot_size','Over 1 Acre','','describeOver1Acre',['risk_address_describeOver1Acre'],'');
+      /*var risk_address_lot_size = $("#risk_address_lot_size").val();
       if(risk_address_lot_size == 'Over 1 Acre'){
         $("#describeOver1Acre").show();
       }else{
         $("#describeOver1Acre").hide();
-        $("#describeOver1Acre").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+        $("#risk_address_describeOver1Acre").val(''); // empty value if user fill up anything with yes and then select no again
+      }*/
     });
 
     // display name, address and amount field for all mortgagees
@@ -516,24 +644,26 @@ $(document).ready(function(){
 
     // display reason for non-renewal field for existing insurer in risk address tab 
     $("#risk_address_existingInsurerWillRenew").on('change',function(){
-      var risk_address_existingInsurerWillRenew = $("#risk_address_existingInsurerWillRenew").val();
+      fieldOpenHide('risk_address_existingInsurerWillRenew','No','','risk_address_existingInsurerNonRenewalBox',['risk_address_existingInsurerNonRenewal'],'');
+      /*var risk_address_existingInsurerWillRenew = $("#risk_address_existingInsurerWillRenew").val();
       if(risk_address_existingInsurerWillRenew == 'No'){
         $("#risk_address_existingInsurerNonRenewalBox").show();
       }else{
         $("#risk_address_existingInsurerNonRenewalBox").hide();
         $("#risk_address_existingInsurerNonRenewal").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // display attach details field for has insured cancelled insurance in risk address tab 
     $("#risk_address_hasInsuredCancelInsurance").on('change',function(){
-      var risk_address_hasInsuredCancelInsurance = $("#risk_address_hasInsuredCancelInsurance").val();
+      fieldOpenHide('risk_address_hasInsuredCancelInsurance','Yes','','risk_address_hasInsuredCancelInsuranceIfYesBox',['risk_address_hasInsuredCancelInsuranceIfYes'],'');
+      /*var risk_address_hasInsuredCancelInsurance = $("#risk_address_hasInsuredCancelInsurance").val();
       if(risk_address_hasInsuredCancelInsurance == 'Yes'){
         $("#risk_address_hasInsuredCancelInsuranceIfYesBox").show();
       }else{
         $("#risk_address_hasInsuredCancelInsuranceIfYesBox").hide();
         $("#risk_address_hasInsuredCancelInsuranceIfYes").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // display type of claims,description, amount for all claims in last 5 years
@@ -556,51 +686,57 @@ $(document).ready(function(){
 
     // display attach details field & type of claims for if any incidence in claim happen
     $("#risk_address_incidenceInClaim").on('change',function(){
-      var risk_address_incidenceInClaim = $("#risk_address_incidenceInClaim").val();
+      fieldOpenHide('risk_address_incidenceInClaim','Yes','','incidenceOfClaimBox',['risk_address_incidenceOfClaim_details','risk_address_incidenceOfClaim_type'],'');
+      /*var risk_address_incidenceInClaim = $("#risk_address_incidenceInClaim").val();
       if(risk_address_incidenceInClaim == 'Yes'){
         $("#incidenceOfClaimBox").show();
       }else{
         $("#incidenceOfClaimBox").hide();
         $("#risk_address_incidenceOfClaim_details").val(''); // empty value if user fill up anything with yes and then select no again
         $("#risk_address_incidenceOfClaim_type").val(''); 
-      }
+      }*/
     });
 
     // display describe field for commercial operations on premises on occupancy tab
     $("#occupancy_commercialOperations").on('change',function(){
-      var occupancy_commercialOperations = $("#occupancy_commercialOperations").val();
+      fieldOpenHide('occupancy_commercialOperations','Yes','','occupancy_commercialOperationsDescribeBox',['occupancy_commercialOperationsDescribe'],'');
+      /*var occupancy_commercialOperations = $("#occupancy_commercialOperations").val();
       if(occupancy_commercialOperations == 'Yes'){
         $("#occupancy_commercialOperationsDescribeBox").show();
       }else{
         $("#occupancy_commercialOperationsDescribeBox").hide();
         $("#occupancy_commercialOperationsDescribe").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // display other specify field for Overall construction in building construction section on occupancy tab
     $("#buildingConstruction_overallConstruction").on('change',function(){
-      var buildingConstruction_overallConstruction = $("#buildingConstruction_overallConstruction").val();
+      fieldOpenHide('buildingConstruction_overallConstruction','Other','','buildingConstruction_overallConstructionOtherBox',['buildingConstruction_overallConstructionOther'],'');
+      /*var buildingConstruction_overallConstruction = $("#buildingConstruction_overallConstruction").val();
       if(buildingConstruction_overallConstruction == 'Other'){
         $("#buildingConstruction_overallConstructionOtherBox").show();
       }else{
         $("#buildingConstruction_overallConstructionOtherBox").hide();
         $("#buildingConstruction_overallConstructionOther").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // display other specify field for area in sqft in building construction section on occupancy tab
     $("#buildingConstruction_area").on('change',function(){
-      var buildingConstruction_area = $("#buildingConstruction_area").val();
+      fieldOpenHide('buildingConstruction_area','4001 plus','','buildingConstruction_areaSpecifyBox',['buildingConstruction_areaSpecify'],'');
+      /*var buildingConstruction_area = $("#buildingConstruction_area").val();
       if(buildingConstruction_area == '4001 plus'){
         $("#buildingConstruction_areaSpecifyBox").show();
       }else{
         $("#buildingConstruction_areaSpecifyBox").hide();
         $("#buildingConstruction_areaSpecify").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // hide sprinkler coverage field if sprinklers value none
     $("#fireAlarmDetectors_sprinklers").on('change',function(){
+      //fieldOpenHide('fireAlarmDetectors_sprinklers','None','','sprinklersCoverageBox',['fireAlarmDetectors_sprinklerCoverage'],'');
+      // we are not using above function due to opposite behaviour of box hiding 
       if($("#fireAlarmDetectors_sprinklers").val() == "None"){
         $("#sprinklersCoverageBox").hide();
       }else{
@@ -611,79 +747,86 @@ $(document).ready(function(){
 
     // display are premises fenced and gated field for liability section in occupancy tab
     $("#liability_doesPremisesHavePool").on('change',function(){
-      var liability_doesPremisesHavePool = $("#liability_doesPremisesHavePool").val();
+      fieldOpenHide('liability_doesPremisesHavePool','Yes','','ifPremiseHasPoolBox',['liability_doesPremisesFenced'],'');
+      /*var liability_doesPremisesHavePool = $("#liability_doesPremisesHavePool").val();
       if(liability_doesPremisesHavePool == 'Yes'){
         $("#ifPremiseHasPoolBox").show();
       }else{
         $("#ifPremiseHasPoolBox").hide();
         $("#liability_doesPremisesFenced").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // show broker survey if yes for how long for do you know applicant personally question
     $("#brokerSurvey_applicantPersonally").on('change',function(){
-      var brokerSurvey_applicantPersonally = $("#brokerSurvey_applicantPersonally").val();
+      fieldOpenHide('brokerSurvey_applicantPersonally','Yes','','ifYesApplicantPersonally',['brokerSurvey_applicantPersonally_HowLong'],'');
+      /*var brokerSurvey_applicantPersonally = $("#brokerSurvey_applicantPersonally").val();
       if(brokerSurvey_applicantPersonally == 'Yes'){
         $("#ifYesApplicantPersonally").show();
       }else{
         $("#ifYesApplicantPersonally").hide();
         $("#brokerSurvey_applicantPersonally_HowLong").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // show broker survey If No, from whom and why for Did you receive the order direct from the Applicant question
     $("#brokerSurvey_OrderDirectApplicant").on('change',function(){
-      var brokerSurvey_OrderDirectApplicant = $("#brokerSurvey_OrderDirectApplicant").val();
+      fieldOpenHide('brokerSurvey_OrderDirectApplicant','No','','ifNoOrderDirectApplicant',['brokerSurvey_OrderDirectApplicantWhomWhy'],'');
+      /*var brokerSurvey_OrderDirectApplicant = $("#brokerSurvey_OrderDirectApplicant").val();
       if(brokerSurvey_OrderDirectApplicant == 'No'){
         $("#ifNoOrderDirectApplicant").show();
       }else{
         $("#ifNoOrderDirectApplicant").hide();
         $("#brokerSurvey_OrderDirectApplicantWhomWhy").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // show broker survey If Yes, Which Coverages for Do you handle other Insurance for the Applicant question
     $("#brokerSurvey_handleOtherInsurance").on('change',function(){
-      var brokerSurvey_handleOtherInsurance = $("#brokerSurvey_handleOtherInsurance").val();
+      fieldOpenHide('brokerSurvey_handleOtherInsurance','Yes','','ifYesHandleOtherInsurance',['brokerSurvey_handleOtherInsuranceCoverages'],'');
+      /*var brokerSurvey_handleOtherInsurance = $("#brokerSurvey_handleOtherInsurance").val();
       if(brokerSurvey_handleOtherInsurance == 'Yes'){
         $("#ifYesHandleOtherInsurance").show();
       }else{
         $("#ifYesHandleOtherInsurance").hide();
         $("#brokerSurvey_handleOtherInsuranceCoverages").val(''); // empty value if user fill up anything with yes and then select no again 
-      }
+      }*/
     });
 
     // show broker survey If No, please explain for Do you recommend this risk in every Respecty question
     $("#brokerSurvey_recommandRisk").on('change',function(){
-      var brokerSurvey_recommandRisk = $("#brokerSurvey_recommandRisk").val();
+      fieldOpenHide('brokerSurvey_recommandRisk','No','','ifNoRecommandRisk',['brokerSurvey_recommandRiskExplain'],'');
+      /*var brokerSurvey_recommandRisk = $("#brokerSurvey_recommandRisk").val();
       if(brokerSurvey_recommandRisk == 'No'){
         $("#ifNoRecommandRisk").show();
       }else{
         $("#ifNoRecommandRisk").hide();
         $("#brokerSurvey_recommandRiskExplain").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // show broker survey If yes, how long have you placed this risk for Is this risk a renewal to your office question
     $("#brokerSurvey_riskRenewalToOffice").on('change',function(){
-      var brokerSurvey_riskRenewalToOffice = $("#brokerSurvey_riskRenewalToOffice").val();
+      fieldOpenHide('brokerSurvey_riskRenewalToOffice','Yes','','ifYesRiskRenewalToOffice',['brokerSurvey_riskRenewalToOfficeHowLong'],'');
+      /*var brokerSurvey_riskRenewalToOffice = $("#brokerSurvey_riskRenewalToOffice").val();
       if(brokerSurvey_riskRenewalToOffice == 'Yes'){
         $("#ifYesRiskRenewalToOffice").show();
       }else{
         $("#ifYesRiskRenewalToOffice").hide();
         $("#brokerSurvey_riskRenewalToOfficeHowLong").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
     // show describe for Are there any Rental Suites? in occupancy for ownerOccupied selection
     $("#occupancy_anyRentalSuites").on('change',function(){
-      var occupancy_anyRentalSuites = $("#occupancy_anyRentalSuites").val();
+      fieldOpenHide('occupancy_anyRentalSuites','Yes','','occupancy_anyRentalSuitesBox',['occupancy_anyRentalSuitesDescribe'],'');
+      /*var occupancy_anyRentalSuites = $("#occupancy_anyRentalSuites").val();
       if(occupancy_anyRentalSuites == 'Yes'){
         $("#occupancy_anyRentalSuitesBox").show();
       }else{
         $("#occupancy_anyRentalSuitesBox").hide();
         $("#occupancy_anyRentalSuitesDescribe").val(''); // empty value if user fill up anything with yes and then select no again
-      }
+      }*/
     });
 
 
@@ -736,7 +879,7 @@ $(document).ready(function(){
           if(brokerCode != '' && brokerCode != null){
             // check refer rules matching or not
             var formData = JSON.stringify($('#rtq_form').serializeArray());
-            var rtqForm = $("#rtq_forms option:selected").val();
+            var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
             //console.log(formData);
             $.ajax({
               url:"checkReferRules",
@@ -769,7 +912,7 @@ $(document).ready(function(){
 
                   // display referValidationNotMatchBox
                   $("#referValidationNotMatchBox").show();
-                  var html = "<p>We are not able to provide quote at this time. Your submission will be refer to underwriter to get quote.</p><p>Here are reason for refer : </p>";
+                  var html = "<p>This application requires an underwriter to review it. The reason(s) are listed below.</p>";
 
                   html += "<ul>";
                   $.each(msg.matchArray,function(k,v){
@@ -785,13 +928,22 @@ $(document).ready(function(){
                   
                 }else{
                   console.log('valid == true');
-                  $('#calculateBox').show();
-                  $("#doesCalculated").val('quoted');
+                  // check broker code is valid or not
+                  console.log("brokerCodeValidation "+brokerCodeValidation);
+                  if(brokerCodeValidation){
+                    $('#calculateBox').show();
+                    $("#doesCalculated").val('quoted');
+                    $(".bindingBox").show();
+                  }else{
+                    $('#calculateBox').hide();
+                    $("#doesCalculated").val('');
+                    $(".bindingBox").hide();
+                  }
                   $("#referValidationNotMatchBox").hide();
                   $("#referValidationNotMatchBox").empty();
 
                   reviewForm();
-                  $(".bindingBox").show();
+                  
                   
                 }
                 
@@ -822,6 +974,10 @@ $(document).ready(function(){
             //console.log('step : '+stepNumber);
             $(".sw-btn-prev").hide();
           }else{
+            // if user on broker step check broker code
+            if(stepNumber == 1){
+              validateBroker();
+            }
             //console.log('step : '+stepNumber);
             $(".sw-btn-prev").show();
           }
@@ -839,59 +995,22 @@ $(document).ready(function(){
     // select binding value top one
     $("#bindingUpper").on('click',function(e){
       e.preventDefault();
-      bindClick = true;
-      //var valUp = $("#bindingUpper").val();
-      //$("#bindingLower").val(valUp);
-      if($(this).hasClass('btn-warning')){
-        $(this).removeClass('btn-warning');
-        $(this).addClass('btn-info');
-        $(this).text('Bound');
-        $("#bindMsg,#bindMsgL").text("This application has been bind.");
-        $("#bindingLower").removeClass('btn-warning');
-        $("#bindingLower").addClass('btn-info');
-        $("#bindingLower").text('Bound');
-        // set bind status
-        $("#bindStatus").val('Bound');
-      }else {
-        $(this).removeClass('btn-info');
-        $(this).addClass('btn-warning');
-        $(this).text('Bind');
-        $("#bindMsg,#bindMsgL").text("This application has not been bind yet.");
-        $("#bindingLower").removeClass('btn-info');
-        $("#bindingLower").addClass('btn-warning');
-        $("#bindingLower").text('Bind');
-        // set bind status
-        $("#bindStatus").val('Quoted');
-      }
+      
+      $("#bindMsg").text("This application has been Bound.");
+      // set bind status
+      $("#bindStatus").val('Bound');
+      
+      displayConfirm();
     });
 
     // select binding value down one
     $("#bindingLower").on('click',function(e){
       e.preventDefault();
-      bindClick = true;
-      //var valDown = $("#bindingLower").val();
-      //$("#bindingUpper").val(valDown);
-      if($(this).hasClass('btn-warning')){
-        $(this).removeClass('btn-warning');
-        $(this).addClass('btn-info');
-        $(this).text('Bound');
-        $("#bindMsg,#bindMsgL").text("This application has been bind.");
-        $("#bindingUpper").removeClass('btn-warning');
-        $("#bindingUpper").addClass('btn-info');
-        $("#bindingUpper").text('Bound');
-        // set bind status
-        $("#bindStatus").val('Bound');
-      }else {
-        $(this).removeClass('btn-info');
-        $(this).addClass('btn-warning');
-        $(this).text('Bind');
-        $("#bindMsg,#bindMsgL").text("This application has not been bind yet.");
-        $("#bindingUpper").removeClass('btn-info');
-        $("#bindingUpper").addClass('btn-warning');
-        $("#bindingUpper").text('Bind');
-        // set bind status
-        $("#bindStatus").val('Quoted');
-      }
+     
+      $("#bindMsg").text("This application has been Bound.");
+      // set bind status
+      $("#bindStatus").val('Bound');
+      displayConfirm();
     });
 
 
@@ -912,7 +1031,7 @@ $(document).ready(function(){
     $("#calculate").on('click',function(event){
       //console.log('clicked calculate '+ clicked);
       event.preventDefault(); 
-      var rtqForm = $("#rtq_forms option:selected").val();
+      var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
       // gather required data to calculate
       var province = $('#risk_address_province').val();
       var yearsBuilt = $('#buildingConstruction_yearBuilt').val();
@@ -1044,7 +1163,7 @@ $(document).ready(function(){
       // json encode of reasons
       referNotMatchReason = JSON.stringify(referNotMatchReason);
 
-      var rtqForm = $("#rtq_forms option:selected").val();
+      var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
       $(".loader").show(); 
       finishClicked = true;
@@ -1124,12 +1243,31 @@ $(document).ready(function(){
      function to display all form data for review
   **/
   function reviewForm(){
+    // append processing text to review form  
+    $("#reviewFormPT").text("Review form taking time to load ..."); 
+
     // get all form data step by step
-    reviewDataByStep('tab-1');
+    $.each($(".step-anchor li"),function(k,v){
+      if($(this).hasClass('done')){
+        if($(this).find('a').attr("href") == "#legal"){
+          // do nothing
+        }else{
+          var tabId = $(this).find('a').attr("href");
+          tabId = tabId.replace("#", "");
+          reviewDataByStep(tabId);
+          console.log("Data loaded of tab : "+tabId);
+        }
+      }
+    });
+
+
+   /* reviewDataByStep('tab-1');
     reviewDataByStep('tab-2');
     reviewDataByStep('tab-3');
     reviewDataByStep('tab-4');
-    reviewDataByStep('tab-5');
+    reviewDataByStep('tab-5');*/
+
+    $("#reviewFormPT").text("");
   }
 
   // function to display review data by step
@@ -1152,7 +1290,7 @@ $(document).ready(function(){
         // add label 
         if($(this).prev().is("input[type=checkbox]")){
           //do nothing
-          console.log('checkbox');
+          //console.log('checkbox');
         }else{
           html += "<td style='width:60%;'>"+$(this).text()+"</td>";  
           
@@ -1208,59 +1346,31 @@ $(document).ready(function(){
     $(".finalSection").show();
   });
 
-  var bindClick = false;
   // when click on both confirm button
-  $("#finishUpper,#finishLower").on('click',function(event){
+  $("#submitOnlyUp,#submitOnlyLow").on('click',function(event){
     event.preventDefault();
-    var binding;
-    // get binding value if binding box is not hidden
     if($(".bindingBox").css('display') != 'none'){
-      // here we are taking just lower binding field value [ note : its always changed if upper one change and vice versa ]
-      //binding = $("#bindingLower").val();
-      //if(!bindClick){
-        // add invalid class to binding field if its empty & return false 
-        //$(".binding").addClass('invalid');
-       /* swal({
-          title: "Are you sure not want to bind?",
-          text: "",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then(function(noBind) {
-          if (noBind) {
-            return false;//swal("Your imaginary file is safe!");
-          } else {
-            // nothing
-          }
-        });*/
-      //  return false;
-     // }else{
-        //$(".binding").removeClass('invalid');
-        //scroll window to top
-        window.scrollTo(0, 0);
-
-        $(".confirmSection").show();
-        // hide previous button on confirmation page 
-        $(".sw-btn-prev").hide();
-        // set min-height auto to smartwizard container ; NOTE: sometime it shows length of review form on confirmation page which looks space in bottom
-        $(".sw-container").css('min-height','auto');
-
-        $(".finalSection").hide();
-      //}
+      $("#bindStatus").val('Quoted');
+      $("#bindMsg").text("This application has not been Bound.");
     }else{
-      //scroll window to top
-        window.scrollTo(0, 0);
-        
-        $(".confirmSection").show();
-        // hide previous button on confirmation page 
-        $(".sw-btn-prev").hide();
-        // set min-height auto to smartwizard container ; NOTE: sometime it shows length of review form on confirmation page which looks space in bottom
-        $(".sw-container").css('min-height','auto');
-        $(".finalSection").hide();
+      $("#bindStatus").val('');
+      $("#bindMsg").text('');
     }
-    
+    displayConfirm();
   });
+
+  /** Function to show confirm page **/
+  function displayConfirm(){
+    //scroll window to top
+    window.scrollTo(0, 0);
+        
+    $(".confirmSection").show();
+    // hide previous button on confirmation page 
+    $(".sw-btn-prev").hide();
+    // set min-height auto to smartwizard container ; NOTE: sometime it shows length of review form on confirmation page which looks space in bottom
+    $(".sw-container").css('min-height','auto');
+    $(".finalSection").hide();
+  }
 
  // when reset form button
   $("#resetForm").on('click',function(){
@@ -1311,7 +1421,7 @@ $(document).ready(function(){
       // json encode of reasons
       referNotMatchReason = JSON.stringify(referNotMatchReason);
 
-      var rtqForm = $("#rtq_forms option:selected").val();
+      var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
       if(abandonStatus == "windowClose"){
         $(".loader").show(); 

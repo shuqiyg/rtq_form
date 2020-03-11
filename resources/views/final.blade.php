@@ -7,7 +7,7 @@
 		<div class="col-md-12">
 			<div class="form-group" id="calculateBox" style="display: none;">
 				<h3>Result</h3>
-				<p>Calculate price based on the information you filled up :</p>
+				<p>Calculate Quote  based on information entered :</p>
 				<button class="btn btn-primary" id="calculate">Calculate</button>
 				<div id="priceBox">
 
@@ -20,63 +20,53 @@
 	</div>	
 
 	<!-- Binding Option Upper -->
-	<div class='row bindingBox' style="display: none;"> 
+	<div class='row ' > 
 		<div class='col-md-12'> 
 			<div class="form-group">
-				<button class="btn btn-warning" style="width: 100%;" id="bindingUpper">Click to Bind</button>
-				<!--<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
-				<select name='binding' id="bindingUpper" class='binding form-control col-md-8'>
-					<option value=''>-Select Value-</option>
-					<option value='Yes'>Yes</option> 
-					<option value='No'>No</option> 
-				</select> -->
-				<p id="bindMsg"></p>
+				<button class="btn btn-success" id="submitOnlyUp" style="margin-left: 5px;float: right;" >Submit Only</button>
+				<button class="btn btn-warning bindingBox" style="display: none;float: right;" id="bindingUpper">Bind & Submit</button>
+				
 			</div> 
 		</div>
 	</div>
 	<!-- End Binding Option Upper -->
-	<!-- Finish Button Upper -->
+	<!-- Finish Button Upper 
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-12">
 			<div class="form-group">
-				<button class="btn btn-success" id="finishUpper" >Confirm</button>
+				
 			</div>
 		</div>
-	</div>	
+	</div>	-->
 	<!-- END Finish Button Upper -->
 
 	<!-- Review Form -->
 	<h3>Review Form: </h3>
+	<p id="reviewFormPT"></p>
 	<div id="reviewForm">
 
 	</div>
 	<!-- End Review Form -->
 
 	<!-- Binding Option Lower -->
-	<div class='row bindingBox' style="display: none;"> 
+	<div class='row ' > 
 		<div class='col-md-12'> 
 			<div class="form-group">
-				<button class="btn btn-warning" style="width: 100%;" id="bindingLower">Click to Bind</button>
-				<!--<label class='col-md-4' style='float:left;'> Are you sure want to bind it ? </label> 
-				<select name='binding' id="bindingLower" class='binding form-control col-md-8'>
-					<option value=''>-Select Value-</option>
-					<option value='Yes'>Yes</option> 
-					<option value='No'>No</option> 
-				</select> -->
-				<p id="bindMsgL"></p>
+				<button class="btn btn-success" id="submitOnlyLow" style="margin-left: 5px;float: right;">Submit Only</button>
+				<button class="btn btn-warning bindingBox" style="display: none;float: right;" id="bindingLower">Bind & Submit</button>
 			</div> 
 		</div>
 	</div>
 	<!-- End Binding Option Lower -->
 
-	<!-- Finish Button Lower -->
+	<!-- Finish Button Lower 
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-12">
 			<div class="form-group">
-				<button class="btn btn-success" id="finishLower" >Confirm</button>
+				
 			</div>
 		</div>
-	</div>	
+	</div>	-->
 	<!-- END Finish Button Lower -->
 	
 </section>
@@ -116,6 +106,9 @@
 				</ul>
 				<p>AMFUM reserves the right to cancel binding or the policy on in-depth review.</p>
 			</div>
+		</div>
+		<div>
+			<p id="bindMsg" style="color: green;text-decoration: underline;font-weight: bold;"></p>
 		</div>
 		<div class="row" style="margin-top: 20px">
 			<div class="col-md-12">

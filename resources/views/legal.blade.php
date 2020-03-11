@@ -1,5 +1,42 @@
 <section class="legalTerms">
 	<h3 class="legalHeader"> Purpose of this Form </h3>
+	@if($formVal == "homeInspector")
+	<p>This is an application for insurance and the insurer is not obligated to accept the applicant for coverage. If a policy is issued, one signed copy of the application will be attached to the policy or certificate. Signature on the application form and submission of a premium payment does not bind the insurer to complete an insurance transaction with the applicant. Coverage is bound upon receipt from A.M. Fredericks Underwriting Management Ltd. Confirming Policy #, coverage and Effective Date. If a policy is issued, it provides Errors and Omissions insurance that applies on a claims-made basis. The following provides a general description of this coverage and is subject to the terms and provisions of the actual policy. </p>
+	<ul>
+		<li>The policy will not cover any losses from incidents which take place before the Retroactive Date, if any, or after the expiration of the policy period (subject to the Extended Reporting Period provision).</li>
+		<li>The policy will provide coverage for losses from incidents which take place on or after the Retroactive Date, if any, but before the beginning of the policy period only if the insured did not know of the incident before the beginning of the policy period.</li>
+		<li>The policy will not cover any loss for which a claim is first made after: 
+			<ul>
+				<li>The expiration of the policy period or its earlier termination date, if any; or</li>
+				<li>The Extended Reporting Period if any and then only in accordance with the terms described in the policy.</li>		
+			</ul>
+		</li>
+		<li>The policy will only cover claims which are first made:
+			<ul>
+				<li>During the policy period; or</li>
+				<li>During an Extended Reporting Period if any and then only in accordance with the terms and conditions described in the Extended Reporting Period Section of the policy.</li>		
+			</ul>
+		</li>
+		<li>Please request a copy of the Policy and review the terms and conditions to obtain more information.</li>
+		<li>The limits for Defense Cost may vary by insurer. Refer to your policy for complete details of coverage.</li>
+	</ul>
+	<p>Please answer ALL the questions. This information is required to make an underwriting and pricing evaluation. Your answers hereunder are considered legally material to such evaluation. If a question is not applicable, state "not applicable", not "N/A."  The application and any supplement(s) must be signed and dated by a principal, partner, or officer of the prospective insured's organization. </p>
+	<div>
+		<p id="agreeDisagreeError" style="color: red"> </p>
+		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="agree">
+		<label>Agree</label> &nbsp;&nbsp;
+		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="disagree">
+		<label>Disagree</label>
+	</div>
+	<div>
+		<p>Attach: 1 The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures</p>
+		<input name="qualificationUpload" id="qualificationUpload" type="file">
+	</div>
+	<div style="margin-top: 10px">
+		<p>Attach: 2 A copy of the outline from the firm’s Quality Assurance / Quality Control (QA/QC) manual</p>
+		<input name="qaqcUpload" id="qaqcUpload" type="file">
+	</div>
+	@else
 	<p>This application can provide an actual quote that can be bound by the Broker’s Representative. Certain conditions must be met: </p>
 	<ul>
 		<li> The broker must be approved by AM Fredericks Underwriting Management Ltd (AMFUM). This means that:
@@ -50,5 +87,5 @@
 			<input type="checkbox" class="form-control col-md-1" id="cb3" style="float: left;"><span class="col-md-11">I acknowledge that I have read and understood the information contained on this page</span> 
 		</div>
 	</div>
-	
+	@endif
 </section>

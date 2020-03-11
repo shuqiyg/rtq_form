@@ -33,6 +33,12 @@
             <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>-->  
 
         <style type="text/css">
+            .frontAutText{
+                margin-bottom: 10px;
+                background-color: rgb(246, 248, 249);
+                padding: 10px;
+                border: 1px solid silver;
+            }
             .frontText{
                 /*font-size: 12px;
                 line-height: 80%;*/
@@ -63,7 +69,7 @@
         }
         ?>
         <div style="text-align: center;width: 100%;">
-            <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="80" alt="AM Fredericks">
+            <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
         </div>
         <h1 style="text-align: center;"> Automated Submissions  </h1>
         <!-- Show selection of form here -->
@@ -73,15 +79,17 @@
                     <option value="">-Select form-</option>
                     <option value="rentedDwelling">Rented Dwelling</option>
                     <option value="ownerOccupied">Owner Occupied</option>
+                    <option value="homeInspector">Home Inspector</option>
                 </select>
             </div>
-            <p id="rtqSelectedForm" style="text-decoration: underline;float: left;"></p>
+            <p id="rtqSelectedForm" style="text-decoration: underline;float: left;margin-bottom: 5px;"></p>
             <span class="col-md-1" style="cursor:pointer;float: right;padding-right: 0px;display: none;" id="openFT"> <i class="fa fa-angle-down"></i> </span>
             
         </div>
+        <input type="hidden" id="selectedForm" value="">
         <!-- END -->
         <div class="loader" style="display: none;"> </div>
-        <div class="frontAutText" style="margin-bottom: 10px;">
+        <div class="frontAutText" style="margin-top: 10px;">
             <div style="text-align: center;width: 100%;" class="frontText">
                 <p>BETA</p>
                 <p>Welcome to our automated submission system</p>
@@ -126,6 +134,7 @@
                 // when form select
                 $("#rtq_forms").on('change',function(){
                     var formVal  = $("#rtq_forms").val();
+
                     console.log(formVal);
                     if(formVal != '' && formVal != null){
                         // first check if showForm div has form then give alert before show form to avoid loosing data
@@ -142,6 +151,7 @@
                               if (willDelete) {
                                 //  unbind before unload event [ its assigned in custom.js so it shows alert when user try to leave page],
                                 $(window).unbind('beforeunload');
+                                $(window).unbind('unload');
                                 /**
                                 NOTE: First we used dynamic js in main.php which load js each time form loaded without refresh page so if we change form, it load it second time and if we close page then it sends email for unload event whatever time js loaded so here we set selected form in cookie and load page so it will have only one js at time
                                 **/
@@ -177,8 +187,12 @@
                                 $("#rtq_forms").val(Cookies.get('loadedForm'));
                             }
                             $("#rtqSelectedForm").text($("#rtq_forms option:selected").text()+' form has been selected :');
+                            //set form value to hidden field
+                            $("#selectedForm").val(formVal);
+                            
                             $('#showForm').html(data);
                             $(".frontAutText").toggle();
+                            $(".frontAutText").css("margin-top","0px");
                             $("#openFT").show();
                             // dynamically load js
                             loadJS();
@@ -206,6 +220,7 @@
                 // toggle to up and down submission create area
                 $("#openFT").click(function(){
                     $(".frontAutText").toggle();
+                    $(".frontAutText").css("margin-top","0px");
                     var $el = $(this);
                     //textNode = this.lastChild;
                     $el.find('i').toggleClass('fa-angle-up fa-angle-down');

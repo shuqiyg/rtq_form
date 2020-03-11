@@ -39,3 +39,11 @@ Route::get('/main', function () {
 Route::get('/sessionClose', function () {
     return view('sessionClose');
 });
+
+/** 
+	If broker code list is in excel then makes it in JSON using following url
+**/
+Route::get('/blExcelToJson','bletjController@excelToJson');
+
+Route::post('/brokerValidation','rtqController@brokerValidation');
+
