@@ -1,3 +1,12 @@
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
 <section class="legalTerms">
 	<h3 class="legalHeader"> Purpose of this Form </h3>
 	@if($formVal == "homeInspector")
@@ -23,17 +32,17 @@
 	<p>Please answer ALL the questions. This information is required to make an underwriting and pricing evaluation. Your answers hereunder are considered legally material to such evaluation. If a question is not applicable, state "not applicable", not "N/A."  The application and any supplement(s) must be signed and dated by a principal, partner, or officer of the prospective insured's organization. </p>
 	<div>
 		<p id="agreeDisagreeError" style="color: red"> </p>
-		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="agree">
+		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="agree" class="infoToggle">
 		<label>Agree</label> &nbsp;&nbsp;
-		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="disagree">
+		<input type="radio" name="hiAgreeDisAgree" id="hiAgreeDisAgree" value="disagree"  class="infoToggle">
 		<label>Disagree</label>
 	</div>
 	<div>
-		<p>Attach: 1 The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures</p>
+		<p><span style="color: #d67f04;"><b>Attach: 1 </b></span> The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures</p>
 		<input name="qualificationUpload" id="qualificationUpload" type="file">
 	</div>
 	<div style="margin-top: 10px">
-		<p>Attach: 2 A copy of the outline from the firm’s Quality Assurance / Quality Control (QA/QC) manual</p>
+		<p><span style="color: #d67f04;"><b>Attach: 2 </b></span> A copy of the outline from the firm’s Quality Assurance / Quality Control (QA/QC) manual</p>
 		<input name="qaqcUpload" id="qaqcUpload" type="file">
 	</div>
 	@else

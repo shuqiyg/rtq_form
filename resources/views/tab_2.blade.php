@@ -1,3 +1,12 @@
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
 <section class="insuredTab">
     <h3>Insured</h3>
     <div class="row">
@@ -6,7 +15,7 @@
                 <label class="col-md-4" style="float: left;"> Insured Name / Legal Entity Name <span class="err">*</span> </label>
                 <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8 required"  value="">
             </div>
-            @if($formVal == "ownerOccupied")
+            @if($formVal == "ownerOccupied" || $formVal == "homeInspector")
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox"> Is this a Corporation? </span><span class="err">*</span> </label>
                 <select id="insured_isCorporation" name="insured_isCorporation" class="form-control col-md-8 required">
@@ -41,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Due Date </label>
-                <input type="date" id="due_date" name="due_date" class="form-control col-md-8"  value="">
+                <input type="text" id="due_date" name="due_date" class="form-control col-md-8 datepicker"  value="" placeholder="mm/dd/yyyy">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Policy Language  </label>

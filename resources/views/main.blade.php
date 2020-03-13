@@ -79,7 +79,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <p><a id="closeWindow">Close Window</a></p>
+                    <div style="width: 100%;">
+                        <a id="backToForm" style="float: left;">Back to Form</a>
+                        <a id="closeWindow" style="float: right;">Close Window</a>
+                    </div>
                 </div>
             </div>
         </div>

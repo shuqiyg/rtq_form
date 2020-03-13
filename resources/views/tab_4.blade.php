@@ -1,3 +1,12 @@
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
 
 <section class="occupancyTab">
     <h3>Occupancy</h3>
@@ -272,12 +281,12 @@
                         <label class="col-md-3" style="float: left;"> Heating - Secondary Type <span class="err">*</span> </label>
                         <select id="buildingConstruction_heatingSecondaryType" name="buildingConstruction_heatingSecondaryType" class="form-control col-md-8 required">
                             <option value="">-Select heating secondary type-</option>
+                            <option value="None">None</option>
+                            <option value="Propane">Propane</option>
                             <option value="Electricity">Electricity</option>
                             <option value="Gas">Gas</option>
                             <option value="Oil">Oil</option>
-                            <option value="Propane">Propane</option>
                             <option value="Wood-Solid">Wood/Solid</option>
-                            <option value="None">None</option>
                         </select>
                     </div>
                 </div>
@@ -327,9 +336,9 @@
                 <label class="col-md-3" style="float: left;"> Sprinklers </label>
                 <select id="fireAlarmDetectors_sprinklers" name="fireAlarmDetectors_sprinklers" class="form-control col-md-8">
                     <option value="">-Select sprinklers-</option>
+                    <option value="None">None</option>
                     <option value="Monitored">Monitored</option>
                     <option value="Local">Local</option>
-                    <option value="None">None</option>
                 </select>
             </div>
             <div class="form-group" id="sprinklersCoverageBox">
@@ -340,9 +349,9 @@
                 <label class="col-md-3" style="float: left;"> Hydrant(s) <span class="err">*</span></label>
                 <select id="fireAlarmDetectors_hydrant" name="fireAlarmDetectors_hydrant" class="form-control col-md-8 required">
                     <option value="">-Select hydrant-</option>
-                    <option value="Within 75m">Within 75m</option>
-                    <option value="Within 150m">Within 150m</option>
-                    <option value="Over 150m">Over 150m</option>
+                    <option value="Within 75m">Within 75m (246 feet)</option>
+                    <option value="Within 150m">Within 150m (492 feet)</option>
+                    <option value="Over 150m">Over 150m (493 feet or more)</option>
                 </select>
             </div>
             <div class="row">

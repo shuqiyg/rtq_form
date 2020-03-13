@@ -1,9 +1,19 @@
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
+
 <section class="risk_address">
     <div class="row">
-        <div class="form-group col-md-12">
-            <h3 class="col-md-4" style="float: left;">Risk Address</h3>
+        <div class="form-group col-md-12" style="padding-left: 0px;">
+            <h3 class="col-md-5" style="float: left;padding-left: 0px;">Risk Address</h3>
             <input type="checkbox" class="form-control col-md-1" name="sameAsMailingAddress" id="sameAsMailingAddress" style="float: left;"> 
-            <label class="col-md-7" style="padding-top: 5px;"> Same as mailing address </label>
+            <label class="col-md-6" style="padding-top: 5px;"> Same as mailing address </label>
         </div>
     </div>
     <div class="row">
@@ -63,6 +73,7 @@
                 <label class="col-md-4" style="float: left;"> Existing Insurer <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_existingInsurer" name="risk_address_existingInsurer">
                     <option value="">-Select Existing Insurer-</option>
+                    <option value="None">None</option>
                     <option value="AMF">A.M.Fredericks</option>
                     <option value="Other">Other</option>
                 </select>
@@ -75,7 +86,7 @@
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Expiry Date</span></label>
-                <input type="date" id="risk_address_existingInsurerExpiryDate" name="risk_address_existingInsurerExpiryDate" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurerExpiryDate" name="risk_address_existingInsurerExpiryDate" class="form-control col-md-8 datepicker"  value="" placeholder="mm/dd/yyyy">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Policy # </span></label>

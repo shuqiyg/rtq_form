@@ -5,7 +5,7 @@ body{
 	padding-bottom: 20px;
 }
 section{
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 }
 .err2{
 	color: red;
@@ -91,3 +91,33 @@ section{
 .sw-btn-prev{
 	display: none;
 }
+
+.dirArrow{
+	padding: 0 10px;
+	font-size: 30px;
+	cursor: pointer;
+}
+.dirArrow:hover{
+	background-color: silver;
+}
+.zeroPadding{
+	padding: 0 !important;
+	width: 200px;
+	float: right;
+}
+
+#backToForm,#closeWindow{
+	cursor: pointer;
+	background:#ebdfbe;
+	padding: 10px;
+	border: 1px solid;
+}
+#backToForm:hover,#closeWindow:hover{
+	background:#f7bd1e;
+}
+.modal-footer{
+	bottom: 0px !important;
+}
+
+
+

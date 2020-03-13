@@ -112,11 +112,25 @@ class rtqController extends Controller
                 $inspectionFee = 0;
             }
 
+            $buildingLimitCalc = (($buildingLimit*$provRate)/100);
+            $contentsLimitCalc = (($contentsLimit*$provRate)/100);
+            $rentalIncomeLimitCalc = (($rentalIncomeLimit*$rentalIncomeLimitRate)/100);
+            $garageLimitCalc = (($garageLimit*$provRate)/100);
+            $shedLimitCalc = (($shedLimit*$provRate)/100);
+
             // floor used to get down integer, use ceil for get up to integer
-            $propertyTotal = floor(($buildingLimit*$provRate)/100) + floor(($contentsLimit*$provRate)/100) + floor(($rentalIncomeLimit*$rentalIncomeLimitRate)/100) + floor(($garageLimit*$provRate)/100) + floor(($shedLimit*$provRate)/100) ;
+            //$propertyTotal = floor(($buildingLimit*$provRate)/100) + floor(($contentsLimit*$provRate)/100) + floor(($rentalIncomeLimit*$rentalIncomeLimitRate)/100) + floor(($garageLimit*$provRate)/100) + floor(($shedLimit*$provRate)/100) ;
+            $propertyTotal =  round($buildingLimitCalc + $contentsLimitCalc + $rentalIncomeLimitCalc + $garageLimitCalc + $shedLimitCalc);
 
             $fee = $amf_rates[$age_rate][0][$province]['policy_fee'];
             
+            /*$priceArray['buildingLimitCalc'] = $buildingLimitCalc;
+            $priceArray['contentsLimitCalc'] = $contentsLimitCalc;
+            $priceArray['rentalIncomeLimitCalc'] = $rentalIncomeLimitCalc;
+            $priceArray['garageLimitCalc'] = $garageLimitCalc;
+            $priceArray['shedLimitCalc'] = $shedLimitCalc;*/
+
+
             $priceArray['towngrade'] = $tg;
             $priceArray['amfRate'] = $provRate;
             $priceArray['rentalIncomeLimitRate'] = $rentalIncomeLimitRate;
@@ -161,7 +175,7 @@ class rtqController extends Controller
         $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
         $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm);
+        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
         $fd = json_decode($fdFormattedJson , true );
         
         
@@ -229,7 +243,7 @@ class rtqController extends Controller
     /**
     Format form data to proper json way so we can get extract data easily from json using key as fieldID 
     **/
-    function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm){
+    function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,$requiredError){
         // check data size to add comma at end of each json value except last one
         $i = 1;
         // start json
@@ -353,7 +367,11 @@ class rtqController extends Controller
             
             // here $t start with 0 and we have array started with 1 so we add $t+1 to add comma at end of each mortgagee except last one
             
-            
+        }
+        
+        // add required error if not null and available
+        if($requiredError != '' && $requiredError != null && !empty($requiredError)){
+        	$json .= ',"requiredError": { "value": "'.$requiredError.'"}';
         }
 
         // end json
@@ -525,7 +543,9 @@ class rtqController extends Controller
                     array_push($referMatchArray, 'Please select existing insurer field.');
                 }
             }else{
-                array_push($referMatchArray, 'Plese select existing insurer field.');
+                if($risk_address_existingInsurer == ""){
+                    array_push($referMatchArray, 'Please select existing insurer field.');
+                }
             }
             
             if($risk_address_hasInsuredCancelInsurance == ""){
@@ -631,7 +651,7 @@ class rtqController extends Controller
     public function checkReferRules(Request $req){
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','',$rtqForm);
+        $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','',$rtqForm,'');
         $fd = json_decode($fdFormattedJson , true );
         // check refer rule is valid or not
         $referValid = $this->validation($fd,$rtqForm);
@@ -659,7 +679,8 @@ class rtqController extends Controller
         $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
         $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm);
+        $requiredError = trim($req['requiredError']);
+        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,$requiredError);
         $fd = json_decode($fdFormattedJson , true );
         $abandonStatus = $req['abandonStatus'];
         

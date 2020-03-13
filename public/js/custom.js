@@ -7,7 +7,18 @@ $(document).ready(function(){
 
   var brokerCodeValidation = false;
     
-  
+  $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+
+
+  //activate bootstrap tooltip
+  $('[data-toggle="tooltip"]').tooltip({
+    html:true,
+    placement : 'top'
+  });
+
   /** BEFOREUNLOAD METHOD **/
   $(window).bind('beforeunload', function () {
     /*console.log(activeStay);
@@ -55,6 +66,43 @@ $(document).ready(function(){
   });
   /** END OF CLOSE WINDOW BUTTON CLICK **/
 
+  /** Back to Form click on model **/
+  $("#backToForm").on('click',function(){
+    $("#ouibounce-modal").modal('hide');
+  });
+  /*********************************/
+
+
+  /** AUTOCOMPLETE OFF **/
+
+  $.each($('input'), function( key, value ) {
+    $(this).attr('autocomplete','off');
+  });
+
+  /**********************/
+
+  /** At time of loading **/
+  $('.infoToggle').change(function() { 
+    infoToggle($(this).val());
+  });
+  
+  function infoToggle(info) {
+  console.log(info);
+  switch (info) {
+    case 'agree':
+      //$('.sw-btn-next').removeAttr('disabled');
+      $('.sw-btn-next').show();
+      $("#agreeDisagreeError").hide();
+      break;
+    case 'disagree':
+      //$('.sw-btn-next').attr('disabled','true');
+      $('.sw-btn-next').hide(); // need to hide next button because of top next button is not getting disabled so just hide it.
+      $("#agreeDisagreeError").hide();
+      break;
+  }
+}
+  /************************/
+
 
   /** SMARTWIZARD ACTIVATION **/
     $('#smartwizard').smartWizard({
@@ -69,17 +117,25 @@ $(document).ready(function(){
       autoAdjustHeight:true,
       // Enable/Disable keyboard navigation(left and right keys are used if enabled)
       keyNavigation:false, 
-            
+      toolbarSettings: {
+        toolbarPosition: 'bottom', // none, top, bottom, both
+      }            
     });
   /** END OF SMARTWIZARD ACTIVATION **/
 
   //writing validation on next step
   $('#smartwizard').on('leaveStep', function(e, anchorObject, stepNumber) {
     var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
+
     // if legal step 
     if(stepNumber == 0){
       if(rtqForm == "homeInspector"){
-        if($("input[name=hiAgreeDisAgree]:checked").val() == "agree"){
+        if($("input[name=hiAgreeDisAgree]:checked").val() == "agree" || $("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
+          if($("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
+            $(".sw-btn-next").attr('disabled','true');
+          }else{
+            $(".sw-btn-next").removeAttr('disabled');
+          }
           $("#agreeDisagreeError").hide();
         }else{
           $("#agreeDisagreeError").show();
@@ -427,8 +483,8 @@ $(document).ready(function(){
       var brokerDomain = producer_email.split('@')[1];
       
       //console.log(brokerDomain);
-      // if broker code is not empty
-      if((brokerCode == '' || brokerCode == null || brokerCode == 0) && (brokerDomain == '' || brokerDomain == null ) ){
+      // if broker code & email address either anyone or both empty
+      if( ((brokerCode == '' || brokerCode == null || brokerCode == 0) && (brokerDomain == '' || brokerDomain == null )) || (brokerCode == '' || brokerDomain == '') ){
         //console.log("Empty Broker Code");
         // hide error msg if added broker code and then removed
         $("#bcMsg").hide();
@@ -874,7 +930,8 @@ $(document).ready(function(){
           
           // empty review form everytime comes to final step to show new latest values
           $("#reviewForm").empty();
-
+          // append processing text to review form  
+          $("#reviewFormPT").text("Review form taking time to load ..."); 
           // if there is broker code available
           if(brokerCode != '' && brokerCode != null){
             // check refer rules matching or not
@@ -888,7 +945,8 @@ $(document).ready(function(){
               datatype: 'json',
               success: function(msg){
                 console.log(msg);
-
+                $("#reviewFormPT").text(""); 
+                
                 if(msg.valid == "Empty" && msg.matchArray != ''){
                   // display referValidationNotMatchBox
                   $("#referValidationNotMatchBox").show();
@@ -953,6 +1011,7 @@ $(document).ready(function(){
               }
             });  
           }else{
+            $("#reviewFormPT").text(""); 
             reviewForm();
             $('#calculateBox').hide();
             $("#doesCalculated").val('');
@@ -1243,8 +1302,7 @@ $(document).ready(function(){
      function to display all form data for review
   **/
   function reviewForm(){
-    // append processing text to review form  
-    $("#reviewFormPT").text("Review form taking time to load ..."); 
+   
 
     // get all form data step by step
     $.each($(".step-anchor li"),function(k,v){
@@ -1267,7 +1325,7 @@ $(document).ready(function(){
     reviewDataByStep('tab-4');
     reviewDataByStep('tab-5');*/
 
-    $("#reviewFormPT").text("");
+    
   }
 
   // function to display review data by step
@@ -1407,6 +1465,25 @@ $(document).ready(function(){
       var binding = $("#bindStatus").val();
       var doesCalculated = $("#doesCalculated").val();
       var referNotMatchReason;
+      var requiredError = '';
+      // check if all required fields are filled up or not
+      $.each($('.required'), function( key, value ) {
+        if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none' || $(this).parent('div').css('display') == 'none'){
+          // do nothing
+        }else{
+          // check if all required fields are correct and there is no error
+          var total_error = $(this).prev('label').find('.err2').length;
+          console.log(total_error);
+          if (total_error > 0 ) { 
+            requiredError = true; 
+            return false; 
+          } else {
+            requiredError = false;
+          } 
+          
+        }
+      });
+      //console.log(requiredError); return false ;
       // get refer not matching reason if available
       if($("#referValidationNotMatchBox").css('display') != 'none'){
         referNotMatchReason = {};
@@ -1423,7 +1500,7 @@ $(document).ready(function(){
 
       var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
-      if(abandonStatus == "windowClose"){
+      if(abandonStatus == "windowClose" && abandonStatus == "reset"){
         $(".loader").show(); 
       }else{
         $(".loader").hide(); 
@@ -1434,13 +1511,14 @@ $(document).ready(function(){
         url:"resetForm",
         method:"post",
         async: true,
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,abandonStatus:abandonStatus,doesCalculated:doesCalculated, _token:$('meta[name="csrf-token"]').attr('content')},
+        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
         datatype: 'json',
         success: function(msg){
           console.log(msg);
           clicked = true;
             
           if(abandonStatus == "reset"){
+            $(".loader").hide();
             // to make reset, make clicked = true and send location to root
             window.location.href='/';
           }else if(abandonStatus == "windowClose"){

@@ -1,5 +1,13 @@
 <div class="loader" style="display: none;"> </div>
-	
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
 <section class="finalSection">
 	<input type="hidden" name="bindStatus" id="bindStatus">
 	<input type="hidden" name="doesCalculated" id="doesCalculated">
@@ -20,7 +28,7 @@
 	</div>	
 
 	<!-- Binding Option Upper -->
-	<div class='row ' > 
+	<div class='row ' style="width: 100%;margin-left: 0px;"> 
 		<div class='col-md-12'> 
 			<div class="form-group">
 				<button class="btn btn-success" id="submitOnlyUp" style="margin-left: 5px;float: right;" >Submit Only</button>

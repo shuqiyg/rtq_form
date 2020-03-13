@@ -1,3 +1,13 @@
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+ -->
+<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
+    <div class="btn-group mr-2 sw-btn-group" role="group">
+        <i class="fa fa-angle-left dirArrow sw-btn-prev" data-toggle="tooltip" title="Previous"></i>
+        <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
+    </div>
+</div>
+
+
 <section class="brokerInfo">
     <h3>Broker</h3>
     <div class="row">
@@ -111,7 +121,8 @@
             </div>
             
         </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-3" style="float: left;"> Is this risk a renewal to your office <span class="err">*</span></label>
@@ -131,5 +142,19 @@
             </div>
             
         </div>
-    </div>       
+    </div>   
+    @if($formVal == "homeInspector")
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-feedback">
+                <label class="col-md-3" style="float: left;"> Are you a licenced broker in the province where the risk is located? <span class="err">*</span></label>
+                <select id="brokerSurvey_licenced" name="brokerSurvey_licenced" class="form-control col-md-8 required">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    @endif    
 </section>
