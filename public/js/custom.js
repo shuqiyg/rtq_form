@@ -6,13 +6,15 @@ $(document).ready(function(){
   var closeWindowModal = false;
 
   var brokerCodeValidation = false;
-    
-  $( ".datepicker" ).datepicker({
+
+  // add variable to use selected rtqform value to use in entire custom js
+  var rtqFormGlobal = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
+        
+ $('.datepicker').datepicker({
       changeMonth: true,
       changeYear: true
-    });
-
-
+  });
+ 
   //activate bootstrap tooltip
   $('[data-toggle="tooltip"]').tooltip({
     html:true,
@@ -93,14 +95,61 @@ $(document).ready(function(){
       //$('.sw-btn-next').removeAttr('disabled');
       $('.sw-btn-next').show();
       $("#agreeDisagreeError").hide();
+      $('#insured_isRiskAddressSame').bootstrapToggle('on');
       break;
     case 'disagree':
       //$('.sw-btn-next').attr('disabled','true');
       $('.sw-btn-next').hide(); // need to hide next button because of top next button is not getting disabled so just hide it.
       $("#agreeDisagreeError").hide();
       break;
+    case 'Sole':
+      $(".insuredSoleBOX").show();
+      clearFields("insuredCorpBox");
+      clearFields("insuredSoleOrCorpBox");
+      $(".insuredSoleOrCorpBox").show(); // some common field for corp or sole insured
+      // hide corp box
+      $(".insuredCorpBox").hide();
+      break;
+    case 'Corporation':
+      $(".insuredSoleBOX").hide();
+      clearFields("insuredSoleBOX");
+      clearFields("insuredSoleOrCorpBox");
+      // show corp box
+      $(".insuredCorpBox").show();
+      $(".insuredSoleOrCorpBox").show(); // some common field for corp or sole insured
+      break;
+    case 'noValInsuredSoleOrCorp':
+      clearFields("insuredSoleBOX");
+      clearFields("insuredCorpBox");
+      clearFields("insuredSoleOrCorpBox");
+      // hide sole and corp box
+      $(".insuredSoleBOX").hide();
+      $(".insuredSoleOrCorpBox").hide(); // some common field for corp or sole insured
+      $(".insuredCorpBox").hide();
+      break;
   }
 }
+
+function clearFields(fieldID){
+  $.each($("."+fieldID).find('input'),function(k,v){
+    $(this).val('');
+  });
+  $.each($("."+fieldID).find('select'),function(k,v){
+    $(this).val('');
+  });
+}
+
+$('#insured_isRiskAddressSame').change(function() {
+  // so if its YES
+  if(! $(this).prop('checked')){
+    $(".riskAddressBOX").show();
+  }else{
+    $(".riskAddressBOX").hide();
+  }
+  clearFields("riskAddressBOX");
+
+});
+
   /************************/
 
 
@@ -891,12 +940,140 @@ $(document).ready(function(){
       checkSameAsMailingAddress();
     });
     
+
+    // display existing insurance fields for Home Inspector
+    $("#existingInsurance_currentlyInsured").on('change',function(){
+      var existingInsurance_currentlyInsured = $("#existingInsurance_currentlyInsured").val();
+      if(existingInsurance_currentlyInsured == 'Yes'){
+        $(".eiBOX").show();
+      }else{
+        $(".eiBOX").hide();
+        clearFields("eiBOX");
+        $("#existingInsurance_termsAndConditions").val('');
+      }
+    });
+
+    // display claimHistory_anyClaimsReportedOnUrBehalf for Home Inspector
+    $("#claimHistory_anyClaimsReportedOnUrBehalf").on('change',function(){
+      var claimHistory_anyClaimsReportedOnUrBehalf = $("#claimHistory_anyClaimsReportedOnUrBehalf").val();
+      if(claimHistory_anyClaimsReportedOnUrBehalf == 'Yes'){
+        $(".anyClaimReportedBox").show();
+      }else{
+        $(".anyClaimReportedBox").hide();
+        $("#claimHistory_anyClaimsReportedFullDetails").val('');
+        $("#claimHistory_anyClaimsToPreventSteps").val('');
+      }
+    });
+
+    // display claimHistory_anyPolicyReportedOnUrBehalf fields for Home Inspector
+    $("#claimHistory_anyPolicyReportedOnUrBehalf").on('change',function(){
+      var claimHistory_anyPolicyReportedOnUrBehalf = $("#claimHistory_anyPolicyReportedOnUrBehalf").val();
+      if(claimHistory_anyPolicyReportedOnUrBehalf == 'Yes'){
+        $(".anyPolicyReportedBox").show();
+      }else{
+        $(".anyPolicyReportedBox").hide();
+        $("#claimHistory_anyPolicyToPreventSteps").val('');
+      }
+    });
+
+    // display existing insurance fields for Home Inspector
+    $("#claimHistory_anyUnresolvedAct").on('change',function(){
+      var claimHistory_anyUnresolvedAct = $("#claimHistory_anyUnresolvedAct").val();
+      if(claimHistory_anyUnresolvedAct == 'Yes'){
+        $(".anyUnresolvedActBox").show();
+      }else{
+        $(".anyUnresolvedActBox").hide();
+        $("#claimHistory_anyUnresolvedActFullDetails").val('');
+      }
+    });
+
+    // display ops_carryEmployerLiablityInsurance field on OPS Tab for Home Inspector
+    $("#ops_carryEmployerLiablityInsurance").on('change',function(){
+      var ops_carryEmployerLiablityInsurance = $("#ops_carryEmployerLiablityInsurance").val();
+      if(ops_carryEmployerLiablityInsurance == 'Yes'){
+        $(".carryEmployerLiablityInsuranceBOX").show();
+      }else{
+        $(".carryEmployerLiablityInsuranceBOX").hide();
+        $("#ops_carryELInumberOccupationOfEmployees").val('');
+      }
+    });
+
+    // display ops_coveredByWorkerCompensation field on OPS Tab for Home Inspector
+    $("#ops_coveredByWorkerCompensation").on('change',function(){
+      var ops_coveredByWorkerCompensation = $("#ops_coveredByWorkerCompensation").val();
+      if(ops_coveredByWorkerCompensation == 'No'){
+        $(".coveredByWorkerCompensationBOX").show();
+      }else{
+        $(".coveredByWorkerCompensationBOX").hide();
+        $("#ops_coveredByWCnumberAndTypeOfEmployees").val('');
+      }
+    });
+
+    // display ops_haveContractForServices field on OPS Tab for Home Inspector
+    $("#ops_haveContractForServices").on('change',function(){
+      var ops_haveContractForServices = $("#ops_haveContractForServices").val();
+      if(ops_haveContractForServices == 'Yes'){
+        $(".haveContractForServicesBOX").show();
+      }else{
+        $(".haveContractForServicesBOX").hide();
+        $("#contractForServiceHI").val('');
+      }
+    });
+
+    // display ops_haveSubContractors field on OPS Tab for Home Inspector
+    $("#ops_haveSubContractors").on('change',function(){
+      var ops_haveSubContractors = $("#ops_haveSubContractors").val();
+      if(ops_haveSubContractors == 'Yes'){
+        $(".haveSubContractorsBOX").show();
+      }else{
+        $(".haveSubContractorsBOX").hide();
+        $("#ops_haveSubContractors_costOfSublet").val('');
+        $("#ops_haveSubContractors_typeOfSublet").val('');
+        $("#ops_haveSubContractors_harmlessAgreement").val('');
+        $("#ops_haveSubContractors_askToCarryMinLiaInsurance").val('');
+      }
+    });
+
+    // display ops_haveSubContractors_askToCarryMinLiaInsurance field on OPS Tab for Home Inspector
+    $("#ops_haveSubContractors_askToCarryMinLiaInsurance").on('change',function(){
+      var ops_haveSubContractors_askToCarryMinLiaInsurance = $("#ops_haveSubContractors_askToCarryMinLiaInsurance").val();
+      if(ops_haveSubContractors_askToCarryMinLiaInsurance == 'Yes'){
+        $(".minLiaInsuranceBOX").show();
+      }else{
+        $(".minLiaInsuranceBOX").hide();
+        $("#ops_haveSubContractors_limitsMinCarryLiaIns").val('');
+        $("#ops_haveSubContractors_perBillingsMinLiaIns").val('');
+        $("#ops_haveSubContractors_additionalInsured").val('');
+      }
+    });
+
+    // display ops_anyBranchOrSubsidiary field on OPS Tab for Home Inspector
+    $("#ops_anyBranchOrSubsidiary").on('change',function(){
+      var ops_anyBranchOrSubsidiary = $("#ops_anyBranchOrSubsidiary").val();
+      if(ops_anyBranchOrSubsidiary == 'Yes'){
+        $(".anyBranchOrSubsidiaryBOX").show();
+      }else{
+        $(".anyBranchOrSubsidiaryBOX").hide();
+        $("#ops_anyBranchOrSubsidiary_nameAndDesc").val('');
+      }
+    });
+    
+    // display ops_radioactiveSamplingTesting field on OPS Tab for Home Inspector
+    $("#ops_radioactiveSamplingTesting").on('change',function(){
+      var ops_radioactiveSamplingTesting = $("#ops_radioactiveSamplingTesting").val();
+      if(ops_radioactiveSamplingTesting == 'Yes'){
+        $(".radioactiveSamplingTestingBOX").show();
+      }else{
+        $(".radioactiveSamplingTestingBOX").hide();
+        $("#ops_radioactiveSamplingTesting_thirdPartyInsurance").val('');
+      }
+    });
+
     // check step number and if user click on final step then check broker code to display calculate button
     $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
       // add min height to auto for smartwizard container
       $(".sw-container").css('min-height','auto');
-
-        if(stepNumber == 6){
+        if((stepNumber == 6 && rtqFormGlobal != "homeInspector") || (stepNumber == 8 && rtqFormGlobal == "homeInspector")){
           console.log('final step');
 
           // disable next button when in final step
@@ -1091,41 +1268,79 @@ $(document).ready(function(){
       //console.log('clicked calculate '+ clicked);
       event.preventDefault(); 
       var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
-      // gather required data to calculate
-      var province = $('#risk_address_province').val();
-      var yearsBuilt = $('#buildingConstruction_yearBuilt').val();
-      var fireDeptDistance = $('#fireAlarmDetectors_fireDeptDistance').val();
-      var fireDeptType = $('#fireAlarmDetectors_fireDeptTye').val();
-      var hydrant = $('#fireAlarmDetectors_hydrant').val();
-      var buildingLimit = removeCommas($('#coverage_buildingLimit').val());
-      var contentsLimit = removeCommas($('#coverage_contentsLimit').val());
-      var rentalIncomeLimit = removeCommas($('#coverage_rentalIncomeLimit').val());
-      var garageLimit = removeCommas($('#coverage_garageLimit').val());
-      var shedLimit = removeCommas($('#coverage_shedLimit').val());
-      var liability = $('#coverage_liabilityLimit').val();
-      console.log(buildingLimit+'  '+contentsLimit+'  '+rentalIncomeLimit+'  '+garageLimit+'  '+shedLimit);
-      if(province != '' && yearsBuilt != '' && fireDeptDistance != '' && fireDeptType != '' && hydrant != '' && liability != '' )
-      {
-        $.ajax({
-          url:"calculate",
-          method:"post",
-          data: {province:province,yearsBuilt:yearsBuilt,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,buildingLimit:buildingLimit,contentsLimit:contentsLimit,rentalIncomeLimit:rentalIncomeLimit,garageLimit:garageLimit,shedLimit:shedLimit,liability:liability,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
-          datatype: 'json',
-          success: function(msg){
+
+      if(rtqForm == "homeInspector"){
+        var inspectionProv = $("#risk_address_provinceOfInspection").val();
+        var cgl_cglLimitsOfLiablitiy = $("#cgl_cglLimitsOfLiablitiy").val();
+        var cgl_eoLimitsOfLiablity = $("#cgl_eoLimitsOfLiablity").val();
+        var ops_totalGrossAnnualReceipts = $("#ops_totalGrossAnnualReceipts").val();
+        var cgl_deductible = $("#cgl_deductible").val();
+
+        if(inspectionProv != '' && cgl_cglLimitsOfLiablitiy != '' && cgl_eoLimitsOfLiablity != '' && cgl_deductible != '')
+        {
+          $.ajax({
+            url:"calculate",
+            method:"post",
+            data: {inspectionProv:inspectionProv,cgl_cglLimitsOfLiablitiy:cgl_cglLimitsOfLiablitiy,cgl_eoLimitsOfLiablity:cgl_eoLimitsOfLiablity,ops_totalGrossAnnualReceipts:ops_totalGrossAnnualReceipts,cgl_deductible:cgl_deductible,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            datatype: 'json',
+            success: function(msg){
+              
+              msg = JSON.parse(msg);
+              console.log(msg);
+              
+              //var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
+              //$("#priceBox").html(table);
+              $("#priceBox").empty();
+              $("#priceBox").text(Math.round(msg));
+              
+            },
+            error: function(data){
+              console.log(data);
+            }
+          });
+        }else{
+          swal('Some required fields are missing for calculation.');
+        }
+
             
-            msg = JSON.parse(msg);
-            console.log(msg);
-            
-            var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
-            $("#priceBox").html(table);
-            
-          },
-          error: function(data){
-            console.log(data);
-          }
-        });
-      }else{
-        swal('Some required fields are missing for calculation.');
+              
+      }else if(rtqForm == "rentedDwelling" || rtqForm == "ownerOccupied"){
+        // gather required data to calculate
+        var province = $('#risk_address_province').val();
+        var yearsBuilt = $('#buildingConstruction_yearBuilt').val();
+        var fireDeptDistance = $('#fireAlarmDetectors_fireDeptDistance').val();
+        var fireDeptType = $('#fireAlarmDetectors_fireDeptTye').val();
+        var hydrant = $('#fireAlarmDetectors_hydrant').val();
+        var buildingLimit = removeCommas($('#coverage_buildingLimit').val());
+        var contentsLimit = removeCommas($('#coverage_contentsLimit').val());
+        var rentalIncomeLimit = removeCommas($('#coverage_rentalIncomeLimit').val());
+        var garageLimit = removeCommas($('#coverage_garageLimit').val());
+        var shedLimit = removeCommas($('#coverage_shedLimit').val());
+        var liability = $('#coverage_liabilityLimit').val();
+        console.log(buildingLimit+'  '+contentsLimit+'  '+rentalIncomeLimit+'  '+garageLimit+'  '+shedLimit);
+        if(province != '' && yearsBuilt != '' && fireDeptDistance != '' && fireDeptType != '' && hydrant != '' && liability != '' )
+        {
+          $.ajax({
+            url:"calculate",
+            method:"post",
+            data: {province:province,yearsBuilt:yearsBuilt,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,buildingLimit:buildingLimit,contentsLimit:contentsLimit,rentalIncomeLimit:rentalIncomeLimit,garageLimit:garageLimit,shedLimit:shedLimit,liability:liability,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            datatype: 'json',
+            success: function(msg){
+              
+              msg = JSON.parse(msg);
+              console.log(msg);
+              
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
+              $("#priceBox").html(table);
+              
+            },
+            error: function(data){
+              console.log(data);
+            }
+          });
+        }else{
+          swal('Some required fields are missing for calculation.');
+        }
       }
     });
 
@@ -1344,7 +1559,7 @@ $(document).ready(function(){
       html += "<tr>";
       
       // check parent div or div of parent div display is not none
-      if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none'){
+      if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none' && $(this).closest('div').parent('div').css('visibility') != 'hidden' && $(this).parent('div').css('visibility') != 'hidden'){
         // add label 
         if($(this).prev().is("input[type=checkbox]")){
           //do nothing

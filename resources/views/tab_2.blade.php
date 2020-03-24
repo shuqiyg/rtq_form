@@ -15,7 +15,7 @@
                 <label class="col-md-4" style="float: left;"> Insured Name / Legal Entity Name <span class="err">*</span> </label>
                 <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8 required"  value="">
             </div>
-            @if($formVal == "ownerOccupied" || $formVal == "homeInspector")
+            @if($formVal == "ownerOccupied")
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox"> Is this a Corporation? </span><span class="err">*</span> </label>
                 <select id="insured_isCorporation" name="insured_isCorporation" class="form-control col-md-8 required">

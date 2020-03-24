@@ -38,8 +38,36 @@
                 </div>
                 <!-- Insured & Mailing Address Tab -->
                 <div id="tab-2" class="">
-                    @include('tab_2')
+                    @if($formVal == "homeInspector")
+                        @include('hi_insured')
+                    @else
+                        @include('tab_2')
+                    @endif
+                    
                 </div>
+                
+                @if($formVal == "homeInspector")
+                <!-- Existing Insurance -->
+                <div id="tab-6" class="">
+                    @include('hi_existingInsurance')
+                </div>
+                <!-- Claim History -->
+                <div id="tab-7" class="">
+                    @include('tab_7')
+                </div>
+                <!-- OPS -->
+                <div id="tab-8" class="">
+                    @include('tab_8')
+                </div>
+                <!-- OPS -->
+                <div id="tab-9" class="">
+                    @include('tab_9')
+                </div>
+                <!-- CGL -->
+                <div id="tab-10" class="">
+                    @include('tab_10')
+                </div>
+                @else
                 <!-- Risk Address -->
                 <div id="tab-3" class="">
                     @include('tab_3')
@@ -52,10 +80,12 @@
                 <div id="tab-5" class="">
                     @include('tab_5')
                 </div>  
+                @endif
                 <!-- Final Tab -->
                 <div id="result" class="">
                     @include('final')
                 </div>
+                
             </div>
         </div>
     </form>
