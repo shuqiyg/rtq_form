@@ -34,17 +34,17 @@
             
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">What are the total Gross Annual Receipts? <span class="err">*</span> </label>
-                <input type="text" id="ops_totalGrossAnnualReceipts" name="ops_totalGrossAnnualReceipts" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_totalGrossAnnualReceipts" name="ops_totalGrossAnnualReceipts" class="form-control col-md-8 required commaValues"  value="">
             </div>
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">How many employees do you have? <span class="err">*</span> </label>
-                <input type="text" id="ops_howManyEmployees" name="ops_howManyEmployees" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_howManyEmployees" name="ops_howManyEmployees" class="form-control col-md-8 required onlyNumbers"  value="">
             </div>
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Whats is the actual payroll of the employees ? <span class="err">*</span> </label>
-                <input type="text" id="ops_actualPayrollOfEmployees" name="ops_actualPayrollOfEmployees" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_actualPayrollOfEmployees" name="ops_actualPayrollOfEmployees" class="form-control col-md-8 required commaValues"  value="">
             </div>
 
             <h4 style="clear: both;">What are their positions ?</h4>
@@ -52,22 +52,22 @@
             
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Principals, Partners or Officers % <span class="err">*</span> </label>
-                <input type="text" id="ops_ppoEmployeesPercentage" name="ops_ppoEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_ppoEmployeesPercentage" name="ops_ppoEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Professionals %<span class="err">*</span> </label>
-                <input type="text" id="ops_professionalsEmployeesPercentage" name="ops_professionalsEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_professionalsEmployeesPercentage" name="ops_professionalsEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Support staff %  <span class="err">*</span> </label>
-                <input type="text" id="ops_supportStaffEmployeesPercentage" name="ops_supportStaffEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_supportStaffEmployeesPercentage" name="ops_supportStaffEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Part-time professionals (works less than 20 hours a week) % <span class="err">*</span> </label>
-                <input type="text" id="ops_partTimeProfEmployeesPercentage" name="ops_partTimeProfEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_partTimeProfEmployeesPercentage" name="ops_partTimeProfEmployeesPercentage" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
         <div class="col-md-12">
             <div class="form-group haveSubContractorsBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Cost of work sublet <span class="err">*</span> </span> </label>
-                <input type="text" id="ops_haveSubContractors_costOfSublet" name="ops_haveSubContractors_costOfSublet" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_haveSubContractors_costOfSublet" name="ops_haveSubContractors_costOfSublet" class="form-control col-md-8 required commaValues"  value="">
             </div>
             <div class="form-group haveSubContractorsBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of sublet <span class="err">*</span></span> </label>
@@ -190,7 +190,7 @@
         <div class="col-md-12">
             <div class="form-group minLiaInsuranceBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Limits <span class="err">*</span> </span></label>
-                <input type="text" id="ops_haveSubContractors_limitsMinCarryLiaIns" name="ops_haveSubContractors_limitsMinCarryLiaIns" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_haveSubContractors_limitsMinCarryLiaIns" name="ops_haveSubContractors_limitsMinCarryLiaIns" class="form-control col-md-8 required commaValues"  value="">
             </div>
         </div>
     </div>
@@ -198,7 +198,7 @@
         <div class="col-md-12">
             <div class="form-group minLiaInsuranceBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">% of billings <span class="err">*</span></span> </label>
-                <input type="text" id="ops_haveSubContractors_perBillingsMinLiaIns" name="ops_haveSubContractors_perBillingsMinLiaIns" class="form-control col-md-8 required"  value="">
+                <input type="text" id="ops_haveSubContractors_perBillingsMinLiaIns" name="ops_haveSubContractors_perBillingsMinLiaIns" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01" >
             </div>
         </div>
     </div>

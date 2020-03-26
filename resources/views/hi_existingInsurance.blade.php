@@ -1,4 +1,4 @@
- <!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
+<!-- <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div></div>
  -->
 <div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end zeroPadding">
     <div class="btn-group mr-2 sw-btn-group" role="group">
@@ -43,17 +43,17 @@
 
             <div class="form-group eiBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;">Expiring Premium</label>
-                <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8 commaValues"  value="">
             </div>
 
             <div class="form-group eiBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;">Limits</label>
-                <input type="text" id="risk_address_existingInsurerLimits" name="risk_address_existingInsurerLimits" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurerLimits" name="risk_address_existingInsurerLimits" class="form-control col-md-8 commaValues"  value="">
             </div>
 
             <div class="form-group eiBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;">Deductible</label>
-                <input type="text" id="risk_address_existingInsurerDeductible" name="risk_address_existingInsurerDeductible" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurerDeductible" name="risk_address_existingInsurerDeductible" class="form-control col-md-8 commaValues"  value="">
             </div>
 
             <div class="form-group eiBOX" style="display: none;">

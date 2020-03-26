@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> SOLE or CORP <span class="err">*</span> </label>
                 <select id="insured_soleOrCorp" name="insured_soleOrCorp" class="form-control col-md-8 infoToggle required">
-                    <option value="noValInsuredSoleOrCorp">-Select value-</option>
+                    <option value="">-Select Insured Type-</option>
                     <option value="Sole">Sole Owner </option>
                     <option value="Corporation">Corporation</option>
                 </select>
@@ -61,11 +61,11 @@
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Year Business Started <span class="err">*</span> </label>
-                <input type="text" id="insured_yearBusinessStarted" name="insured_yearBusinessStarted" class="form-control col-md-8 required"  value="">
+                <input type="text" id="insured_yearBusinessStarted" name="insured_yearBusinessStarted" class="form-control col-md-8 required onlyNumbers checkYear"  value="" maxlength="4">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Year of Experience <span class="err">*</span> </label>
-                <input type="text" id="insured_yearOfExperience" name="insured_yearOfExperience" class="form-control col-md-8 required"  value="" >
+                <input type="text" id="insured_yearOfExperience" name="insured_yearOfExperience" class="form-control col-md-8 required onlyNumbers"  value="" maxlength="3" >
             </div>
             
         </div>
@@ -135,17 +135,17 @@
                 <input type="checkbox" id="insured_isRiskAddressSame" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger">
             </div>
 
-            <h3 class="riskAddressBOX"  style="display: none;">Risk Address</h3>
+            <h3>Risk Address</h3>
             
-            <div class="form-group riskAddressBOX" style="display: none;">
+            <div class="form-group riskAddressBOX" >
                 <label class="col-md-4" style="float: left;"> Street <span class="err">*</span> </label>
                 <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8 required"  value="">
             </div>
-            <div class="form-group riskAddressBOX" style="display: none;">
+            <div class="form-group riskAddressBOX" >
                 <label class="col-md-4" style="float: left;"> City <span class="err">*</span> </label>
                 <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8 required"  value="">
             </div>
-            <div class="form-group riskAddressBOX" style="display: none;">
+            <div class="form-group riskAddressBOX" >
                 <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_province" name="risk_address_province">
                     <option value="">-Select province-</option>
@@ -154,7 +154,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group riskAddressBOX" style="display: none;">
+            <div class="form-group riskAddressBOX" >
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
                 <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>

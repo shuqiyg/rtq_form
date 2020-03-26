@@ -45,7 +45,7 @@ $(document).ready(function(){
       Cookies.remove('loadedForm');
       
     }else{
-      //resetFunction('leavingPage');
+      resetFunction('leavingPage');
     }
     
     
@@ -95,7 +95,7 @@ $(document).ready(function(){
       //$('.sw-btn-next').removeAttr('disabled');
       $('.sw-btn-next').show();
       $("#agreeDisagreeError").hide();
-      $('#insured_isRiskAddressSame').bootstrapToggle('on');
+      $('#insured_isRiskAddressSame').bootstrapToggle('off'); // default checkbox is off
       break;
     case 'disagree':
       //$('.sw-btn-next').attr('disabled','true');
@@ -118,7 +118,7 @@ $(document).ready(function(){
       $(".insuredCorpBox").show();
       $(".insuredSoleOrCorpBox").show(); // some common field for corp or sole insured
       break;
-    case 'noValInsuredSoleOrCorp':
+    case '': // its only for SoleOrCorp field in Insured Tab
       clearFields("insuredSoleBOX");
       clearFields("insuredCorpBox");
       clearFields("insuredSoleOrCorpBox");
@@ -142,11 +142,28 @@ function clearFields(fieldID){
 $('#insured_isRiskAddressSame').change(function() {
   // so if its YES
   if(! $(this).prop('checked')){
-    $(".riskAddressBOX").show();
+    //$(".riskAddressBOX").show(); // add this to parent div of each below fields
+    // empty risk address fields if there is any value
+    $("#risk_address_street").val('');
+    $("#risk_address_city").val('');
+    $("#risk_address_province").val('');
+    $("#risk_address_postalCode").val('');
+
   }else{
-    $(".riskAddressBOX").hide();
+    //$(".riskAddressBOX").hide();
+    // add values to risk address fields
+    $("#risk_address_street").val($("#mailing_address_street").val());
+    $("#risk_address_city").val($("#mailing_address_city").val());
+    if($("#mailing_address_province").val() != ''){
+      $("#risk_address_province").val($("#mailing_address_province").val());
+    }else{
+      $("#risk_address_province").val($("#mailing_address_province_other").val());
+    }
+    $("#risk_address_postalCode").val($("#mailing_address_postalCode").val());
+
+    //console.log($("#risk_address_street").val()+" "+$("#risk_address_city").val()+" "+$("#risk_address_province").val()+" "+$("#risk_address_postalCode").val());
   }
-  clearFields("riskAddressBOX");
+  //clearFields("riskAddressBOX");
 
 });
 
@@ -1291,7 +1308,7 @@ $('#insured_isRiskAddressSame').change(function() {
               //var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
               //$("#priceBox").html(table);
               $("#priceBox").empty();
-              $("#priceBox").text(Math.round(msg));
+              $("#priceBox").text(Math.round(msg.total_value));
               
             },
             error: function(data){
@@ -1561,15 +1578,43 @@ $('#insured_isRiskAddressSame').change(function() {
       // check parent div or div of parent div display is not none
       if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none' && $(this).closest('div').parent('div').css('visibility') != 'hidden' && $(this).parent('div').css('visibility') != 'hidden'){
         // add label 
-        if($(this).prev().is("input[type=checkbox]")){
-          //do nothing
-          //console.log('checkbox');
+        //console.log($(this).text()+"   "+$(this).next('div').children().is("input[type=checkbox]"));
+        if($(this).next().is("input[type=checkbox]")){
+          //do nothing if simple checkbox
+          
+        }else if($(this).next('div').children().is("input[type=checkbox]")){
+          // if checkbox is switch -- currently included in HomeInspector Form
+
+          html += "<td style='width:60%;'>"+$(this).text()+"</td>";
+          
+          // if checked
+          if($(this).next('div').find("input[type=checkbox]").prop('checked')){
+            html += "<td  style='width:40%;'> Same as mailing address </td>";
+          }else{
+            html += "<td  style='width:40%;'> No </td>";
+
+          }
+          //console.log('checkbox '+$(this).next('div').find("input[type=checkbox]").prop('checked'));
+
         }else{
-          html += "<td style='width:60%;'>"+$(this).text()+"</td>";  
+          // check if label field is with any input, select or textarea [ NOTE : checkbox switch create label only field for value YES and NO ]
+          if($(this).next().is('input') || $(this).next().is('textarea') || $(this).next().is('select') ){
+            // for checkbox switch only [ if mailing address and risk address on same page, to avoid confusion on label ] 
+            //console.log($(this).text()+"    "+$(this).parent('div').hasClass('riskAddressBOX'));
+            if($(this).parent('div').hasClass('riskAddressBOX')){
+              html += "<td style='width:60%;'><b>Risk Address :</b> "+$(this).text()+"</td>";
+            }else{
+              html += "<td style='width:60%;'>"+$(this).text()+"</td>";    
+            }
+          }          
           
           // check element is input
           if($(this).next().is('input')){
             html += "<td  style='width:40%;'>"+$(this).next('input').val()+"</td>";
+          }
+          // check element is textarea
+          if($(this).next().is('textarea')){
+            html += "<td  style='width:40%; white-space: pre-wrap'>"+$(this).next('textarea').val()+"</td>";
           }
           // check if element is select 
           if($(this).next().is('select')){
@@ -1731,7 +1776,7 @@ $('#insured_isRiskAddressSame').change(function() {
         success: function(msg){
           console.log(msg);
           clicked = true;
-            
+           return false; 
           if(abandonStatus == "reset"){
             $(".loader").hide();
             // to make reset, make clicked = true and send location to root

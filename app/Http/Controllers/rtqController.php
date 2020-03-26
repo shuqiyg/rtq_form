@@ -137,7 +137,9 @@ class rtqController extends Controller
               }
             };
             $total_value = $eoValue($calculatedEo,$eoOption) + $cglValue($calculatedCgl,$cglOption);
-            return $total_value;
+            $priceArray = array();
+            $priceArray['total_value'] = $total_value;
+            return $priceArray;
             // console.log(total_value);  
     }
 
@@ -271,18 +273,29 @@ class rtqController extends Controller
     function finish(Request $req){
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
-        $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
-        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
-        $fd = json_decode($fdFormattedJson , true );
-        
+        $binding = trim($req['binding']);
+
+        // check which form is submitted
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+            $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
+            $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fd = json_decode($fdFormattedJson , true );
+            
+            $valid = $this->validation($fd,$rtqForm);
+        }else if($rtqForm == "homeInspector"){
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','',$referNotMatchReason,$rtqForm,'');
+            $fd = json_decode($fdFormattedJson , true );
+
+            $valid = $this->validation($fd,$rtqForm);
+        }
         
         //echo $fd[0]['contact_phone_number']['value'];
-        $binding = trim($req['binding']);
+        
         // before closing json, validate rules and add status in json
         // send json to check refer rules
-        $valid = $this->validation($fd,$rtqForm);
+        
         $status = '';
         if($valid['valid'] == true && $binding == "Bound"){
             $status = "Bound";
@@ -297,35 +310,49 @@ class rtqController extends Controller
         // encode form data
         $fdJson = json_encode($fd);
         
-        //get calculate array
-        // set all required values
-        $province = ucfirst( $fd[0]['risk_address_province']['value'] );
-        $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
-        $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
-        $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
-        $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] );
-        $buildingLimit = $this->checkValue($fd[0]['coverage_buildingLimit']['value']);
-        $contentsLimit = $this->checkValue($fd[0]['coverage_contentsLimit']['value']);
-        $rentalIncomeLimit = $this->checkValue($fd[0]['coverage_rentalIncomeLimit']['value']);
-        $garageLimit = $this->checkValue($fd[0]['coverage_garageLimit']['value']);
-        $shedLimit = $this->checkValue($fd[0]['coverage_shedLimit']['value']);
-        $liability = $fd[0]['coverage_liabilityLimit']['value'];
+        // check which form is submitted
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+            //get calculate array
+            // set all required values
+            $province = ucfirst( $fd[0]['risk_address_province']['value'] );
+            $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
+            $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
+            $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
+            $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] );
+            $buildingLimit = $this->checkValue($fd[0]['coverage_buildingLimit']['value']);
+            $contentsLimit = $this->checkValue($fd[0]['coverage_contentsLimit']['value']);
+            $rentalIncomeLimit = $this->checkValue($fd[0]['coverage_rentalIncomeLimit']['value']);
+            $garageLimit = $this->checkValue($fd[0]['coverage_garageLimit']['value']);
+            $shedLimit = $this->checkValue($fd[0]['coverage_shedLimit']['value']);
+            $liability = $fd[0]['coverage_liabilityLimit']['value'];
 
-        // get calculateArray
-        $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
+            // get calculateArray
+            $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
 
-        // set calculated array to form data 
-        $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
+            // set calculated array to form data 
+            $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
 
-        // remove towngrade from calculateArray to avoid duplication in form data array
-        unset($calculateArray['towngrade']);
+            // remove towngrade from calculateArray to avoid duplication in form data array
+            unset($calculateArray['towngrade']);
 
-        $fd[0]['calculation'] = $calculateArray;
-        //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
-        //$fd[0]['fee']['value'] = $calculateArray['fee'];
-        //$fd[0]['total']['value'] = $calculateArray['total'];
-        $ca =  json_encode($calculateArray);
+            $fd[0]['calculation'] = $calculateArray;
+            //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
+            //$fd[0]['fee']['value'] = $calculateArray['fee'];
+            //$fd[0]['total']['value'] = $calculateArray['total'];
+            $ca =  json_encode($calculateArray);
+        }else if($rtqForm == "homeInspector"){
+            // set all required values
+            $inspectionProvince = trim($fd[0]['risk_address_provinceOfInspection']['value']);
+            $cgl_cglLimitsOfLiablitiy = trim($fd[0]['cgl_cglLimitsOfLiablitiy']['value']);
+            $cgl_eoLimitsOfLiablity = trim($fd[0]['cgl_eoLimitsOfLiablity']['value']);
+            $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
+            $cgl_deductible = trim($fd[0]['cgl_deductible']['value']);
+            // get calculateArray
+            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm);
 
+            $fd[0]['total_value']['value'] = $calculateArray['total_value'];
+        }
+        return json_encode($fd);
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
@@ -358,7 +385,12 @@ class rtqController extends Controller
                 if($k == 'name'){
                     $json .= '"'.$v.'": { ';
                 }else if($k == 'value'){
-                    $json .= '"value" : "'.$v.'" }';
+                    // remove \n and \r from textarea value
+                    //$v = json_encode($v);
+                    //$v = str_replace('\r','',$v);
+                    //$v = str_replace('\n','',$v);
+                    //$v = json_decode($v);
+                    $json .= '"value" : '.trim(json_encode($v)).' }';
                     // add comma at end of each data except last one
                     if($i < sizeof($fd)){
                         $json .= ',';
@@ -544,10 +576,10 @@ class rtqController extends Controller
         }else if($risk_address_provinceOfInspection == "" || $insured_licenced == "" || $claimHistory_ifSubjectToRescission == "" || $ops_radioactiveSamplingTesting_thirdPartyInsurance == "" || $ops_doProvideServiceOutsideOfCanada == "" || $ops_offerRepairServiceAfterInspection == "" || $ops_provideWrittenInspectionReport == ""){
             $valid = "Empty";
             if($risk_address_provinceOfInspection == ""){
-                array_push($referMatchArray,"Please select Province of inspection field.");
+                array_push($referMatchArray,"Please select Province of inspection field.".$risk_address_provinceOfInspection);
             }
             if($insured_licenced == ""){
-                array_push($referMatchArray,"Please select Are you Licenced ? field.");
+                array_push($referMatchArray,"Please select Are you Licenced ? field.".$insured_licenced);
             }
             if($claimHistory_ifSubjectToRescission == ""){
                 array_push($referMatchArray, "Please select Claim history failure to disclose question field.");
@@ -843,11 +875,14 @@ class rtqController extends Controller
     This function will check all refer rules match or not 
     **/
     public function checkReferRules(Request $req){
+        //$formD = str_replace('\n', '', $req['formData']);
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
+        //return $formData;
         $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','',$rtqForm,'');
+        //print_r($fdFormattedJson);exit;
         $fd = json_decode($fdFormattedJson , true );
-        //print_r($fd);exit;
+        
         // check refer rule is valid or not
         $referValid = $this->validation($fd,$rtqForm);
 
@@ -871,20 +906,29 @@ class rtqController extends Controller
     function resetForm(Request $req){
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
-        $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
-        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+        
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
         $requiredError = trim($req['requiredError']);
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,$requiredError);
-        $fd = json_decode($fdFormattedJson , true );
-        $abandonStatus = $req['abandonStatus'];
         
+        $abandonStatus = $req['abandonStatus'];
         //echo $fd[0]['contact_phone_number']['value'];
         $binding = trim($req['binding']);
-        // before closing json, validate rules and add status in json
-        // send json to check refer rules
-        $valid = $this->validation($fd,$rtqForm);
 
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+            $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
+            $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fd = json_decode($fdFormattedJson , true );
+            
+            $valid = $this->validation($fd,$rtqForm);
+        }else if($rtqForm == "homeInspector"){
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','',$referNotMatchReason,$rtqForm,'');
+            $fd = json_decode($fdFormattedJson , true );
+
+            $valid = $this->validation($fd,$rtqForm);
+        }
+
+                
         $ReferNotPassedReason = sizeof($fd[0]['ReferNotPassedReason']);
         $doesCalculated = trim($req['doesCalculated']);
 
@@ -902,39 +946,56 @@ class rtqController extends Controller
         // encode form data
         $fdJson = json_encode($fd);
         
-        //get calculate array
-        // set all required values
-        $province = ucfirst( $fd[0]['risk_address_province']['value'] );
-        $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
-        $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
-        $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
-        $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] );
-        $buildingLimit = $this->checkValue($fd[0]['coverage_buildingLimit']['value']);
-        $contentsLimit = $this->checkValue($fd[0]['coverage_contentsLimit']['value']);
-        $rentalIncomeLimit = $this->checkValue($fd[0]['coverage_rentalIncomeLimit']['value']);
-        $garageLimit = $this->checkValue($fd[0]['coverage_garageLimit']['value']);
-        $shedLimit = $this->checkValue($fd[0]['coverage_shedLimit']['value']);
-        $liability = $fd[0]['coverage_liabilityLimit']['value'];
+        // check which form is submitted
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+            //get calculate array
+            // set all required values
+            $province = ucfirst( $fd[0]['risk_address_province']['value'] );
+            $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
+            $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
+            $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
+            $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] );
+            $buildingLimit = $this->checkValue($fd[0]['coverage_buildingLimit']['value']);
+            $contentsLimit = $this->checkValue($fd[0]['coverage_contentsLimit']['value']);
+            $rentalIncomeLimit = $this->checkValue($fd[0]['coverage_rentalIncomeLimit']['value']);
+            $garageLimit = $this->checkValue($fd[0]['coverage_garageLimit']['value']);
+            $shedLimit = $this->checkValue($fd[0]['coverage_shedLimit']['value']);
+            $liability = $fd[0]['coverage_liabilityLimit']['value'];
 
-        // get calculateArray
-        $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
+            // get calculateArray
+            $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
 
-        // set calculated array to form data 
-        if(isset($calculateArray['towngrade'])){
-            $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
-        }else{
-            $fd[0]['towngrade']['value'] = 0;
+            // set calculated array to form data 
+            if(isset($calculateArray['towngrade'])){
+                $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
+            }else{
+                $fd[0]['towngrade']['value'] = 0;
+            }
+
+            // remove towngrade from calculateArray to avoid duplication in form data array
+            unset($calculateArray['towngrade']);
+
+            $fd[0]['calculation'] = $calculateArray;
+            //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
+            //$fd[0]['fee']['value'] = $calculateArray['fee'];
+            //$fd[0]['total']['value'] = $calculateArray['total'];
+            $ca =  json_encode($calculateArray);
+
+        }else if($rtqForm == "homeInspector"){
+            // set all required values
+            $inspectionProvince = trim($fd[0]['risk_address_provinceOfInspection']['value']);
+            $cgl_cglLimitsOfLiablitiy = trim($fd[0]['cgl_cglLimitsOfLiablitiy']['value']);
+            $cgl_eoLimitsOfLiablity = trim($fd[0]['cgl_eoLimitsOfLiablity']['value']);
+            $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
+            $cgl_deductible = trim($fd[0]['cgl_deductible']['value']);
+            // get calculateArray
+            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm);
+
+            $fd[0]['total_value']['value'] = $calculateArray['total_value'];
         }
 
-        // remove towngrade from calculateArray to avoid duplication in form data array
-        unset($calculateArray['towngrade']);
-
-        $fd[0]['calculation'] = $calculateArray;
-        //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
-        //$fd[0]['fee']['value'] = $calculateArray['fee'];
-        //$fd[0]['total']['value'] = $calculateArray['total'];
-        $ca =  json_encode($calculateArray);
-
+        return json_encode($fd);
+        
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
