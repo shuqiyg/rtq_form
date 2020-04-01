@@ -124,7 +124,7 @@
             </div>
         </div>
     </div>
-
+    <!--
     <div class="row">
         <div class="col-md-12">
             <div class="form-group haveContractForServicesBOX" style="display: none;">
@@ -133,7 +133,7 @@
             </div>
         </div>
     </div>
-
+    -->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -198,7 +198,7 @@
         <div class="col-md-12">
             <div class="form-group minLiaInsuranceBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">% of billings <span class="err">*</span></span> </label>
-                <input type="text" id="ops_haveSubContractors_perBillingsMinLiaIns" name="ops_haveSubContractors_perBillingsMinLiaIns" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01" >
+                <input type="number" id="ops_haveSubContractors_perBillingsMinLiaIns" name="ops_haveSubContractors_perBillingsMinLiaIns" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01" >
             </div>
         </div>
     </div>

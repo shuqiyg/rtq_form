@@ -7,7 +7,7 @@
             // use formVal value coming from controller to use to select fields according to it.
         ?>
 
-    <form id="rtq_form">
+    <form id="rtq_form" >
         <div id="smartwizard" class="sw-main sw-theme-arrows">
             <ul class="nav nav-tabs step-anchor">
                 <li><a href="#legal">Legal<br /><small>T&C</small></a></li>
@@ -18,7 +18,7 @@
                 <li><a href="#tab-7">Claim History<br /><small>Claim and loss</small></a></li> 
                 <li><a href="#tab-8">OPS<br /><small>Industry general</small></a></li> 
                 <li><a href="#tab-9">OPS<br /><small>Industry specific</small></a></li> 
-                <li><a href="#tab-10">CGL<br /><small>Some Info</small></a></li>     
+                <li><a href="#tab-10">CGL<br /><small>Required Coverage</small></a></li>     
                 @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
                 <li><a href="#tab-4">Occupancy<br /><small>Building details</small></a></li>

@@ -11,16 +11,7 @@
     <h3>Insured</h3>
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group">
-                <label class="col-md-4" style="float: left;"> First Name of Applicant <span class="err">*</span> </label>
-                <input type="text" id="insured_ApplicantFirstName" name="insured_ApplicantFirstName" class="form-control col-md-8 required"  value="">
-            </div>
-            
-            <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Last Name of Applicant <span class="err">*</span> </label>
-                <input type="text" id="insured_ApplicantLastName" name="insured_ApplicantLastName" class="form-control col-md-8 required"  value="">
-            </div>
-            
+        
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> SOLE or CORP <span class="err">*</span> </label>
                 <select id="insured_soleOrCorp" name="insured_soleOrCorp" class="form-control col-md-8 infoToggle required">
@@ -30,15 +21,25 @@
                 </select>
             </div>
             
-             <div class="form-group insuredSoleBOX" style="display: none;">
-                <label class="col-md-4" style="float: left;"> <span class="nestedBox">DBA/OA Name <span class="err">*</span> </span></label>
-                <input type="text" id="insured_soleDBAName" name="insured_DBAName" class="form-control col-md-8 required"  value="">
+             <div class="form-group insuredSoleOrCorpBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"> <span class="nestedBox">Insured Name / Legal Entity Name <span class="err">*</span> </span></label>
+                <input type="text" id="insured_name" name="insured_name" class="form-control col-md-8 required"  value="">
+            </div>
+            <div class="form-group insuredSoleBOX" style="display: none;">
+                <label class="col-md-4" style="float: left;"> <span class="nestedBox">First Name of Applicant <span class="err">*</span> </span></label>
+                <input type="text" id="insured_ApplicantFirstName" name="insured_ApplicantFirstName" class="form-control col-md-8 required"  value="">
+            </div>
+            
+            <div class="form-group insuredSoleBOX" style="display: none;">
+                <label class="col-md-4" style="float: left;"> <span class="nestedBox">Last Name of Applicant <span class="err">*</span></span> </label>
+                <input type="text" id="insured_ApplicantLastName" name="insured_ApplicantLastName" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group insuredSoleBOX" style="display: none;">
                 <p class="validPhoneError" style="display: none;color: red;">Please enter valid phone</p>
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Phone Number  </span></label>
                 <input type="text" id="insured_solePhoneNumber" name="insured_solePhoneNumber" class="form-control col-md-8 checkPhone"  value="" placeholder="Please use x or ext if there is extention">
             </div>
+
 
             <div class="form-group insuredCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Contact First Name <span class="err">*</span> </span></label>

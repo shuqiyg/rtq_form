@@ -8,6 +8,33 @@
 </div>
 
 <section class="opsIndustryGeneralTab">
+
+    <h3>Property</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Add Contractors Equipment Floater (CEF)? <span class="err">*</span> </label>
+                <select class="col-md-8 form-control required" id="cgl_contractorsEquipmentFloater" name="cgl_contractorsEquipmentFloater">
+                    <option value="">-Select Value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Add Additional Property Frill? <span class="err">*</span> </label>
+                <select class="col-md-8 form-control required" id="cgl_additionalPropertyFrill" name="cgl_additionalPropertyFrill">
+                    <option value="">-Select Value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
     <h3>CGL</h3>
                
 

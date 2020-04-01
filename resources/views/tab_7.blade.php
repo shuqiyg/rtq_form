@@ -9,6 +9,34 @@
 
 <section class="claimHistoryTab">
     <h3>Claim History</h3>
+    
+    <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-10" style="float: left;"> Number of claims reported for application of insurance on your behalf or on behalf of any your principals, firm partners, officers, employees, predecessors in past 5 years? <span class="err">*</span> </label>
+                    <select class="form-control col-md-2 required" id="risk_address_noOfClaims" name="risk_address_noOfClaims">
+                        <option value="">-Select claims-</option>
+                        <option value="0">None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="more">More</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="numberOfClaims" style="display: none;">
+                
+        </div>
+    
+   <!-- 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -29,6 +57,8 @@
             </div>
         </div>
     </div>
+    -->
+    
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

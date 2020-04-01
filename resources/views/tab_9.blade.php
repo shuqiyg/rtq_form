@@ -77,7 +77,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Finance/Lending/Mortgage companies-% <span class="err">*</span> </label>
-                <input type="number" id="ops_financial_flm" name="ops_government_federal" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_financial_flm" name="ops_financial_flm" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>

@@ -91,7 +91,7 @@ $(document).ready(function(){
   function infoToggle(info) {
   console.log(info);
   switch (info) {
-    case 'agree':
+    /*case 'agree':
       //$('.sw-btn-next').removeAttr('disabled');
       $('.sw-btn-next').show();
       $("#agreeDisagreeError").hide();
@@ -101,7 +101,7 @@ $(document).ready(function(){
       //$('.sw-btn-next').attr('disabled','true');
       $('.sw-btn-next').hide(); // need to hide next button because of top next button is not getting disabled so just hide it.
       $("#agreeDisagreeError").hide();
-      break;
+      break;*/
     case 'Sole':
       $(".insuredSoleBOX").show();
       clearFields("insuredCorpBox");
@@ -195,8 +195,9 @@ $('#insured_isRiskAddressSame').change(function() {
 
     // if legal step 
     if(stepNumber == 0){
-      if(rtqForm == "homeInspector"){
-        if($("input[name=hiAgreeDisAgree]:checked").val() == "agree" || $("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
+     if(rtqForm == "homeInspector"){
+       $('#insured_isRiskAddressSame').bootstrapToggle('off'); // default checkbox is off
+         /*if($("input[name=hiAgreeDisAgree]:checked").val() == "agree" || $("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
           if($("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
             $(".sw-btn-next").attr('disabled','true');
           }else{
@@ -207,10 +208,10 @@ $('#insured_isRiskAddressSame').change(function() {
           $("#agreeDisagreeError").show();
           $("#agreeDisagreeError").text("Please select agree or disagree");
           return false;
-        }
+        }*/
       }
       
-      if(rtqForm !== "homeInspector"){
+      //if(rtqForm !== "homeInspector"){
         // get acknowledgements value
         if($('#cb1').is(":checked") && $('#cb2').is(":checked") && $('#cb3').is(":checked")){
           // allow to go next
@@ -220,7 +221,7 @@ $('#insured_isRiskAddressSame').change(function() {
           $(".acknowledgeError").text("Please select acknowledgements.");
           return false;
         }
-      } 
+      //} 
 
     }
 
@@ -1126,8 +1127,7 @@ $('#insured_isRiskAddressSame').change(function() {
           $("#reviewForm").empty();
           // append processing text to review form  
           $("#reviewFormPT").text("Review form taking time to load ..."); 
-          // if there is broker code available
-          if(brokerCode != '' && brokerCode != null){
+          
             // check refer rules matching or not
             var formData = JSON.stringify($('#rtq_form').serializeArray());
             var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
@@ -1139,81 +1139,103 @@ $('#insured_isRiskAddressSame').change(function() {
               datatype: 'json',
               success: function(msg){
                 console.log(msg);
-                $("#reviewFormPT").text(""); 
                 
-                if(msg.valid == "Empty" && msg.matchArray != ''){
-                  // display referValidationNotMatchBox
-                  $("#referValidationNotMatchBox").show();
-
-                  var html = "<p> Please fill up all below required fields to determine quote. </p>";
-                  html += "<ul>";
-                  $.each(msg.matchArray,function(k,v){
-                    html += "<li>"+v+"</li>";
-                  });
-                  html += "</ul>";
-                  $("#referValidationNotMatchBox").html(html);
-
-                  $('#calculateBox').hide();
-                  $("#doesCalculated").val('');
-                  reviewForm();
-                  $(".bindingBox").hide();
+                // if there is broker code available
+                if(brokerCode != '' && brokerCode != null){  
+                  $("#reviewFormPT").text(""); 
                   
-
-                }else if( msg.matchArray != '' && msg.valid !== "NotMatched"){
-                  //console.log('brokerCode : '+brokerCode);
-
-                  // display referValidationNotMatchBox
-                  $("#referValidationNotMatchBox").show();
-                  var html = "<p>This application requires an underwriter to review it. The reason(s) are listed below.</p>";
-
-                  html += "<ul>";
-                  $.each(msg.matchArray,function(k,v){
-                    html += "<li>"+v+"</li>";
-                  });
-                  html += "</ul>";
-                  $("#referValidationNotMatchBox").html(html);
-
-                  $('#calculateBox').hide();
-                  $("#doesCalculated").val('');
-                  reviewForm();
-                  $(".bindingBox").hide();
-                  
-                }else{
-                  console.log('valid == true');
-                  // check broker code is valid or not
-                  console.log("brokerCodeValidation "+brokerCodeValidation);
-                  if(brokerCodeValidation){
-                    $('#calculateBox').show();
-                    $("#doesCalculated").val('quoted');
-                    $(".bindingBox").show();
-                  }else{
+                  if(msg.valid == "Empty" && msg.matchArray != ''){
+                    // display referValidationNotMatchBox
+                    $("#referValidationNotMatchBox").show();
+  
+                    var html = "<p> Please fill up all below required fields to determine quote. </p>";
+                    html += "<ul>";
+                    $.each(msg.matchArray,function(k,v){
+                      html += "<li>"+v+"</li>";
+                    });
+                    html += "</ul>";
+                    $("#referValidationNotMatchBox").html(html);
+  
                     $('#calculateBox').hide();
                     $("#doesCalculated").val('');
+                    reviewForm();
                     $(".bindingBox").hide();
+                    
+  
+                  }else if( msg.matchArray != '' && msg.valid !== "NotMatched"){
+                    //console.log('brokerCode : '+brokerCode);
+  
+                    // display referValidationNotMatchBox
+                    $("#referValidationNotMatchBox").show();
+                    var html = "<p>This application requires an underwriter to review it. The reason(s) are listed below.</p>";
+  
+                    html += "<ul>";
+                    $.each(msg.matchArray,function(k,v){
+                      html += "<li>"+v+"</li>";
+                    });
+                    html += "</ul>";
+                    $("#referValidationNotMatchBox").html(html);
+  
+                    $('#calculateBox').hide();
+                    $("#doesCalculated").val('');
+                    reviewForm();
+                    $(".bindingBox").hide();
+                    
+                  }else{
+                    console.log('valid == true');
+                    // check broker code is valid or not
+                    console.log("brokerCodeValidation "+brokerCodeValidation);
+                    if(brokerCodeValidation){
+                      $('#calculateBox').show();
+                      $("#doesCalculated").val('quoted');
+                      $(".bindingBox").show();
+                    }else{
+                      $('#calculateBox').hide();
+                      $("#doesCalculated").val('');
+                      $(".bindingBox").hide();
+                    }
+                    $("#referValidationNotMatchBox").hide();
+                    $("#referValidationNotMatchBox").empty();
+  
+                    reviewForm();
+                    
+                    
                   }
+                  
+                  
+                }else{
+                  $("#reviewFormPT").text(""); 
+                  reviewForm();
+                  $('#calculateBox').hide();
+                  $("#doesCalculated").val('');
+                  $(".bindingBox").hide();
+                  $(".binding").val('');
                   $("#referValidationNotMatchBox").hide();
                   $("#referValidationNotMatchBox").empty();
-
-                  reviewForm();
-                  
-                  
                 }
                 
+                // This is common for all form [ if there are any file listing ]
+                  if(msg.filesRequired != ''){
+                      // display referValidationNotMatchBox
+                      $("#filesRequiredBox").show();
+                      var html = "<p>Underwriter might ask below documents after bind application :</p>";
+  
+                      html += "<ul>";
+                      $.each(msg.filesRequired,function(k,v){
+                        html += "<li>"+v+"</li>";
+                      });
+                      html += "</ul>";
+                      $("#filesRequiredBox").html(html);
+                    }else{
+                      $("#filesRequiredBox").empty();
+                      $("#filesRequiredBox").hide();
+                    }
               },
               error: function(data){
                 console.log(data);
               }
             });  
-          }else{
-            $("#reviewFormPT").text(""); 
-            reviewForm();
-            $('#calculateBox').hide();
-            $("#doesCalculated").val('');
-            $(".bindingBox").hide();
-            $(".binding").val('');
-            $("#referValidationNotMatchBox").hide();
-            $("#referValidationNotMatchBox").empty();
-          }
+          
 
           
           $('#priceBox').empty();
@@ -1305,10 +1327,10 @@ $('#insured_isRiskAddressSame').change(function() {
               msg = JSON.parse(msg);
               console.log(msg);
               
-              //var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
-              //$("#priceBox").html(table);
               $("#priceBox").empty();
-              $("#priceBox").text(Math.round(msg.total_value));
+
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fees']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
+              $("#priceBox").html(table);
               
             },
             error: function(data){
@@ -1473,7 +1495,7 @@ $('#insured_isRiskAddressSame').change(function() {
             swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
             //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
             setTimeout(function(){
-              window.location.href='/';
+              window.location.href='/rtqform';
             },2000);
             
           }else{
@@ -1776,15 +1798,15 @@ $('#insured_isRiskAddressSame').change(function() {
         success: function(msg){
           console.log(msg);
           clicked = true;
-           return false; 
+           //return false; 
           if(abandonStatus == "reset"){
             $(".loader").hide();
             // to make reset, make clicked = true and send location to root
-            window.location.href='/';
+            window.location.href='/rtqform';
           }else if(abandonStatus == "windowClose"){
             $(".loader").hide(); 
             //clicked = true;
-            window.location.href='/';
+            window.location.href='/rtqform';
           }else{
             //clicked = true;
           }

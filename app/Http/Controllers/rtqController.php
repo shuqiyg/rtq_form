@@ -48,8 +48,11 @@ class rtqController extends Controller
             $cgl_eoLimitsOfLiablity = trim($req['cgl_eoLimitsOfLiablity']);
             $ops_totalGrossAnnualReceipts = trim($req['ops_totalGrossAnnualReceipts']);
             $cgl_deductible = trim($req['cgl_deductible']);
+            $cgl_contractorsEquipmentFloater = trim($req['cgl_contractorsEquipmentFloater']);
+            $cgl_additionalPropertyFrill = trim($req['cgl_additionalPropertyFrill']);
+            $risk_address_noOfClaims = trim($req['risk_address_noOfClaims']);
             // get calculateArray
-            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm);
+            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -57,8 +60,11 @@ class rtqController extends Controller
     }
 
     // function to set priceArray for Home Inspector form
-    public function getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm){
+    public function getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm){
         $baseRate = 2.13;
+        $fees = 50;
+        $cglCEF = 0;
+        $cglFrill = 0;
 
         $cglRateModifiers = array();
         $cglRateModifiers['Ontario'] = 1;
@@ -68,12 +74,13 @@ class rtqController extends Controller
         $cglRateModifiers['New Brunswick'] = 0.42;
         $cglRateModifiers['Newfoundland and Labrador'] = 0.42;
         $cglRateModifiers['Nova Scotia'] = 0.42;
-        $cglRateModifiers['Nunavut'] = null; // not assigned in previous version
-        $cglRateModifiers['Northwest Territories'] = null;
+        $cglRateModifiers['Nunavut'] = 0;//null; // not assigned in previous version
+        $cglRateModifiers['Northwest Territories'] = 0;//null;
         $cglRateModifiers['Prince Edward Island'] = 0.42;
         $cglRateModifiers['Quebec'] = 1.36;
         $cglRateModifiers['Saskatchewan'] = 0.3;
-        $cglRateModifiers['Yukon'] = null;
+        $cglRateModifiers['Yukon'] = 0;//null;
+        $cglRateModifiers[''] = 0;//null;
 
         $cglLimitModifiers = array();
         $cglLimitModifiers['1mm/1mm'] = 1;
@@ -86,60 +93,99 @@ class rtqController extends Controller
         $eoLimitModifiers['1mm/2mm'] = 1.10;
         $eoLimitModifiers['2mm/2mm'] = 1.20; 
 
-          if ($cgl_deductible >= 5000) {
+        // cglOption is CGL liablity limit 
+        if($cgl_cglLimitsOfLiablitiy != ''){
+            $cglOption = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
+        }else{
+            $cglOption = 0;//null;
+        }
+        
+        // eoOption is EO limit
+        if($cgl_eoLimitsOfLiablity != ''){
+            $eoOption = $cgl_eoLimitsOfLiablity;
+        }else{
+            $eoOption = 0;//null;
+        }
+
+        if($cgl_contractorsEquipmentFloater == "Yes"){
+            $cglCEF = 100;
+        }
+        if($cgl_additionalPropertyFrill == "Yes"){
+            $cglFrill = 300;
+        }
+
+        if($risk_address_noOfClaims > 3){
+            $noOfClaim = 'Refer';
+        }else{
+            // get json data for claims
+        //    $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
+        }
+        
+        
+        if ($cgl_deductible >= 5000) {
             $deductibleMod = 0.95;
-          } else {
+        } else {
             $deductibleMod = 1;
-          }
-          //this is the province modifier;
-          $ProvinceMod = $cglRateModifiers[$inspectionProvince];
-          $modCglRate = $baseRate * $ProvinceMod * $deductibleMod;
-          $modEoRate = $baseRate * $ProvinceMod * $deductibleMod;
-          if ($ops_totalGrossAnnualReceipts != '' && !empty($ops_totalGrossAnnualReceipts)) {
+        }
+        
+        //this is the province modifier;
+        $ProvinceMod = $cglRateModifiers[$inspectionProvince];
+        $modCglRate = $baseRate * $ProvinceMod * $deductibleMod;
+        $modEoRate = $baseRate * $ProvinceMod * $deductibleMod;
+        if ($ops_totalGrossAnnualReceipts != '' && !empty($ops_totalGrossAnnualReceipts)) {
             $calculatedCgl = ($baseRate * intval($ops_totalGrossAnnualReceipts))/1000; 
             $calculatedEo = ($baseRate * intval($ops_totalGrossAnnualReceipts))/1000;
-          } else {
-            $calculatedCgl = 'ERROR'; 
-            $calculatedEo = 'ERROR';
-          }
-          // console.log(modEoRate);
-          $cglOption = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
-          $eoOption = $cgl_eoLimitsOfLiablity;
-          $cglValue = function($calculatedCgl,$cglOption) {
-          switch ($cglOption) {
-            case '1mm':
-              return $calculatedCgl;
-              break;
-            case '2mm':
-              if($calculatedCgl*0.25 < 500) {
-                return $calculatedCgl + 500;
-              } else {
-                return $calculatedCgl + $calculatedCgl*0.25; 
-              }
-              break;
-            default:
-              return $calculatedCgl;
-              break;
+        } else {
+            $calculatedCgl = 0;//'ERROR'; 
+            $calculatedEo = 0;//'ERROR';
+        }
+          
+          
+        $cglValue = function($calculatedCgl,$cglOption) {
+            switch ($cglOption) {
+                case '1mm':
+                    return $calculatedCgl;
+                    break;
+                case '2mm':
+                    if($calculatedCgl*0.25 < 500) {
+                        return $calculatedCgl + 500;
+                    } else {
+                        return $calculatedCgl + $calculatedCgl*0.25; 
+                    }
+                    break;
+                default:
+                    return $calculatedCgl;
+                    break;
             }
-          };
-          // console.log(cglValue(calculatedCgl,cglOption));
-          $eoValue = function($calculationEo,$eoOption) {
+        };
+        // console.log(cglValue(calculatedCgl,cglOption));
+        $eoValue = function($calculationEo,$eoOption) {
             switch ($eoOption) {
-              case '1mm/2mm':
-                return $calculationEo + 1500;
-                break;
-              case '2mm/2mm':
-                return $calculationEo + 1800;
-                break;
-              default:
-                return $calculationEo;
-                break;
-              }
-            };
-            $total_value = $eoValue($calculatedEo,$eoOption) + $cglValue($calculatedCgl,$cglOption);
-            $priceArray = array();
-            $priceArray['total_value'] = $total_value;
-            return $priceArray;
+                case '1mm/2mm':
+                    return $calculationEo + 1500;
+                    break;
+                case '2mm/2mm':
+                    return $calculationEo + 1800;
+                    break;
+                default:
+                    return $calculationEo;
+                    break;
+            }
+        };
+
+        $eo = $eoValue($calculatedEo,$eoOption);
+        $cgl = $cglValue($calculatedCgl,$cglOption);
+        $total_value = round($eo + $cgl);
+        $priceArray = array();
+        $priceArray['cglValue'] = $cgl;
+        $priceArray['eoValue'] = $eo;
+        $priceArray['cglCEF'] = $cglCEF;
+        $priceArray['cglFrill'] = $cglFrill;
+        $priceArray['fees'] = $fees;
+        $priceArray['premium'] = $total_value;
+        $priceArray['total_value'] = $total_value + $fees + $cglCEF + $cglFrill;
+        
+        return $priceArray;
             // console.log(total_value);  
     }
 
@@ -274,18 +320,19 @@ class rtqController extends Controller
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
+        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $binding = trim($req['binding']);
 
         // check which form is submitted
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
-            $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+            
             $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','',$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);
@@ -347,12 +394,15 @@ class rtqController extends Controller
             $cgl_eoLimitsOfLiablity = trim($fd[0]['cgl_eoLimitsOfLiablity']['value']);
             $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
             $cgl_deductible = trim($fd[0]['cgl_deductible']['value']);
+            $cgl_contractorsEquipmentFloater = trim($fd[0]['cgl_contractorsEquipmentFloater']['value']);
+            $cgl_additionalPropertyFrill = trim($fd[0]['cgl_deductible']['value']);
+            $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
             // get calculateArray
-            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm);
+            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
             $fd[0]['total_value']['value'] = $calculateArray['total_value'];
         }
-        return json_encode($fd);
+        //return json_encode($fd);
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
@@ -513,18 +563,23 @@ class rtqController extends Controller
 
     // validate data ( check with refer rules )
     function validation($fd,$rtqForm){
-
+        
+        //define array for filesRequired
+        $filesRequired = array();  
+        
         // check which form
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
-            return $this->validateRentedAndOwner($fd,$rtqForm);
+            return $this->validateRentedAndOwner($fd,$rtqForm,$filesRequired);
         } // END OF Form REFER VALIDATION FOR RENTED DWELLING AND OWNER OCCUPIED
         else if($rtqForm == "homeInspector"){
-            return $this->validateHomeInspector($fd,$rtqForm);
+            array_push($filesRequired, "The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures");
+            array_push($filesRequired, "A copy of the outline from the firm's Quality Assurance / Quality Control (QA/QC) manual");
+            return $this->validateHomeInspector($fd,$rtqForm,$filesRequired);
         }
     }
 
     // function to validate home inspector form
-    function validateHomeInspector($fd,$rtqForm){
+    function validateHomeInspector($fd,$rtqForm,$filesRequired){
         // get all required data
         $risk_address_provinceOfInspection = trim($fd[0]['risk_address_provinceOfInspection']['value']);
         $insured_licenced = trim($fd[0]['insured_licenced']['value']);
@@ -533,12 +588,15 @@ class rtqController extends Controller
         $ops_doProvideServiceOutsideOfCanada = trim($fd[0]['ops_doProvideServiceOutsideOfCanada']['value']);
         $ops_offerRepairServiceAfterInspection = trim($fd[0]['ops_offerRepairServiceAfterInspection']['value']);
         $ops_provideWrittenInspectionReport = trim($fd[0]['ops_provideWrittenInspectionReport']['value']);
+        $ops_haveContractForServices = trim($fd[0]['ops_haveContractForServices']['value']);
+        $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
 
         // now check all rules
         $valid = false;
         $referMatchArray = array();
+        //$filesRequired = array();
 
-        if( (in_array($risk_address_provinceOfInspection, array("Ontario","Alberta","British Columbia")) && $insured_licenced == "No" ) || $claimHistory_ifSubjectToRescission == "No" || $ops_radioactiveSamplingTesting_thirdPartyInsurance == "No" || $ops_doProvideServiceOutsideOfCanada == "Yes" || $ops_offerRepairServiceAfterInspection == "Yes" || $ops_provideWrittenInspectionReport == "No"){
+        if( (in_array($risk_address_provinceOfInspection, array("Ontario","Alberta","British Columbia")) && $insured_licenced == "No" ) || $claimHistory_ifSubjectToRescission == "No" || $ops_radioactiveSamplingTesting_thirdPartyInsurance == "No" || $ops_doProvideServiceOutsideOfCanada == "Yes" || $ops_offerRepairServiceAfterInspection == "Yes" || $ops_provideWrittenInspectionReport == "No" || $ops_haveContractForServices == "Yes" || $risk_address_noOfClaims > 2){
             $valid = false;
 
             if(in_array($risk_address_provinceOfInspection, array("Ontario","Alberta","British Columbia")) && $insured_licenced == "No"){
@@ -572,8 +630,17 @@ class rtqController extends Controller
             if($ops_provideWrittenInspectionReport == "No"){
                 array_push($referMatchArray, "You are not providing a written inspection report to all your clients.");
             }
+            
+            if($ops_haveContractForServices == "Yes"){
+                array_push($referMatchArray, "You have contract for services in place.");
+                array_push($filesRequired, "A copy of standard contract, include any lease agreement or railway siding agreement");
+            }
+            
+            if($risk_address_noOfClaims > 2){
+                array_push($referMatchArray, "Number of claims reported in last 5 years are more than 2.");
+            }
 
-        }else if($risk_address_provinceOfInspection == "" || $insured_licenced == "" || $claimHistory_ifSubjectToRescission == "" || $ops_radioactiveSamplingTesting_thirdPartyInsurance == "" || $ops_doProvideServiceOutsideOfCanada == "" || $ops_offerRepairServiceAfterInspection == "" || $ops_provideWrittenInspectionReport == ""){
+        }else if($risk_address_provinceOfInspection == "" || $insured_licenced == "" || $claimHistory_ifSubjectToRescission == "" || $ops_radioactiveSamplingTesting_thirdPartyInsurance == "" || $ops_doProvideServiceOutsideOfCanada == "" || $ops_offerRepairServiceAfterInspection == "" || $ops_provideWrittenInspectionReport == "" || $risk_address_noOfClaims == ""){
             $valid = "Empty";
             if($risk_address_provinceOfInspection == ""){
                 array_push($referMatchArray,"Please select Province of inspection field.".$risk_address_provinceOfInspection);
@@ -599,16 +666,27 @@ class rtqController extends Controller
             if($ops_provideWrittenInspectionReport == ""){
                 array_push($referMatchArray, "Please select Do you provide all your clients with a written inspection report? field.");
             }
+            
+            if($ops_haveContractForServices == ""){
+                // empty files required
+                //$filesRequired = array();
+            }
+            
+            if($risk_address_noOfClaims == ""){
+                array_push($referMatchArray, "Please select Number of claims reported for application of insurance on your behalf or on behalf of any your principals, firm partners, officers, employees, predecessors in past 5 years? field.");
+            }
         }else{
             $valid = true;
             $referMatchArray = array();
+            $filesRequired = array();
         }
-
-        return array("valid"=>$valid,"matchArray"=>$referMatchArray);
+        
+        
+        return array("valid"=>$valid,"matchArray"=>$referMatchArray,"filesRequired"=>$filesRequired);
     }
 
     // function to validate rented dwelling and owner occupied form
-    function validateRentedAndOwner($fd,$rtqForm){
+    function validateRentedAndOwner($fd,$rtqForm,$filesRequired){
          // get all data need to validate or  refer from form data
             $risk_address_howmany_mortgagees = trim($fd[0]['risk_address_howmany_mortgagees']['value']);
             $risk_address_existingInsurer = trim($fd[0]['risk_address_existingInsurer']['value']);
@@ -662,6 +740,7 @@ class rtqController extends Controller
             // now check all rules
             $valid = false;
             $referMatchArray = array();
+            //$filesRequired = array();
 
             // if any rule is not matched then make valid false
             if(($risk_address_howmany_mortgagees > 2) || ($risk_address_existingInsurer == "AMF")  || ($risk_address_hasInsuredCancelInsurance == "Yes") || ($risk_address_noOfClaims > 0) || ($risk_address_incidenceOfClaim_type == "Liability") ||  ($occupancy_commercialOperations == "Yes") || ($occupancy_shortTermRentals == "Yes") || ($building_age > 75) || ($buildingConstruction_isBuildingHeritage == "Yes") || ($buildingConstruction_wiringType == "Knob & Tube") || ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") || ($buildingConstruction_heatingPrimaryType == "Wood-Solid") || ($fireAlarmDetectors_fireDeptTye == "Volunteer") || ($liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes")))){
@@ -844,7 +923,7 @@ class rtqController extends Controller
                 array_push($referMatchArray, 'TIV limit is going above '.$calculateArray['AvailableTivLimit']);
             }
 
-            return array("valid"=>$valid,"matchArray"=>$referMatchArray);
+            return array("valid"=>$valid,"matchArray"=>$referMatchArray,"filesRequired"=>$filesRequired);
     }
 
     // email sent to AMF
@@ -908,6 +987,7 @@ class rtqController extends Controller
         $rtqForm = $req['rtqForm'];
         
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
+        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $requiredError = trim($req['requiredError']);
         
         $abandonStatus = $req['abandonStatus'];
@@ -916,13 +996,13 @@ class rtqController extends Controller
 
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
-            $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+            
             $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','',$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);
@@ -988,13 +1068,16 @@ class rtqController extends Controller
             $cgl_eoLimitsOfLiablity = trim($fd[0]['cgl_eoLimitsOfLiablity']['value']);
             $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
             $cgl_deductible = trim($fd[0]['cgl_deductible']['value']);
+            $cgl_contractorsEquipmentFloater = trim($fd[0]['cgl_contractorsEquipmentFloater']['value']);
+            $cgl_additionalPropertyFrill = trim($fd[0]['cgl_additionalPropertyFrill']['value']);
+            $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
             // get calculateArray
-            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$rtqForm);
+            $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
             $fd[0]['total_value']['value'] = $calculateArray['total_value'];
         }
 
-        return json_encode($fd);
+        //return json_encode($fd);
         
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);

@@ -1,0 +1,68 @@
+{
+   "Claims1mm":[
+     	{
+        	"0" : 
+        		{
+        			"Limit" : "1mm",
+                    "Premium" : "150"
+                },
+            "1" : 
+                {
+                    "Limit" : "1mm",
+                    "Premium" : "250"
+                },
+            "2" : 
+                {
+                    "Limit" : "1mm",
+                    "Premium" : "350"
+                },
+        }
+   
+	],
+   "Claims2mm":[
+        {
+            "0" : 
+                {
+                    "Limit" : "2mm",
+                    "Premium" : "250"
+                },
+            "1" : 
+                {
+                    "Limit" : "2mm",
+                    "Premium" : "350"
+                },
+            "2" : 
+                {
+                    "Limit" : "2mm",
+                    "Premium" : "450"
+                },
+        }
+   
+    ],
+   "ClaimsModifier":[
+     	{
+        	"1" : 
+        		{
+        			"Modifier" : "500"
+        		},
+            "2" : 
+                {
+                    "Modifier" : "1000"
+                }
+		}
+   
+	],
+   "LimitModifier":[
+        {
+            "1mm" : 
+                {
+                    "Modifier" : "0"
+                },
+            "2mm" : 
+                {
+                    "Modifier" : "400"
+                }
+        }
+   
+    ]
+}
