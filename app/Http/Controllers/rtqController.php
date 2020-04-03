@@ -61,52 +61,12 @@ class rtqController extends Controller
 
     // function to set priceArray for Home Inspector form
     public function getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm){
-        $baseRate = 2.13;
+        $baseAmount = 2100;
         $fees = 50;
         $cglCEF = 0;
         $cglFrill = 0;
-
-        $cglRateModifiers = array();
-        $cglRateModifiers['Ontario'] = 1;
-        $cglRateModifiers['Alberta'] = 0.3;
-        $cglRateModifiers['British Columbia'] = 0.73;
-        $cglRateModifiers['Manitoba'] = 0.3;
-        $cglRateModifiers['New Brunswick'] = 0.42;
-        $cglRateModifiers['Newfoundland and Labrador'] = 0.42;
-        $cglRateModifiers['Nova Scotia'] = 0.42;
-        $cglRateModifiers['Nunavut'] = 0;//null; // not assigned in previous version
-        $cglRateModifiers['Northwest Territories'] = 0;//null;
-        $cglRateModifiers['Prince Edward Island'] = 0.42;
-        $cglRateModifiers['Quebec'] = 1.36;
-        $cglRateModifiers['Saskatchewan'] = 0.3;
-        $cglRateModifiers['Yukon'] = 0;//null;
-        $cglRateModifiers[''] = 0;//null;
-
-        $cglLimitModifiers = array();
-        $cglLimitModifiers['1mm/1mm'] = 1;
-        $cglLimitModifiers['1mm/2mm'] = 1.10;
-        $cglLimitModifiers['2mm/2mm'] = 1.20;
-
-        $eoLimitModifiers = array();
-        $eoLimitModifiers['500m/500m'] = 0.95;
-        $eoLimitModifiers['1mm/1mm'] = 1;
-        $eoLimitModifiers['1mm/2mm'] = 1.10;
-        $eoLimitModifiers['2mm/2mm'] = 1.20; 
-
-        // cglOption is CGL liablity limit 
-        if($cgl_cglLimitsOfLiablitiy != ''){
-            $cglOption = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
-        }else{
-            $cglOption = 0;//null;
-        }
+        $priceArray = array();
         
-        // eoOption is EO limit
-        if($cgl_eoLimitsOfLiablity != ''){
-            $eoOption = $cgl_eoLimitsOfLiablity;
-        }else{
-            $eoOption = 0;//null;
-        }
-
         if($cgl_contractorsEquipmentFloater == "Yes"){
             $cglCEF = 100;
         }
@@ -114,79 +74,34 @@ class rtqController extends Controller
             $cglFrill = 300;
         }
 
-        if($risk_address_noOfClaims > 3){
+        if($risk_address_noOfClaims > 2 || $risk_address_noOfClaims == ''){
+            // Refer rule will be encounter
             $noOfClaim = 'Refer';
         }else{
+            if($cgl_cglLimitsOfLiablitiy != ''){
+              $cglLimit = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
+            }else{
+              $cglLimit = '1mm'; // by default
+            }
+            
             // get json data for claims
-        //    $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
-        }
-        
-        
-        if ($cgl_deductible >= 5000) {
-            $deductibleMod = 0.95;
-        } else {
-            $deductibleMod = 1;
-        }
-        
-        //this is the province modifier;
-        $ProvinceMod = $cglRateModifiers[$inspectionProvince];
-        $modCglRate = $baseRate * $ProvinceMod * $deductibleMod;
-        $modEoRate = $baseRate * $ProvinceMod * $deductibleMod;
-        if ($ops_totalGrossAnnualReceipts != '' && !empty($ops_totalGrossAnnualReceipts)) {
-            $calculatedCgl = ($baseRate * intval($ops_totalGrossAnnualReceipts))/1000; 
-            $calculatedEo = ($baseRate * intval($ops_totalGrossAnnualReceipts))/1000;
-        } else {
-            $calculatedCgl = 0;//'ERROR'; 
-            $calculatedEo = 0;//'ERROR';
-        }
-          
-          
-        $cglValue = function($calculatedCgl,$cglOption) {
-            switch ($cglOption) {
-                case '1mm':
-                    return $calculatedCgl;
-                    break;
-                case '2mm':
-                    if($calculatedCgl*0.25 < 500) {
-                        return $calculatedCgl + 500;
-                    } else {
-                        return $calculatedCgl + $calculatedCgl*0.25; 
-                    }
-                    break;
-                default:
-                    return $calculatedCgl;
-                    break;
-            }
-        };
-        // console.log(cglValue(calculatedCgl,cglOption));
-        $eoValue = function($calculationEo,$eoOption) {
-            switch ($eoOption) {
-                case '1mm/2mm':
-                    return $calculationEo + 1500;
-                    break;
-                case '2mm/2mm':
-                    return $calculationEo + 1800;
-                    break;
-                default:
-                    return $calculationEo;
-                    break;
-            }
-        };
+            $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
+            $cglPremium = $hi_claims["Claims".$cglLimit][0][$risk_address_noOfClaims]['Premium'];
+            $claimModifier = $hi_claims["ClaimsModifier"][0][$risk_address_noOfClaims]['Modifier'];
+            $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
 
-        $eo = $eoValue($calculatedEo,$eoOption);
-        $cgl = $cglValue($calculatedCgl,$cglOption);
-        $total_value = round($eo + $cgl);
-        $priceArray = array();
-        $priceArray['cglValue'] = $cgl;
-        $priceArray['eoValue'] = $eo;
-        $priceArray['cglCEF'] = $cglCEF;
-        $priceArray['cglFrill'] = $cglFrill;
-        $priceArray['fees'] = $fees;
-        $priceArray['premium'] = $total_value;
-        $priceArray['total_value'] = $total_value + $fees + $cglCEF + $cglFrill;
-        
+            $premium = round($baseAmount + $claimModifier + $limitModifier);
+            
+            $total_value = $premium + $cglCEF + $cglFrill + $fees;
+
+            $priceArray['cglPremium'] = $cglPremium;
+            $priceArray['cglCEF'] = $cglCEF;
+            $priceArray['cglFrill'] = $cglFrill;
+            $priceArray['fees'] = $fees;
+            $priceArray['premium'] = $premium;
+            $priceArray['total_value'] = $total_value ;
+        }
         return $priceArray;
-            // console.log(total_value);  
     }
 
     // function to set priceArray for RentedDwelling and Owner Occupied form
@@ -320,6 +235,7 @@ class rtqController extends Controller
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
+        $filesRequired = json_decode($req['filesRequired'], true);
         $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $binding = trim($req['binding']);
 
@@ -327,12 +243,12 @@ class rtqController extends Controller
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
             
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);
@@ -395,12 +311,13 @@ class rtqController extends Controller
             $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
             $cgl_deductible = trim($fd[0]['cgl_deductible']['value']);
             $cgl_contractorsEquipmentFloater = trim($fd[0]['cgl_contractorsEquipmentFloater']['value']);
-            $cgl_additionalPropertyFrill = trim($fd[0]['cgl_deductible']['value']);
+            $cgl_additionalPropertyFrill = trim($fd[0]['cgl_additionalPropertyFrill']['value']);
             $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
-            $fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            $fd[0]['calculation']= $calculateArray;
         }
         //return json_encode($fd);
         // now Send email to ..... to process email
@@ -419,7 +336,7 @@ class rtqController extends Controller
     /**
     Format form data to proper json way so we can get extract data easily from json using key as fieldID 
     **/
-    function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,$requiredError){
+    function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError){
         // check data size to add comma at end of each json value except last one
         $i = 1;
         // start json
@@ -521,6 +438,31 @@ class rtqController extends Controller
             out2:
         }
 
+        if($filesRequired != ''){
+            // append value to json
+            $r = 0;
+            $json .= ',"filesRequired": {';
+            foreach ($filesRequired as $key => $value) {
+                $json .= '"'.$key.'" : "'.$value.'"';
+                    // add comma at end of each value except last
+                
+                if(($r+1) < sizeof($filesRequired)){
+                    $json .= ',';
+                }
+                // go out of loop if all data of array added to json
+                if($r == sizeof($filesRequired)){
+                    goto out3;
+                }
+                $r++;
+            }
+            // complete each claim
+            $json .= '}';
+                    
+            out3:
+            
+            // here $t start with 0 and we have array started with 1 so we add $t+1 to add comma at end of each mortgagee except last one
+            
+        }
 
         if($referNotMatchReason != ''){
             // Show this reasons in last and always add comma before starting for valid json
@@ -537,14 +479,14 @@ class rtqController extends Controller
                 }
                 // go out of loop if all data of array added to json
                 if($r == sizeof($referNotMatchReason)){
-                    goto out3;
+                    goto out4;
                 }
                 $r++;
             }
             // complete each claim
             $json .= '}';
                     
-            out3:
+            out4:
             
             // here $t start with 0 and we have array started with 1 so we add $t+1 to add comma at end of each mortgagee except last one
             
@@ -958,7 +900,7 @@ class rtqController extends Controller
         $formData = json_decode($req['formData']);
         $rtqForm = $req['rtqForm'];
         //return $formData;
-        $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','',$rtqForm,'');
+        $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','','',$rtqForm,'');
         //print_r($fdFormattedJson);exit;
         $fd = json_decode($fdFormattedJson , true );
         
@@ -987,6 +929,7 @@ class rtqController extends Controller
         $rtqForm = $req['rtqForm'];
         
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
+        $filesRequired = json_decode($req['filesRequired'], true);
         $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $requiredError = trim($req['requiredError']);
         
@@ -997,12 +940,12 @@ class rtqController extends Controller
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
             
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);
@@ -1074,7 +1017,8 @@ class rtqController extends Controller
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
-            $fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            $fd[0]['calculation']= $calculateArray;
         }
 
         //return json_encode($fd);
@@ -1116,7 +1060,43 @@ class rtqController extends Controller
 
         // check broker code is in list
         if(isset($bclist[0][$brokerCode])){
-        	if($bclist[0][$brokerCode]['status'] == "Cancelled"){
+            if(in_array($bclist[0][$brokerCode]['status'], array("Standard","Preferred","Payfirst") ) ){
+                // if broker code is valid then check with domain if available
+                if($brokerDomain != "" && $brokerDomain != null){
+                    if(trim($bclist[0][$brokerCode]['domain']) != ''){
+                        $jsonBrokerDomain = trim($bclist[0][$brokerCode]['domain']);
+                        // check broker domain in json have comma separated
+                        if( strpos($jsonBrokerDomain, ',') !== false ) {
+                            $separatedDomain = explode(',',$jsonBrokerDomain);
+                            foreach ($separatedDomain as $d) {
+                                if($d == $brokerDomain){
+                                    $msg = "valid";
+                                    goto out;
+                                }else{
+                                    $msg = "error";
+                                }
+                            }
+                            out:
+                        }else{
+                            if($bclist[0][$brokerCode]['domain'] === $brokerDomain ){
+                                $msg = "valid";
+                            }else{
+                                $msg = "error";
+                            }    
+                        }
+                        
+                     }else{
+                        $msg = "valid";
+                    }
+                }else{
+                    $msg = "valid";
+                }
+
+            }else{
+                $msg = "cancelled";
+            }
+
+        	/*if($bclist[0][$brokerCode]['status'] == "Cancelled"){
         		$msg = "cancelled";
         	}else{
         		// if broker code is valid then check with domain if available
@@ -1129,7 +1109,7 @@ class rtqController extends Controller
         		}else{
         			$msg = "valid";
         		}
-        	}
+        	}*/
         }else{
         	$msg = "Not available";
         }

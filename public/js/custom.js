@@ -573,7 +573,8 @@ $('#insured_isRiskAddressSame').change(function() {
               // if broker cancelled then not allowed to do anything 
               // disable all step if user went ahead and then entered invalid code
               if(msg == "cancelled"){
-                $("#bcMsg").text("Broker code is not valid. Please contact AM Fredericks.");
+                //$("#bcMsg").text("Broker code is not valid. Please contact AM Fredericks.");
+                openEmailNotValidBrokerCode(brokerCode,producer_email);
                 // disable next button
                 $(".sw-btn-next").attr('disabled','true');
                 // get all step with done
@@ -591,7 +592,14 @@ $('#insured_isRiskAddressSame').change(function() {
                   }
                 }); 
               }else if(msg == "error"){
-                $("#bcMsg").text("Broker code is not validate with our system. Please contact AM Fredericks.");
+                openEmailNotValidBrokerCode(brokerCode,producer_email);
+                
+                setTimeout(function(){ 
+                
+                  
+                },1000);
+                
+                //$("#bcMsg").text("Broker code is not validate with our system. Please contact AM Fredericks.");
                 $(".sw-btn-next").removeAttr('disabled');
               }
 
@@ -613,6 +621,22 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     }
 
+    // This function will open email with subject and body for not valid broker code
+    function openEmailNotValidBrokerCode(brokerCode,producer_email){
+      var d = new Date();
+      var getIP = null;
+      $.getJSON("https://api.ipify.org?format=json", 
+        function(data) { 
+          // Setting text of element P with id gfg 
+          getIP = data.ip;
+          $("#bcMsg").empty();
+          var body = "subject=Code-Domain mismatch&body=Email entered - "+producer_email+"%0ACode entered - "+brokerCode+"%0A%0A%0ADateTime : "+d+"%0AIP : "+getIP+"%0ABrowser : "+navigator.userAgent;
+          console.log(body);
+          $("#bcMsg").html("Sorry, our records can't find a exact match to the code entered. Please contact <a href='mailto:helpdesk@amfredericks.com?"+body+"'>helpdesk@amfredericks.com</a>");
+        }); 
+      console.log(getIP);
+      $("#bcMsg").text("Checking code ....");
+    }
 
     /** Function to open and hide nested field based on parent field value **/
     function fieldOpenHide(field,fieldVal,fieldBox='',otherFieldBox,otherFieldArray,hideFieldBox=''){
@@ -1314,13 +1338,16 @@ $('#insured_isRiskAddressSame').change(function() {
         var cgl_eoLimitsOfLiablity = $("#cgl_eoLimitsOfLiablity").val();
         var ops_totalGrossAnnualReceipts = $("#ops_totalGrossAnnualReceipts").val();
         var cgl_deductible = $("#cgl_deductible").val();
+        var cgl_contractorsEquipmentFloater = $("#cgl_contractorsEquipmentFloater").val();
+        var cgl_additionalPropertyFrill = $("#cgl_additionalPropertyFrill").val();
+        var risk_address_noOfClaims = $("#risk_address_noOfClaims").val();
 
-        if(inspectionProv != '' && cgl_cglLimitsOfLiablitiy != '' && cgl_eoLimitsOfLiablity != '' && cgl_deductible != '')
+        if( cgl_cglLimitsOfLiablitiy != '' && cgl_eoLimitsOfLiablity != '' && risk_address_noOfClaims != '')
         {
           $.ajax({
             url:"calculate",
             method:"post",
-            data: {inspectionProv:inspectionProv,cgl_cglLimitsOfLiablitiy:cgl_cglLimitsOfLiablitiy,cgl_eoLimitsOfLiablity:cgl_eoLimitsOfLiablity,ops_totalGrossAnnualReceipts:ops_totalGrossAnnualReceipts,cgl_deductible:cgl_deductible,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {inspectionProv:inspectionProv,cgl_cglLimitsOfLiablitiy:cgl_cglLimitsOfLiablitiy,cgl_eoLimitsOfLiablity:cgl_eoLimitsOfLiablity,ops_totalGrossAnnualReceipts:ops_totalGrossAnnualReceipts,cgl_deductible:cgl_deductible,cgl_contractorsEquipmentFloater:cgl_contractorsEquipmentFloater,cgl_additionalPropertyFrill:cgl_additionalPropertyFrill,risk_address_noOfClaims:risk_address_noOfClaims,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
@@ -1329,7 +1356,7 @@ $('#insured_isRiskAddressSame').change(function() {
               
               $("#priceBox").empty();
 
-              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fees']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>CEF</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglCEF']+"</span></td></tr><tr><td>Frill</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglFrill']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fees']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
               $("#priceBox").html(table);
               
             },
@@ -1429,6 +1456,19 @@ $('#insured_isRiskAddressSame').change(function() {
     }else{
       referNotMatchReason = {};
     }
+    
+    var filesRequired;
+    // get refer not matching reason if available
+    if($("#filesRequiredBox").css('display') != 'none'){
+      filesRequired = {};
+      var i  = 0;
+      $("#filesRequiredBox ul li").each(function(){
+        filesRequired[i] = $(this).text();
+        i++;
+      });
+    }else{
+      filesRequired = {};
+    }
 
     // here we are taking just lower binding field value [ note : its always changed if upper one change and vice versa ]
     var binding = $("#bindStatus").val();
@@ -1475,6 +1515,7 @@ $('#insured_isRiskAddressSame').change(function() {
       var noOfClaimsArray = getFormData.noOfClaimsArray;
       // json encode of reasons
       referNotMatchReason = JSON.stringify(referNotMatchReason);
+      filesRequired = JSON.stringify(filesRequired);
 
       var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
@@ -1486,7 +1527,7 @@ $('#insured_isRiskAddressSame').change(function() {
       $.ajax({
         url:"finish",
         method:"post",
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason, _token:$('meta[name="csrf-token"]').attr('content')},
+        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
         datatype: 'json',
         success: function(msg){
           console.log(msg);
@@ -1747,6 +1788,7 @@ $('#insured_isRiskAddressSame').change(function() {
       var binding = $("#bindStatus").val();
       var doesCalculated = $("#doesCalculated").val();
       var referNotMatchReason;
+      var filesRequired;
       var requiredError = '';
       // check if all required fields are filled up or not
       $.each($('.required'), function( key, value ) {
@@ -1779,7 +1821,20 @@ $('#insured_isRiskAddressSame').change(function() {
       }
       // json encode of reasons
       referNotMatchReason = JSON.stringify(referNotMatchReason);
-
+      
+      if($("#filesRequiredBox").css('display') != 'none'){
+        filesRequired = {};
+        var i  = 0;
+        $("#filesRequiredBox ul li").each(function(){
+          filesRequired[i] = $(this).text();
+          i++;
+        });
+      }else{
+        filesRequired = {};
+      }
+      // json encode of reasons
+      filesRequired = JSON.stringify(filesRequired);
+      console.log(filesRequired);
       var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
       if(abandonStatus == "windowClose" && abandonStatus == "reset"){
@@ -1793,7 +1848,7 @@ $('#insured_isRiskAddressSame').change(function() {
         url:"resetForm",
         method:"post",
         async: true,
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
+        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
         datatype: 'json',
         success: function(msg){
           console.log(msg);

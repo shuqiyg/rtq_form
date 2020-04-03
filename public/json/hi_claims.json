@@ -15,7 +15,7 @@
                 {
                     "Limit" : "1mm",
                     "Premium" : "350"
-                },
+                }
         }
    
 	],
@@ -35,12 +35,16 @@
                 {
                     "Limit" : "2mm",
                     "Premium" : "450"
-                },
+                }
         }
    
     ],
    "ClaimsModifier":[
      	{
+		"0" : 
+                {
+                    "Modifier" : "0"
+                },
         	"1" : 
         		{
         			"Modifier" : "500"
