@@ -1731,7 +1731,12 @@ $('#insured_isRiskAddressSame').change(function() {
   $("#submitOnlyUp,#submitOnlyLow").on('click',function(event){
     event.preventDefault();
     if($(".bindingBox").css('display') != 'none'){
-      $("#bindStatus").val('Quoted');
+      var brokerCode = $.trim($("#broker_code").val());
+      if(brokerCode == '' && empty(brokerCode)){
+        $("#bindStatus").val('');  
+      }else{
+        $("#bindStatus").val('Quoted'); 
+      }
       $("#bindMsg").text("This application has not been Bound.");
     }else{
       $("#bindStatus").val('');

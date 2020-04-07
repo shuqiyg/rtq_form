@@ -262,7 +262,7 @@ class rtqController extends Controller
         $status = '';
         if($valid['valid'] == true && $binding == "Bound"){
             $status = "Bound";
-        }else if($valid['valid'] == true && ($binding == "Quoted" || $binding == "") ){
+        }else if($valid['valid'] == true && ($binding == "Quoted" ) ){
             $status = "Quoted";
         }else{
             $status = "Assigned";
@@ -620,7 +620,7 @@ class rtqController extends Controller
         }else{
             $valid = true;
             $referMatchArray = array();
-            $filesRequired = array();
+            //$filesRequired = array();
         }
         
         
