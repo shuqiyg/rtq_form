@@ -35,7 +35,7 @@ $(document).ready(function(){
   });
   /** END OF BEFOREUNLOAD METHOD **/
   /** UNLOAD METHOD **/
-  $(window).bind('unload', function () {
+  $(window).bind('unload', function (e) {
     clicked = true;
     //console.log('clickedunload '+clicked);
     //console.log("resetClicked "+resetClicked +" finishClicked "+finishClicked);
@@ -45,7 +45,7 @@ $(document).ready(function(){
       Cookies.remove('loadedForm');
       
     }else{
-      resetFunction('leavingPage');
+      resetFunction('leavingPage',e);
     }
     
     
@@ -57,10 +57,12 @@ $(document).ready(function(){
   
 
   /** CLOSE WINDOW BUTTON CLICK **/
-  $("#closeWindow").on('click',function(){
+  $("#closeWindow").on('click',function(e){
+    // disable button until process done
+    $("#closeWindow").attr('disabled','true');
     closeWindowModal = true;
     clicked = true;
-    resetFunction('windowClose');
+    resetFunction('windowClose',e);
     // set 2 sec time to get all form data and sending back to AMF
       setTimeout(function(){ 
 
@@ -1414,7 +1416,9 @@ $('#insured_isRiskAddressSame').change(function() {
   /**
    Finish button will gather all form data in json format and send it to controller to process
   **/
-  $("#finish").on('click',function(){
+  $("#finish").on('click',function(e){
+    // disable finish button, once clicked so user can't generate multiple requests till it complete
+    $("#finish").attr('disabled','true');
     
     var valid = false;
     // check if all required fields are filled up or not
@@ -1524,31 +1528,41 @@ $('#insured_isRiskAddressSame').change(function() {
       clicked = true;
 
       setTimeout(function(){  },2000);
-      $.ajax({
-        url:"finish",
-        method:"post",
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
-        datatype: 'json',
-        success: function(msg){
-          console.log(msg);
-          if(msg.success){
-            $(".loader").hide();
-            swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
-            //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
-            setTimeout(function(){
-              window.location.href='/rtqform';
-            },2000);
-            
-          }else{
-            console.log('There is error : '+msg.message);
-            swal(msg.message);
+      
+      var $link = $(e.target);
+	    e.preventDefault();
+	    if(!$link.data('lockedAt') || +new Date() - $link.data('lockedAt') > 300) {
+         
+        $.ajax({
+          url:"finish",
+          method:"post",
+          data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
+          datatype: 'json',
+          success: function(msg){
+            console.log(msg);
+            if(msg.success){
+              $(".loader").hide();
+              swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
+              //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
+              setTimeout(function(){
+                window.location.href='/rtqform';
+              },2000);
+              
+            }else{
+              console.log('There is error : '+msg.message);
+              swal(msg.message);
+            }
+          },
+          error: function(data){
+            finishClicked = false;
+            console.log(data);
+            // remove disabled attribute from button
+            $("#finish").removeAttr('disabled');
           }
-        },
-        error: function(data){
-          finishClicked = false;
-          console.log(data);
-        }
-      });
+        });
+      
+      }
+	    $link.data('lockedAt', +new Date());
     }else{
       clicked = false;
       swal('Please fill up all required fields.');
@@ -1759,7 +1773,7 @@ $('#insured_isRiskAddressSame').change(function() {
   }
 
  // when reset form button
-  $("#resetForm").on('click',function(){
+  $("#resetForm").on('click',function(e){
     //$('#smartwizard').smartWizard("reset");
     swal({
         title: "Are you sure want to reset?",
@@ -1769,9 +1783,12 @@ $('#insured_isRiskAddressSame').change(function() {
       })
       .then(function(reset) {
       if (reset) {
+        //disable reset button until process done or error found
+        $("#resetForm").attr('disabled','true');
+        
         resetClicked = true;
         clicked = true;
-        resetFunction('reset');
+        resetFunction('reset',e);
         $(".loader").show();
       } else {
         // make clicked false
@@ -1783,7 +1800,7 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   // Reset function
-  function resetFunction(abandonStatus){
+  function resetFunction(abandonStatus,e){
       // get all form data including dynamic fields
       console.log(abandonStatus);
       var getFormData = getAllFormData();
@@ -1849,32 +1866,45 @@ $('#insured_isRiskAddressSame').change(function() {
       }
 
       setTimeout(function(){  },2000);
-      $.ajax({
-        url:"resetForm",
-        method:"post",
-        async: true,
-        data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
-        datatype: 'json',
-        success: function(msg){
-          console.log(msg);
-          clicked = true;
-           //return false; 
-          if(abandonStatus == "reset"){
-            $(".loader").hide();
-            // to make reset, make clicked = true and send location to root
-            window.location.href='/rtqform';
-          }else if(abandonStatus == "windowClose"){
-            $(".loader").hide(); 
-            //clicked = true;
-            window.location.href='/rtqform';
-          }else{
-            //clicked = true;
+  
+      var $link = $(e.target);
+	    e.preventDefault();
+	    if(!$link.data('lockedAt') || +new Date() - $link.data('lockedAt') > 300) {
+        $.ajax({
+          url:"resetForm",
+          method:"post",
+          async: true,
+          data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
+          datatype: 'json',
+          success: function(msg){
+            console.log(msg);
+            clicked = true;
+             //return false; 
+            if(abandonStatus == "reset"){
+              $(".loader").hide();
+              // to make reset, make clicked = true and send location to root
+              window.location.href='/rtqform';
+            }else if(abandonStatus == "windowClose"){
+              $(".loader").hide(); 
+              //clicked = true;
+              window.location.href='/rtqform';
+            }else{
+              //clicked = true;
+            }
+          },
+          error: function(data){
+            // remove disabled button
+            if(abandonStatus == "reset"){
+              $("#resetForm").removeAttr('disabled');
+            }else if(abandonStatus == "windowClose"){
+              $("#closeWindow").removeAttr('disabled');
+            }
+            console.log(data);
           }
-        },
-        error: function(data){
-          console.log(data);
-        }
-      });
+        });
+        
+      }
+	    $link.data('lockedAt', +new Date());
   }
 
 });

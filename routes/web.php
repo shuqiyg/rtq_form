@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::post('/loadForm', 'rtqController@loadForm');
 
+Route::post('/getBannerMessage','rtqController@getBannerMessage');
+
 Route::post('/calculate', 'rtqController@calculate');
 
 Route::post('/finish', 'rtqController@finish');
@@ -44,6 +46,10 @@ Route::get('/sessionClose', function () {
 	If broker code list is in excel then makes it in JSON using following url
 **/
 Route::get('/blExcelToJson','bletjController@excelToJson');
+Route::get('/api/addBCtoList',function () {
+    return view('addBCtoList');
+});
+Route::post('/api/addBrokerCodeToList','bletjController@addBrokerCodeToList');
 
 Route::post('/brokerValidation','rtqController@brokerValidation');
 

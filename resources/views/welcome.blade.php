@@ -87,8 +87,11 @@
                     <option value="homeInspector">Home Inspector</option>
                 </select>
             </div>
-            <p id="rtqSelectedForm" style="text-decoration: underline;float: left;margin-bottom: 5px;"></p>
-            <span class="col-md-1" style="cursor:pointer;float: right;padding-right: 0px;display: none;" id="openFT"> <i class="fa fa-angle-down"></i> </span>
+            <div class="col-md-12" style="display: none;" id="bannerBox"><div id="banner"></div></div>
+            <div class="col-md-12">
+                <p id="rtqSelectedForm" style="text-decoration: underline;float: left;margin-bottom: 5px;"></p>
+                <span style="cursor:pointer;padding-left : 10px;display: none;" id="openFT"> <i class="fa fa-angle-down"></i> </span>
+            </div>
             
         </div>
         <input type="hidden" id="selectedForm" value="">
@@ -134,6 +137,7 @@
                 // if cookie assign and have value then show form with selected value
                 if(Cookies.get('loadedForm') != '' && Cookies.get('loadedForm') != undefined){
                     showForm(Cookies.get('loadedForm'));
+                    loadBanner(Cookies.get('loadedForm'));
                 }
                 
                 // when form select
@@ -173,6 +177,7 @@
                             });
                         }else{
                             showForm(formVal);
+                            loadBanner(formVal);
                         }
                     }
                 });
@@ -221,7 +226,29 @@
                     });
                     
                 }
-
+                
+                // function to load banner 
+                function loadBanner(formID){
+                    $.ajax({
+                        url:'getBannerMessage',
+                        data:{formID:formID,_token:$('meta[name="csrf-token"]').attr('content')},
+                        type:'post',
+                        success: function(bannerMessage){
+                            console.log(bannerMessage);
+                            /** Banner Message Display **/
+                                if(bannerMessage != ""){
+                                    $("#bannerBox").show();
+                                    $("#banner").html('<p style="margin: 5px 0px;padding: 5px;border: 1px solid silver;background: burlywood;"><b>Please Note :</b> '+bannerMessage+'</p>');
+                                }else{
+                                    $("#bannerBox").hide();
+                                    $("#banner").html('');
+                                }
+                                
+                            /***************************/
+                        }
+                    });
+                }  
+                
                 // toggle to up and down submission create area
                 $("#openFT").click(function(){
                     $(".frontAutText").toggle();

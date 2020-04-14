@@ -64,4 +64,24 @@ class bletjController extends Controller
 		$json .= '} ]';
     	print_r($json);
     }
+    
+    // This function will add broker code to existing json list
+    public function addBrokerCodeToList(Request $req){
+    	$bc = $req['bc'];
+    	$bd = $req['bd'];
+    	$bcType = $req['bcType'];
+    	// Read File
+    	$jsonString = file_get_contents(public_path().'/json/brokercodelist.json');
+		  $data = json_decode($jsonString, true);
+
+  		// Update Key
+  		$data[0][$bc]['domain'] = $bd;
+  		$data[0][$bc]['status'] = $bcType;
+
+	    // Write File
+    	$newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+    	file_put_contents(public_path().'/json/brokercodelist.json', stripslashes($newJsonString));
+
+    	return "done";
+    }
 }

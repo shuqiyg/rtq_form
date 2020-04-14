@@ -15,7 +15,25 @@ class rtqController extends Controller
         $_SESSION['selectedTab'] = $formVal;
         return view('main')->with('formVal',$formVal);
     }
+  
+    /** 
+    Get banner message
+    **/
+    public function getBannerMessage(Request $req){
+        $formID = trim($req['formID']);
 
+        // get banner message
+        $bannerMSG = json_decode(file_get_contents(public_path().'/json/bannerMSG.json'), true);
+        if($bannerMSG[$formID][0]['message']['active'] == 0){
+            $bannerMessage = $bannerMSG[$formID][0]['message']['value'];    
+        }else{
+            $bannerMessage = '';
+        }
+        
+        return $bannerMessage;
+        
+    }
+  
     /***
     Calculate function process data and show price to broker
     ***/
@@ -319,7 +337,13 @@ class rtqController extends Controller
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
         }
+        
+        // Add md5 Hash id to form 
+        $formHashID = md5(json_encode($fd));
+        $fd[0]['formHashID']['value'] = $formHashID;
+        
         //return json_encode($fd);
+        
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
@@ -357,6 +381,8 @@ class rtqController extends Controller
                     //$v = str_replace('\r','',$v);
                     //$v = str_replace('\n','',$v);
                     //$v = json_decode($v);
+                    $v = htmlentities($v);
+                    $v = trim($v);
                     $json .= '"value" : '.trim(json_encode($v)).' }';
                     // add comma at end of each data except last one
                     if($i < sizeof($fd)){
@@ -381,6 +407,7 @@ class rtqController extends Controller
                 // append value to json
                 $r = 1;
                 foreach ($value as $k => $v) {
+                    $v = trim($v);
                     $json .= '"'.$k.'" : "'.$v.'"';
                     // add comma at end of each value except last
                     if($r < sizeof($value)){
@@ -416,6 +443,7 @@ class rtqController extends Controller
                 // append value to json
                 $r = 1;
                 foreach ($value as $k => $v) {
+                    $v = trim($v);
                     $json .= '"'.$k.'" : "'.$v.'"';
                     // add comma at end of each value except last
                     if($r < sizeof($value)){
@@ -443,6 +471,7 @@ class rtqController extends Controller
             $r = 0;
             $json .= ',"filesRequired": {';
             foreach ($filesRequired as $key => $value) {
+                $value = trim($value);
                 $json .= '"'.$key.'" : "'.$value.'"';
                     // add comma at end of each value except last
                 
@@ -471,6 +500,7 @@ class rtqController extends Controller
             $r = 0;
             $json .= ',"ReferNotPassedReason": {';
             foreach ($referNotMatchReason as $key => $value) {
+                $value = trim($value);
                 $json .= '"'.$key.'" : "'.$value.'"';
                     // add comma at end of each value except last
                 
@@ -867,19 +897,57 @@ class rtqController extends Controller
 
             return array("valid"=>$valid,"matchArray"=>$referMatchArray,"filesRequired"=>$filesRequired);
     }
+    
+    /**
+     * Replace accented characters with non accented
+     *
+     * @param $str
+     * @return mixed
+     * @link http://myshadowself.com/coding/php-function-to-convert-accented-characters-to-their-non-accented-equivalant/
+     */
+    function removeAccents($str) {
+    //$a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd’', 'Ð', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l'", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n'",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', 'Œ', 'œ', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'Š', 'š', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Ÿ', 'Z', 'z', 'Z', 'z', 'Ž', 'ž', '?', 'ƒ', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+    
+      $a = array('&Agrave;', '&Aacute;', '&Acirc;', '&Atilde;', '&Auml;', '&Aring;', '&AElig;', '&Ccedil;', '&Egrave;', '&Eacute;', '&Ecirc;', '&Euml;', '&Igrave;', '&Iacute;', '&Icirc;', '&Iuml;', '&ETH;', '&Ntilde;', '&Ograve;', '&Oacute;', '&Ocirc;', '&Otilde;', '&Ouml;', '&Oslash;', '&Ugrave;', '&Uacute;', '&Ucirc;', '&Uuml;', '&Yacute;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&uuml;', '&yacute;', '&yuml;', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd’', 'Ð', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l&rsquo;", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n&rsquo;",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', '&OElig;', '&oelig;', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', '&Scaron;', '&scaron;', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', '&Yuml;', 'Z', 'z', 'Z', 'z', 'Ž', 'ž', '?', 'ƒ', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', "O&rsquo;", "o&rsquo;", "S&rsquo;", "s&rsquo;", '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+     
+      $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', '?', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'O', 'o', 'S', 's', 'O', 'o', '?', 'a', '?', 'e', '?', '?', 'O', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+      return str_replace($a, $b, $str);
+       /*$str = htmlentities($str, ENT_COMPAT, "UTF-8");
+       $str = preg_replace('/&([a-zA-Z])(uml|acute|grave|circ|tilde);/','$1',$str);
+       return html_entity_decode($str);*/
+    }
 
     // email sent to AMF
     public function emailSent($fd){
+        //$fdDecode = json_decode($fd,true);
+        $in = trim($fd[0]['insured_name']['value']);
+         
+        //$convertIn = html_entity_decode($in,ENT_COMPAT, 'UTF-8');
+        $insuredName = $this->removeAccents($in); 
+        //dd($insuredName);
+        
+        // check insured name length and if its too long then add only 15 characters
+        if(strlen($insuredName) > 15){
+            $insuredName = substr($insuredName, 0 , 15);
+        }
+        
+        if($insuredName == "" || empty($insuredName)){
+            $insuredName = "unknown";
+        }
+        
+        // add slashes for word like o'reilly
+        $insuredName = addslashes($insuredName);
+
         $formData = json_encode($fd);
 
         // sending email
         //$result = Mail::send($email_template, array('submission' => $submission,'email_template',$email_template), function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
-        $result = Mail::send([], [], function ($message) use ($formData) {
+        $result = Mail::send([], [], function ($message) use ($formData,$insuredName) {
 
             //$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
             $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com' // test@amfum.com
-            $message->subject('RTQ-Form');
-            $message->to('ankit.savaliya@amfredericks.com'); // rtq@amfredericks.com
+            $message->subject('RTQ-'.$insuredName);
+            $message->to('ankit.savaliya@amfredericks.com'); // rtq@amfredericks.com ankit.savaliya@amfredericks.com
             $message->setBody($formData);
 
             $email = $message->getSwiftMessage();
@@ -1022,6 +1090,10 @@ class rtqController extends Controller
         }
 
         //return json_encode($fd);
+        
+        // Add md5 Hash id to form 
+        $formHashID = md5(json_encode($fd));
+        $fd[0]['formHashID']['value'] = $formHashID;
         
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
