@@ -7,7 +7,10 @@
         <i class="fa fa-angle-right dirArrow sw-btn-next" data-toggle="tooltip" title="Next"></i>
     </div>
 </div>
-
+<?php
+	// get closest city
+	$closestCity = json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionCities.json'), true);
+?>
 <section class="finalSection">
 	<input type="hidden" name="bindStatus" id="bindStatus">
 	<input type="hidden" name="doesCalculated" id="doesCalculated">
@@ -15,6 +18,20 @@
 		<div class="col-md-12">
 			<div class="form-group" id="calculateBox" style="display: none;">
 				<h3>Result</h3>
+        @if($formVal == "plumbing")
+				<p style="padding: 0;color: red;display: none;" id="closestCityMSG">Please select closest city.</p>
+				<label class="col-md-4" style="float: left;">Select closest city</label>
+				<select id="closestCity" name="closestCity" class="form-control col-md-8">
+					<option value="">-Select closest city-</option>
+                    @foreach ($closestCity as $cs)
+                        <option value="{{ $cs['zoneCityID'] }}"> {{ $cs['name'] }} </option>
+                    @endforeach
+				</select>
+
+				<label class="col-md-4" style="float: left;">Enter distance from closest city</label>
+				<input type="text" name="distanceFromClosestCity" id="distanceFromClosestCity" class="form-control col-md-8 allow_decimal" placeholder="distance in km">
+				<br/>
+				@endif
 				<p>Calculate Quote  based on information entered :</p>
 				<button class="btn btn-primary" id="calculate">Calculate</button>
 				<div id="priceBox">

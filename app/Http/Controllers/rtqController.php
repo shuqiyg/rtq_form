@@ -83,8 +83,11 @@ class rtqController extends Controller
             $coverage_profits = $this->checkValue(trim($req['coverage_profits']));
             $coverage_liabilityLimit = trim($req['coverage_liabilityLimit']);
             
+            $closestCity = trim($req['closestCity']);
+            $distanceFromClosestCity = $this->checkValue(trim($req['distanceFromClosestCity']));
+            
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -92,18 +95,44 @@ class rtqController extends Controller
     }
 
     // function to set priceArray / calculate for plumbing form
-    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$rtqForm){
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm){
 
         // get values from json file
         $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
         $coverageRate = json_decode(file_get_contents(public_path().'/json/plumbingPropertyCoverageRate.json'), true);  
         $policy_fee = json_decode(file_get_contents(public_path().'/json/policyFee.json'), true);  
+        $getZone =   json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionFee.json'), true);
 
         $pr = $provincerate[$rtqForm][0][$province]['rate'];
         $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate'];
         $officeComputerRate = $coverageRate[0]["Office Computer"]['rate'];
         $profitsRate = $coverageRate[0]["Profits"]['rate'];
         $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate'];
+
+        // manipulate distance to get zone
+        if($distanceFromClosestCity == 0 || $distanceFromClosestCity == "" ){
+            $distance = "0";
+        }else if($distanceFromClosestCity < 50){
+            $distance = "within50";
+        }else if($distanceFromClosestCity >= 50 && $distanceFromClosestCity < 100){
+            $distance = "50-100";
+        }else if($distanceFromClosestCity >= 100 && $distanceFromClosestCity < 200){
+            $distance = "100-200";
+        }else if($distanceFromClosestCity >= 200 && $distanceFromClosestCity < 300){
+            $distance = "200-300";
+        }else if($distanceFromClosestCity >= 300 && $distanceFromClosestCity < 400){
+            $distance = "300-400";
+        }else if($distanceFromClosestCity >= 400){
+            $distance = "Refer";
+        }
+
+        // get zone number
+        $zoneValid = $getZone[$closestCity][0];
+        if(isset($zoneValid[$distance]['zone'])){
+            $zone = $zoneValid[$distance]['zone'];
+        }else{
+            $zone = 'NotAvailable';
+        }
 
         $cefAmount = ($coverage_CEF*$cefRate)/100;
         $officeComputerAmount = ($coverage_officeEquipmentsFloater*$officeComputerRate)/100;
@@ -131,13 +160,41 @@ class rtqController extends Controller
         }
         $policyFee = $policy_fee[$rtqForm][0][$feePremium]['fee'];
 
-        $total = $premiumWithoutFees + $policyFee;
+        // get zone fee by zone wise [Note: Zone & zone fee are available from PrecisePriceList-ZoneFee2020.PDF ]
+        if($zone == 1){
+            $zoneFee = 0;    
+        }else if($zone == 2){
+            $zoneFee = 15.27;    
+        }else if($zone == 3){
+            $zoneFee = 30.83;    
+        }else if($zone == 4){
+            $zoneFee = 50.65;    
+        }else if($zone == 5){
+            $zoneFee = 66.19;    
+        }else if($zone == 6){
+            $zoneFee = 82.87;    
+        }
+
+        $baseRateInspectionFee = 300;
+        if($distance == "Refer" || $zone == "NotAvailable"){
+            $inspectionFee = "";
+        }else{
+            // get distance fee
+            $distanceFee = $distanceFromClosestCity * 0.20;
+            $inspectionFee = $baseRateInspectionFee + $zoneFee + round($distanceFee);
+        }
+
+        if($inspectionFee != ""){
+            $total = $premiumWithoutFees + $policyFee + $inspectionFee;
+        }else{
+            $total = $premiumWithoutFees + $policyFee;
+        }
 
         $priceArray = array();
         $priceArray['propertyTotal'] = $propertyTotal;
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
-        $priceArray['inspectionFee'] = 0;
+        $priceArray['inspectionFee'] = $inspectionFee;
         $priceArray['total'] = $total;
 
         return $priceArray;
@@ -1289,7 +1346,7 @@ class rtqController extends Controller
         $formHashID = md5(json_encode($fd));
         $fd[0]['formHashID']['value'] = $formHashID;
 
-        return json_encode($fd);
+        //return json_encode($fd);
         
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);

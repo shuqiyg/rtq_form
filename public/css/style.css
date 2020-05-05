@@ -113,7 +113,7 @@ section{
 }
 .zeroPadding{
 	padding: 0 !important;
-	width: 200px;
+	width: auto; /*200px;*/
 	float: right;
 }
 

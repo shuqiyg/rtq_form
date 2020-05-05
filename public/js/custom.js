@@ -408,6 +408,57 @@ $('#insured_isRiskAddressSame').change(function() {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     });
   });
+  
+  /*** Allow decimal ***/
+  
+  // allow only decimal with only two digit after dot
+  // $(".allow_decimal").on("input", function(evt) {
+  //   var self = $(this);
+  //   self.val(self.val().replace(/[^0-9\.]/g, ''));
+  //   if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) 
+  //   {
+  //     evt.preventDefault();
+  //   }
+  // });
+  $('.allow_decimal').keypress(function(event) {
+    var $this = $(this);
+    if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+       ((event.which < 48 || event.which > 57) &&
+       (event.which != 0 && event.which != 8))) {
+           event.preventDefault();
+    }
+
+    var text = $(this).val();
+    if ((event.which == 46) && (text.indexOf('.') == -1)) {
+        setTimeout(function() {
+            if ($this.val().substring($this.val().indexOf('.')).length > 3) {
+                $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
+            }
+        }, 1);
+    }
+
+    if ((text.indexOf('.') != -1) &&
+        (text.substring(text.indexOf('.')).length > 2) &&
+        (event.which != 0 && event.which != 8) &&
+        ($(this)[0].selectionStart >= text.length - 2)) {
+            event.preventDefault();
+    }      
+  });
+
+  $('.allow_decimal').bind("paste", function(e) {
+  var text = e.originalEvent.clipboardData.getData('Text');
+  if ($.isNumeric(text)) {
+      if ((text.substring(text.indexOf('.')).length > 3) && (text.indexOf('.') > -1)) {
+          e.preventDefault();
+          $(this).val(text.substring(0, text.indexOf('.') + 3));
+     }
+  }
+  else {
+          e.preventDefault();
+       }
+  });
+
+  /*** END OF allow decimal ***/
 
   // check year is max to current year
   $(".checkYear").on('keyup',function(){
@@ -1410,19 +1461,26 @@ $('#insured_isRiskAddressSame').change(function() {
         var coverage_officeEquipmentsFloater = $('#coverage_officeEquipmentsFloater').val();
         var coverage_profits = $('#coverage_profits').val();
         var coverage_liabilityLimit = $('#coverage_liabilityLimit').val();
+  
+        var closestCity = $('#closestCity').val();
+        var distanceFromClosestCity = $('#distanceFromClosestCity').val();
 
-        if(province != '' && coverage_liabilityLimit != '' ){
+        if(province != '' && coverage_liabilityLimit != '' && closestCity != ''){
+          // hide error msg 
+          $("#closestCityMSG").hide();
+
+          // send calculate request
           $.ajax({
             url:"calculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
               msg = JSON.parse(msg);
               console.log(msg);
               
-              var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Property Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['propertyTotal']+"</span></td></tr><tr><td>Liability Total</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['liabilityVal']+"</span></td></tr><tr><td>Inspection Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['inspectionFee']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
               $("#priceBox").html(table);
               
             },
@@ -1431,7 +1489,13 @@ $('#insured_isRiskAddressSame').change(function() {
             }
           });
         }else{
-          swal('Some required fields are missing for calculation.');
+          if(closestCity == ''){
+            $("#closestCityMSG").show();
+          }else{
+            $("#closestCityMSG").hide();
+            swal('Some required fields are missing for calculation.');
+          }
+          
         }
 
       }else if(rtqForm == "rentedDwelling" || rtqForm == "ownerOccupied"){
@@ -1927,7 +1991,7 @@ $('#insured_isRiskAddressSame').change(function() {
               swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
               //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
               setTimeout(function(){
-                window.location.href='/';
+                window.location.href='/rtqform';
               },2000);
               
             }else{
@@ -2290,15 +2354,15 @@ $('#insured_isRiskAddressSame').change(function() {
           success: function(msg){
             console.log(msg);
             clicked = true;
-             return false; 
+             //return false; 
             if(abandonStatus == "reset"){
               $(".loader").hide();
               // to make reset, make clicked = true and send location to root
-              window.location.href='/';
+              window.location.href='/rtqform';
             }else if(abandonStatus == "windowClose"){
               $(".loader").hide(); 
               //clicked = true;
-              window.location.href='/';
+              window.location.href='/rtqform';
             }else{
               //clicked = true;
             }
