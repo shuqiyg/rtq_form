@@ -40,7 +40,7 @@ section{
   100% { transform: rotate(360deg); }
 }
 /*** Loader end ***/
-.hmm_sections,.noc5_sections{
+.hmm_sections,.noc5_sections,.ele_sections,.pfs_sections,.towf_sections{
 	margin-bottom: 5px;
 	border-bottom: 1px solid green;
 	padding:5px 10px;
@@ -56,6 +56,17 @@ section{
 	border-left: 2px solid green;
 	padding-left: 5px;
 	margin-left: 20px;
+}
+
+.nested2Box{
+	border-left: 2px solid blue;
+	padding-left: 5px;
+	margin-left: 30px;
+}
+.nested3Box{
+	border-left: 2px solid red;
+	padding-left: 5px;
+	margin-left: 40px;
 }
 
 .legalHeader{
@@ -118,6 +129,39 @@ section{
 .modal-footer{
 	bottom: 0px !important;
 }
+.hideStep{
+	display: none;
+}
+.showStep{
+	display: block;
+}
+.iconPadding{
+	margin-top: 20%;
+	margin-left: 40%;
+}
 
+.subformSection{
+	padding: 5px 20px; 
+	margin-left: 20px;
+	border-left: 2px solid #ff0ac2;
+	width: 100%;
+}
 
+#equipmentScheduleTable input{
+	width: 100%;
+	box-sizing: border-box;
+}
 
+.setGreenText{
+	color: green;
+}
+
+.subFormLabel{
+	cursor: pointer;
+}
+.subFormLabel:hover{
+	color: #0ba140;
+}
+.hideLabel{
+	display: none;
+}

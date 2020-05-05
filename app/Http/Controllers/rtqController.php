@@ -13,9 +13,10 @@ class rtqController extends Controller
     public function loadForm(Request $req){
         $formVal = trim($req['formVal']);
         $_SESSION['selectedTab'] = $formVal;
+
         return view('main')->with('formVal',$formVal);
     }
-  
+
     /** 
     Get banner message
     **/
@@ -33,7 +34,7 @@ class rtqController extends Controller
         return $bannerMessage;
         
     }
-  
+
     /***
     Calculate function process data and show price to broker
     ***/
@@ -72,9 +73,74 @@ class rtqController extends Controller
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
 
+        }else if($rtqForm == "plumbing"){
+            // set all required values
+            $province = trim($req['province']);
+            $totalRevenue = $this->checkValue(trim($req['totalRevenue']));
+            $coverage_CEF = $this->checkValue(trim($req['coverage_CEF']));
+            $coverage_toolFloater = $this->checkValue(trim($req['coverage_toolFloater']));
+            $coverage_officeEquipmentsFloater = $this->checkValue(trim($req['coverage_officeEquipmentsFloater']));
+            $coverage_profits = $this->checkValue(trim($req['coverage_profits']));
+            $coverage_liabilityLimit = trim($req['coverage_liabilityLimit']);
+            
+            // get calculateArray for plumbing form
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$rtqForm);
+
         }
         return json_encode($calculateArray);
 
+    }
+
+    // function to set priceArray / calculate for plumbing form
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$rtqForm){
+
+        // get values from json file
+        $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
+        $coverageRate = json_decode(file_get_contents(public_path().'/json/plumbingPropertyCoverageRate.json'), true);  
+        $policy_fee = json_decode(file_get_contents(public_path().'/json/policyFee.json'), true);  
+
+        $pr = $provincerate[$rtqForm][0][$province]['rate'];
+        $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate'];
+        $officeComputerRate = $coverageRate[0]["Office Computer"]['rate'];
+        $profitsRate = $coverageRate[0]["Profits"]['rate'];
+        $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate'];
+
+        $cefAmount = ($coverage_CEF*$cefRate)/100;
+        $officeComputerAmount = ($coverage_officeEquipmentsFloater*$officeComputerRate)/100;
+        $profitsAmount = ($coverage_profits*$profitsRate)/100;
+        $toolFloaterAmount = ($coverage_toolFloater*$toolFloaterRate)/100;
+
+        if($coverage_liabilityLimit == "1mm"){
+            $liability = 500;
+        }else if($coverage_liabilityLimit == "2mm"){
+            $liablity = 250 + 500; // it include 500 for 1mm and other 1mm is 250 so total 750
+        }else{
+            $liablity = 0; // if no liability
+        }
+
+        $propertyTotal = $cefAmount + $officeComputerAmount + $profitsAmount + $toolFloaterAmount;
+        $premiumWithoutFees = $propertyTotal + $liablity;
+        if($premiumWithoutFees < 5000){
+            $feePremium = "below5k";
+        }else if($premiumWithoutFees >= 5000 && $premiumWithoutFees < 10000){
+            $feePremium = "5000";
+        }else if($premiumWithoutFees >= 10000 && $premiumWithoutFees < 20000){
+            $feePremium = "10000";
+        }else if($premiumWithoutFees >= 20000){
+            $feePremium = "20000";
+        }
+        $policyFee = $policy_fee[$rtqForm][0][$feePremium]['fee'];
+
+        $total = $premiumWithoutFees + $policyFee;
+
+        $priceArray = array();
+        $priceArray['propertyTotal'] = $propertyTotal;
+        $priceArray['liabilityVal'] = $liablity;
+        $priceArray['fee'] = $policyFee;
+        $priceArray['inspectionFee'] = 0;
+        $priceArray['total'] = $total;
+
+        return $priceArray;
     }
 
     // function to set priceArray for Home Inspector form
@@ -84,7 +150,7 @@ class rtqController extends Controller
         $cglCEF = 0;
         $cglFrill = 0;
         $priceArray = array();
-        
+         
         if($cgl_contractorsEquipmentFloater == "Yes"){
             $cglCEF = 100;
         }
@@ -95,13 +161,13 @@ class rtqController extends Controller
         if($risk_address_noOfClaims > 2 || $risk_address_noOfClaims == ''){
             // Refer rule will be encounter
             $noOfClaim = 'Refer';
-        }else{
+        }else{  
             if($cgl_cglLimitsOfLiablitiy != ''){
               $cglLimit = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
             }else{
               $cglLimit = '1mm'; // by default
             }
-            
+
             // get json data for claims
             $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
             $cglPremium = $hi_claims["Claims".$cglLimit][0][$risk_address_noOfClaims]['Premium'];
@@ -120,6 +186,7 @@ class rtqController extends Controller
             $priceArray['total_value'] = $total_value ;
         }
         return $priceArray;
+        // console.log(total_value);  
     }
 
     // function to set priceArray for RentedDwelling and Owner Occupied form
@@ -280,7 +347,7 @@ class rtqController extends Controller
         $status = '';
         if($valid['valid'] == true && $binding == "Bound"){
             $status = "Bound";
-        }else if($valid['valid'] == true && ($binding == "Quoted" ) ){
+        }else if($valid['valid'] == true && ($binding == "Quoted") ){
             $status = "Quoted";
         }else{
             $status = "Assigned";
@@ -337,13 +404,13 @@ class rtqController extends Controller
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
         }
-        
+
         // Add md5 Hash id to form 
         $formHashID = md5(json_encode($fd));
         $fd[0]['formHashID']['value'] = $formHashID;
         
         //return json_encode($fd);
-        
+
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
@@ -535,17 +602,17 @@ class rtqController extends Controller
 
     // validate data ( check with refer rules )
     function validation($fd,$rtqForm){
-        
-        //define array for filesRequired
-        $filesRequired = array();  
-        
+
+        // define array for filesRequired
+        $filesRequired = array();
+
         // check which form
-        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
-            return $this->validateRentedAndOwner($fd,$rtqForm,$filesRequired);
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
+            return $this->validateRentedAndOwnerAndPlumbing($fd,$rtqForm,$filesRequired);
         } // END OF Form REFER VALIDATION FOR RENTED DWELLING AND OWNER OCCUPIED
         else if($rtqForm == "homeInspector"){
             array_push($filesRequired, "The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures");
-            array_push($filesRequired, "A copy of the outline from the firm's Quality Assurance / Quality Control (QA/QC) manual");
+            array_push($filesRequired, "A copy of the outline from the firmâ€™s Quality Assurance / Quality Control (QA/QC) manual");
             return $this->validateHomeInspector($fd,$rtqForm,$filesRequired);
         }
     }
@@ -602,12 +669,12 @@ class rtqController extends Controller
             if($ops_provideWrittenInspectionReport == "No"){
                 array_push($referMatchArray, "You are not providing a written inspection report to all your clients.");
             }
-            
+
             if($ops_haveContractForServices == "Yes"){
                 array_push($referMatchArray, "You have contract for services in place.");
                 array_push($filesRequired, "A copy of standard contract, include any lease agreement or railway siding agreement");
             }
-            
+
             if($risk_address_noOfClaims > 2){
                 array_push($referMatchArray, "Number of claims reported in last 5 years are more than 2.");
             }
@@ -638,12 +705,12 @@ class rtqController extends Controller
             if($ops_provideWrittenInspectionReport == ""){
                 array_push($referMatchArray, "Please select Do you provide all your clients with a written inspection report? field.");
             }
-            
+
             if($ops_haveContractForServices == ""){
                 // empty files required
                 //$filesRequired = array();
             }
-            
+
             if($risk_address_noOfClaims == ""){
                 array_push($referMatchArray, "Please select Number of claims reported for application of insurance on your behalf or on behalf of any your principals, firm partners, officers, employees, predecessors in past 5 years? field.");
             }
@@ -652,14 +719,17 @@ class rtqController extends Controller
             $referMatchArray = array();
             //$filesRequired = array();
         }
-        
-        
+
         return array("valid"=>$valid,"matchArray"=>$referMatchArray,"filesRequired"=>$filesRequired);
     }
 
     // function to validate rented dwelling and owner occupied form
-    function validateRentedAndOwner($fd,$rtqForm,$filesRequired){
+    function validateRentedAndOwnerAndPlumbing($fd,$rtqForm,$filesRequired){
+
+        $liability = $fd[0]['coverage_liabilityLimit']['value'];
+
          // get all data need to validate or  refer from form data
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"  ){
             $risk_address_howmany_mortgagees = trim($fd[0]['risk_address_howmany_mortgagees']['value']);
             $risk_address_existingInsurer = trim($fd[0]['risk_address_existingInsurer']['value']);
             $risk_address_hasInsuredCancelInsurance = trim($fd[0]['risk_address_hasInsuredCancelInsurance']['value']);
@@ -668,14 +738,8 @@ class rtqController extends Controller
             
             $occupancy_commercialOperations = trim($fd[0]['occupancy_commercialOperations']['value']);
             $occupancy_shortTermRentals = trim($fd[0]['occupancy_shortTermRentals']['value']);
-            $buildingConstruction_yearBuilt = trim($fd[0]['buildingConstruction_yearBuilt']['value']);
-            
-            // find building age
-            if($buildingConstruction_yearBuilt == '' || empty($buildingConstruction_yearBuilt)){
-                $building_age = 0;
-            }else{
-                $building_age = date("Y") - $buildingConstruction_yearBuilt;    
-            }
+
+            $liability_doesPremisesFenced = trim($fd[0]['liability_doesPremisesFenced']['value']);
             
             //get calculate array
             // set all required values
@@ -689,18 +753,49 @@ class rtqController extends Controller
             $rentalIncomeLimit = $this->checkValue($fd[0]['coverage_rentalIncomeLimit']['value']);
             $garageLimit = $this->checkValue($fd[0]['coverage_garageLimit']['value']);
             $shedLimit = $this->checkValue($fd[0]['coverage_shedLimit']['value']);
-            $liability = $fd[0]['coverage_liabilityLimit']['value'];
+            
 
             // get calculateArray
             $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
+            
+        }else if($rtqForm == "plumbing"){
+            $buildingConstruction_OccupancyByOther = trim($fd[0]['buildingConstruction_OccupancyByOther']['value']);
+            $burglaryAlarm_otherMeasures_guardDog = $fd[0]['burglaryAlarm_otherMeasures_guardDog']['value'];
 
+            $liability_workSubletOut =  $fd[0]['liability_workSubletOut']['value'];
+            $liability_wsoSubConLiablityInsurance = $fd[0]['liability_wsoSubConLiablityInsurance']['value'];
+
+            $liability_anyRadioactiveMaterials  = $fd[0]['liability_anyRadioactiveMaterials']['value'];
+
+            $liability_doesForestFirePreventionAct  = $fd[0]['liability_doesForestFirePreventionAct']['value'];
+            $liability_engageOpsDemolition  = $fd[0]['liability_engageOpsDemolition']['value'];
+            $liability_engageOpsShoring  = $fd[0]['liability_engageOpsShoring']['value'];
+            $liability_engageOpsUnderpinning  = $fd[0]['liability_engageOpsUnderpinning']['value'];
+            $liability_engageOpsCaissonWork  = $fd[0]['liability_engageOpsCaissonWork']['value'];
+            $liability_engageOpsExcavation  = $fd[0]['liability_engageOpsExcavation']['value'];
+            $liability_engageOpsExplosives  = $fd[0]['liability_engageOpsExplosives']['value'];
+            $liability_engageOpsTunneling  = $fd[0]['liability_engageOpsTunneling']['value'];
+            $liability_engageOpsRaisingBuildings  = $fd[0]['liability_engageOpsRaisingBuildings']['value'];
+
+            $coverage_CEF  = $this->checkValue($fd[0]['coverage_CEF']['value']);
+
+        }
+
+            $buildingConstruction_yearBuilt = trim($fd[0]['buildingConstruction_yearBuilt']['value']);
+            // find building age
+            if($buildingConstruction_yearBuilt == '' || empty($buildingConstruction_yearBuilt)){
+                $building_age = 0;
+            }else{
+                $building_age = date("Y") - $buildingConstruction_yearBuilt;    
+            }
 
             $buildingConstruction_isBuildingHeritage = trim($fd[0]['buildingConstruction_isBuildingHeritage']['value']);
             $buildingConstruction_wiringType = trim($fd[0]['buildingConstruction_wiringType']['value']);
             $buildingConstruction_amperage = trim($fd[0]['buildingConstruction_amperage']['value']);
             $buildingConstruction_heatingPrimaryType = trim($fd[0]['buildingConstruction_heatingPrimaryType']['value']);
             $fireAlarmDetectors_fireDeptTye = trim($fd[0]['fireAlarmDetectors_fireDeptTye']['value']);
-            $liability_doesPremisesFenced = trim($fd[0]['liability_doesPremisesFenced']['value']);
+            
+            
 
             if($rtqForm == "rentedDwelling"){
                 $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
@@ -712,11 +807,10 @@ class rtqController extends Controller
             // now check all rules
             $valid = false;
             $referMatchArray = array();
-            //$filesRequired = array();
-
+            
             // if any rule is not matched then make valid false
-            if(($risk_address_howmany_mortgagees > 2) || ($risk_address_existingInsurer == "AMF")  || ($risk_address_hasInsuredCancelInsurance == "Yes") || ($risk_address_noOfClaims > 0) || ($risk_address_incidenceOfClaim_type == "Liability") ||  ($occupancy_commercialOperations == "Yes") || ($occupancy_shortTermRentals == "Yes") || ($building_age > 75) || ($buildingConstruction_isBuildingHeritage == "Yes") || ($buildingConstruction_wiringType == "Knob & Tube") || ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse") || ($buildingConstruction_heatingPrimaryType == "Wood-Solid") || ($fireAlarmDetectors_fireDeptTye == "Volunteer") || ($liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes")))){
-                
+            if((in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_howmany_mortgagees > 2) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "AMF")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_noOfClaims > 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "Liability") ||  (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age > 75) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "Knob & Tube") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "Wood-Solid") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "Volunteer") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes"))) ||  ($rtqForm == "plumbing" && (($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)) || $burglaryAlarm_otherMeasures_guardDog == "Yes" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "No")) || $liability_anyRadioactiveMaterials == "Yes" || $liability_doesForestFirePreventionAct == "Yes" || $liability_engageOpsDemolition == "Yes"  || $liability_engageOpsShoring == "Yes"  || $liability_engageOpsUnderpinning == "Yes"  || $liability_engageOpsCaissonWork == "Yes"  || $liability_engageOpsExcavation == "Yes"  || $liability_engageOpsExplosives == "Yes"  || $liability_engageOpsTunneling == "Yes"  || $liability_engageOpsRaisingBuildings == "Yes" || $coverage_CEF > 500000 ) )){
+                              
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
                     if(($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units")){
@@ -730,73 +824,126 @@ class rtqController extends Controller
                     }
                 }*/
                 $valid = false;
-                if($risk_address_howmany_mortgagees > 2){
-                    array_push($referMatchArray, 'Mortgagee is greater than 2.');
-                }
-                if($risk_address_existingInsurer == 'AMF'){
-                    array_push($referMatchArray, 'Existing insurer is A.M.Fredericks.');
-                }
-                if($risk_address_hasInsuredCancelInsurance == "Yes"){
-                    array_push($referMatchArray, 'Insured has cancelled insurance.');
-                }
-                if($risk_address_noOfClaims != '0' && $risk_address_noOfClaims != ''){
-                    array_push($referMatchArray, 'Claims in last 5 years.');
-                }
-                if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
-                    if($risk_address_incidenceOfClaim_type == "Liability"){
-                        array_push($referMatchArray, 'Type of claim incidence is liablity');
+
+                if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+                    if($risk_address_howmany_mortgagees > 2){
+                        array_push($referMatchArray, 'Mortgagee is greater than 2.');
+                    }
+                    if($risk_address_existingInsurer == 'AMF'){
+                        array_push($referMatchArray, 'Existing insurer is A.M.Fredericks.');
+                    }
+                    if($risk_address_hasInsuredCancelInsurance == "Yes"){
+                        array_push($referMatchArray, 'Insured has cancelled insurance.');
+                    }
+                    if($risk_address_noOfClaims != '0' && $risk_address_noOfClaims != ''){
+                        array_push($referMatchArray, 'Claims in last 5 years.');
+                    }
+                    if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
+                        if($risk_address_incidenceOfClaim_type == "Liability"){
+                            array_push($referMatchArray, 'Type of claim incidence is liablity');
+                        }
+                    }
+
+                    if($rtqForm == "rentedDwelling"){
+                        //$occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
+                        if(in_array($occupancy_rentedDwellingUnits, array("4-6 units","6+ units") ) ){
+                            array_push($referMatchArray, 'Rented Dwelling units is more than 4 units.');
+                        }
+                    }else if($rtqForm == "ownerOccupied"){
+                        //$occupancy_numberOfFamilies = trim($fd[0]['occupancy_numberOfFamilies']['value']);
+                        //$insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
+                        if(in_array($occupancy_numberOfFamilies, array("3","More") ) ){
+                            array_push($referMatchArray, 'Number of families is 3 or more.');
+                        }
+                        if($insured_isCorporation == "Yes"){
+                            array_push($referMatchArray, 'Insured is a corporation.');
+                        }
+                    }
+                    
+
+                    if($occupancy_commercialOperations == "Yes"){
+                        array_push($referMatchArray, 'There is commercial operations in premises.');
+                    }
+                    if($occupancy_shortTermRentals == "Yes"){
+                        array_push($referMatchArray, 'There is short term rentals allowed.');
+                    }
+                    
+                    if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
+                        if($liability_doesPremisesFenced == "No"){
+                            array_push($referMatchArray, 'Premises has not fenced and gated.');
+                        }
                     }
                 }
 
-                if($rtqForm == "rentedDwelling"){
-                    //$occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
-                    if(in_array($occupancy_rentedDwellingUnits, array("4-6 units","6+ units") ) ){
-                        array_push($referMatchArray, 'Rented Dwelling units is more than 4 units.');
+                    if($building_age > 75){
+                        array_push($referMatchArray, 'Building age is greater than or equals to 75.');
                     }
-                }else if($rtqForm == "ownerOccupied"){
-                    //$occupancy_numberOfFamilies = trim($fd[0]['occupancy_numberOfFamilies']['value']);
-                    //$insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
-                    if(in_array($occupancy_numberOfFamilies, array("3","More") ) ){
-                        array_push($referMatchArray, 'Number of families is 3 or more.');
+                    if($buildingConstruction_isBuildingHeritage == "Yes"){
+                        array_push($referMatchArray, 'Building is heritage.');
                     }
-                    if($insured_isCorporation == "Yes"){
-                        array_push($referMatchArray, 'Insured is a corporation.');
+                    if($buildingConstruction_wiringType == "Knob & Tube"){
+                        array_push($referMatchArray, 'Building wiring type is knob & tube.');
                     }
+                    if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
+                        array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
+                    }
+
+                    if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
+                        array_push($referMatchArray, 'Building heating primary type is wood/solid.');
+                    }
+                    if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
+                        array_push($referMatchArray, 'Fire department type is volunteer.');
+                    }
+
+                if($rtqForm == "plumbing"){
+                    if($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)){
+                        array_push($referMatchArray, 'There is occupancy by other.');
+                    }
+                    if($burglaryAlarm_otherMeasures_guardDog  == "Yes"){
+                        array_push($referMatchArray, 'There is guard dog.');
+                    }
+                    if($liability_workSubletOut == "Yes"){
+                        if($liability_wsoSubConLiablityInsurance == "No"){
+                            array_push($referMatchArray, 'Sub contractors are not required to carry liability insurance.');
+                        }
+                    }
+                    if($liability_anyRadioactiveMaterials  == "Yes"){
+                        array_push($referMatchArray, 'There is any use of radioactive materials in the premises.');
+                    }
+                    if($liability_doesForestFirePreventionAct  == "Yes"){
+                        array_push($referMatchArray, 'There is fire prevention act apply.');
+                    }
+                    if($liability_engageOpsDemolition  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of demolition.');
+                    }
+                    if($liability_engageOpsShoring  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of shoring.');
+                    }
+                    if($liability_engageOpsUnderpinning  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of underpinning.');
+                    }
+                    if($liability_engageOpsCaissonWork  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of caisson work.');
+                    }
+                    if($liability_engageOpsExcavation  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of excavation.');
+                    }
+                    if($liability_engageOpsExplosives  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of explosives.');
+                    }
+                    if($liability_engageOpsTunneling  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of tunneling.');
+                    }
+                    if($liability_engageOpsRaisingBuildings  == "Yes"){
+                        array_push($referMatchArray, 'Engage in operation of raising or moving of buildings and structures.');
+                    }
+                    if($coverage_CEF  > 500000){
+                        array_push($referMatchArray, 'CEF coverage is more than 500m.');
+                    }
+
                 }
                 
-
-                if($occupancy_commercialOperations == "Yes"){
-                    array_push($referMatchArray, 'There is commercial operations in premises.');
-                }
-                if($occupancy_shortTermRentals == "Yes"){
-                    array_push($referMatchArray, 'There is short term rentals allowed.');
-                }
-                if($building_age > 75){
-                    array_push($referMatchArray, 'Building age is greater than or equals to 75.');
-                }
-                if($buildingConstruction_isBuildingHeritage == "Yes"){
-                    array_push($referMatchArray, 'Building is heritage.');
-                }
-                if($buildingConstruction_wiringType == "Knob & Tube"){
-                    array_push($referMatchArray, 'Building wiring type is knob & tube.');
-                }
-                if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
-                    array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
-                }
-
-                if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
-                    array_push($referMatchArray, 'Building heating primary type is wood/solid.');
-                }
-                if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
-                    array_push($referMatchArray, 'Fire department type is volunteer.');
-                }
-                if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
-                    if($liability_doesPremisesFenced == "No"){
-                        array_push($referMatchArray, 'Premises has not fenced and gated.');
-                    }
-                }
-                
-            }else if(($risk_address_howmany_mortgagees == "") || ($risk_address_existingInsurer == "")  || ($risk_address_hasInsuredCancelInsurance == "") || ($risk_address_noOfClaims == "") || ($risk_address_incidenceOfClaim_type == "") || ($occupancy_commercialOperations == "") || ($occupancy_shortTermRentals == "") || ($building_age == 0) || ($buildingConstruction_isBuildingHeritage == "") || ($buildingConstruction_wiringType == "") || ($buildingConstruction_amperage == "" ) || ($buildingConstruction_heatingPrimaryType == "") || ($fireAlarmDetectors_fireDeptTye == "") || ($liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "") || ($insured_isCorporation == "")) ){
+            }else if((in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_howmany_mortgagees == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_noOfClaims == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age == 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "") || ($insured_isCorporation == "")) ||  ($rtqForm == "plumbing" && ( $burglaryAlarm_otherMeasures_guardDog == "" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "")) || $liability_anyRadioactiveMaterials == "" || $liability_doesForestFirePreventionAct == "" || $liability_engageOpsDemolition == ""  || $liability_engageOpsShoring == ""  || $liability_engageOpsUnderpinning == ""  || $liability_engageOpsCaissonWork == ""  || $liability_engageOpsExcavation == ""  || $liability_engageOpsExplosives == ""  || $liability_engageOpsTunneling == ""  || $liability_engageOpsRaisingBuildings == "" || (empty($coverage_CEF) || $coverage_CEF == 0)  ) ) ){
 
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
@@ -813,77 +960,126 @@ class rtqController extends Controller
                     }
                 }*/
                 $valid = 'Empty';
-                if($risk_address_howmany_mortgagees == ""){
-                    array_push($referMatchArray, 'Please select how many mortgagee field.');
-                }
-                if($risk_address_existingInsurer == "Other"){
-                    if(trim($fd[0]['risk_address_existingInsurerOther']['value']) == ""){
-                        array_push($referMatchArray, 'Please select existing insurer field.');
+
+                if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+                    if($risk_address_howmany_mortgagees == ""){
+                        array_push($referMatchArray, 'Please select how many mortgagee field.');
                     }
-                }else{
-                    if($risk_address_existingInsurer == ""){
-                        array_push($referMatchArray, 'Please select existing insurer field.');
+                    if($risk_address_existingInsurer == "Other"){
+                        if(trim($fd[0]['risk_address_existingInsurerOther']['value']) == ""){
+                            array_push($referMatchArray, 'Please select existing insurer field.');
+                        }
+                    }else{
+                        if($risk_address_existingInsurer == ""){
+                            array_push($referMatchArray, 'Please select existing insurer field.');
+                        }
                     }
-                }
-                
-                if($risk_address_hasInsuredCancelInsurance == ""){
-                    array_push($referMatchArray, 'Plese select has the insured been cancelled/declined insurance ? field.');
-                }
-                if($risk_address_noOfClaims == ''){
-                    array_push($referMatchArray, 'Plese select  number of claims in the last 5 years ? field.');
-                }
-                if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
-                    if($risk_address_incidenceOfClaim_type == ""){
-                        array_push($referMatchArray, 'Plese select type of claim field');
+                    
+                    if($risk_address_hasInsuredCancelInsurance == ""){
+                        array_push($referMatchArray, 'Plese select has the insured been cancelled/declined insurance ? field.');
+                    }
+                    if($risk_address_noOfClaims == ''){
+                        array_push($referMatchArray, 'Plese select  number of claims in the last 5 years ? field.');
+                    }
+                    if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
+                        if($risk_address_incidenceOfClaim_type == ""){
+                            array_push($referMatchArray, 'Plese select type of claim field');
+                        }
+                    }
+
+                    if($rtqForm == "rentedDwelling"){
+                        //$occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
+                        if($occupancy_rentedDwellingUnits == "" ){
+                            array_push($referMatchArray, 'Plese select rented dwelling units field.');
+                        }
+                    }else if($rtqForm == "ownerOccupied"){
+                        //$occupancy_numberOfFamilies = trim($fd[0]['occupancy_numberOfFamilies']['value']);
+                        if($occupancy_numberOfFamilies == "" ){
+                            array_push($referMatchArray, 'Plese select number of families field.');
+                        }
+                        //$insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
+                        if($insured_isCorporation == "" ){
+                            array_push($referMatchArray, 'Plese select is insured a corporation field.');
+                        }
+                    }
+                    
+
+                    if($occupancy_commercialOperations == ""){
+                        array_push($referMatchArray, 'Plese select are there any commercial operations on the premises ? field.');
+                    }
+                    if($occupancy_shortTermRentals == ""){
+                        array_push($referMatchArray, 'Plese select are short term rentals allowed (e.g. AirBNB) field.');
+                    }
+                    
+                    if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
+                        if($liability_doesPremisesFenced == ""){
+                            array_push($referMatchArray, 'Please select are the premises fenced and gated? field.');
+                        }
                     }
                 }
 
-                if($rtqForm == "rentedDwelling"){
-                    //$occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
-                    if($occupancy_rentedDwellingUnits == "" ){
-                        array_push($referMatchArray, 'Plese select rented dwelling units field.');
+                    if($building_age > 75){
+                        array_push($referMatchArray, 'Please select year built field.');
                     }
-                }else if($rtqForm == "ownerOccupied"){
-                    //$occupancy_numberOfFamilies = trim($fd[0]['occupancy_numberOfFamilies']['value']);
-                    if($occupancy_numberOfFamilies == "" ){
-                        array_push($referMatchArray, 'Plese select number of families field.');
+                    if($buildingConstruction_isBuildingHeritage == ""){
+                        array_push($referMatchArray, 'Please select is building considered a heritage building ? field.');
                     }
-                    //$insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
-                    if($insured_isCorporation == "" ){
-                        array_push($referMatchArray, 'Plese select is insured a corporation field.');
+                    if($buildingConstruction_wiringType == ""){
+                        array_push($referMatchArray, 'Please select wiring type field.');
                     }
-                }
-                
+                    if($buildingConstruction_amperage == "" ){
+                        array_push($referMatchArray, 'Please select amperage field.');
+                    }
 
-                if($occupancy_commercialOperations == ""){
-                    array_push($referMatchArray, 'Plese select are there any commercial operations on the premises ? field.');
-                }
-                if($occupancy_shortTermRentals == ""){
-                    array_push($referMatchArray, 'Plese select are short term rentals allowed (e.g. AirBNB) field.');
-                }
-                if($building_age > 75){
-                    array_push($referMatchArray, 'Please select year built field.');
-                }
-                if($buildingConstruction_isBuildingHeritage == ""){
-                    array_push($referMatchArray, 'Please select is building considered a heritage building ? field.');
-                }
-                if($buildingConstruction_wiringType == ""){
-                    array_push($referMatchArray, 'Please select wiring type field.');
-                }
-                if($buildingConstruction_amperage == "" ){
-                    array_push($referMatchArray, 'Please select amperage field.');
-                }
-
-                if($buildingConstruction_heatingPrimaryType == ""){
-                    array_push($referMatchArray, 'Please select heating primary type field.');
-                }
-                if($fireAlarmDetectors_fireDeptTye == ""){
-                    array_push($referMatchArray, 'Please select fire department type field.');
-                }
-                if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){
-                    if($liability_doesPremisesFenced == ""){
-                        array_push($referMatchArray, 'Please select are the premises fenced and gated? field.');
+                    if($buildingConstruction_heatingPrimaryType == ""){
+                        array_push($referMatchArray, 'Please select heating primary type field.');
                     }
+                    if($fireAlarmDetectors_fireDeptTye == ""){
+                        array_push($referMatchArray, 'Please select fire department type field.');
+                    }
+                if($rtqForm == "plumbing"){
+                    if($burglaryAlarm_otherMeasures_guardDog  == ""){
+                        array_push($referMatchArray, 'Please select guard dog field.');
+                    }
+                    if($liability_workSubletOut == "Yes"){
+                        if($liability_wsoSubConLiablityInsurance == ""){
+                            array_push($referMatchArray, 'Please select Are sub-contractors required to carry liability insurance? field.');
+                        }
+                    }
+                    if($liability_anyRadioactiveMaterials  == ""){
+                        array_push($referMatchArray, 'Please select Is there any use of radioactive materials in the premises? field.');
+                    }
+                    if($liability_doesForestFirePreventionAct  == "Yes"){
+                        array_push($referMatchArray, 'Please select Does forest fire prevenion act apply? field.');
+                    }
+                    if($liability_engageOpsDemolition  == ""){
+                        array_push($referMatchArray, 'Please select Demolition or Wrecking field.');
+                    }
+                    if($liability_engageOpsShoring  == ""){
+                        array_push($referMatchArray, 'Please select Shoring field.');
+                    }
+                    if($liability_engageOpsUnderpinning  == ""){
+                        array_push($referMatchArray, 'Please select Underpinning field.');
+                    }
+                    if($liability_engageOpsCaissonWork  == ""){
+                        array_push($referMatchArray, 'Please select Caisson Work field.');
+                    }
+                    if($liability_engageOpsExcavation  == ""){
+                        array_push($referMatchArray, 'Please select Excavation field.');
+                    }
+                    if($liability_engageOpsExplosives  == ""){
+                        array_push($referMatchArray, 'Please select Use of Explosives field.');
+                    }
+                    if($liability_engageOpsTunneling  == ""){
+                        array_push($referMatchArray, 'Please select Tunneling field.');
+                    }
+                    if($liability_engageOpsRaisingBuildings  == ""){
+                        array_push($referMatchArray, 'Please select Raising or moving of buildings and structures field.');
+                    }
+                    if($coverage_CEF  == ""){
+                        array_push($referMatchArray, 'Please select C.E.F. field.');
+                    }
+
                 }
             }else{
                 $valid = true;
@@ -891,14 +1087,14 @@ class rtqController extends Controller
             }
             
             // check TIV limit
-            if($calculateArray['TivLimit'] == "Above"){
+            if(isset($calculateArray['TivLimit']) && $calculateArray['TivLimit'] == "Above"){
                 array_push($referMatchArray, 'TIV limit is going above '.$calculateArray['AvailableTivLimit']);
             }
 
             return array("valid"=>$valid,"matchArray"=>$referMatchArray,"filesRequired"=>$filesRequired);
     }
-    
-    /**
+
+   /**
      * Replace accented characters with non accented
      *
      * @param $str
@@ -906,9 +1102,9 @@ class rtqController extends Controller
      * @link http://myshadowself.com/coding/php-function-to-convert-accented-characters-to-their-non-accented-equivalant/
      */
     function removeAccents($str) {
-    //$a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd’', 'Ð', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l'", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n'",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', 'Œ', 'œ', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'Š', 'š', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Ÿ', 'Z', 'z', 'Z', 'z', 'Ž', 'ž', '?', 'ƒ', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+    //$a = array('Ã€', 'Ã', 'Ã‚', 'Ãƒ', 'Ã„', 'Ã…', 'Ã†', 'Ã‡', 'Ãˆ', 'Ã‰', 'ÃŠ', 'Ã‹', 'ÃŒ', 'Ã', 'ÃŽ', 'Ã', 'Ã', 'Ã‘', 'Ã’', 'Ã“', 'Ã”', 'Ã•', 'Ã–', 'Ã˜', 'Ã™', 'Ãš', 'Ã›', 'Ãœ', 'Ã', 'ÃŸ', 'Ã ', 'Ã¡', 'Ã¢', 'Ã£', 'Ã¤', 'Ã¥', 'Ã¦', 'Ã§', 'Ã¨', 'Ã©', 'Ãª', 'Ã«', 'Ã¬', 'Ã­', 'Ã®', 'Ã¯', 'Ã±', 'Ã²', 'Ã³', 'Ã´', 'Ãµ', 'Ã¶', 'Ã¸', 'Ã¹', 'Ãº', 'Ã»', 'Ã¼', 'Ã½', 'Ã¿', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'dâ€™', 'Ã', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l'", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n'",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', 'Å’', 'Å“', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'Å ', 'Å¡', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Å¸', 'Z', 'z', 'Z', 'z', 'Å½', 'Å¾', '?', 'Æ’', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
     
-      $a = array('&Agrave;', '&Aacute;', '&Acirc;', '&Atilde;', '&Auml;', '&Aring;', '&AElig;', '&Ccedil;', '&Egrave;', '&Eacute;', '&Ecirc;', '&Euml;', '&Igrave;', '&Iacute;', '&Icirc;', '&Iuml;', '&ETH;', '&Ntilde;', '&Ograve;', '&Oacute;', '&Ocirc;', '&Otilde;', '&Ouml;', '&Oslash;', '&Ugrave;', '&Uacute;', '&Ucirc;', '&Uuml;', '&Yacute;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&uuml;', '&yacute;', '&yuml;', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd’', 'Ð', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l&rsquo;", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n&rsquo;",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', '&OElig;', '&oelig;', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', '&Scaron;', '&scaron;', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', '&Yuml;', 'Z', 'z', 'Z', 'z', 'Ž', 'ž', '?', 'ƒ', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', "O&rsquo;", "o&rsquo;", "S&rsquo;", "s&rsquo;", '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+      $a = array('&Agrave;', '&Aacute;', '&Acirc;', '&Atilde;', '&Auml;', '&Aring;', '&AElig;', '&Ccedil;', '&Egrave;', '&Eacute;', '&Ecirc;', '&Euml;', '&Igrave;', '&Iacute;', '&Icirc;', '&Iuml;', '&ETH;', '&Ntilde;', '&Ograve;', '&Oacute;', '&Ocirc;', '&Otilde;', '&Ouml;', '&Oslash;', '&Ugrave;', '&Uacute;', '&Ucirc;', '&Uuml;', '&Yacute;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&uuml;', '&yacute;', '&yuml;', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'dâ€™', 'Ã', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', "l&rsquo;", 'l', 'L', 'l', '?', '?', 'L', 'l', 'N', "n&rsquo;",'n', 'N', 'n', 'N', 'n', '?', 'O', 'o', 'O', 'o', 'O', 'o', '&OElig;', '&oelig;', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', '&Scaron;', '&scaron;', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', '&Yuml;', 'Z', 'z', 'Z', 'z', 'Å½', 'Å¾', '?', 'Æ’', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', "O&rsquo;", "o&rsquo;", "S&rsquo;", "s&rsquo;", '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
      
       $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', '?', '?', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', '?', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'O', 'o', 'S', 's', 'O', 'o', '?', 'a', '?', 'e', '?', '?', 'O', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
       return str_replace($a, $b, $str);
@@ -946,8 +1142,8 @@ class rtqController extends Controller
 
             //$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
             $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com' // test@amfum.com
-            $message->subject('RTQ-'.$insuredName);
-            $message->to('ankit.savaliya@amfredericks.com'); // rtq@amfredericks.com ankit.savaliya@amfredericks.com
+            $message->subject('RTQ-'.$insuredName); //'RTQ-Form'
+            $message->to('ankit.savaliya@amfredericks.com'); // rtq@amfredericks.com
             $message->setBody($formData);
 
             $email = $message->getSwiftMessage();
@@ -1089,11 +1285,11 @@ class rtqController extends Controller
             $fd[0]['calculation']= $calculateArray;
         }
 
-        //return json_encode($fd);
-        
         // Add md5 Hash id to form 
         $formHashID = md5(json_encode($fd));
         $fd[0]['formHashID']['value'] = $formHashID;
+
+        return json_encode($fd);
         
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
@@ -1157,7 +1353,7 @@ class rtqController extends Controller
                             }    
                         }
                         
-                     }else{
+                    }else{
                         $msg = "valid";
                     }
                 }else{

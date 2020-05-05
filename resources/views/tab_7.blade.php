@@ -9,8 +9,7 @@
 
 <section class="claimHistoryTab">
     <h3>Claim History</h3>
-    
-    <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label class="col-md-10" style="float: left;"> Number of claims reported for application of insurance on your behalf or on behalf of any your principals, firm partners, officers, employees, predecessors in past 5 years? <span class="err">*</span> </label>
@@ -57,8 +56,9 @@
             </div>
         </div>
     </div>
-    -->
-    
+-->
+
+@if($formVal == "homeInspector") 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -104,4 +104,58 @@
 
         </div>
     </div>
+@endif
+
+<!-- plumbing form has some different fileds to show -->
+@if($formVal == "plumbing")
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a claim ? <span class="err">*</span></label>
+                <select class="form-control col-md-2 required" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="incidenceOfClaimBox" style="display: none;">
+        <div class="form-group"  >
+            <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, please advise details </span> </label>
+            <input type="text" id="risk_address_incidenceOfClaim_details" name="risk_address_incidenceOfClaim_details" class="form-control col-md-8"  value="">
+        </div>
+        <div class="form-group" >
+            <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of claims </span> <span class="err">*</span></label>
+            <select class="form-control col-md-8 required" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
+                <option value="">-Select claim type-</option>
+                <option value="Property">Property</option>
+                <option value="Liability">Liability</option>
+            </select>
+        </div>
+    </div>
+
+    <h5 style="clear: both;">Abuse and Employment Practices Disclosure</h5>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-10" style="float: left;"> I have no knowledge of any past or pending claims against my company with respect to abuse including
+allegations of sexual abuse, or, any other employment practices violations including wrongful dismissal and discrimination. <span class="err">*</span> </label>
+                <select id="claimHistory_abuseEmploymentDisclosure" name="claimHistory_abuseEmploymentDisclosure" class="form-control col-md-2 required">
+                    <option value="">-Select value-</option>
+                    <option value="Agree">Agree</option>
+                    <option value="Disagree">Disagree</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group" id="claimHistory_abuseEmploymentDisclosureBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox"> If disagree provide details:  </span></label>
+                <textarea rows="5" class="form-control col-md-8" id="claimHistory_abuseEmploymentDisclosureDisAgreeDetails" name="claimHistory_abuseEmploymentDisclosureDisAgreeDetails" ></textarea>
+            </div>
+        </div>
+    </div>
+@endif
+
 </section>

@@ -11,7 +11,7 @@
     <h3>Insured</h3>
     <div class="row">
         <div class="col-md-12">
-        
+            
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> SOLE or CORP <span class="err">*</span> </label>
                 <select id="insured_soleOrCorp" name="insured_soleOrCorp" class="form-control col-md-8 infoToggle required">
@@ -40,7 +40,11 @@
                 <input type="text" id="insured_solePhoneNumber" name="insured_solePhoneNumber" class="form-control col-md-8 checkPhone"  value="" placeholder="Please use x or ext if there is extention">
             </div>
 
-
+            
+            <div class="form-group insuredCorpBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"> <span class="nestedBox">Name of Principals <span class="err">*</span> </span></label>
+                <input type="text" id="namePrincipalsInsured" name="namePrincipalsInsured" class="form-control col-md-8 required"  value="">
+            </div>
             <div class="form-group insuredCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Contact First Name <span class="err">*</span> </span></label>
                 <input type="text" id="contact_first_name" name="contact_first_name" class="form-control col-md-8 required"  value="">
@@ -68,6 +72,35 @@
                 <label class="col-md-4" style="float: left;"> Year of Experience <span class="err">*</span> </label>
                 <input type="text" id="insured_yearOfExperience" name="insured_yearOfExperience" class="form-control col-md-8 required onlyNumbers"  value="" maxlength="3" >
             </div>
+
+            <!-- Plumbing form have some different fields that need to add here -->
+@if($formVal == "plumbing")   
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Policy Language  </label>
+                <select class="form-control col-md-8" id="policy_language" name="policy_language">
+                    <option value="">-Select policy language-</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record ? <span class="err">*</span> </label>
+                        <select class="form-control col-md-8 required" id="insured_criminal_record" name="insured_criminal_record">
+                            <option value="">-Select Value-</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="details_of_record_box" style="display: none;">
+                <label class="col-md-4" style="float: left;"> <span class="optionalBox">Details of record</span> </label>
+                <input type="text" id="details_of_record" name="details_of_record" class="form-control col-md-8"  value="">
+            </div>
+    
+@endif
             
         </div>
     </div>
@@ -127,7 +160,8 @@
             </div>
         </div>
     </div>
-
+<!-- Below form don't need risk address fields on this tab -->    
+@if($formVal != "plumbing")    
     <div class="row">
         <div class="col-md-12">
 
@@ -185,4 +219,6 @@
 
         </div>
     </div>
+@endif
+
 </section>

@@ -37,7 +37,7 @@
 <body style="width: 80%;margin:0 auto;border: 1px solid silver;">
 	<?php
         $bcList = json_decode(file_get_contents(public_path().'/json/brokercodelist.json'), true);
-		    //print_r($bcList);
+		//print_r($bcList);
     ?>
 	<div style="margin : 10px 0px;padding: 20px;" >
 		<div class="row">

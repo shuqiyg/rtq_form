@@ -1,0 +1,147 @@
+[
+            
+            {
+                "name": "Vancouver - BC",
+                "zoneCityID": "VancouverBC"
+            },
+            {
+                "name": "Kelowna - BC",
+                "zoneCityID": "KelownaBC"
+            },
+            {
+                "name": "Victoria - BC",
+                "zoneCityID": "VictoriaBC"
+            },
+            {
+                "name": "Calgary - AB",
+                "zoneCityID": "CalgaryAB"
+            },
+            {
+                "name": "Winnipeg - MB",
+                "zoneCityID": "WinnipegMB"
+            },
+            {
+                "name": "Hamilton - ON",
+                "zoneCityID": "HamiltonON"
+            },
+            {
+                "name": "Kitchener - ON",
+                "zoneCityID": "KitchenerON"
+            },
+            {
+                "name": "London - ON",
+                "zoneCityID": "LondonON"
+            },
+            {
+                "name": "Ottawa - ON",
+                "zoneCityID": "OttawaON"
+            },
+            {
+                "name": "Toronto - ON",
+                "zoneCityID": "TorontoON"
+            },
+            {
+                "name": "Windsor - ON",
+                "zoneCityID": "WindsorON"
+            },
+            {
+                "name": "Hull - QC",
+                "zoneCityID": "HullQC"
+            },
+            {
+                "name": "Montreal - QC",
+                "zoneCityID": "MontrealQC"
+            },
+            {
+                "name": "Quebec City - QC",
+                "zoneCityID": "QuebecCityQC"
+            },
+            {
+                "name": "Halifax/Dartmouth - NS",
+                "zoneCityID": "Halifax_DartmouthNS"
+            },
+            {
+                "name": "Mirabel - QC",
+                "zoneCityID": "MirabelQC"
+            },
+            {
+                "name": "Regina - SK",
+                "zoneCityID": "ReginaSK"
+            },
+            {
+                "name": "Chateauguay - QC",
+                "zoneCityID": "ChateauguayQC"
+            },
+            {
+                "name": "Valleyfield - QC",
+                "zoneCityID": "ValleyfieldQC"
+            },
+            {
+                "name": "Fredericton - NB",
+                "zoneCityID": "FrederictonNB"
+            },
+            {
+                "name": "Moncton - NB",
+                "zoneCityID": "MonctonNB"
+            },
+            {
+                "name": "Saint John - NB",
+                "zoneCityID": "SaintjohnNB"
+            },
+            {
+                "name": "St. john's - NF",
+                "zoneCityID": "StjohnsNF"
+            },
+            {
+                "name": "Saskatoon - SK",
+                "zoneCityID": "SaskatoonSK"
+            },
+            {
+                "name": "North Bay - ON",
+                "zoneCityID": "NorthBayON"
+            },
+            {
+                "name": "Sudbury - ON",
+                "zoneCityID": "SudburyON"
+            },
+            {
+                "name": "Charlottetown - PEI",
+                "zoneCityID": "CharlottetownPEI"
+            },
+            {
+                "name": "Sherbrooke - QC",
+                "zoneCityID": "SherbrookeQC"
+            },
+            {
+                "name": "Trois Rivieres - QC",
+                "zoneCityID": "TroisRivieresQC"
+            },
+            {
+                "name": "Portneuf - QC",
+                "zoneCityID": "PortneufQC"
+            },
+            {
+                "name": "Ste-Agathe - QC",
+                "zoneCityID": "SteAgatheQC"
+            },
+            {
+                "name": "Baie St-Paul - QC",
+                "zoneCityID": "BaieStPaulQC"
+            },
+            {
+                "name": "Mont-Laurier - QC",
+                "zoneCityID": "MontLaurierQC"
+            },
+            {
+                "name": "Whistler - BC",
+                "zoneCityID": "WhistlerBC"
+            },
+            {
+                "name": "Sault Ste Marie - ON",
+                "zoneCityID": "SaultSteMarieON"
+            },
+            {
+                "name": "Thunder Bay - ON",
+                "zoneCityID": "ThunderBayON"
+            }
+        ]

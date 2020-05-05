@@ -1,0 +1,46 @@
+{
+   "plumbing":[
+		{
+			"Alberta" : {
+				"rate" : "4.93"
+			},
+			"British Columbia" : {
+				"rate" : "4.93"
+			},
+			"Manitoba" : {
+				"rate" : "4.93"
+			},
+			"New Brunswick" : {
+				"rate" : "5.16"
+			},
+			"Newfoundland and Labrador" : {
+				"rate" : "5.16"
+			},
+			"Northwest Territories" : {
+				"rate" : "13.29"
+			},
+			"Nova Scotia" : {
+				"rate" : "5.16"
+			},
+			"Nunavut" : {
+				"rate" : "13.29"
+			},
+			"Ontario" : {
+				"rate" : "10.56"
+			},
+			"Prince Edward Island" : {
+				"rate" : "5.16"
+			},
+			"Quebec" : {
+				"rate" : "13.29"
+			},
+			"Saskatchewan" : {
+				"rate" : "4.93"
+			},
+			"Yukon" : {
+				"rate" : "13.29"
+			}
+		}
+	]
+
+}

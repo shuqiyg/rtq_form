@@ -51,6 +51,22 @@
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">  Describe Use Over 1 Acre </span> </label>
                 <input type="text" id="risk_address_describeOver1Acre" name="risk_address_describeOver1Acre" class="form-control col-md-8"  value="">
             </div>
+
+        @if($formVal == "plumbing")  
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-4" style="float: left;"> Do you require building coverage ?<span class="err">*</span> </label>
+                        <select class="form-control col-md-8 required" id="risk_address_requireBuildingCoverage" name="risk_address_requireBuildingCoverage">
+                            <option value="">-Select value-</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        @endif
+
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> How Many Mortgagees ? <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_howmany_mortgagees" name="risk_address_howmany_mortgagees">
@@ -104,6 +120,13 @@
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox"> If no, give reason for non-renewal </span> </label>
                 <input type="text" id="risk_address_existingInsurerNonRenewal" name="risk_address_existingInsurerNonRenewal" class="form-control col-md-8"  value="">
             </div>
+        @if($formVal == "plumbing")  
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"><span class="nestedBox">Expiring Premium </span></label>
+                <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8"  value="">
+            </div>
+        @endif
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -120,6 +143,9 @@
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, please attach details </span> </label>
                 <input type="text" id="risk_address_hasInsuredCancelInsuranceIfYes" name="risk_address_hasInsuredCancelInsuranceIfYes" class="form-control col-md-8"  value="">
             </div>
+
+<!-- some form don't want below fields -->
+@if($formVal != "plumbing")            
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -158,7 +184,7 @@
                 </div>
             </div>
             <div id="incidenceOfClaimBox" style="display: none;">
-                <div class="form-group"  >
+                <div class="form-group" >
                     <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, please advise details </span> </label>
                     <input type="text" id="risk_address_incidenceOfClaim_details" name="risk_address_incidenceOfClaim_details" class="form-control col-md-8"  value="">
                 </div>
@@ -185,6 +211,50 @@
                     </div>
                 </div>
             </div>
+@endif
         </div>
     </div>
 </section>
+
+<!-- below form required some fields specific to that one -->
+@if($formVal == "plumbing")
+
+@include('buildingConstruction')
+
+<section class="surroundingExposure">  
+    <h5>Surrounding Exposure</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">North</label>
+                <input type="text" id="buildingConstruction_surroundingExposureNorth" name="buildingConstruction_surroundingExposureNorth" class="form-control col-md-8"  value="">
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">South</label>
+                <input type="text" id="buildingConstruction_surroundingExposureSouth" name="buildingConstruction_surroundingExposureSouth" class="form-control col-md-8"  value="">
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">East</label>
+                <input type="text" id="buildingConstruction_surroundingExposureEast" name="buildingConstruction_surroundingExposureEast" class="form-control col-md-8"  value="">
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">West</label>
+                <input type="text" id="buildingConstruction_surroundingExposureWest" name="buildingConstruction_surroundingExposureWest" class="form-control col-md-8"  value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Occupancy by Others</label>
+                <input type="text" id="buildingConstruction_OccupancyByOther" name="buildingConstruction_OccupancyByOther" class="form-control col-md-8"  value="">
+            </div>
+        </div>
+    </div>
+</section>
+
+@endif

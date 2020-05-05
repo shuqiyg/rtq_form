@@ -7,7 +7,7 @@
             // use formVal value coming from controller to use to select fields according to it.
         ?>
 
-    <form id="rtq_form" >
+    <form id="rtq_form">
         <div id="smartwizard" class="sw-main sw-theme-arrows">
             <ul class="nav nav-tabs step-anchor">
                 <li><a href="#legal">Legal<br /><small>T&C</small></a></li>
@@ -15,13 +15,23 @@
                 <li><a href="#tab-2">Insured<br /><small>Insured Info</small></a></li>
                 @if($formVal == "homeInspector")
                 <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
+                @endif
+                @if($formVal == "homeInspector" || $formVal == "plumbing")
                 <li><a href="#tab-7">Claim History<br /><small>Claim and loss</small></a></li> 
+                @endif
+                @if($formVal == "homeInspector")
                 <li><a href="#tab-8">OPS<br /><small>Industry general</small></a></li> 
                 <li><a href="#tab-9">OPS<br /><small>Industry specific</small></a></li> 
                 <li><a href="#tab-10">CGL<br /><small>Required Coverage</small></a></li>     
                 @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
+                @if($formVal != "plumbing")
                 <li><a href="#tab-4">Occupancy<br /><small>Building details</small></a></li>
+                @endif
+                @if($formVal == "plumbing")
+                <li><a href="#tab-11">Protections<br /><small>Protections details</small></a></li>
+                <li><a href="#tab-12">Liability<br /><small>Liability details</small></a></li>
+                @endif
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
                 @endif
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
@@ -38,7 +48,7 @@
                 </div>
                 <!-- Insured & Mailing Address Tab -->
                 <div id="tab-2" class="">
-                    @if($formVal == "homeInspector")
+                    @if($formVal == "homeInspector" || $formVal == "plumbing")
                         @include('hi_insured')
                     @else
                         @include('tab_2')
@@ -51,10 +61,14 @@
                 <div id="tab-6" class="">
                     @include('hi_existingInsurance')
                 </div>
+                @endif
+                @if($formVal == "homeInspector" || $formVal == "plumbing")
                 <!-- Claim History -->
                 <div id="tab-7" class="">
                     @include('tab_7')
                 </div>
+                @endif
+                @if($formVal == "homeInspector")
                 <!-- OPS -->
                 <div id="tab-8" class="">
                     @include('tab_8')
@@ -72,10 +86,22 @@
                 <div id="tab-3" class="">
                     @include('tab_3')
                 </div>
+                @if($formVal != "plumbing")
                 <!-- Occupance , Building Construction, Fire alarm/detectors & liability tab -->
                 <div id="tab-4" class="">
                     @include('tab_4')
                 </div>
+                @endif
+                @if($formVal == "plumbing")
+                <!-- Protection details like fire alarm/burglary Alarm tab -->
+                <div id="tab-11" class="">
+                    @include('tab_11')
+                </div>
+                <!-- Liability Tab  -->
+                <div id="tab-12" class="">
+                    @include('tab_12')
+                </div>
+                @endif
                 <!-- Coverage Required Tab -->
                 <div id="tab-5" class="">
                     @include('tab_5')

@@ -29,6 +29,7 @@
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+        
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script type="text/javascript" src="{{ URL::asset('js/ouibounce.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
@@ -72,6 +73,7 @@
             <?php 
             }
         }
+
         ?>
         <div style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
@@ -85,6 +87,7 @@
                     <option value="rentedDwelling">Rented Dwelling</option>
                     <option value="ownerOccupied">Owner Occupied</option>
                     <option value="homeInspector">Home Inspector</option>
+                    <option value="plumbing">Plumbing</option>
                 </select>
             </div>
             <div class="col-md-12" style="display: none;" id="bannerBox"><div id="banner"></div></div>
@@ -92,7 +95,6 @@
                 <p id="rtqSelectedForm" style="text-decoration: underline;float: left;margin-bottom: 5px;"></p>
                 <span style="cursor:pointer;padding-left : 10px;display: none;" id="openFT"> <i class="fa fa-angle-down"></i> </span>
             </div>
-            
         </div>
         <input type="hidden" id="selectedForm" value="">
         <!-- END -->
@@ -170,7 +172,7 @@
                                     expires: forOneHour
                                 });
                                 // reload page
-                                window.location.href="/rtqform";
+                                window.location.href="/";
                               } else {
                                 return false;//swal("Your imaginary file is safe!");
                               }
@@ -196,6 +198,7 @@
                             if( (Cookies.get('loadedForm') != '' || Cookies.get('loadedForm') != undefined) && (Cookies.get('loadedForm') == formVal)){
                                 $("#rtq_forms").val(Cookies.get('loadedForm'));
                             }
+
                             $("#rtqSelectedForm").text($("#rtq_forms option:selected").text()+' form has been selected :');
                             //set form value to hidden field
                             $("#selectedForm").val(formVal);
@@ -220,13 +223,13 @@
                             async: true
                         });
                     }
-                    if (typeof someObject == 'undefined') $.loadScript('/rtqform/js/custom.js', function(){
+                    if (typeof someObject == 'undefined') $.loadScript('/js/custom.js', function(){
                         //Stuff to do after someScript has loaded
                         console.log("js loaded");
                     });
                     
                 }
-                
+
                 // function to load banner 
                 function loadBanner(formID){
                     $.ajax({
@@ -247,8 +250,8 @@
                             /***************************/
                         }
                     });
-                }  
-                
+                }
+
                 // toggle to up and down submission create area
                 $("#openFT").click(function(){
                     $(".frontAutText").toggle();

@@ -53,3 +53,4 @@ Route::post('/api/addBrokerCodeToList','bletjController@addBrokerCodeToList');
 
 Route::post('/brokerValidation','rtqController@brokerValidation');
 
+

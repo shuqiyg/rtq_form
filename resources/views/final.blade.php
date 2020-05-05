@@ -24,7 +24,7 @@
 			<div class="form-group" id="referValidationNotMatchBox" style="display: none;">
 
 			</div>
-      <div class="form-group" id="filesRequiredBox" style="display: none;">
+			<div class="form-group" id="filesRequiredBox" style="display: none;">
 				
 			</div>
 		</div>
