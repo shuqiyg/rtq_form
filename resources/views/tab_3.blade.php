@@ -158,11 +158,11 @@
                 </div>
             </div>
             <div id="incidenceOfClaimBox" style="display: none;">
-                <div class="form-group" id="risk_address_hasInsuredCancelInsuranceIfYesBox" >
+                <div class="form-group"  >
                     <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, please advise details </span> </label>
                     <input type="text" id="risk_address_incidenceOfClaim_details" name="risk_address_incidenceOfClaim_details" class="form-control col-md-8"  value="">
                 </div>
-                <div class="form-group" id="risk_address_hasInsuredCancelInsuranceIfYesBox">
+                <div class="form-group" >
                     <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of claims </span> <span class="err">*</span></label>
                     <select class="form-control col-md-8 required" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
                         <option value="">-Select claim type-</option>
