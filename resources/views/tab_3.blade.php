@@ -251,7 +251,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Occupancy by Others</label>
-                <input type="text" id="buildingConstruction_OccupancyByOther" name="buildingConstruction_OccupancyByOther" class="form-control col-md-8"  value="">
+                <input type="text" id="buildingConstruction_OccupancyByOther" name="buildingConstruction_OccupancyByOther" class="form-control col-md-8"  value="" placeholder="Leave empty if no Occupancy">
             </div>
         </div>
     </div>

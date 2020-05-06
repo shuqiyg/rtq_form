@@ -111,7 +111,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a claim ? <span class="err">*</span></label>
+                <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a Loss ? <span class="err">*</span></label>
                 <select class="form-control col-md-2 required" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -126,8 +126,8 @@
             <input type="text" id="risk_address_incidenceOfClaim_details" name="risk_address_incidenceOfClaim_details" class="form-control col-md-8"  value="">
         </div>
         <div class="form-group" >
-            <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of claims </span> <span class="err">*</span></label>
-            <select class="form-control col-md-8 required" id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
+            <label class="col-md-4" style="float: left;"> <span class="optionalBox">Type of Loss </span> </label>
+            <select class="form-control col-md-8 " id="risk_address_incidenceOfClaim_type" name="risk_address_incidenceOfClaim_type">
                 <option value="">-Select claim type-</option>
                 <option value="Property">Property</option>
                 <option value="Liability">Liability</option>

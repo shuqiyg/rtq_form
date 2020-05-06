@@ -382,7 +382,7 @@ class rtqController extends Controller
         $binding = trim($req['binding']);
 
         // check which form is submitted
-        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
             
             $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
@@ -457,6 +457,24 @@ class rtqController extends Controller
             $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
+
+            //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            $fd[0]['calculation']= $calculateArray;
+        }else if($rtqForm == "plumbing"){
+            // set all required values
+            $province = trim($fd[0]['risk_address_province']['value']);
+            $totalRevenue = $this->checkValue(trim($fd[0]['totalRevenue']['value']));
+            $coverage_CEF = $this->checkValue(trim($fd[0]['coverage_CEF']['value']));
+            $coverage_toolFloater = $this->checkValue(trim($fd[0]['coverage_toolFloater']['value']));
+            $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
+            $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
+            $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
+
+            $closestCity = trim($fd[0]['closestCity']['value']);
+            $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
+            
+            // get calculateArray for plumbing form
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
@@ -1000,7 +1018,7 @@ class rtqController extends Controller
 
                 }
                 
-            }else if((in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_howmany_mortgagees == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_noOfClaims == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age == 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "") || ($insured_isCorporation == "")) ||  ($rtqForm == "plumbing" && ( $burglaryAlarm_otherMeasures_guardDog == "" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "")) || $liability_anyRadioactiveMaterials == "" || $liability_doesForestFirePreventionAct == "" || $liability_engageOpsDemolition == ""  || $liability_engageOpsShoring == ""  || $liability_engageOpsUnderpinning == ""  || $liability_engageOpsCaissonWork == ""  || $liability_engageOpsExcavation == ""  || $liability_engageOpsExplosives == ""  || $liability_engageOpsTunneling == ""  || $liability_engageOpsRaisingBuildings == "" || (empty($coverage_CEF) || $coverage_CEF == 0)  ) ) ){
+            }else if((in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_howmany_mortgagees == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_noOfClaims == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age == 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "" || $insured_isCorporation == "")) ||  ($rtqForm == "plumbing" && ( $burglaryAlarm_otherMeasures_guardDog == "" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "")) || $liability_anyRadioactiveMaterials == "" || $liability_doesForestFirePreventionAct == "" || $liability_engageOpsDemolition == ""  || $liability_engageOpsShoring == ""  || $liability_engageOpsUnderpinning == ""  || $liability_engageOpsCaissonWork == ""  || $liability_engageOpsExcavation == ""  || $liability_engageOpsExplosives == ""  || $liability_engageOpsTunneling == ""  || $liability_engageOpsRaisingBuildings == "" || (empty($coverage_CEF) || $coverage_CEF == 0)  ) ) ){
 
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
@@ -1258,7 +1276,7 @@ class rtqController extends Controller
         //echo $fd[0]['contact_phone_number']['value'];
         $binding = trim($req['binding']);
 
-        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied"){
+        if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
             $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
             
             $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
@@ -1337,6 +1355,24 @@ class rtqController extends Controller
             $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince,$risk_address_noOfClaims,$cgl_cglLimitsOfLiablitiy,$cgl_eoLimitsOfLiablity,$ops_totalGrossAnnualReceipts,$cgl_deductible,$cgl_contractorsEquipmentFloater,$cgl_additionalPropertyFrill,$rtqForm);
+
+            //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            $fd[0]['calculation']= $calculateArray;
+        }else if($rtqForm == "plumbing"){
+            // set all required values
+            $province = trim($fd[0]['risk_address_province']['value']);
+            $totalRevenue = $this->checkValue(trim($fd[0]['totalRevenue']['value']));
+            $coverage_CEF = $this->checkValue(trim($fd[0]['coverage_CEF']['value']));
+            $coverage_toolFloater = $this->checkValue(trim($fd[0]['coverage_toolFloater']['value']));
+            $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
+            $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
+            $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
+
+            $closestCity = trim($fd[0]['closestCity']['value']);
+            $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
+            
+            // get calculateArray for plumbing form
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;

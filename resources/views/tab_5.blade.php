@@ -239,11 +239,20 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> IN & Out Hold-up </label>
                 <input type="text" id="coverage_crime_inOutHoldup" name="coverage_crime_inOutHoldup" class="form-control col-md-8 commaValues "  value="">
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Inside Robbery </label>
+                <input type="text" id="coverage_crime_insideRobbery" name="coverage_crime_insideRobbery" class="form-control col-md-8 commaValues "  value="">
             </div>
         </div>
     </div>
@@ -251,8 +260,26 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Employee Dishonesty </label>
+                <label class="col-md-4" style="float: left;"> Outside Robbery </label>
+                <input type="text" id="coverage_crime_outsideRobbery" name="coverage_crime_outsideRobbery" class="form-control col-md-8 commaValues "  value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Employee Dishonesty - Form A</label>
                 <input type="text" id="coverage_crime_employeeDishonesty" name="coverage_crime_employeeDishonesty" class="form-control col-md-8 commaValues "  value="">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Comprehensive 3D rider </label>
+                <input type="text" id="coverage_crime_3dRider" name="coverage_crime_3dRider" class="form-control col-md-8 commaValues "  value="">
             </div>
         </div>
     </div>
@@ -277,20 +304,20 @@
         </div>
     </div>
     
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Broad Form Vendors <span class="err">*</span></label>
                 <input type="text" id="coverage_broadFormVendors" name="coverage_broadFormVendors" class="form-control col-md-8 commaValues required"  value="">
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Employee Benefits E&O <span class="err">*</span></label>
-                <input type="text" id="coverage_employeeBenefitsEO" name="coverage_employeeBenefitsEO" class="form-control col-md-8 commaValues required"  value="">
+                <label class="col-md-4" style="float: left;"> Employee Practices <span class="err">*</span></label>
+                <input type="text" id="coverage_employeePractices" name="coverage_employeePractices" class="form-control col-md-8 commaValues required"  value="">
             </div>
         </div>
     </div>
@@ -331,14 +358,14 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Forest Fire Fighting Expense <span class="err">*</span></label>
                 <input type="text" id="coverage_forestFireFightingExpense" name="coverage_forestFireFightingExpense" class="form-control col-md-8 commaValues required"  value="">
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-md-12">
@@ -370,8 +397,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Other <span class="err">*</span></label>
-                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 commaValues required"  value="">
+                <label class="col-md-4" style="float: left;"> Other </label>
+                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 commaValues "  value="">
             </div>
         </div>
     </div>

@@ -69,7 +69,7 @@
                 
             </div> -->
             <div class="towf_sections" data-value="'+addTOWFCount+'">
-                <label class="col-md-8" style="float: left;">Operation <span class="err">*</span> </label>
+                <label class="col-md-8" style="float: left;">1. Operation <span class="err">*</span> </label>
                 <input type="text" id="liability_typeOfOpsWorkPerformOperation_1'" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-4 required"  value="" >
 
                 <label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label>
@@ -117,8 +117,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"> Contractual: List all lease agreements, railway siding agreements, etc. (Obtain copies of agreements where possible) <span class="err">*</span></label>
-                <select id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc" class="form-control col-md-4 required">
+                <label class="col-md-8" style="float: left;"> Contractual </label>
+                <select id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc" class="form-control col-md-4 ">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-12" >
+            <div class="form-group ifcontractualListLeaseEtcDescBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox"> Railway siding agreements, etc. (Obtain copies of agreements where possible)</span> </label>
+                <select id="liability_contractualListLeaseEtcRailwaySiding" name="liability_contractualListLeaseEtcRailwaySiding" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -127,11 +139,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="form-group" id="ifcontractualListLeaseEtcDescBox" style="display: none;">
+        <div class="col-md-12" >
+            <div class="form-group ifcontractualListLeaseEtcDescBox"  style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">  Description </span> </label>
                 <textarea rows="5" class="form-control col-md-8" id="liability_contractualListLeaseEtcDesc" name="liability_contractualListLeaseEtcDesc" ></textarea>
             </div>
+            
         </div>
     </div>
 
@@ -238,7 +251,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-8" style="float: left;">Is Employers' Liability Required</label>
@@ -291,7 +304,7 @@
             </div>
         </div>
     </div>
-
+-->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

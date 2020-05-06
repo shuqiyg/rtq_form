@@ -104,7 +104,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifYesHandleOtherInsurance" style="display: none;">
-                <label class="col-md-3" style="float: left;"><span class="optionalBox">If Yes, Which Coverages </span> </label>
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If Yes, Which Coverages </span> </label>
                 <input type="tel" id="brokerSurvey_handleOtherInsuranceCoverages" name="brokerSurvey_handleOtherInsuranceCoverages" class="form-control col-md-8" >
             </div>
             

@@ -1560,12 +1560,17 @@ $('#insured_isRiskAddressSame').change(function() {
   /**
     Add more liablity items Elevators/Escalators
   **/
-  var addEleCount = 1; // one is by default showing in form
+  //var addEleCount = 1; // one is by default showing in form
   $("#addElevatorBox").on('click',function(){
     addElevatorDescription();
   });
   function addElevatorDescription(){
-    var html = '<div class="ele_sections" data-value="'+addEleCount+'"><label class="col-md-8" style="float: left;">'+addEleCount+'. Description   <i class="fa fa-times" style="cursor: pointer;" id="removeEleDescription_'+addEleCount+'" ></i> </label><input type="text" id="liability_premisesHaveElevatorDescription_'+addEleCount+'" name="liability_premisesHaveElevatorDescription_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Number</label><input type="text" id="liability_premisesHaveElevatorNumber_'+addEleCount+'" name="liability_premisesHaveElevatorNumber_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Location</label><input type="text" id="liability_premisesHaveElevatorLocation_'+addEleCount+'" name="liability_premisesHaveElevatorLocation_'+addEleCount+'" class="form-control col-md-4 "  value="" ></div>';
+    // get size of section
+    var size = $("[id^=liability_premisesHaveElevatorNumber").size()+1; 
+    console.log(size);
+    var addEleCount = size; 
+  
+    var html = '<div class="ele_sections" data-value="'+addEleCount+'"><label class="col-md-8" style="float: left;"><span id="countEle">'+addEleCount+'</span>. Description   <i class="fa fa-times" style="cursor: pointer;" id="removeEleDescription_'+addEleCount+'" ></i> </label><input type="text" id="liability_premisesHaveElevatorDescription_'+addEleCount+'" name="liability_premisesHaveElevatorDescription_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Number</label><input type="text" id="liability_premisesHaveElevatorNumber_'+addEleCount+'" name="liability_premisesHaveElevatorNumber_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Location</label><input type="text" id="liability_premisesHaveElevatorLocation_'+addEleCount+'" name="liability_premisesHaveElevatorLocation_'+addEleCount+'" class="form-control col-md-4 "  value="" ></div>';
 
     // add box in div
     $("#liability_premisesHaveElevatorDetails").show();
@@ -1576,6 +1581,39 @@ $('#insured_isRiskAddressSame').change(function() {
   // remove more liability items
   $(document).on('click',"[id^=removeEleDescription]",function(){
     $(this).closest('.ele_sections').remove();
+    
+    // change counting number
+    $.each($('[class^=ele_sections]'), function( key, value ) {
+      // fetch id of element of section
+      var counting = key+1;
+      // change text of count
+      $(this).find("#countEle").text(counting);
+      
+      $.each($(this).find('input'), function( key2, value2) {
+
+        var eleID = $(this).attr('id');
+        
+        //console.log(eleID);
+        // split id by underscore to get text and can add number at end to create new id and name
+        var idTxtArray = eleID.split('_');
+        // get sizeof idTxt because we don't know how many _ there
+        var idTxtArraySize = idTxtArray.length ; // start with 1
+        
+        var idTxt = '';
+        for(var i = 0; i<idTxtArraySize - 1 ; i++){
+          idTxt += idTxtArray[i]+'_';
+        }
+        idTxt += counting;
+        //console.log(idTxt);
+        // change id and name of element of section
+        $(this).attr('id',idTxt);
+        $(this).attr('name',idTxt);
+
+
+      });
+      //counting ++;
+    });
+    
   });
 
 
@@ -1596,12 +1634,17 @@ $('#insured_isRiskAddressSame').change(function() {
   /**
     Add more liablity items Product for sale
   **/
-  var addProductSaleCount = 1; // one is by default showing in form
+  //var addProductSaleCount = 1; // one is by default showing in form
   $("#addProductsForSaleBox").on('click',function(){
     addPFSDescription();
   });
   function addPFSDescription(){
-    var html = '<div class="pfs_sections" data-value="'+addProductSaleCount+'"><label class="col-md-8" style="float: left;">'+addProductSaleCount+'. Type of Product   <i class="fa fa-times" style="cursor: pointer;" id="removePFSDescription_'+addProductSaleCount+'" ></i> </label><input type="text" id="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" name="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Canada</label><input type="text" id="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - USA</label><input type="text" id="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Other</label><input type="text" id="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ></div>';
+    // get size of section
+    var size = $("[id^=liability_productsForSaleTypeOfProduct").size()+1; 
+    console.log(size);
+    var addProductSaleCount = size;
+    
+    var html = '<div class="pfs_sections" data-value="'+addProductSaleCount+'"><label class="col-md-8" style="float: left;"><span id="countPfs">'+addProductSaleCount+'</span>. Type of Product   <i class="fa fa-times" style="cursor: pointer;" id="removePFSDescription_'+addProductSaleCount+'" ></i> </label><input type="text" id="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" name="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Canada</label><input type="text" id="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - USA</label><input type="text" id="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Other</label><input type="text" id="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ></div>';
 
     // add box in div
     $("#liability_productsForSaleDetails").show();
@@ -1612,6 +1655,39 @@ $('#insured_isRiskAddressSame').change(function() {
   // remove more liability items
   $(document).on('click',"[id^=removePFSDescription]",function(){
     $(this).closest('.pfs_sections').remove();
+    
+    // change counting number
+    $.each($('[class^=pfs_sections]'), function( key, value ) {
+      // fetch id of element of section
+      var counting = key+1;
+      // change text of count
+      $(this).find("#countPfs").text(counting);
+      
+      $.each($(this).find('input'), function( key2, value2) {
+
+        var eleID = $(this).attr('id');
+        
+        //console.log(eleID);
+        // split id by underscore to get text and can add number at end to create new id and name
+        var idTxtArray = eleID.split('_');
+        // get sizeof idTxt because we don't know how many _ there
+        var idTxtArraySize = idTxtArray.length ; // start with 1
+        
+        var idTxt = '';
+        for(var i = 0; i<idTxtArraySize - 1 ; i++){
+          idTxt += idTxtArray[i]+'_';
+        }
+        idTxt += counting;
+        //console.log(idTxt);
+        // change id and name of element of section
+        $(this).attr('id',idTxt);
+        $(this).attr('name',idTxt);
+
+
+      });
+      //counting ++;
+    });
+    
   });
 
 
@@ -1632,12 +1708,17 @@ $('#insured_isRiskAddressSame').change(function() {
   /**
     Add more liablity items detail type(s) of operations and work performed by applicant
   **/
-  var addTOWFCount = 2; // one is by default showing in form
+  //var addTOWFCount = 2; // one is by default showing in form
   $("#addTypeOfOpsWorkPerformBox").on('click',function(){
     addtypeOfOpsWorkPerformDescription();
   });
   function addtypeOfOpsWorkPerformDescription(){
-    var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;">'+addTOWFCount+'.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';
+    // get size of section
+    var size = $("[id^=liability_typeOfOpsWorkPerformOperation").size()+1; // adding 1 to it because we have default one already
+    console.log(size);
+    var addTOWFCount = size;
+    
+    var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';
 
     // add box in div
     $("#liability_typeOfOpsWorkPerformDetails").show();
@@ -1648,6 +1729,39 @@ $('#insured_isRiskAddressSame').change(function() {
   // remove more liability items
   $(document).on('click',"[id^=removeTOWFDescription]",function(){
     $(this).closest('.towf_sections').remove();
+    
+    // change counting number
+    $.each($('[class^=towf_sections]'), function( key, value ) {
+      // fetch id of element of section
+      var counting = key+1;
+      // change text of count
+      $(this).find("#countTOWF").text(key+1);
+      
+      $.each($(this).find('input'), function( key2, value2) {
+
+        var eleID = $(this).attr('id');
+        
+        //console.log(eleID);
+        // split id by underscore to get text and can add number at end to create new id and name
+        var idTxtArray = eleID.split('_');
+        // get sizeof idTxt because we don't know how many _ there
+        var idTxtArraySize = idTxtArray.length ; // start with 1
+        
+        var idTxt = '';
+        for(var i = 0; i<idTxtArraySize - 1 ; i++){
+          idTxt += idTxtArray[i]+'_';
+        }
+        idTxt += counting;
+        //console.log(idTxt);
+        // change id and name of element of section
+        $(this).attr('id',idTxt);
+        $(this).attr('name',idTxt);
+
+
+      });
+      //counting ++;
+    });
+    
     // calculate revenue again when delete section
     var totalRevenueAmount = calculateGrossAnnualReceipt();
 
@@ -1683,7 +1797,16 @@ $('#insured_isRiskAddressSame').change(function() {
   
   // Show description box for contractual list for all leased agreement etc on Liability Tab
   $("#liability_contractualListLeaseEtc").on('change',function(){
-      fieldOpenHide('liability_contractualListLeaseEtc','Yes','','ifcontractualListLeaseEtcDescBox',['liability_contractualListLeaseEtcDesc'],'');
+      //fieldOpenHide('liability_contractualListLeaseEtc','Yes','','ifcontractualListLeaseEtcDescBox',['liability_contractualListLeaseEtcDesc'],'');
+      var liability_contractualListLeaseEtc = $("#liability_contractualListLeaseEtc").val();
+      if(liability_contractualListLeaseEtc == 'Yes'){
+        $(".ifcontractualListLeaseEtcDescBox").show();
+      }else{
+        $(".ifcontractualListLeaseEtcDescBox").hide();
+        // empty value if user fill up anything with yes and then select no again
+        $("#liability_contractualListLeaseEtcDesc").val('');
+        $("#liability_contractualListLeaseEtcRailwaySiding").val('');
+      }
   });
   // Show fields for Work sublet out field on Liability Tab
   $("#liability_workSubletOut").on('change',function(){
