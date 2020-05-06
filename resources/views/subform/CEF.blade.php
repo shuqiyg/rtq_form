@@ -1,5 +1,5 @@
 <section class="cefSubform subformSection">
-    <h3>Contractors' Equipment Floater</h3>
+    <h3>Contractors Equipment Floater</h3>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">CEF</a></li>
@@ -47,6 +47,7 @@
                     </div>
 
                     <h5>Equipment Schedule</h5>
+                    <input type="hidden" id="equipmentScheduleCount" name="equipmentScheduleCount">
                     <div class="form-group">
                         <div class="col-md-12">
                             <span id="addEquipmentSchedule" data-toggle="tooltip" title="Add equipment Schedule"> <i class="fa fa-plus" style="cursor: pointer;"></i> </span>

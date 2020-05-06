@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="liability_premisesHaveElevatorDetailsCount" id="liability_premisesHaveElevatorDetailsCount">
     <div id="liability_premisesHaveElevatorDetails" style="display: none;">
             
     </div>
@@ -45,6 +46,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="liability_productsForSaleDetailsCount" id="liability_productsForSaleDetailsCount">
     <div id="liability_productsForSaleDetails" style="display: none;">
             
     </div>
@@ -56,7 +58,7 @@
             <span class="col-md-1" style="float: left;" id="addTypeOfOpsWorkPerformBox" data-toggle="tooltip" title="Add more detail type(s) of operations and work performed description" ><i class="fa fa-plus iconPadding" style="cursor: pointer;"></i></span>
         </div>
     </div>
-
+    <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount">
     <div class="row">
         <div class="col-md-12">
             <!-- <div class="form-group" style="display: flex;">
@@ -76,7 +78,7 @@
                 <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-4 required"  value="" >
 
                 <label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label>
-                <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-4 required"  value="" >
+                <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-4 commaValues required"  value="" >
 
                 <label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span>
                 </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-4 commaValues required"  value="" ></div>
@@ -165,7 +167,7 @@
         <div class="col-md-12" id="ifworkSubletOutBox" style="display: none;">
             <div class="form-group" >
                 <label class="col-md-8" style="float: left;"><span class="optionalBox">  Cost of Work Sublet </span> </label>
-                <input type="text" id="liability_wsoCost" name="liability_wsoCost" class="form-control col-md-4 "  value="">
+                <input type="text" id="liability_wsoCost" name="liability_wsoCost" class="form-control col-md-4 commaValues"  value="">
             </div>
             <div class="form-group" >
                 <label class="col-md-8" style="float: left;"><span class="optionalBox"> Type of work </span> </label>

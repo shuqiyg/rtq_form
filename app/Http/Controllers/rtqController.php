@@ -83,11 +83,15 @@ class rtqController extends Controller
             $coverage_profits = $this->checkValue(trim($req['coverage_profits']));
             $coverage_liabilityLimit = trim($req['coverage_liabilityLimit']);
             
+            $fireDeptDistance = ucfirst( $req['fireDeptDistance'] );
+            $fireDeptType = ucwords( $req['fireDeptType'] );
+            $hydrant = ucfirst( $req['hydrant'] );
+            
             $closestCity = trim($req['closestCity']);
             $distanceFromClosestCity = $this->checkValue(trim($req['distanceFromClosestCity']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -95,41 +99,61 @@ class rtqController extends Controller
     }
 
     // function to set priceArray / calculate for plumbing form
-    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm){
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
 
         // get values from json file
         $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
         $coverageRate = json_decode(file_get_contents(public_path().'/json/plumbingPropertyCoverageRate.json'), true);  
         $policy_fee = json_decode(file_get_contents(public_path().'/json/policyFee.json'), true);  
         $getZone =   json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionFee.json'), true);
+        
+        $firedept = json_decode(file_get_contents(public_path().'/json/firedept.json'), true);
+        $firedepttype = json_decode(file_get_contents(public_path().'/json/firedepttype.json'), true);
+        $hydrants = json_decode(file_get_contents(public_path().'/json/hydrants.json'), true);
+        $towngrade = json_decode(file_get_contents(public_path().'/json/towngrade.json'), true);
 
-        $pr = $provincerate[$rtqForm][0][$province]['rate'];
+        // if province is null or empty then make by default Ontario
+        if($province == null || empty($province)){
+            $pr = "Ontario";
+        }else{
+            $pr = $provincerate[$rtqForm][0][$province]['rate'];    
+        }
+        
         $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate'];
         $officeComputerRate = $coverageRate[0]["Office Computer"]['rate'];
         $profitsRate = $coverageRate[0]["Profits"]['rate'];
         $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate'];
 
-        // manipulate distance to get zone
-        if($distanceFromClosestCity == 0 || $distanceFromClosestCity == "" ){
-            $distance = "0";
-        }else if($distanceFromClosestCity < 50){
-            $distance = "within50";
-        }else if($distanceFromClosestCity >= 50 && $distanceFromClosestCity < 100){
-            $distance = "50-100";
-        }else if($distanceFromClosestCity >= 100 && $distanceFromClosestCity < 200){
-            $distance = "100-200";
-        }else if($distanceFromClosestCity >= 200 && $distanceFromClosestCity < 300){
-            $distance = "200-300";
-        }else if($distanceFromClosestCity >= 300 && $distanceFromClosestCity < 400){
-            $distance = "300-400";
-        }else if($distanceFromClosestCity >= 400){
-            $distance = "Refer";
+        // if province is null or empty then make by default Ontario
+        if($distanceFromClosestCity == null || empty($distanceFromClosestCity)){
+            $distance = "NotAvailable";
+        }else{
+            // manipulate distance to get zone
+            if($distanceFromClosestCity == 0 || $distanceFromClosestCity == "" ){
+                $distance = "0";
+            }else if($distanceFromClosestCity < 50){
+                $distance = "within50";
+            }else if($distanceFromClosestCity >= 50 && $distanceFromClosestCity < 100){
+                $distance = "50-100";
+            }else if($distanceFromClosestCity >= 100 && $distanceFromClosestCity < 200){
+                $distance = "100-200";
+            }else if($distanceFromClosestCity >= 200 && $distanceFromClosestCity < 300){
+                $distance = "200-300";
+            }else if($distanceFromClosestCity >= 300 && $distanceFromClosestCity < 400){
+                $distance = "300-400";
+            }else if($distanceFromClosestCity >= 400){
+                $distance = "Refer";
+            }
         }
 
-        // get zone number
-        $zoneValid = $getZone[$closestCity][0];
-        if(isset($zoneValid[$distance]['zone'])){
-            $zone = $zoneValid[$distance]['zone'];
+        if($closestCity != null || !empty($closestCity)){
+            // get zone number
+            $zoneValid = $getZone[$closestCity][0];
+            if(isset($zoneValid[$distance]['zone']) && ($distance != "Refer" || $distance != "NotAvailable")){
+                $zone = $zoneValid[$distance]['zone'];
+            }else{
+                $zone = 'NotAvailable';
+            }
         }else{
             $zone = 'NotAvailable';
         }
@@ -149,7 +173,7 @@ class rtqController extends Controller
 
         $propertyTotal = $cefAmount + $officeComputerAmount + $profitsAmount + $toolFloaterAmount;
         $premiumWithoutFees = $propertyTotal + $liablity;
-        if($premiumWithoutFees < 5000){
+        if($premiumWithoutFees > 0 && $premiumWithoutFees < 5000){
             $feePremium = "below5k";
         }else if($premiumWithoutFees >= 5000 && $premiumWithoutFees < 10000){
             $feePremium = "5000";
@@ -157,8 +181,15 @@ class rtqController extends Controller
             $feePremium = "10000";
         }else if($premiumWithoutFees >= 20000){
             $feePremium = "20000";
+        }else{
+            $feePremium = "NotAvailable";
         }
-        $policyFee = $policy_fee[$rtqForm][0][$feePremium]['fee'];
+
+        if($feePremium != "NotAvailable"){
+            $policyFee = $policy_fee[$rtqForm][0][$feePremium]['fee'];
+        }else{
+            $policyFee = 0;
+        }
 
         // get zone fee by zone wise [Note: Zone & zone fee are available from PrecisePriceList-ZoneFee2020.PDF ]
         if($zone == 1){
@@ -189,12 +220,23 @@ class rtqController extends Controller
         }else{
             $total = $premiumWithoutFees + $policyFee;
         }
+        
+        if($hydrant != '' && $fireDeptDistance != '' &&  $fireDeptType != ''){
+            $hydrantVal = $hydrants[0][$hydrant]['value'];
+            $fd = $firedept[0][$fireDeptDistance]['value'];
+            $fdt = $firedepttype[0][$fireDeptType]['value'];
+            $findTG = $fd.$fdt.$hydrantVal;
+            $tg = $towngrade[0][$findTG]['tg'];
+        }else{
+            $tg = "NotAvailable";
+        }
 
         $priceArray = array();
         $priceArray['propertyTotal'] = $propertyTotal;
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
         $priceArray['inspectionFee'] = $inspectionFee;
+        $priceArray['towngrade'] = $tg;
         $priceArray['total'] = $total;
 
         return $priceArray;
@@ -469,12 +511,16 @@ class rtqController extends Controller
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
-
+            
+            $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
+            $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
+            $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] ); 
+            
             $closestCity = trim($fd[0]['closestCity']['value']);
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
@@ -1367,12 +1413,16 @@ class rtqController extends Controller
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
-
+            
+            $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
+            $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
+            $hydrant = ucfirst( $fd[0]['fireAlarmDetectors_hydrant']['value'] );  
+            
             $closestCity = trim($fd[0]['closestCity']['value']);
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;

@@ -99,8 +99,7 @@
                 <select id="burglaryAlarm_interior" name="burglaryAlarm_interior" class="form-control col-md-8">
                     <option value="">-Select Interior-</option>
                     <option value="None">None</option>
-                    <option value="Central Station">Central Station</option>
-                    <option value="Monitored">Monitored</option>
+                    <option value="Central">Central</option>
                     <option value="Local">Local</option>                   
                 </select>
             </div>

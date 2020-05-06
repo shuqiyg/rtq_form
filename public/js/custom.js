@@ -354,6 +354,10 @@ $('#insured_isRiskAddressSame').change(function() {
     $.when(e).then(function() {
       var total_error = $(anchorObject.attr('href')).find('input.required').prev('label').find('.err2').length + $(anchorObject.attr('href')).find('select.required').prev('label').find('.err2').length;
       
+      if( rtqForm == "plumbing"){
+        showSubformErrorMSG("subformCEF");
+      }
+      
       if (total_error > 0 ) { 
         anchorObject.parent().addClass('danger');
       } else {
@@ -1461,6 +1465,10 @@ $('#insured_isRiskAddressSame').change(function() {
         var coverage_officeEquipmentsFloater = $('#coverage_officeEquipmentsFloater').val();
         var coverage_profits = $('#coverage_profits').val();
         var coverage_liabilityLimit = $('#coverage_liabilityLimit').val();
+        
+        var fireDeptDistance = $('#fireAlarmDetectors_fireDeptDistance').val();
+        var fireDeptType = $('#fireAlarmDetectors_fireDeptTye').val();
+        var hydrant = $('#fireAlarmDetectors_hydrant').val();
   
         var closestCity = $('#closestCity').val();
         var distanceFromClosestCity = $('#distanceFromClosestCity').val();
@@ -1473,7 +1481,7 @@ $('#insured_isRiskAddressSame').change(function() {
           $.ajax({
             url:"calculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
@@ -1569,6 +1577,9 @@ $('#insured_isRiskAddressSame').change(function() {
     var size = $("[id^=liability_premisesHaveElevatorNumber").size()+1; 
     console.log(size);
     var addEleCount = size; 
+    
+    // set count in hidden fields
+    $("#liability_premisesHaveElevatorDetailsCount").val(addEleCount);
   
     var html = '<div class="ele_sections" data-value="'+addEleCount+'"><label class="col-md-8" style="float: left;"><span id="countEle">'+addEleCount+'</span>. Description   <i class="fa fa-times" style="cursor: pointer;" id="removeEleDescription_'+addEleCount+'" ></i> </label><input type="text" id="liability_premisesHaveElevatorDescription_'+addEleCount+'" name="liability_premisesHaveElevatorDescription_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Number</label><input type="text" id="liability_premisesHaveElevatorNumber_'+addEleCount+'" name="liability_premisesHaveElevatorNumber_'+addEleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Location</label><input type="text" id="liability_premisesHaveElevatorLocation_'+addEleCount+'" name="liability_premisesHaveElevatorLocation_'+addEleCount+'" class="form-control col-md-4 "  value="" ></div>';
 
@@ -1608,7 +1619,9 @@ $('#insured_isRiskAddressSame').change(function() {
         // change id and name of element of section
         $(this).attr('id',idTxt);
         $(this).attr('name',idTxt);
-
+      
+        // set count in hidden fields
+        $("#liability_premisesHaveElevatorDetailsCount").val(counting);
 
       });
       //counting ++;
@@ -1643,6 +1656,9 @@ $('#insured_isRiskAddressSame').change(function() {
     var size = $("[id^=liability_productsForSaleTypeOfProduct").size()+1; 
     console.log(size);
     var addProductSaleCount = size;
+    
+    // set count in hidden fields
+    $("#liability_productsForSaleDetailsCount").val(addProductSaleCount);
     
     var html = '<div class="pfs_sections" data-value="'+addProductSaleCount+'"><label class="col-md-8" style="float: left;"><span id="countPfs">'+addProductSaleCount+'</span>. Type of Product   <i class="fa fa-times" style="cursor: pointer;" id="removePFSDescription_'+addProductSaleCount+'" ></i> </label><input type="text" id="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" name="liability_productsForSaleTypeOfProduct_'+addProductSaleCount+'" class="form-control col-md-4 "  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Canada</label><input type="text" id="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleCanada_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - USA</label><input type="text" id="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleUSA_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Sales - Other</label><input type="text" id="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" name="liability_productsForSaleGrossAnnualSaleOther_'+addProductSaleCount+'" class="form-control col-md-4 commaValues"  value="" ></div>';
 
@@ -1683,7 +1699,9 @@ $('#insured_isRiskAddressSame').change(function() {
         $(this).attr('id',idTxt);
         $(this).attr('name',idTxt);
 
-
+        // set count in hidden fields
+        $("#liability_productsForSaleDetailsCount").val(counting);
+    
       });
       //counting ++;
     });
@@ -1717,6 +1735,9 @@ $('#insured_isRiskAddressSame').change(function() {
     var size = $("[id^=liability_typeOfOpsWorkPerformOperation").size()+1; // adding 1 to it because we have default one already
     console.log(size);
     var addTOWFCount = size;
+    
+    // set count in hidden fields
+    $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
     
     var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';
 
@@ -1756,7 +1777,9 @@ $('#insured_isRiskAddressSame').change(function() {
         // change id and name of element of section
         $(this).attr('id',idTxt);
         $(this).attr('name',idTxt);
-
+    
+        // set count in hidden fields
+        $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
 
       });
       //counting ++;
@@ -1878,6 +1901,10 @@ $('#insured_isRiskAddressSame').change(function() {
   NOTE : Label is added before input fields on table because label display at Review form at the end
   **/
   $("#addEquipmentSchedule").on('click',function(){
+  
+    // set count in hidden fields
+    $("#equipmentScheduleCount").val(addEquipScheCount);
+  
     var row = "<tr><td><span>"+addEquipScheCount+"</span></td><td><label class='hideLabel sf'>"+addEquipScheCount+". Year</label><input type='text' class='form-group sf' id='equipmentScheduleYear_"+addEquipScheCount+"' name='equipmentScheduleYear_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Manufacturer</label><input type='text' class='form-group' id='equipmentScheduleManufacturer_"+addEquipScheCount+"' name='equipmentScheduleManufacturer_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Description</label><input type='text' class='form-group' id='equipmentScheduleDescription_"+addEquipScheCount+"' name='equipmentScheduleDescription_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Serial No</label><input type='text' class='form-group' id='equipmentScheduleSerialNo_"+addEquipScheCount+"' name='equipmentScheduleSerialNo_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Amount</label><input type='text' class='form-group commaValues' id='equipmentScheduleAmount_"+addEquipScheCount+"' name='equipmentScheduleAmount_"+addEquipScheCount+"' /></td></tr>";
     // append table row
     $("#equipmentScheduleTable tbody").append(row);
@@ -1916,6 +1943,46 @@ $('#insured_isRiskAddressSame').change(function() {
     return totalAmountEquipSchedule;
   }
   
+  /** Display error for required fields in subform **/
+
+  function showSubformErrorMSG(sfClassName){
+
+    // get subForm all required fields
+    
+    $.each($('.'+sfClassName), function( key, value ) {
+      //console.log(sfClassName);
+      // get all required input and select fields
+      var valid = false;
+      $(this).find('input.required,select.required').each( function( key, value ) {
+        if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none' || $(this).parent('div').css('display') == 'none'){
+          //console.log($(this).attr('name')+'    not visible');
+        }else{
+          // check if all required fields are correct and there is no error
+          var total_error = $(this).prev('label').find('.err2').length;
+          //console.log("TE "+total_error);
+          //console.log($(this).attr('id'));
+          if (total_error > 0 ) { 
+            valid = false; 
+            return false;
+          } else {
+            valid = true;
+          } 
+          //console.log($(this).attr('name')+'    '+valid);
+        }
+      });
+
+      // if valid false means there is required fields which don't have value   
+      if(valid == false){
+        $("#"+sfClassName+"_MSG").show();
+      }else{
+        $("#"+sfClassName+"_MSG").hide();
+      }
+
+    });
+  }
+
+  /**************************************************/
+  
   var totalTIVLimit ;
   // get real time TIV Limits
   function getTIV(){
@@ -1929,6 +1996,8 @@ $('#insured_isRiskAddressSame').change(function() {
       //console.log("currentVal "+currentVal);
       totalTIVLimit += currentVal;
     });
+    // set tiv in hidden field to send it to backend
+    $("#tivLimit").val(totalTIVLimit);
     //console.log("TIV "+totalTIVLimit);
     return totalTIVLimit;
   }

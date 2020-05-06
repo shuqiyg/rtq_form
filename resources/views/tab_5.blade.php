@@ -45,6 +45,8 @@
     </div>
     @endif
     @if($formVal == "plumbing")
+    <!-- Hidden fields for backend -->
+    <input type="hidden" name="tivLimit" id="tivLimit">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -146,6 +148,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                <p style="padding: 0;width:100%;color: red;float: left;display: none;" id="subformCEF_MSG">Please fill up required fields in CEF sub-form</p>
                 <label class="col-md-4 subFormLabel" style="float: left;" id="openCEF" data-toggle="tooltip" title="Open CEF sub form"> Contractors Equipment Floater <i class="fa fa-level-down"></i></label>
                 <input type="text" id="coverage_CEF" name="coverage_CEF" class="form-control col-md-8 commaValues "  value="">
             </div>
@@ -167,8 +170,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> AMF Property Extensions <span class="err">*</span></label>
-                <input type="text" id="coverage_amfPropertyExt" name="coverage_amfPropertyExt" class="form-control col-md-8 commaValues required" value="Not Available"  disabled>
+                <label class="col-md-4" style="float: left;"> AMF Property Extensions </label>
+                <input type="text" id="coverage_amfPropertyExt" name="coverage_amfPropertyExt" class="form-control col-md-8 commaValues " value="Not Available"  disabled>
             </div>
         </div>
     </div>
@@ -176,8 +179,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Other <span class="err">*</span></label>
-                <input type="text" id="coverage_otherProperty" name="coverage_otherProperty" class="form-control col-md-8 commaValues required"  value="">
+                <label class="col-md-4" style="float: left;"> Other </label>
+                <input type="text" id="coverage_otherProperty" name="coverage_otherProperty" class="form-control col-md-8 commaValues "  value="">
             </div>
         </div>
     </div>
