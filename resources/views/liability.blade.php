@@ -72,7 +72,7 @@
             </div> -->
             <div class="towf_sections" data-value="'+addTOWFCount+'">
                 <label class="col-md-8" style="float: left;">1. Operation <span class="err">*</span> </label>
-                <input type="text" id="liability_typeOfOpsWorkPerformOperation_1'" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-4 required"  value="" >
+                <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-4 required"  value="" >
 
                 <label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label>
                 <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-4 required"  value="" >

@@ -1974,8 +1974,12 @@ $('#insured_isRiskAddressSame').change(function() {
       // if valid false means there is required fields which don't have value   
       if(valid == false){
         $("#"+sfClassName+"_MSG").show();
+        // make icon in label red to notify user about subform
+        $("#"+sfClassName+"_MSG").next('label').find('i').css('color','red');
       }else{
         $("#"+sfClassName+"_MSG").hide();
+        // remove icon in label from red 
+        $("#"+sfClassName+"_MSG").next('label').find('i').css('color','');
       }
 
     });
@@ -2525,7 +2529,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
       var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 
-      if(abandonStatus == "windowClose" && abandonStatus == "reset"){
+      if(abandonStatus == "windowClose" || abandonStatus == "reset"){
         $(".loader").show(); 
       }else{
         $(".loader").hide(); 
