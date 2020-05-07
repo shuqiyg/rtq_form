@@ -1236,7 +1236,24 @@ $('#insured_isRiskAddressSame').change(function() {
           $("#reviewFormPT").text("Review form taking time to load ..."); 
           
             // check refer rules matching or not
-            var formData = JSON.stringify($('#rtq_form').serializeArray());
+            //var formData = JSON.stringify($('#rtq_form').serializeArray());
+            
+            var fd = JSON.stringify($('#rtq_form').serializeArray());
+
+            var result = {};
+      
+            $.each(JSON.parse(fd), function() {
+              var id = this.name;
+              var row = {};
+              row["value"] = this.value;
+              // find title
+              var title = $("#"+id).prev('label').text();
+              row["title"] = title;
+              result[this.name] = row;
+            });
+      
+            var formData = JSON.stringify(result);
+            
             var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
             //console.log(formData);
             $.ajax({
@@ -2216,7 +2233,23 @@ $('#insured_isRiskAddressSame').change(function() {
 
   // function to get all form data including dynamic fields
   function getAllFormData(){
-    var formData = JSON.stringify($('#rtq_form').serializeArray());
+      //var formData = JSON.stringify($('#rtq_form').serializeArray());
+      var fd = JSON.stringify($('#rtq_form').serializeArray());
+
+      var result = {};
+
+      $.each(JSON.parse(fd), function() {
+        var id = this.name;
+        var row = {};
+        row["value"] = this.value;
+        // find title
+        var title = $("#"+id).prev('label').text();
+        row["title"] = title;
+        result[this.name] = row;
+      });
+
+      var formData = JSON.stringify(result);
+      
       // formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
       var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
       var noOfClaims = $.trim($('#risk_address_noOfClaims').val());

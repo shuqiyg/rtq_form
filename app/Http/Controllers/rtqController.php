@@ -164,7 +164,7 @@ class rtqController extends Controller
         $toolFloaterAmount = ($coverage_toolFloater*$toolFloaterRate)/100;
 
         if($coverage_liabilityLimit == "1mm"){
-            $liability = 500;
+            $liablity = 500;
         }else if($coverage_liabilityLimit == "2mm"){
             $liablity = 250 + 500; // it include 500 for 1mm and other 1mm is 250 so total 750
         }else{
@@ -416,7 +416,7 @@ class rtqController extends Controller
 
     ***/
     function finish(Request $req){
-        $formData = json_decode($req['formData']);
+        $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
         $filesRequired = json_decode($req['filesRequired'], true);
@@ -558,7 +558,7 @@ class rtqController extends Controller
         $json .= '"rtqFormId" : { "value" : "'.$rtqForm.'" },';
 
         // loop through all form data
-        foreach ($fd as $key => $value) {
+        /*foreach ($fd as $key => $value) {
             foreach ($value as $k => $v) {
                 // if value has key name then take it out and if has key value then append it under key name
                 if($k == 'name'){
@@ -580,8 +580,55 @@ class rtqController extends Controller
 
             }
             $i++;
-        }
+        }*/
+        foreach ($fd as $key => $value) {
+            $json .= '"'.$key.'": { ';
+            $j = 1;
+            foreach ($value as $k => $v) {
+                // if value has key name then take it out and if has key value then append it under key name
+                //$json .= '"'.$k.'": { ';
+                //if($k == 'name'){
+                    //$json .= '"'.$v.'": { ';
+                //}else 
+                if($k == 'value'){
+                    // remove \n and \r from textarea value
+                    //$v = json_encode($v);
+                    //$v = str_replace('\r','',$v);
+                    //$v = str_replace('\n','',$v);
+                    //$v = json_decode($v);
+                    $v = htmlentities($v);
+                    $v = trim($v);
+                    $json .= '"value" : '.trim(json_encode($v));
+                    // add comma at end of each data except last one
+                    
+                }else if($k == 'title'){
+                    $v = trim($v);
+                    //$v = str_replace('&quot;', "'", $v);
+                    //$v = stripslashes($v);
+                    $json .= '"title" : '.trim(json_encode($v));
+                    // add comma at end of each data except last one
+                    /*if($i < sizeof($value)){
+                        $json .= ',';
+                    }*/
+                }
 
+                if($j < sizeof($value)){
+                    $json .= ',';
+                }
+
+                $j++;
+
+            }
+            $json .= '} ';
+
+            if($i < sizeof($fd)){
+                $json .= ',';
+            }    
+            
+            $i++;
+        }
+        
+        
         if($noOfMortgageesArray != ''){
             // if there is mortgagees then add comma to append list of mortgagees
             if(sizeof($noOfMortgageesArray) > 0){
@@ -1282,13 +1329,13 @@ class rtqController extends Controller
     **/
     public function checkReferRules(Request $req){
         //$formD = str_replace('\n', '', $req['formData']);
-        $formData = json_decode($req['formData']);
+        $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         //return $formData;
         $fdFormattedJson = $this->formatFormDataToProperJson($formData,'','','','',$rtqForm,'');
         //print_r($fdFormattedJson);exit;
         $fd = json_decode($fdFormattedJson , true );
-        
+
         // check refer rule is valid or not
         $referValid = $this->validation($fd,$rtqForm);
 
@@ -1310,7 +1357,7 @@ class rtqController extends Controller
 
     ***/
     function resetForm(Request $req){
-        $formData = json_decode($req['formData']);
+        $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
