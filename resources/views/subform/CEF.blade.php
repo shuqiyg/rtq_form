@@ -5,7 +5,11 @@
             <li><a href="#tabs-1">CEF</a></li>
             <!--<li><a href="#tabs-2">Tab 2</a></li>-->
         </ul>
-
+        <?php
+            // get default value 
+            $defaultVal = json_decode(file_get_contents(public_path().'/json/defaultValSubform.json'), true);
+            //print_r($defaultVal);
+        ?>
         <div id="tabs-1">
             <div class="row">
                 <div class="col-md-12">
@@ -48,6 +52,8 @@
 
                     <h5>Equipment Schedule</h5>
                     <input type="hidden" id="equipmentScheduleCount" name="equipmentScheduleCount">
+                    <input type="hidden" id="equipmentScheduleTotalAmount" name="equipmentScheduleTotalAmount">
+                    <input type="hidden" id="equipmentScheduleDefaultB" name="equipmentScheduleDefaultB" value="<?php echo $defaultVal['plumbing'][0]['CEF']['deductibleDefaultB'];?>">
                     <div class="form-group">
                         <div class="col-md-12">
                             <span id="addEquipmentSchedule" data-toggle="tooltip" title="Add equipment Schedule"> <i class="fa fa-plus" style="cursor: pointer;"></i> </span>
@@ -64,7 +70,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <tr>
+                                    <td><span>1</span></td>
+                                    <td>
+                                        <label class='hideLabel sf'>1. Year <span class='err'>*</span></label>
+                                        <input type='text' class='form-group onlyNumbers sf required' id='equipmentScheduleYear_1' name='equipmentScheduleYear_1' maxlength='4'  />
+                                    </td>
+                                    <td>
+                                        <label class='hideLabel sf'>Manufacturer <span class='err'>*</span></label>
+                                        <input type='text' class='form-group required' id='equipmentScheduleManufacturer_1' name='equipmentScheduleManufacturer_1' />
+                                    </td>
+                                    <td>
+                                        <label class='hideLabel sf'>Description <span class='err'>*</span></label>
+                                        <input type='text' class='form-group required' id='equipmentScheduleDescription_1' name='equipmentScheduleDescription_1' />
+                                    </td>
+                                    <td>
+                                        <label class='hideLabel sf'>Serial No <span class='err'>*</span></label>
+                                        <input type='text' class='form-group required' id='equipmentScheduleSerialNo_1' name='equipmentScheduleSerialNo_1' />
+                                    </td>
+                                    <td>
+                                        <label class='hideLabel sf'>Amount <span class='err'>*</span></label>
+                                        <input type='text' class='form-group commaValues required' id='equipmentScheduleAmount_1' name='equipmentScheduleAmount_1' />
+                                    </td>
+                                </tr>
                             </tbody>
                             
                         </table>
@@ -80,12 +108,12 @@
                     <h5>Deductible Clause</h5>
                     <div class="form-group">
                         <div class="col-md-12">
-                            (A) Each claim for loss or damage shall be adjusted separately and from the amount of each adjusted claim the sum of $<span class="setGreenText setTotalAmountEquipSche"></span> shall be deducted, or
+                            (A) Each claim for loss or damage shall be adjusted separately and from the amount of each adjusted claim the sum of $<span class="setGreenText">@php echo $defaultVal['plumbing'][0]['CEF']['deductibleDefaultA']; @endphp</span> shall be deducted, or
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            (B) Each claim for loss or damage shall be adjusted separately and from the amount of each adjusted claim (FIVE) 5% of the value of the item involved in the loss shall be deducted, subject however to a minimum of $<span class="setGreenText setTotalAmountEquipSche"></span> .
+                            (B) Each claim for loss or damage shall be adjusted separately and from the amount of each adjusted claim (FIVE) 5% of the value of the item involved in the loss shall be deducted, subject however to a minimum of $<span class="setGreenText setTotalAmountEquipSche5per"></span> .
                         </div>
                     </div>
 

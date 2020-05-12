@@ -234,7 +234,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
     //checks valid on leave field - all required fields
     $.each( $(anchorObject.attr('href')).find('input.required'), function( key, value ) {
-      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
+      if($(this).closest('section').not('.subformSection').is(":hidden") || $(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
         // do nothing
         // removing class if user has open element and then hidden it so need to remove added class
         // check if span has nestedBox class then remove class err2 from next span
@@ -296,7 +296,10 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
     $.each( $(anchorObject.attr('href')).find('select.required'), function( key, value ) {
-      if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
+      /*if($(this).is(":hidden")){
+        console.log($(this).attr('name'));
+      }*/
+      if($(this).closest('section').not('.subformSection').is(":hidden") || $(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none'  || $(this).parent('div').css('display') == 'none'){
         // do nothing
         // check if span has nestedBox class then remove class err2 from next span
         if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
@@ -608,7 +611,7 @@ $('#insured_isRiskAddressSame').change(function() {
     /** Function to validate broker **/
     function validateBroker(){
       var brokerCode = $.trim($("#broker_code").val());
-      var producer_email = $.trim($("#producer_email").val());
+      var producer_email = $.trim($("#broker_producer_email").val());
       var brokerDomain = producer_email.split('@')[1];
       
       //console.log(brokerDomain);
@@ -731,13 +734,13 @@ $('#insured_isRiskAddressSame').change(function() {
     
     // display details of record if insured criminal record is yes
     $("#insured_criminal_record").on('change',function(){
-      fieldOpenHide('insured_criminal_record','Yes','','details_of_record_box',['details_of_record'],'');
+      fieldOpenHide('insured_criminal_record','Yes','','details_of_record_box',['insured_criminalRecord_details_of_record'],'');
       /*var insured_criminal_record = $("#insured_criminal_record").val();
       if(insured_criminal_record == 'Yes'){
         $("#details_of_record_box").show();
       }else{
         $("#details_of_record_box").hide();
-        $("#details_of_record").val(''); // empty value if user fill up anything with yes and then select no again
+        $("#insured_criminalRecord_details_of_record").val(''); // empty value if user fill up anything with yes and then select no again
       }*/
     });
 
@@ -1912,7 +1915,7 @@ $('#insured_isRiskAddressSame').change(function() {
     $(".subformCEF").toggle();
   });
 
-  var addEquipScheCount=1;
+  var addEquipScheCount=2;
 
   /**
   NOTE : Label is added before input fields on table because label display at Review form at the end
@@ -1922,7 +1925,7 @@ $('#insured_isRiskAddressSame').change(function() {
     // set count in hidden fields
     $("#equipmentScheduleCount").val(addEquipScheCount);
   
-    var row = "<tr><td><span>"+addEquipScheCount+"</span></td><td><label class='hideLabel sf'>"+addEquipScheCount+". Year</label><input type='text' class='form-group sf' id='equipmentScheduleYear_"+addEquipScheCount+"' name='equipmentScheduleYear_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Manufacturer</label><input type='text' class='form-group' id='equipmentScheduleManufacturer_"+addEquipScheCount+"' name='equipmentScheduleManufacturer_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Description</label><input type='text' class='form-group' id='equipmentScheduleDescription_"+addEquipScheCount+"' name='equipmentScheduleDescription_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Serial No</label><input type='text' class='form-group' id='equipmentScheduleSerialNo_"+addEquipScheCount+"' name='equipmentScheduleSerialNo_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Amount</label><input type='text' class='form-group commaValues' id='equipmentScheduleAmount_"+addEquipScheCount+"' name='equipmentScheduleAmount_"+addEquipScheCount+"' /></td></tr>";
+    var row = "<tr><td><span>"+addEquipScheCount+"</span></td><td><label class='hideLabel sf'>"+addEquipScheCount+". Year <span class='err'>*</span></label><input type='text' class='form-group onlyNumbers sf required' id='equipmentScheduleYear_"+addEquipScheCount+"' name='equipmentScheduleYear_"+addEquipScheCount+"' maxlength='4'  /></td><td><label class='hideLabel sf'>Manufacturer <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleManufacturer_"+addEquipScheCount+"' name='equipmentScheduleManufacturer_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Description <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleDescription_"+addEquipScheCount+"' name='equipmentScheduleDescription_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Serial No <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleSerialNo_"+addEquipScheCount+"' name='equipmentScheduleSerialNo_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Amount <span class='err'>*</span></label><input type='text' class='form-group commaValues required' id='equipmentScheduleAmount_"+addEquipScheCount+"' name='equipmentScheduleAmount_"+addEquipScheCount+"' /></td></tr>";
     // append table row
     $("#equipmentScheduleTable tbody").append(row);
 
@@ -1939,11 +1942,21 @@ $('#insured_isRiskAddressSame').change(function() {
   $(document).on('keyup',"[id^=equipmentScheduleAmount]",function(){
     var totalAmount = calculateEquipmentScheduleTotalAmount();
 
-    var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> "+totalAmount+" </p>";
+    var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount : </b> "+totalAmount+" </p>";
     $("#totalAmountES").html(lastRow);
 
     // set amount in description texts below this table
     $(".setTotalAmountEquipSche").text(totalAmount);
+    $("#equipmentScheduleTotalAmount").val(totalAmount);
+    // get 5% of total amount and add it in description below it
+    var amount5Per = (totalAmount*5)/100;
+    // get default value for deductible clause B 
+    var defaultB = $("#equipmentScheduleDefaultB").val();
+    if(amount5Per < defaultB){
+      $(".setTotalAmountEquipSche5per").text(defaultB);
+    }else{
+      $(".setTotalAmountEquipSche5per").text(amount5Per);
+    }
   });
 
   // Calculate CEF subform equipment schedule total Amount in realtime

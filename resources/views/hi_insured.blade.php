@@ -43,25 +43,25 @@
             
             <div class="form-group insuredCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Name of Principals <span class="err">*</span> </span></label>
-                <input type="text" id="namePrincipalsInsured" name="namePrincipalsInsured" class="form-control col-md-8 required"  value="">
+                <input type="text" id="insured_namePrincipalsInsured" name="insured_namePrincipalsInsured" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group insuredCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Contact First Name <span class="err">*</span> </span></label>
-                <input type="text" id="contact_first_name" name="contact_first_name" class="form-control col-md-8 required"  value="">
+                <input type="text" id="insured_contact_first_name" name="insured_contact_first_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group insuredCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Contact Last Name <span class="err">*</span> </span></label>
-                <input type="text" id="contact_last_name" name="contact_last_name" class="form-control col-md-8 required"  value="">
+                <input type="text" id="insured_contact_last_name" name="insured_contact_last_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group insuredCorpBox" style="display: none;">
                 <p class="validPhoneError" style="display: none;color: red;">Please enter valid phone</p>
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Contact Phone Number </span> </label>
-                <input type="tel" id="contact_phone_number" name="contact_phone_number" class="form-control col-md-8 checkPhone"  value=""  placeholder="Please use x or ext if there is extention">
+                <input type="tel" id="insured_contact_phone_number" name="insured_contact_phone_number" class="form-control col-md-8 checkPhone"  value=""  placeholder="Please use x or ext if there is extention">
             </div>
             
             <div class="form-group insuredSoleOrCorpBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="nestedBox">Website </span></label>
-                <input type="text" id="website" name="website" class="form-control col-md-8"  value="">
+                <input type="text" id="insured_website" name="insured_website" class="form-control col-md-8"  value="">
             </div>
 
             <div class="form-group">
@@ -77,7 +77,7 @@
 @if($formVal == "plumbing")   
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Policy Language  </label>
-                <select class="form-control col-md-8" id="policy_language" name="policy_language">
+                <select class="form-control col-md-8" id="insured_policy_language" name="insured_policy_language">
                     <option value="">-Select policy language-</option>
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -97,7 +97,7 @@
             </div>
             <div class="form-group" id="details_of_record_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Details of record</span> </label>
-                <input type="text" id="details_of_record" name="details_of_record" class="form-control col-md-8"  value="">
+                <input type="text" id="insured_criminalRecord_details_of_record" name="insured_criminalRecord_details_of_record" class="form-control col-md-8"  value="">
             </div>
     
 @endif

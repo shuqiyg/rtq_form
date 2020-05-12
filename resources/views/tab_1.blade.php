@@ -23,17 +23,17 @@
             </div>
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;"> Producer Name <span class="err">*</span> </label>
-                <input type="text" id="producer_name" name="producer_name" class="form-control col-md-8 required"  value="">
+                <input type="text" id="broker_producer_name" name="broker_producer_name" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group has-feedback">
                 <p class="validEmailError" style="display: none;color: red;">Please enter valid email</p>
                 <label class="col-md-4" style="float: left;"> Producer Email <span class="err">*</span> </label>
-                <input type="email" id="producer_email" name="producer_email" class="form-control col-md-8 checkEmail validateBroker required"  value="">
+                <input type="email" id="broker_producer_email" name="broker_producer_email" class="form-control col-md-8 checkEmail validateBroker required"  value="">
             </div>
             <div class="form-group has-feedback">
                 <p class="validPhoneError" style="display: none;color: red;">Please enter valid phone</p>
                 <label class="col-md-4" style="float: left;"> Producer Phone <span class="err">*</span> </label>
-                <input type="tel" id="producer_phone" name="producer_phone" class="form-control col-md-8 checkPhone required"  value="" placeholder="Please use x or ext if there is extention">
+                <input type="tel" id="broker_producer_phone" name="broker_producer_phone" class="form-control col-md-8 checkPhone required"  value="" placeholder="Please use x or ext if there is extention">
             </div>
 
             @if($formVal == "plumbing")   

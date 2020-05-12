@@ -780,7 +780,7 @@ class rtqController extends Controller
         } // END OF Form REFER VALIDATION FOR RENTED DWELLING AND OWNER OCCUPIED
         else if($rtqForm == "homeInspector"){
             array_push($filesRequired, "The firms Statement of Qualifications inclding resumes of all key (technical) personnel along with any avaliable marketing material or company brochures");
-            array_push($filesRequired, "A copy of the outline from the firm’s Quality Assurance / Quality Control (QA/QC) manual");
+            array_push($filesRequired, "A copy of the outline from the firm's Quality Assurance / Quality Control (QA/QC) manual");
             return $this->validateHomeInspector($fd,$rtqForm,$filesRequired);
         }
     }

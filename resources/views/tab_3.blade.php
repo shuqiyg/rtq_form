@@ -123,7 +123,7 @@
         @if($formVal == "plumbing")  
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Expiring Premium </span></label>
-                <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8"  value="">
+                <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8 commaValues"  value="">
             </div>
         @endif
 
