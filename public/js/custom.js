@@ -1185,15 +1185,37 @@ $('#insured_isRiskAddressSame').change(function() {
     // show entire section/Step if buildingCoverage required Yes
     $("#risk_address_requireBuildingCoverage").on('change',function(){
       if($("#risk_address_requireBuildingCoverage").val() == "No"){
-        // hide building construction section
+        // hide building construction section and surroundign exposure section
         $(".buildingConstruction").hide();
+        $(".surroundingExposure").hide();
+        $(".includeExclude").hide();  // Hide fields to not show in review
+        // hide following how many mortgage field as well 
+        $(".howManyMortgageesBox").hide();
+        // add min height to auto for smartwizard container
+        $(".sw-container").css('min-height','auto');
       }else{
-        // show building construction section
+        // show building construction section and surroundign exposure section
         $(".buildingConstruction").show();
+        $(".surroundingExposure").show();
+        $(".includeExclude").show();
+        // hide following how many mortgage field as well 
+        $(".howManyMortgageesBox").show();
         // clear all fields in section
         clearFields('buildingConstruction');
       }
       
+    });
+    
+    // display burglaryAlarm_safe field on Protection Tab for Plumbing
+    $("#burglaryAlarm_safe").on('change',function(){
+      var burglaryAlarm_safe = $("#burglaryAlarm_safe").val();
+      if(burglaryAlarm_safe == 'Yes'){
+        $(".burglaryAlarm_safeBox").show();
+      }else{
+        $(".burglaryAlarm_safeBox").hide();
+        $("#burglaryAlarm_safeClass").val('');
+        $("#burglaryAlarm_safeDimensions").val('');
+      }
     });
 
 
@@ -1385,6 +1407,12 @@ $('#insured_isRiskAddressSame').change(function() {
             //console.log('step : '+stepNumber);
             $(".sw-btn-prev").show();
           }
+          
+          // if on step number 2 ( insured tab ) and form is plumbing
+          if(stepNumber == 2 && rtqFormGlobal == "plumbing"){
+            $('#mailing_address_country').val("Canada");
+          }
+          
           //console.log($(anchorObject.attr('href')).find('section:first').find('input:first').attr('name'));
           $(anchorObject.attr('href')).find('section:first').find(':input:enabled:visible:first').focus();
 
@@ -1460,7 +1488,7 @@ $('#insured_isRiskAddressSame').change(function() {
               console.log(msg);
               $("#priceBox").empty();
 
-              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>CEF</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglCEF']+"</span></td></tr><tr><td>Frill</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglFrill']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fees']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>CEF</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglCEF']+"</span></td></tr><tr><td>Frill</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglFrill']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
               $("#priceBox").html(table);
               
               //$("#priceBox").text(Math.round(msg.total_value));
@@ -1485,6 +1513,7 @@ $('#insured_isRiskAddressSame').change(function() {
         var coverage_officeEquipmentsFloater = $('#coverage_officeEquipmentsFloater').val();
         var coverage_profits = $('#coverage_profits').val();
         var coverage_liabilityLimit = $('#coverage_liabilityLimit').val();
+        var yearsBuilt = $('#buildingConstruction_yearBuilt').val();
         
         var fireDeptDistance = $('#fireAlarmDetectors_fireDeptDistance').val();
         var fireDeptType = $('#fireAlarmDetectors_fireDeptTye').val();
@@ -1501,7 +1530,7 @@ $('#insured_isRiskAddressSame').change(function() {
           $.ajax({
             url:"calculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
@@ -1747,7 +1776,8 @@ $('#insured_isRiskAddressSame').change(function() {
     Add more liablity items detail type(s) of operations and work performed by applicant
   **/
   //var addTOWFCount = 2; // one is by default showing in form
-  $("#addTypeOfOpsWorkPerformBox").on('click',function(){
+  $("#addTypeOfOpsWorkPerformBox").on('click',function(e){
+    e.preventDefault();
     addtypeOfOpsWorkPerformDescription();
   });
   function addtypeOfOpsWorkPerformDescription(){
@@ -1759,7 +1789,9 @@ $('#insured_isRiskAddressSame').change(function() {
     // set count in hidden fields
     $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
     
-    var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';
+    /*var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';*/
+
+    var html = '<div class="towf_sections" style="width: 100%;" data-value="'+addTOWFCount+'"><span class="col-md-1" style="float: left;text-align: center;"> <span id="countTOWF">'+addTOWFCount+'</span>) </span><label class="col-md-4" style="float: left;">Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-7 required"  value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-7 required"  value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-7 commaValues required"  value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-7 commaValues required"  value="" ></div>';
 
     // add box in div
     $("#liability_typeOfOpsWorkPerformDetails").show();
@@ -1799,7 +1831,7 @@ $('#insured_isRiskAddressSame').change(function() {
         $(this).attr('name',idTxt);
     
         // set count in hidden fields
-        $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
+        $("#liability_typeOfOpsWorkPerformCount").val(counting);
 
       });
       //counting ++;
@@ -1903,7 +1935,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
   // show State Limit of Liability required fields for Do you have any special agreement/s with Dept. of Lands and Forest? field on Liability Tab
   $("#liability_specialAgreement").on('change',function(){
-      fieldOpenHide('liability_specialAgreement','No','','ifspecialAgreementBox',['liability_specialAgreementStateLimit'],'');
+      fieldOpenHide('liability_specialAgreement','Yes','','ifspecialAgreementBox',['liability_specialAgreementStateLimit'],'');
   });
 
 
@@ -2005,11 +2037,13 @@ $('#insured_isRiskAddressSame').change(function() {
       if(valid == false){
         $("#"+sfClassName+"_MSG").show();
         // make icon in label red to notify user about subform
-        $("#"+sfClassName+"_MSG").next('label').find('i').css('color','red');
+        //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','red');
+        $("#"+sfClassName+"_MSG").parent().find('i').css('color','red');
       }else{
         $("#"+sfClassName+"_MSG").hide();
         // remove icon in label from red 
-        $("#"+sfClassName+"_MSG").next('label').find('i').css('color','');
+        //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','');
+        $("#"+sfClassName+"_MSG").parent().find('i').css('color','');
       }
 
     });
@@ -2073,14 +2107,22 @@ $('#insured_isRiskAddressSame').change(function() {
   function hideShowIncludeExclude(){
     var buildingAge = getBuildingAge();  
     var coverage_perils = $("#coverage_perils").val();
-    console.log(coverage_perils);
+    
+    // get value of does building coverage required field on risk address tab for plumbing
+    var requireBuildingCoverage = $("#risk_address_requireBuildingCoverage").val();
+    //console.log(coverage_perils);
 
     if(buildingAge >= 25 || coverage_perils == "Named Perils"){
       $(".includeExclude").hide();  // Hide fields to not show in review
       //$("#coverageIncludeExcludeSection").hide();   
     }else{
-      $("#coverageIncludeExcludeSection").show();
-      $(".includeExclude").show();    
+      //$("#coverageIncludeExcludeSection").show();
+      if(requireBuildingCoverage != "No"){
+        $(".includeExclude").show();      
+      }else{
+        $(".includeExclude").hide();    
+      }
+          
     }
   }
 

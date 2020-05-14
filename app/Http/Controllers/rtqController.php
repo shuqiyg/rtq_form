@@ -82,6 +82,7 @@ class rtqController extends Controller
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($req['coverage_officeEquipmentsFloater']));
             $coverage_profits = $this->checkValue(trim($req['coverage_profits']));
             $coverage_liabilityLimit = trim($req['coverage_liabilityLimit']);
+            $yearsBuilt =  $req['yearsBuilt'];
             
             $fireDeptDistance = ucfirst( $req['fireDeptDistance'] );
             $fireDeptType = ucwords( $req['fireDeptType'] );
@@ -91,7 +92,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($req['distanceFromClosestCity']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -99,7 +100,7 @@ class rtqController extends Controller
     }
 
     // function to set priceArray / calculate for plumbing form
-    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
 
         // get values from json file
         $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
@@ -111,13 +112,44 @@ class rtqController extends Controller
         $firedepttype = json_decode(file_get_contents(public_path().'/json/firedepttype.json'), true);
         $hydrants = json_decode(file_get_contents(public_path().'/json/hydrants.json'), true);
         $towngrade = json_decode(file_get_contents(public_path().'/json/towngrade.json'), true);
-
+        
         // if province is null or empty then make by default Ontario
         if($province == null || empty($province)){
             $pr = "Ontario";
         }else{
             $pr = $provincerate[$rtqForm][0][$province]['rate'];    
         }
+        
+        // get rates to send for backend process
+        $amf_rates = json_decode(file_get_contents(public_path().'/json/amf_rates_plumbing.json'), true);
+
+        if($yearsBuilt == null || empty($yearsBuilt)){
+            $yearsBuilt = date("Y");
+        }
+
+        // find building age
+        $age = date("Y") - $yearsBuilt;
+        if($age <= 25){
+            $age_rate = 'under25';
+        }else{
+            $age_rate = 'over25';
+        }
+
+        if($hydrant != '' && $fireDeptDistance != '' &&  $fireDeptType != ''){
+            $hydrantVal = $hydrants[0][$hydrant]['value'];
+            $fd = $firedept[0][$fireDeptDistance]['value'];
+            $fdt = $firedepttype[0][$fireDeptType]['value'];
+            $findTG = $fd.$fdt.$hydrantVal;
+            $tg = $towngrade[0][$findTG]['tg'];
+                        
+            $amfRate = $amf_rates[$age_rate][0][$province][$tg];
+            $rentalIncomeLimitRate = $amfRate * 0.75;
+        }else{
+            $tg = "NotAvailable";
+            // make default amf_rate
+            $amfRate = 0;
+            $rentalIncomeLimitRate = 0;
+        }        
         
         $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate'];
         $officeComputerRate = $coverageRate[0]["Office Computer"]['rate'];
@@ -221,22 +253,18 @@ class rtqController extends Controller
             $total = $premiumWithoutFees + $policyFee;
         }
         
-        if($hydrant != '' && $fireDeptDistance != '' &&  $fireDeptType != ''){
-            $hydrantVal = $hydrants[0][$hydrant]['value'];
-            $fd = $firedept[0][$fireDeptDistance]['value'];
-            $fdt = $firedepttype[0][$fireDeptType]['value'];
-            $findTG = $fd.$fdt.$hydrantVal;
-            $tg = $towngrade[0][$findTG]['tg'];
-        }else{
-            $tg = "NotAvailable";
-        }
-
         $priceArray = array();
         $priceArray['propertyTotal'] = $propertyTotal;
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
         $priceArray['inspectionFee'] = $inspectionFee;
         $priceArray['towngrade'] = $tg;
+        $priceArray['cefRate'] = $cefRate;
+        $priceArray['officeComputerRate'] = $officeComputerRate;
+        $priceArray['profitsRate'] = $profitsRate;
+        $priceArray['toolFloaterRate'] = $toolFloaterRate;
+        $priceArray['amfRate'] = $amfRate;
+        $priceArray['rentalIncomeLimitRate'] = $rentalIncomeLimitRate;
         $priceArray['total'] = $total;
 
         return $priceArray;
@@ -280,7 +308,7 @@ class rtqController extends Controller
             $priceArray['cglPremium'] = $cglPremium;
             $priceArray['cglCEF'] = $cglCEF;
             $priceArray['cglFrill'] = $cglFrill;
-            $priceArray['fees'] = $fees;
+            $priceArray['fee'] = $fees;
             $priceArray['premium'] = $premium;
             $priceArray['total_value'] = $total_value ;
         }
@@ -511,6 +539,7 @@ class rtqController extends Controller
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
+            $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
             
             $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
             $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
@@ -520,7 +549,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
@@ -1460,6 +1489,7 @@ class rtqController extends Controller
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
+            $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
             
             $fireDeptDistance = ucfirst( $fd[0]['fireAlarmDetectors_fireDeptDistance']['value'] );
             $fireDeptType = ucwords( $fd[0]['fireAlarmDetectors_fireDeptTye']['value'] );
@@ -1469,7 +1499,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;

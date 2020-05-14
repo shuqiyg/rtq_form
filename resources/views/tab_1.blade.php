@@ -38,8 +38,8 @@
 
             @if($formVal == "plumbing")   
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Is this Quote on or before a specific date? <span class="err">*</span></label>
-                <input type="text" id="due_date" name="due_date" class="form-control col-md-8 datepicker required"  value="" placeholder="mm/dd/yyyy">
+                <label class="col-md-4" style="float: left;"> Is this Quote on or before a specific date? </label>
+                <input type="text" id="due_date" name="due_date" class="form-control col-md-8 datepicker "  value="" placeholder="mm/dd/yyyy">
             </div>
             @endif
 

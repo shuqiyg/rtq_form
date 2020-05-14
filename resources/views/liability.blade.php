@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label class="col-md-8" style="float: left;"> Are any of the premises leased or rented in their entirety to others who control and operate the premises? <span class="err">*</span></label>
                 <select id="liability_anyPremisesLeasedRentedToOther" name="liability_anyPremisesLeasedRentedToOther" class="form-control col-md-4 required">
-                    <option value="">-Select smoke/heat detectors-</option>
+                    <option value="">-Select Value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                     <option value="Not Applicable">Not Applicable</option>
@@ -54,13 +54,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h5 class="col-md-11" style="float: left;">Show in detail type(s) of operations and work performed by applicant</h5>
-            <span class="col-md-1" style="float: left;" id="addTypeOfOpsWorkPerformBox" data-toggle="tooltip" title="Add more detail type(s) of operations and work performed description" ><i class="fa fa-plus iconPadding" style="cursor: pointer;"></i></span>
+            <h5 class="col-md-12" style="float: left;">Show in detail type(s) of operations and work performed by applicant ( Add as many as required )</h5>
+            
         </div>
     </div>
     <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding: 0% 10%;">
             <!-- <div class="form-group" style="display: flex;">
                 <label class="col-md-8" style="float: left;"> Show in detail type(s) of operations and work performed by applicant <span class="err">*</span></label>
                 <select id="liability_typeOfOpsWorkPerform" name="liability_typeOfOpsWorkPerform" class="form-control col-md-4 required" style="float: left;">
@@ -70,7 +70,7 @@
                 </select>
                 
             </div> -->
-            <div class="towf_sections" data-value="'+addTOWFCount+'">
+            <!-- <div class="towf_sections" data-value="'+addTOWFCount+'">
                 <label class="col-md-8" style="float: left;">1. Operation <span class="err">*</span> </label>
                 <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-4 required"  value="" >
 
@@ -81,11 +81,44 @@
                 <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-4 commaValues required"  value="" >
 
                 <label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span>
-                </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-4 commaValues required"  value="" ></div>
+                </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-4 commaValues required"  value="" >
+            </div> -->
+            <div style="border: 1px solid;background: #e8e8e8;padding: 1%; ">
+                <div class="towf_sections" style="width: 100%;">
+                    <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
+                    <label class="col-md-4" style="float: left;">Operation <span class="err">*</span> </label>
+                    <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" >
+
+                    <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                    <label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label>
+                    <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-7 required"  value="" >
+
+                    <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                    <label class="col-md-4" style="float: left;">Payroll <span class="err">*</span></label>
+                    <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-7 commaValues required"  value="" >
+
+                    <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                    <label class="col-md-4" style="float: left;">Gross Annual Receipts <span class="err">*</span>
+                    </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-7 commaValues required"  value="" >
+                </div>
+
+                <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
+                
+                </div>
+                <div class="col-md-12" style="float: left;display: contents;">
+                    <button class="btn btn-secondary" id="addTypeOfOpsWorkPerformBox">Add</button>
+                </div>
+            </div>
         </div>
     </div>
     <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
             
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--<span class="col-md-1" style="float: left;" id="addTypeOfOpsWorkPerformBox" data-toggle="tooltip" title="Add more detail type(s) of operations and work performed description" ><i class="fa fa-plus iconPadding" style="cursor: pointer;"></i></span>
+            <button class="btn btn-secondary" id="addTypeOfOpsWorkPerformBox">Add</button>-->
+        </div>
     </div>
     <!-- hidden total revenue field -->
     <input type="hidden" id="totalRevenue" name="totalRevenue">
@@ -119,7 +152,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"> Contractual </label>
+                <label class="col-md-8" style="float: left;"> Contractual Agreements</label>
                 <select id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc" class="form-control col-md-4 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>

@@ -69,8 +69,8 @@
                 <input type="text" id="insured_yearBusinessStarted" name="insured_yearBusinessStarted" class="form-control col-md-8 required onlyNumbers checkYear"  value="" maxlength="4">
             </div>
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Year of Experience <span class="err">*</span> </label>
-                <input type="text" id="insured_yearOfExperience" name="insured_yearOfExperience" class="form-control col-md-8 required onlyNumbers"  value="" maxlength="3" >
+                <label class="col-md-4" style="float: left;"> Year of Experience  </label>
+                <input type="text" id="insured_yearOfExperience" name="insured_yearOfExperience" class="form-control col-md-8 onlyNumbers"  value="" maxlength="3" >
             </div>
 
             <!-- Plumbing form have some different fields that need to add here -->

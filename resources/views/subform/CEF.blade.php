@@ -14,8 +14,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4 sf" style="float: left;"> Type of Protection </label>
-                        <input type="text" id="cef_subform_typeOfProtection" name="cef_subform_typeOfProtection" class="form-control col-md-8"  value="">
+                        <label class="col-md-12 sf" style="float: left;"> Type of Protection </label>
+                        <!-- <input type="text" id="cef_subform_typeOfProtection" name="cef_subform_typeOfProtection" class="form-control col-md-8"  value=""> -->
                     </div>
                     <div class="form-group">
                         <span class="col-md-1" style="float: left;text-align: center;">(A)</span>

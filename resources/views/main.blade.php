@@ -17,7 +17,7 @@
                 <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
                 @endif
                 @if($formVal == "homeInspector" || $formVal == "plumbing")
-                <li><a href="#tab-7">Claim History<br /><small>Claim and loss</small></a></li> 
+                <li><a href="#tab-7">Loss History<br /><small>Claim and loss</small></a></li> 
                 @endif
                 @if($formVal == "homeInspector")
                 <li><a href="#tab-8">OPS<br /><small>Industry general</small></a></li> 

@@ -54,7 +54,7 @@
 				<li>The broker has received an AMFUM Broker Number</li>
 			</ul>
 		</li>
-		<li>This is for Named Perils Property and Liability (CGL) Rented Dwelling Coverage.</li>
+		<!-- <li>This is for Named Perils Property and Liability (CGL) Rented Dwelling Coverage.</li> -->
 		<li>The system may determine that some feature(s) of the risk require Underwriter intervention in order to produce a quote. In that case:
 			<ul>
 				<li>No price will be provided. Therefore,</li>

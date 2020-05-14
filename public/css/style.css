@@ -40,13 +40,15 @@ section{
   100% { transform: rotate(360deg); }
 }
 /*** Loader end ***/
-.hmm_sections,.noc5_sections,.ele_sections,.pfs_sections,.towf_sections{
+.hmm_sections,.noc5_sections,.ele_sections,.pfs_sections{
 	margin-bottom: 5px;
 	border-bottom: 1px solid green;
 	padding:5px 10px;
 	border-left: 3px solid rosybrown;
 }
-
+.towf_sections{
+	padding-bottom: 1%;
+}
 .optionalBox {
 	border-left: 2px solid orange;
 	padding-left: 5px;

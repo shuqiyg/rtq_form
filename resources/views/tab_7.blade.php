@@ -8,7 +8,7 @@
 </div>
 
 <section class="claimHistoryTab">
-    <h3>Claim History</h3>
+    <h3>Loss History</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
