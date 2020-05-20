@@ -1783,7 +1783,7 @@ $('#insured_isRiskAddressSame').change(function() {
   function addtypeOfOpsWorkPerformDescription(){
     // get size of section
     var size = $("[id^=liability_typeOfOpsWorkPerformOperation").size()+1; // adding 1 to it because we have default one already
-    console.log(size);
+    //console.log(size);
     var addTOWFCount = size;
     
     // set count in hidden fields

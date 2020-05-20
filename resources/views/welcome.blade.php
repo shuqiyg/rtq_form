@@ -172,7 +172,7 @@
                                     expires: forOneHour
                                 });
                                 // reload page
-                                window.location.href="/rtqform";
+                                window.location.href="/rtqform"; //rtqform
                               } else {
                                 return false;//swal("Your imaginary file is safe!");
                               }
@@ -223,7 +223,7 @@
                             async: true
                         });
                     }
-                    if (typeof someObject == 'undefined') $.loadScript('/rtqform/js/custom.js', function(){
+                    if (typeof someObject == 'undefined') $.loadScript('/rtqform/js/custom.js', function(){ ///rtqform/js/custom.js
                         //Stuff to do after someScript has loaded
                         console.log("js loaded");
                     });

@@ -111,9 +111,9 @@
             </div>
         </div>
     </div>
-    <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
+    <!-- <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
             
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12">
             <!--<span class="col-md-1" style="float: left;" id="addTypeOfOpsWorkPerformBox" data-toggle="tooltip" title="Add more detail type(s) of operations and work performed description" ><i class="fa fa-plus iconPadding" style="cursor: pointer;"></i></span>
@@ -251,7 +251,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifwsoSubConLiabilityInsuranceFormalAgreementBox" style="display: none;">
-                <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, do you include a “Hold Harmless” clause in your favour? (Submit copy of usual contract form) </span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, do you include a "Hold Harmless" clause in your favour? (Submit copy of usual contract form) </span> </label>
                 <select id="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" class="form-control col-md-4">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -276,7 +276,7 @@
     <div class="row">
         <div class="col-md-12"  id="ifemployeesCoveredByCompensationBox" style="display: none;">
             <div class="form-group">
-                <label class="col-md-6" style="float: left;"><span class="optionalBox">If No: Give number and types of employees not covered by Workmen’s Compensation <span class="err">*</span></span> </label>
+                <label class="col-md-6" style="float: left;"><span class="optionalBox">If No: Give number and types of employees not covered by Workmen's Compensation <span class="err">*</span></span> </label>
                 <textarea rows="5" class="form-control col-md-6 required" id="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered" name="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered" ></textarea>
             </div>
             <div class="form-group">
