@@ -1939,12 +1939,36 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
 
-
+  /**
+  OPEN SUBFORM WHEN FOCUS OUT OF FIELD
+  **/
+  function openUpSubForm(sfClassName,type){
+    if(type == "toggle"){
+      $("."+sfClassName).toggle();
+    }
+    if(type == "open"){
+      // show process if sub form not opened
+      if($("."+sfClassName).is(":hidden")){
+        // show process of opening sub form 
+        $("#processSF").show();
+        $("#processSF").text('Opening subform ...');
+        setTimeout(function(){
+          // hide process of opening sub form 
+          $("#processSF").hide();
+          $("."+sfClassName).show();
+        },1000);
+      } 
+    }
+  }
   /** 
   OPEN SUBFORM
   **/
   $("#openCEF").on('click',function(){
-    $(".subformCEF").toggle();
+    openUpSubForm("subformCEF",'toggle');
+  });
+  // open up subform when leave field
+  $(document).on("focusout", "#coverage_CEF", function(){
+    openUpSubForm("subformCEF",'open');
   });
 
   var addEquipScheCount=2;
@@ -2004,7 +2028,7 @@ $('#insured_isRiskAddressSame').change(function() {
     });
     return totalAmountEquipSchedule;
   }
-  
+
   /** Display error for required fields in subform **/
 
   function showSubformErrorMSG(sfClassName){

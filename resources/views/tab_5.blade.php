@@ -151,6 +151,7 @@
                 <!-- <label class="col-md-4 subFormLabel" style="float: left;" id="openCEF" data-toggle="tooltip" title="Open CEF sub form"> Contractors Equipment Floater <i class="fa fa-level-down"></i></label> -->
                 <label class="col-md-4 subFormLabel" style="float: left;" id="openCEF" data-toggle="tooltip" title="Open CEF Form"> Contractors Equipment Floater <i>(Open CEF App)</i></label>
                 <input type="text" style="float: left;" id="coverage_CEF" name="coverage_CEF" class="form-control col-md-8 commaValues " placeholder="Enter Limit Required" value="">
+                <p class="col-md-12" style="width:100%;float: left;display: none;" id="processSF"></p>
                 <p class="col-md-12" style="width:100%;color: red;float: left;display: none;" id="subformCEF_MSG">Please complete the CEF form</p>
             </div>
         </div>
