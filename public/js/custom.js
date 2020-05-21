@@ -1241,11 +1241,17 @@ $('#insured_isRiskAddressSame').change(function() {
     });*/
 
     // show gross earning sub fields on Coverage Tab for Plumbing
-    $("#coverage_grossEarnings").on('change',function(){
-      fieldOpenHide('coverage_grossEarnings','Yes','','ifcoverageGrossEarningsLimitBox',['coverage_grossEarnings80Per','coverage_grossEarnings50Per','coverage_grossEarningsNoPer'],'');
+    $(document).on("focusout","#coverage_grossEarnings",function(){
+      var coverage_grossEarnings = $("#coverage_grossEarnings").val();
+      if(coverage_grossEarnings != ''){
+        $("#ifcoverageGrossEarningsLimitBox").show();
+      }else{
+        $("#ifcoverageGrossEarningsLimitBox").hide();
+        $("#coverage_grossEarnings80Per").val('');
+        $("#coverage_grossEarnings50Per").val('');
+        $("#coverage_grossEarningsNoPer").val('');
+      }
     });
-
-
 
     // check step number and if user click on final step then check broker code to display calculate button
     $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
@@ -1476,8 +1482,8 @@ $('#insured_isRiskAddressSame').change(function() {
 
   // function to remove comma from values
   function removeCommas(val){
-    if(val != '' && val != null){
-      console.log('Remove comma');
+    if(val != '' && val != null && val.toString().indexOf(',') > 0){
+      //console.log('Remove comma');
       return val.replace(/,/g, '');
     }else{
       return val;
@@ -2100,14 +2106,15 @@ $('#insured_isRiskAddressSame').change(function() {
     // show total amount , not final one if exceeds more than 500,000
     $("#equipmentScheduleTotalAmount").val(totalAmount);
     // get 5% of total amount and add it in description below it
-    var amount5Per = (totalAmountFinal*5)/100;
-    amount5Per = commaSeparateNumber(amount5Per);
+    
+    var tmf = removeCommas(totalAmountFinal);
+    var amount5Per = (tmf*5)/100;
     // get default value for deductible clause B 
-    var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());
+    var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());console.log(amount5Per);
     if(amount5Per < defaultB){
-      $(".setTotalAmountEquipSche5per").text(defaultB);
+      $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(defaultB));
     }else{
-      $(".setTotalAmountEquipSche5per").text(amount5Per);
+      $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(amount5Per));
     }
   });
 
