@@ -64,7 +64,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Building </label>
-                <input type="text" id="coverage_buildingLimit" name="coverage_buildingLimit" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit Required" value="">
+                <input type="text" id="coverage_buildingLimit" name="coverage_buildingLimit" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit " value="">
             </div>
         </div>
     </div>
@@ -79,11 +79,36 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                <label class="col-md-4" style="float: left;">Stock  </label>
+                <input type="text" id="coverage_contentsLimitStock" name="coverage_contentsLimitStock" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+            </div>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Equipment  </label>
+                <input type="text" id="coverage_contentsLimitEquipment" name="coverage_contentsLimitEquipment" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+            </div>     
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">   
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Tenants' improvements  </label>
+                <input type="text" id="coverage_contentsLimitImprovements" name="coverage_contentsLimitImprovements" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Consequential Loss <span class="err">*</span></label>
                 <input type="text" id="coverage_consequentialLoss" name="coverage_consequentialLoss" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -100,6 +125,36 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12"  id="ifcoverageGrossEarningsLimitBox" style="display: none;">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">80% Co. </span> </label>
+                <select id="coverage_grossEarnings80Per" name="coverage_grossEarnings80Per" class="form-control col-md-8 ">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>    
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">50% Co. </span> </label>
+                <select id="coverage_grossEarnings50Per" name="coverage_grossEarnings50Per" class="form-control col-md-8 ">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div> 
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">No Co. </span> </label>
+                <select id="coverage_grossEarningsNoPer" name="coverage_grossEarningsNoPer" class="form-control col-md-8 ">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div> 
+        </div>
+    </div>
+    
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -130,7 +185,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Office Equipments Floater <span class="err">*</span></label>
+                <label class="col-md-4" style="float: left;"> Office Equipment Floater <span class="err">*</span></label>
                 <input type="text" id="coverage_officeEquipmentsFloater" name="coverage_officeEquipmentsFloater" class="form-control col-md-8 getTIV amfPropertyExtention commaValues required" placeholder="Enter Limit Required" value="">
             </div>
         </div>
@@ -164,7 +219,11 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Boiler & Other Machinery <span class="err">*</span></label>
-                <input type="text" id="coverage_boiler" name="coverage_boiler" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
+                <select id="coverage_boiler" name="coverage_boiler" class="form-control col-md-8 required" style="margin-top: 5px;">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
         </div>
     </div>
@@ -178,14 +237,14 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Other </label>
                 <input type="text" id="coverage_otherProperty" name="coverage_otherProperty" class="form-control col-md-8 commaValues "  value="">
             </div>
         </div>
-    </div>
+    </div> -->
 
     @if($formVal == "plumbing")
 <section>
@@ -301,9 +360,10 @@
                 <label class="col-md-4" style="float: left;"> CGL Liability Limit <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="coverage_liabilityLimit" name="coverage_liabilityLimit">
                     <option value="">-Select liability limit-</option>
+                    <option value="none">None</option>
                     <option value="1mm">$1mm</option>
                     <option value="2mm">$2mm</option>
-                    <option value="none">None</option>
+                    <option value="3mmOrMore">$3mm or More</option>
                 </select>
             </div>
         </div>
@@ -321,7 +381,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Employee Practices <span class="err">*</span></label>
+                <label class="col-md-4" style="float: left;"> Employment Practices <span class="err">*</span></label>
                 <input type="text" id="coverage_employeePractices" name="coverage_employeePractices" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
             </div>
         </div>
@@ -384,16 +444,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Abuse Endorsement <span class="err">*</span></label>
-                <input type="text" id="coverage_abuseEndorsement" name="coverage_abuseEndorsement" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="col-md-4" style="float: left;"> TLL</label>
+                <label class="col-md-4" style="float: left;"> Tenant's Legal Liability</label>
                 <input type="text" id="coverage_crime_TLL" name="coverage_crime_TLL" class="form-control col-md-8 commaValues " placeholder="Enter Limit Required" value="">
             </div>
         </div>
@@ -403,7 +454,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Other </label>
-                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 commaValues "  value="">
+                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 "  value="">
             </div>
         </div>
     </div>

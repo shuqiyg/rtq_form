@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <span class="col-md-1" style="float: left;text-align: center;">(A)</span>
-                        <span class="col-md-11"> All risks of direct physical loss or damage from any external cause, including general average and salvage charges, except as hereinafter provided. </span>
+                        <span class="col-md-11" style="padding-left: 0;">All risks of direct physical loss or damage from any external cause, including general average and salvage charges, except as hereinafter provided. </span>
                     </div>
                     <div class="form-group">
                         <span class="col-md-1" style="float: left;text-align: center;">(B)</span>
@@ -70,10 +70,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><span>1</span></td>
+                                <tr class='equipScheRow'>
+                                    <td><span  id='equipScheCount'>1</span></td>
                                     <td>
-                                        <label class='hideLabel sf'>1. Year <span class='err'>*</span></label>
+                                        <label class='hideLabel sf'><span id='equipScheCountYear'>1</span>. Year <span class='err'>*</span></label>
                                         <input type='text' class='form-group onlyNumbers sf required' id='equipmentScheduleYear_1' name='equipmentScheduleYear_1' maxlength='4'  />
                                     </td>
                                     <td>

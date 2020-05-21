@@ -2,8 +2,8 @@
    "plumbing":[
      	{
 			"CEF" : {
-				"deductibleDefaultA" : "2500",
-				"deductibleDefaultB" : "2500"
+				"deductibleDefaultA" : "2,500",
+				"deductibleDefaultB" : "2,500"
 			}
 			
 		}

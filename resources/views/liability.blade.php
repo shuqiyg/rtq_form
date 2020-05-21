@@ -152,7 +152,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"> Contractual Agreements</label>
+                <label class="col-md-8" style="float: left;"> Contractual Agreements ( Other than premises lease )</label>
                 <select id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc" class="form-control col-md-4 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -164,18 +164,19 @@
     <div class="row" >
         <div class="col-md-12" >
             <div class="form-group ifcontractualListLeaseEtcDescBox" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox"> Railway siding agreements, etc. (Obtain copies of agreements where possible)</span> </label>
+                <!-- <label class="col-md-4" style="float: left;"><span class="optionalBox"> Railway siding agreements, etc. (Obtain copies of agreements where possible)</span> </label>
                 <select id="liability_contractualListLeaseEtcRailwaySiding" name="liability_contractualListLeaseEtcRailwaySiding" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" >
             <div class="form-group ifcontractualListLeaseEtcDescBox"  style="display: none;">
+                <label class="col-md-12" style="float: left;"><span class="optionalBox"> <b>Railway siding agreements, etc. (Obtain copies of agreements where possible)</b></span> </label>
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">  Description </span> </label>
                 <textarea rows="5" class="form-control col-md-8" id="liability_contractualListLeaseEtcDesc" name="liability_contractualListLeaseEtcDesc" ></textarea>
             </div>
@@ -207,7 +208,7 @@
                 <input type="text" id="liability_wsoType" name="liability_wsoType" class="form-control col-md-4 "  value="">
             </div>
             <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="optionalBox"> Are sub-contractors requied to carry liability insurance?</span> </label>
+                <label class="col-md-8" style="float: left;"><span class="optionalBox"> Are sub-contractors required to carry liability insurance?</span> </label>
                 <select id="liability_wsoSubConLiablityInsurance" name="liability_wsoSubConLiablityInsurance" class="form-control col-md-4 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -219,11 +220,11 @@
     <div class="row">
         <div class="col-md-12" id="ifwsoSubContractorLiablityInsuranceBox" style="display: none;">
             <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="nested2Box"> If Yes, Sepcify Limits </span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested2Box"> If Yes, Specify Limits </span> </label>
                 <input type="text" id="liability_wsoSubConLiabilityInsuranceLimits" name="liability_wsoSubConLiabilityInsuranceLimits" class="form-control col-md-4 "  value="">
             </div>
             <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="nested2Box">Do you ask sub-contractors to submit liability certificates? </span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested2Box">Are sub-contractors required to submit liability certificates? </span> </label>
                 <select id="liability_wsoAskSubConSubmitLiabilityInsurance" name="liability_wsoAskSubConSubmitLiabilityInsurance" class="form-control col-md-4">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -231,7 +232,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"><span class="nested2Box"> Are you added as an additional Insured to their Policy? </span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested2Box">Is the applicant added as an additional Insured to their Policy? </span> </label>
                 <select id="liability_wsoSubConLiabilityInsuranceAdditionInsured" name="liability_wsoSubConLiabilityInsuranceAdditionInsured" class="form-control col-md-4">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -239,7 +240,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"><span class="nested2Box"> Do you and sub-contractor/s enter into formal agreement/s <span class="err">*</span></span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested2Box">Does the applicant and sub-contractor/s enter into formal agreement/s <span class="err">*</span></span> </label>
                 <select id="liability_wsoSubConLiabilityInsuranceFormalAgreement" name="liability_wsoSubConLiabilityInsuranceFormalAgreement" class="form-control col-md-4 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -251,7 +252,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifwsoSubConLiabilityInsuranceFormalAgreementBox" style="display: none;">
-                <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, do you include a "Hold Harmless" clause in your favour? (Submit copy of usual contract form) </span> </label>
+                <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, does it include a "Hold Harmless" clause in your favour? (Submit copy of usual contract form) </span> </label>
                 <select id="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" class="form-control col-md-4">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -390,7 +391,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;">Do you have any special agreement/s with Dept. of Lands and Forest? <span class="err">*</span></label>
+                <label class="col-md-8" style="float: left;">Are there any special agreement/s with Dept. of Lands and Forest? <span class="err">*</span></label>
                 <select id="liability_specialAgreement" name="liability_specialAgreement" class="form-control col-md-4 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -408,7 +409,7 @@
         </div>
     </div>
 
-    <h5>Do you engage any of the operation/s below:</h5>
+    <h5>Does the applicant engage any of the operation/s below:</h5>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

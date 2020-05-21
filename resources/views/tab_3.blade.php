@@ -39,6 +39,8 @@
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
                 <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
+        
+        @if($formVal != "plumbing")  
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Lot Size <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_lot_size" name="risk_address_lot_size">
@@ -51,12 +53,13 @@
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">  Describe Use Over 1 Acre </span> </label>
                 <input type="text" id="risk_address_describeOver1Acre" name="risk_address_describeOver1Acre" class="form-control col-md-8"  value="">
             </div>
+        @endif
 
         @if($formVal == "plumbing")  
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Do you require building coverage ?<span class="err">*</span> </label>
+                        <label class="col-md-4" style="float: left;"> Is building coverage required?<span class="err">*</span> </label>
                         <select class="form-control col-md-8 required" id="risk_address_requireBuildingCoverage" name="risk_address_requireBuildingCoverage">
                             <option value="">-Select value-</option>
                             <option value="Yes">Yes</option>

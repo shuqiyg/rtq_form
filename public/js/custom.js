@@ -467,6 +467,14 @@ $('#insured_isRiskAddressSame').change(function() {
 
   /*** END OF allow decimal ***/
 
+  /*** MAKE COMMA AFTER EVERY THREE DIGITS ***/
+  function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
+
   // check year is max to current year
   $(".checkYear").on('keyup',function(){
     var val = $(this).val();
@@ -670,7 +678,8 @@ $('#insured_isRiskAddressSame').change(function() {
 
             }else if(msg == "Not available"){
               $("#bcMsg").show();
-              $("#bcMsg").text("This broker code is not available in our system.");
+              //$("#bcMsg").text("This broker code is not available in our system.");
+              openEmailNotValidBrokerCode(brokerCode,producer_email);
               $(".sw-btn-next").removeAttr('disabled');
               brokerCodeValidation = false;
             }else{
@@ -1217,6 +1226,25 @@ $('#insured_isRiskAddressSame').change(function() {
         $("#burglaryAlarm_safeDimensions").val('');
       }
     });
+
+    /*// display contents sub field on Coverage for Plumbing
+    $(document).on("focusout","#coverage_contentsLimit",function(){
+      var coverage_contentsLimit = $("#coverage_contentsLimit").val();
+      if(coverage_contentsLimit != ''){
+        $("#ifcoverageContentsLimitBox").show();
+      }else{
+        $("#ifcoverageContentsLimitBox").hide();
+        $("#coverage_contentsLimitStock").val('');
+        $("#coverage_contentsLimitEquipment").val('');
+        $("#coverage_contentsLimitImprovements").val('');
+      }
+    });*/
+
+    // show gross earning sub fields on Coverage Tab for Plumbing
+    $("#coverage_grossEarnings").on('change',function(){
+      fieldOpenHide('coverage_grossEarnings','Yes','','ifcoverageGrossEarningsLimitBox',['coverage_grossEarnings80Per','coverage_grossEarnings50Per','coverage_grossEarningsNoPer'],'');
+    });
+
 
 
     // check step number and if user click on final step then check broker code to display calculate button
@@ -1893,6 +1921,7 @@ $('#insured_isRiskAddressSame').change(function() {
         $("#ifworkSubletOutBox").hide();
         // hide nested box also
         $("#ifwsoSubContractorLiablityInsuranceBox").hide();
+        $("#ifwsoSubConLiabilityInsuranceFormalAgreementBox").hide();
         // empty value if user fill up anything with yes and then select no again
         $("#liability_wsoCost").val('');
         $("#liability_wsoType").val('');
@@ -1906,7 +1935,21 @@ $('#insured_isRiskAddressSame').change(function() {
   });
   // Show fields box for sub contractor liablity insurance for work sublet out on Liability Tab
   $("#liability_wsoSubConLiablityInsurance").on('change',function(){
-      fieldOpenHide('liability_wsoSubConLiablityInsurance','Yes','','ifwsoSubContractorLiablityInsuranceBox',['liability_wsoSubConLiabilityInsuranceLimits','liability_wsoAskSubConSubmitLiabilityInsurance','liability_wsoSubConLiabilityInsuranceAdditionInsured','liability_wsoSubConLiabilityInsuranceFormalAgreement','liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless'],'');
+      //fieldOpenHide('liability_wsoSubConLiablityInsurance','Yes','','ifwsoSubContractorLiablityInsuranceBox',['liability_wsoSubConLiabilityInsuranceLimits','liability_wsoAskSubConSubmitLiabilityInsurance','liability_wsoSubConLiabilityInsuranceAdditionInsured','liability_wsoSubConLiabilityInsuranceFormalAgreement','liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless'],'');
+      var liability_wsoSubConLiablityInsurance = $("#liability_wsoSubConLiablityInsurance").val();
+      if(liability_wsoSubConLiablityInsurance == 'Yes'){
+        $("#ifwsoSubContractorLiablityInsuranceBox").show();
+      }else{
+        $("#ifwsoSubContractorLiablityInsuranceBox").hide();
+        // hide nested box also
+        $("#ifwsoSubConLiabilityInsuranceFormalAgreementBox").hide();
+        // empty value if user fill up anything with yes and then select no again
+        $("#liability_wsoSubConLiabilityInsuranceLimits").val('');
+        $("#liability_wsoAskSubConSubmitLiabilityInsurance").val('');
+        $("#liability_wsoSubConLiabilityInsuranceAdditionInsured").val('');
+        $("#liability_wsoSubConLiabilityInsuranceFormalAgreement").val('');
+        $("#liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless").val('');
+      }
   });
   // Show description box for contractual list for all leased agreement etc on Liability Tab
   $("#liability_wsoSubConLiabilityInsuranceFormalAgreement").on('change',function(){
@@ -1971,17 +2014,20 @@ $('#insured_isRiskAddressSame').change(function() {
     openUpSubForm("subformCEF",'open');
   });
 
-  var addEquipScheCount=2;
+  //var addEquipScheCount=2;
 
   /**
   NOTE : Label is added before input fields on table because label display at Review form at the end
   **/
   $("#addEquipmentSchedule").on('click',function(){
-  
+    // get size of section
+    var size = $("[id^=equipmentScheduleYear").size()+1; // adding 1 to it because we have default one already
+    //console.log(size);
+    var addEquipScheCount = size;
     // set count in hidden fields
     $("#equipmentScheduleCount").val(addEquipScheCount);
   
-    var row = "<tr><td><span>"+addEquipScheCount+"</span></td><td><label class='hideLabel sf'>"+addEquipScheCount+". Year <span class='err'>*</span></label><input type='text' class='form-group onlyNumbers sf required' id='equipmentScheduleYear_"+addEquipScheCount+"' name='equipmentScheduleYear_"+addEquipScheCount+"' maxlength='4'  /></td><td><label class='hideLabel sf'>Manufacturer <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleManufacturer_"+addEquipScheCount+"' name='equipmentScheduleManufacturer_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Description <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleDescription_"+addEquipScheCount+"' name='equipmentScheduleDescription_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Serial No <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleSerialNo_"+addEquipScheCount+"' name='equipmentScheduleSerialNo_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Amount <span class='err'>*</span></label><input type='text' class='form-group commaValues required' id='equipmentScheduleAmount_"+addEquipScheCount+"' name='equipmentScheduleAmount_"+addEquipScheCount+"' /></td></tr>";
+    var row = "<tr class='equipScheRow'><td><span id='equipScheCount'>"+addEquipScheCount+" </span></td><td><label class='hideLabel sf'><span id='equipScheCountYear'>"+addEquipScheCount+"</span>. Year <span class='err'>*</span></label><input type='text' class='form-group onlyNumbers sf required' id='equipmentScheduleYear_"+addEquipScheCount+"' name='equipmentScheduleYear_"+addEquipScheCount+"' maxlength='4'  /></td><td><label class='hideLabel sf'>Manufacturer <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleManufacturer_"+addEquipScheCount+"' name='equipmentScheduleManufacturer_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Description <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleDescription_"+addEquipScheCount+"' name='equipmentScheduleDescription_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Serial No <span class='err'>*</span></label><input type='text' class='form-group required' id='equipmentScheduleSerialNo_"+addEquipScheCount+"' name='equipmentScheduleSerialNo_"+addEquipScheCount+"' /></td><td><label class='hideLabel sf'>Amount <span class='err'>*</span></label><input type='text' class='form-group commaValues required' id='equipmentScheduleAmount_"+addEquipScheCount+"' name='equipmentScheduleAmount_"+addEquipScheCount+"' /></td><td><i class='fa fa-trash' style='cursor: pointer;' data-toggle='tooltip' title='Delete Row' id='removeEquipSche_"+addEquipScheCount+"' ></i> </td></tr>";
     // append table row
     $("#equipmentScheduleTable tbody").append(row);
 
@@ -1994,20 +2040,70 @@ $('#insured_isRiskAddressSame').change(function() {
     addEquipScheCount++;
   });
 
+  // remove CEF Equipment Schedule items
+  $(document).on('click',"[id^=removeEquipSche]",function(){
+    $(this).closest('.equipScheRow').remove();
+    
+    // change counting number
+    $.each($('[class^=equipScheRow]'), function( key, value ) {
+      // fetch id of element of section
+      var counting = key+1;
+      // change text of count
+      $(this).find("#equipScheCount").text(key+1);
+      $(this).find("#equipScheCountYear").text(key+1); // this value show count near Label Year in review so easy to understand count of schedules
+      
+      $.each($(this).find('input'), function( key2, value2) {
+
+        var eleID = $(this).attr('id');
+        
+        //console.log(eleID);
+        // split id by underscore to get text and can add number at end to create new id and name
+        var idTxtArray = eleID.split('_');
+        // get sizeof idTxt because we don't know how many _ there
+        var idTxtArraySize = idTxtArray.length ; // start with 1
+        
+        var idTxt = '';
+        for(var i = 0; i<idTxtArraySize - 1 ; i++){
+          idTxt += idTxtArray[i]+'_';
+        }
+        idTxt += counting;
+        //console.log(idTxt);
+        // change id and name of element of section
+        $(this).attr('id',idTxt);
+        $(this).attr('name',idTxt);
+    
+        // set count in hidden fields
+        $("#equipmentScheduleCount").val(counting);
+
+      });
+      //counting ++;
+    });
+  });
+  
   // add equipment schedule amount in real time
   $(document).on('keyup',"[id^=equipmentScheduleAmount]",function(){
     var totalAmount = calculateEquipmentScheduleTotalAmount();
 
-    var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount : </b> "+totalAmount+" </p>";
-    $("#totalAmountES").html(lastRow);
-
+    // if total amount of equipment schedule items exceeds more than 500,000
+    if(totalAmount > 500000){
+      var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount > </b> 500,000 </p>";
+      $("#totalAmountES").html(lastRow);
+      totalAmountFinal = 500000;
+    }else{
+      var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount : </b> "+commaSeparateNumber(totalAmount)+" </p>";
+      $("#totalAmountES").html(lastRow);
+      totalAmountFinal = commaSeparateNumber(totalAmount);
+    }
+  
     // set amount in description texts below this table
-    $(".setTotalAmountEquipSche").text(totalAmount);
+    $(".setTotalAmountEquipSche").text(totalAmountFinal);
+    // show total amount , not final one if exceeds more than 500,000
     $("#equipmentScheduleTotalAmount").val(totalAmount);
     // get 5% of total amount and add it in description below it
-    var amount5Per = (totalAmount*5)/100;
+    var amount5Per = (totalAmountFinal*5)/100;
+    amount5Per = commaSeparateNumber(amount5Per);
     // get default value for deductible clause B 
-    var defaultB = $("#equipmentScheduleDefaultB").val();
+    var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());
     if(amount5Per < defaultB){
       $(".setTotalAmountEquipSche5per").text(defaultB);
     }else{
