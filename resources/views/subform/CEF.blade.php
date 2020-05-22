@@ -118,7 +118,7 @@
                     </div>
 
                     <div class="form-group">
-                        <p style="color: red">!Important</p>
+                        <p style="color: red;margin: 0;">!Important</p>
                         <div class="col-md-12">
                             This form gathers the information to complete a Contractors' Equipment Floater. It does not attempt to disclose all the details of the coverage. Please refer to the full application below for the legal explanation.
                         </div>

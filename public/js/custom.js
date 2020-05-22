@@ -2092,6 +2092,7 @@ $('#insured_isRiskAddressSame').change(function() {
     fixEquipmentScheduleTotalAmount();
   });
 
+  // set real time equipment schedule amount and related fields when delete row of table
   function fixEquipmentScheduleTotalAmount(){
     var totalAmount = calculateEquipmentScheduleTotalAmount();
 
