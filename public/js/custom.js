@@ -2081,6 +2081,7 @@ $('#insured_isRiskAddressSame').change(function() {
         // set count in hidden fields
         $("#equipmentScheduleCount").val(counting);
 
+        fixEquipmentScheduleTotalAmount();
       });
       //counting ++;
     });
@@ -2088,6 +2089,10 @@ $('#insured_isRiskAddressSame').change(function() {
   
   // add equipment schedule amount in real time
   $(document).on('keyup',"[id^=equipmentScheduleAmount]",function(){
+    fixEquipmentScheduleTotalAmount();
+  });
+
+  function fixEquipmentScheduleTotalAmount(){
     var totalAmount = calculateEquipmentScheduleTotalAmount();
 
     // if total amount of equipment schedule items exceeds more than 500,000
@@ -2116,7 +2121,7 @@ $('#insured_isRiskAddressSame').change(function() {
     }else{
       $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(amount5Per));
     }
-  });
+  }
 
   // Calculate CEF subform equipment schedule total Amount in realtime
   function calculateEquipmentScheduleTotalAmount(){
