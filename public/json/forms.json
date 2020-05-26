@@ -1,0 +1,22 @@
+{
+	"0" : {
+		"name" : "Rented Dwelling",
+		"id" : "rentedDwelling"
+	},
+
+	"1" : {
+		"name" : "Owner Occupied",
+		"id" : "ownerOccupied"
+	},
+	
+	"2" : {
+		"name" : "Home Inspector",
+		"id" : "homeInspector"
+	},
+	
+	"3" : {
+		"name" : "Plumbing",
+		"id" : "plumbing"
+	}
+		
+}

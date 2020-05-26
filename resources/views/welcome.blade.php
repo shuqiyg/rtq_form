@@ -74,6 +74,10 @@
             }
         }
 
+        // get forms name and id from json
+        $forms = json_decode(file_get_contents(public_path().'/json/forms.json'), true);
+        //print_r($forms);
+
         ?>
         <div style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
@@ -84,10 +88,9 @@
             <div class="col-md-12">
                 <select id="rtq_forms" name="rtq_forms" class="col-md-4 form-control" style="margin: 0 auto;">
                     <option value="">-Select form-</option>
-                    <option value="rentedDwelling">Rented Dwelling</option>
-                    <option value="ownerOccupied">Owner Occupied</option>
-                    <option value="homeInspector">Home Inspector</option>
-                    <option value="plumbing">Plumbing</option>
+                    @foreach($forms as $f)
+                    <option value="{{$f['id']}}">{{ $f['name'] }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-12" style="display: none;" id="bannerBox"><div id="banner"></div></div>

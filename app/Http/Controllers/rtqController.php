@@ -448,19 +448,20 @@ class rtqController extends Controller
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
         $filesRequired = json_decode($req['filesRequired'], true);
-        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+        //$noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $binding = trim($req['binding']);
 
         // check which form is submitted
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
-            $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
-            
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
+            //$noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
+            //$fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$referNotMatchReason,$filesRequired,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
+            //$fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$referNotMatchReason,$filesRequired,$rtqForm,'');
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);
@@ -577,7 +578,8 @@ class rtqController extends Controller
     /**
     Format form data to proper json way so we can get extract data easily from json using key as fieldID 
     **/
-    function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError){
+    //function formatFormDataToProperJson($fd,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError){
+    function formatFormDataToProperJson($fd,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError){
         // check data size to add comma at end of each json value except last one
         $i = 1;
         // start json
@@ -658,7 +660,7 @@ class rtqController extends Controller
         }
         
         
-        if($noOfMortgageesArray != ''){
+        /*if($noOfMortgageesArray != ''){
             // if there is mortgagees then add comma to append list of mortgagees
             if(sizeof($noOfMortgageesArray) > 0){
                 $json .= ',';
@@ -692,9 +694,9 @@ class rtqController extends Controller
                 $j++;
             }
             out:
-        }
+        }*/
 
-        if($noOfClaimsArray != ''){
+        /*if($noOfClaimsArray != ''){
             // if there is claim then add comma to append list of claims
             if(sizeof($noOfClaimsArray) > 0){
                 $json .= ',';
@@ -728,7 +730,7 @@ class rtqController extends Controller
                 $t++;
             }
             out2:
-        }
+        }*/
 
         if($filesRequired != ''){
             // append value to json
@@ -1435,7 +1437,7 @@ class rtqController extends Controller
         
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
         $filesRequired = json_decode($req['filesRequired'], true);
-        $noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
+        //$noOfClaimsArray = json_decode($req['noOfClaimsArray'], true);
         $requiredError = trim($req['requiredError']);
         
         $abandonStatus = $req['abandonStatus'];
@@ -1443,14 +1445,16 @@ class rtqController extends Controller
         $binding = trim($req['binding']);
 
         if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
-            $noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
+            //$noOfMortgageesArray = json_decode($req['noOfMortgageesArray'], true);
             
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
+            //$fdFormattedJson = $this->formatFormDataToProperJson($formData,$noOfMortgageesArray,$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
             $fd = json_decode($fdFormattedJson , true );
             
             $valid = $this->validation($fd,$rtqForm);
         }else if($rtqForm == "homeInspector"){
-            $fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
+            //$fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
+            $fdFormattedJson = $this->formatFormDataToProperJson($formData,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
             $fd = json_decode($fdFormattedJson , true );
 
             $valid = $this->validation($fd,$rtqForm);

@@ -2361,8 +2361,8 @@ $('#insured_isRiskAddressSame').change(function() {
       // get all form data including dynamic fields
       var getFormData = getAllFormData();
       var formData = getFormData.formData;
-      var noOfMortgageesArray = getFormData.noOfMortgageesArray;
-      var noOfClaimsArray = getFormData.noOfClaimsArray;
+      /*var noOfMortgageesArray = getFormData.noOfMortgageesArray;
+      var noOfClaimsArray = getFormData.noOfClaimsArray;*/
       // json encode of reasons
       referNotMatchReason = JSON.stringify(referNotMatchReason);
       filesRequired = JSON.stringify(filesRequired);
@@ -2379,11 +2379,12 @@ $('#insured_isRiskAddressSame').change(function() {
       e.preventDefault();
       if(!$link.data('lockedAt') || +new Date() - $link.data('lockedAt') > 300) {
          
-
+         //data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
+          
         $.ajax({
           url:"finish",
           method:"post",
-          data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
+          data: {formData:formData,rtqForm:rtqForm,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
           datatype: 'json',
           success: function(msg){
             console.log(msg);
@@ -2439,7 +2440,7 @@ $('#insured_isRiskAddressSame').change(function() {
       var formData = JSON.stringify(result);
       
       // formData not included dynamically added fields like number of mortgagees info & no of claims info so need to retrieve and send for process
-      var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
+      /*var noOfMortgagees = $.trim($('#risk_address_howmany_mortgagees').val());
       var noOfClaims = $.trim($('#risk_address_noOfClaims').val());
       var noOfMortgageesArray = {};
       var noOfClaimsArray = {};
@@ -2467,9 +2468,10 @@ $('#insured_isRiskAddressSame').change(function() {
       }
       noOfMortgageesArray = JSON.stringify(noOfMortgageesArray);
       noOfClaimsArray = JSON.stringify(noOfClaimsArray);
-
+*/
       // return object with all data
-      return {'formData':formData,'noOfMortgageesArray':noOfMortgageesArray,'noOfClaimsArray':noOfClaimsArray};
+      //return {'formData':formData,'noOfMortgageesArray':noOfMortgageesArray,'noOfClaimsArray':noOfClaimsArray};
+      return {'formData':formData};
   }
 
   /**
@@ -2678,8 +2680,8 @@ $('#insured_isRiskAddressSame').change(function() {
       console.log(abandonStatus);
       var getFormData = getAllFormData();
       var formData = getFormData.formData;
-      var noOfMortgageesArray = getFormData.noOfMortgageesArray;
-      var noOfClaimsArray = getFormData.noOfClaimsArray;
+      /*var noOfMortgageesArray = getFormData.noOfMortgageesArray;
+      var noOfClaimsArray = getFormData.noOfClaimsArray;*/
       var binding = $("#bindStatus").val();
       var doesCalculated = $("#doesCalculated").val();
       var referNotMatchReason;
@@ -2761,12 +2763,13 @@ $('#insured_isRiskAddressSame').change(function() {
       var $link = $(e.target);
       e.preventDefault();
       if(!$link.data('lockedAt') || +new Date() - $link.data('lockedAt') > 300) {
-      
+        //data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
+          
         $.ajax({
           url:"resetForm",
           method:"post",
           async: true,
-          data: {formData:formData,rtqForm:rtqForm,noOfMortgageesArray:noOfMortgageesArray,noOfClaimsArray:noOfClaimsArray,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
+          data: {formData:formData,rtqForm:rtqForm,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired,abandonStatus:abandonStatus,doesCalculated:doesCalculated,requiredError:requiredError, _token:$('meta[name="csrf-token"]').attr('content')},
           datatype: 'json',
           success: function(msg){
             console.log(msg);
