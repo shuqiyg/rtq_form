@@ -1522,10 +1522,10 @@ $('#insured_isRiskAddressSame').change(function() {
               console.log(msg);
               $("#priceBox").empty();
 
-              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>CEF</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglCEF']+"</span></td></tr><tr><td>Frill</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglFrill']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total_value']+"</b></span></td></tr></tbody> </table>";
+              var table = "<table class='table table-bordered'> <tbody><tr><td>Premium</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['premium']+"</span></td></tr><tr><td>CEF</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglCEF']+"</span></td></tr><tr><td>Frill</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['cglFrill']+"</span></td></tr><tr><td>Fee</td><td><span style='width:50%;text-align:right;display:block;'>"+msg['fee']+"</span></td></tr><tr class='totalRow'><td><b>Total</b></td><td><span style='width:50%;text-align:right;display:block;'><b>"+msg['total']+"</b></span></td></tr></tbody> </table>";
               $("#priceBox").html(table);
               
-              //$("#priceBox").text(Math.round(msg.total_value));
+              //$("#priceBox").text(Math.round(msg.total));
               
             },
             error: function(data){

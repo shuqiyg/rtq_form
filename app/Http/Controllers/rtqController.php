@@ -310,7 +310,7 @@ class rtqController extends Controller
             $priceArray['cglFrill'] = $cglFrill;
             $priceArray['fee'] = $fees;
             $priceArray['premium'] = $premium;
-            $priceArray['total_value'] = $total_value ;
+            $priceArray['total'] = $total_value ;
         }
         return $priceArray;
         // console.log(total_value);  
@@ -415,6 +415,7 @@ class rtqController extends Controller
             $fee = 0;
             $priceArray['TivLimit'] = "";
             $priceArray['AvailableTivLimit'] = "1000000"; // by default 1 milion
+            $priceArray['towngrade'] = 0;
         }
 
         $total = $propertyTotal + $liabilityVal + $fee ;
@@ -506,10 +507,10 @@ class rtqController extends Controller
             $calculateArray = $this->getCalculateArray($province,$yearsBuilt,$fireDeptDistance,$fireDeptType,$hydrant,$buildingLimit,$contentsLimit,$rentalIncomeLimit,$garageLimit,$shedLimit,$liability,$rtqForm);
 
             // set calculated array to form data 
-            $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
+            //$fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
 
             // remove towngrade from calculateArray to avoid duplication in form data array
-            unset($calculateArray['towngrade']);
+            //unset($calculateArray['towngrade']);
 
             $fd[0]['calculation'] = $calculateArray;
             //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
@@ -1499,13 +1500,13 @@ class rtqController extends Controller
 
             // set calculated array to form data 
             if(isset($calculateArray['towngrade'])){
-                $fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
+                //$fd[0]['towngrade']['value'] = $calculateArray['towngrade'];
             }else{
-                $fd[0]['towngrade']['value'] = 0;
+                //$fd[0]['towngrade']['value'] = 0;
             }
 
             // remove towngrade from calculateArray to avoid duplication in form data array
-            unset($calculateArray['towngrade']);
+            //unset($calculateArray['towngrade']);
 
             $fd[0]['calculation'] = $calculateArray;
             //$fd[0]['liabilityVal']['value'] = $calculateArray['liabilityVal'];
