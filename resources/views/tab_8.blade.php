@@ -94,7 +94,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;">  Are they covered by Worker’s Compensation?   <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;">  Are they covered by Worker's Compensation?   <span class="err">*</span> </label>
                 <select class="col-md-8 form-control required" id="ops_coveredByWorkerCompensation" name="ops_coveredByWorkerCompensation">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>

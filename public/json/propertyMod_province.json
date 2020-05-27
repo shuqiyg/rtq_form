@@ -1,0 +1,68 @@
+[
+    {
+        "Alberta" : {
+            "code" : "AB",
+            "Mod" : "35"
+        },
+    
+        "British Columbia" : {
+            "code" : "BC",
+            "Mod" : "10"
+        },
+        "Manitoba" : {
+            "code" : "MB",
+            "Mod" : "35"
+        }
+        ,
+        "New Brunswick" : {
+            "code" : "NB",
+            "Mod" : "115"
+        }
+        ,
+        "Newfoundland and Labrador" : {
+            "code" : "NL",
+            "Mod" : "90"
+        }
+        ,
+        "Northwest Territories" : {
+            "code" : "NT",
+            "Mod" : "115"
+        }
+        ,
+        "Nova Scotia" : {
+            "code" : "NS",
+            "Mod" : "115"
+        }
+        ,
+        "Nunavut" : {
+            "code" : "NU",
+            "Mod" : "115"
+        }
+        ,
+        "Ontario" : {
+            "code" : "ON",
+            "Mod" : "20"
+        }
+        ,
+        "Prince Edward Island" : {
+            "code" : "PE",
+            "Mod" : "115"
+        }
+        ,
+        "Quebec" : {
+            "code" : "QC",
+            "Mod" : "95"
+        }
+        ,
+        "Saskatchewan" : {
+            "code" : "SK",
+            "Mod" : "35"
+        }
+        ,
+        "Yukon" : {
+            "code" : "YT",
+            "Mod" : "115"
+        }
+        
+    }
+]

@@ -1549,6 +1549,7 @@ $('#insured_isRiskAddressSame').change(function() {
         var coverage_liabilityLimit = $('#coverage_liabilityLimit').val();
         var yearsBuilt = $('#buildingConstruction_yearBuilt').val();
         
+        var constructionType = $('#buildingConstruction_overallConstruction').val();
         var fireDeptDistance = $('#fireAlarmDetectors_fireDeptDistance').val();
         var fireDeptType = $('#fireAlarmDetectors_fireDeptTye').val();
         var hydrant = $('#fireAlarmDetectors_hydrant').val();
@@ -1564,7 +1565,7 @@ $('#insured_isRiskAddressSame').change(function() {
           $.ajax({
             url:"calculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,constructionType:constructionType,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
