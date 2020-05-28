@@ -240,7 +240,7 @@
                         data:{formID:formID,_token:$('meta[name="csrf-token"]').attr('content')},
                         type:'post',
                         success: function(bannerMessage){
-                            console.log(bannerMessage);
+                            //console.log(bannerMessage);
                             /** Banner Message Display **/
                                 if(bannerMessage != ""){
                                     $("#bannerBox").show();
