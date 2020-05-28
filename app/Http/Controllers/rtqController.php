@@ -1110,22 +1110,25 @@ class rtqController extends Controller
                     }
                 }
 
-                    if($building_age > 75){
-                        array_push($referMatchArray, 'Building age is greater than or equals to 75.');
-                    }
-                    if($buildingConstruction_isBuildingHeritage == "Yes"){
-                        array_push($referMatchArray, 'Building is heritage.');
-                    }
-                    if($buildingConstruction_wiringType == "Knob & Tube"){
-                        array_push($referMatchArray, 'Building wiring type is knob & tube.');
-                    }
-                    if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
-                        array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
-                    }
+                    if(in_array($rtqForm,array('rentedDwelling','ownerOccupied')) || ($rtqForm == "plumbing" && $buildingRequirement != "No") ){
+                        if($building_age > 75){
+                            array_push($referMatchArray, 'Building age is greater than or equals to 75.');
+                        }
+                        if($buildingConstruction_isBuildingHeritage == "Yes"){
+                            array_push($referMatchArray, 'Building is heritage.');
+                        }
+                        if($buildingConstruction_wiringType == "Knob & Tube"){
+                            array_push($referMatchArray, 'Building wiring type is knob & tube.');
+                        }
+                        if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
+                            array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
+                        }
 
-                    if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
-                        array_push($referMatchArray, 'Building heating primary type is wood/solid.');
+                        if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
+                            array_push($referMatchArray, 'Building heating primary type is wood/solid.');
+                        }
                     }
+                    
                     if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
                         array_push($referMatchArray, 'Fire department type is volunteer.');
                     }
