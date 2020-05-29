@@ -1,3 +1,5 @@
+<div class="row">
+    <div class="col-md-12">
             <div class="form-group" id="risk_address_existingInsurerBox">
                 <label class="col-md-4" style="float: left;"> Existing Insurer <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_existingInsurer" name="risk_address_existingInsurer">
@@ -42,3 +44,5 @@
                 <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8 commaValues"  value="">
             </div>
             @endif
+    </div>
+</div>

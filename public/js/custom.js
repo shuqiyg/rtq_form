@@ -2563,7 +2563,7 @@ $('#insured_isRiskAddressSame').change(function() {
       html += "<tr>";
       
       // check parent div or div of parent div display is not none
-      if($(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none' && $(this).closest('div').parent('div').css('visibility') != 'hidden' && $(this).parent('div').css('visibility') != 'hidden'){
+      if( $(this).closest('section').not('.subformSection').css('display') != 'none' && $(this).parent('div').css('display')!= 'none' && $(this).closest('div').parent('div').css('display') != 'none' && $(this).closest('div').parent('div').css('visibility') != 'hidden' && $(this).parent('div').css('visibility') != 'hidden'){
         // add label 
         //console.log($(this).text()+"   "+$(this).next('div').children().is("input[type=checkbox]"));
         if($(this).next().is("input[type=checkbox]")){
