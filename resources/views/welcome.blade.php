@@ -60,6 +60,16 @@
         
         <?php
         
+        /*** SET URL AS PER ENVIRONMENT SET IN .env FILE **/
+        $env = trim(env('APP_ENV')); 
+        if($env == "production"){
+            $ajaxUrlToLoadForm = "/rtqform";
+            $loadCustomJsURL = "/rtqform/js/custom.js";
+        }else{
+            $ajaxUrlToLoadForm = "/";
+            $loadCustomJsURL = "/js/custom.js";
+        }
+        
         if(isset($_SESSION['abs']) && !empty(($_SESSION['abs']))){
             if($_SESSION['abs'] == "wc"){ ?>
                 <div class="alert alert-danger">
@@ -131,7 +141,9 @@
         <!-- End footer -->
     
         <script type="text/javascript">
-            
+            var ajaxUrlToLoadForm = "{!!$ajaxUrlToLoadForm!!}";
+            var loadCustomJsURL = "{!!$loadCustomJsURL!!}";
+
             $(document).ready(function(){
                 //activate bootstrap tooltip
                 $('[data-toggle="tooltip"]').tooltip({
@@ -175,7 +187,7 @@
                                     expires: forOneHour
                                 });
                                 // reload page
-                                window.location.href="/rtqform"; //rtqform
+                                window.location.href=ajaxUrlToLoadForm; //rtqform
                               } else {
                                 return false;//swal("Your imaginary file is safe!");
                               }
@@ -226,7 +238,7 @@
                             async: true
                         });
                     }
-                    if (typeof someObject == 'undefined') $.loadScript('/rtqform/js/custom.js', function(){ ///rtqform/js/custom.js
+                    if (typeof someObject == 'undefined') $.loadScript(loadCustomJsURL, function(){ ///rtqform/js/custom.js
                         //Stuff to do after someScript has loaded
                         console.log("js loaded");
                     });
