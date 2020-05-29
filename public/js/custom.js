@@ -408,7 +408,7 @@ $('#insured_isRiskAddressSame').change(function() {
     if(($(this).hasClass('onlyNumbers') || $(this).hasClass('onlyNumbersAndLetters') || $(this).hasClass('commaValues') || $(this).hasClass('allow_decimal') || $(this).hasClass('checkYear') || $(this).hasClass('checkEmail') || $(this).hasClass('checkPhone') || $(this).hasClass('checkPercentage') || $(this).hasClass('datepicker')) || ($(this).attr('type') == "hidden" || $(this).attr('type') == "radio" || $(this).attr('type') == "checkbox" || $(this).attr('type') == "number")){
       // do nothing
     }else{
-      console.log($(this).attr('id'));
+      //console.log($(this).attr('id'));
       $(this).addClass('onlyValidText');
     }
   });
