@@ -180,7 +180,7 @@ class rtqController extends Controller
 
         // if province is null or empty then make by default Ontario
         if($distanceFromClosestCity == null || empty($distanceFromClosestCity)){
-            $distance = "NotAvailable";
+            $distance = "0";
         }else{
             // manipulate distance to get zone
             if($distanceFromClosestCity == 0 || $distanceFromClosestCity == "" ){
