@@ -1237,22 +1237,25 @@ $('#insured_isRiskAddressSame').change(function() {
     $("#risk_address_requireBuildingCoverage").on('change',function(){
       if($("#risk_address_requireBuildingCoverage").val() == "No"){
         // hide building construction section and surroundign exposure section
-        $(".buildingConstruction").hide();
-        $(".surroundingExposure").hide();
+        //$(".buildingConstruction").hide();
+        //$(".surroundingExposure").hide();
         $(".includeExclude").hide();  // Hide fields to not show in review
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").hide();
+        $("#howManyMortgagees").hide();
+        $("#howManyMortgagees").empty(); // empty box
         // add min height to auto for smartwizard container
         $(".sw-container").css('min-height','auto');
       }else{
         // show building construction section and surroundign exposure section
-        $(".buildingConstruction").show();
-        $(".surroundingExposure").show();
+        //$(".buildingConstruction").show();
+        //$(".surroundingExposure").show();
         $(".includeExclude").show();
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").show();
         // clear all fields in section
-        clearFields('buildingConstruction');
+        //clearFields('buildingConstruction');
+        clearFields('howManyMortgageesBox');
       }
       
     });
