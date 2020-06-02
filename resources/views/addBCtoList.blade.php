@@ -37,7 +37,7 @@
 <body style="width: 80%;margin:0 auto;border: 1px solid silver;">
 	<?php
         $bcList = json_decode(file_get_contents(public_path().'/json/brokercodelist.json'), true);
-        //echo sizeof($bcList[0]).' [] ';
+		//echo sizeof($bcList[0]).' [] ';
         ksort($bcList[0]);
         //echo sizeof($bcList[0]).' [] ';
 		//print_r($bcList);
@@ -106,6 +106,19 @@
 	</div> -->
 
 	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="text" name="searchBrokerList" id="searchBrokerList" class="col-md-10 form-control" placeholder="Search using broker code" style="margin-left: 8%;">
+			</div>
+		</div>
+		<div class="col-md-12" id="listSearchBroker" style="display: none;">
+
+		</div>
+	</div>
+
+	<hr>
+	
+	<div class="row">
 		<div class="col-md-12" id="bcCardList">
 			@foreach($bcList as $k => $v)
 				@foreach($v as $k1 => $v1)
@@ -126,9 +139,13 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//activate bootstrap tooltip
+			//$( document ).tooltip();
 			$('[data-toggle="tooltip"]').tooltip({
 				html:true,
 			    placement : 'top'
+			});
+			$(document).on('mouseover','.bcCard',function () {
+				$("[data-toggle=tooltip]").tooltip();
 			});
 
 			$("#addBC").on('click',function(){
@@ -138,7 +155,7 @@
 
 				if(bc != '' && bc != null){
 					$.ajax({
-				        url:"api/addBrokerCodeToList",
+				        url:"/api/2020/amf/root/addBrokerCodeToList",
 				        method:"post",
 				        //async: true,
 				        data: {bc:bc,bd:bd,bcType:bcType, _token:$('meta[name="csrf-token"]').attr('content')},
@@ -166,6 +183,42 @@
 				      });
 				}else{
 					swal('Please enter values');
+				}
+			});
+
+			$("#searchBrokerList").on('focusout',function(){
+				var search = $.trim($("#searchBrokerList").val());
+				if(search != '' && search != null){
+					$.ajax({
+				        url:"/api/2020/amf/root/searchBrokerCodeToList",
+				        method:"post",
+				        //async: true,
+				        data: {search:search,_token:$('meta[name="csrf-token"]').attr('content')},
+				        datatype: 'json',
+				        success: function(msg){
+				        	console.log(msg);
+				        	var html = '';
+
+				        	$.each(msg,function(key,value){
+				        		//console.log(value);
+				        		html += '<div class="bcCard"><span data-toggle="tooltip" title="';
+				        		$.each(value,function(key1,value1){
+				        			html += '[ '+value1+' ] ';
+				        		});
+				        		html += '">'+key+'</span></div>';		
+				        	});
+
+				        	//console.log(html);
+				        	$("#listSearchBroker").html(html);
+				        	$("#listSearchBroker").show();
+				        },
+				        error: function(data){
+				        	console.log(data);
+				        }
+				      });
+				}else{
+					$("#listSearchBroker").hide();
+					$("#listSearchBroker").html('');
 				}
 			});
 			

@@ -46,10 +46,11 @@ Route::get('/sessionClose', function () {
 	If broker code list is in excel then makes it in JSON using following url
 **/
 Route::get('/blExcelToJson','bletjController@excelToJson');
-Route::get('/api/addBCtoList',function () {
+Route::get('/api/2020/amf/root/addBCtoList',function () {
     return view('addBCtoList');
 });
-Route::post('/api/addBrokerCodeToList','bletjController@addBrokerCodeToList');
+Route::post('/api/2020/amf/root/addBrokerCodeToList','bletjController@addBrokerCodeToList');
+Route::post('/api/2020/amf/root/searchBrokerCodeToList','bletjController@searchBrokerCodeToList');
 
 Route::post('/brokerValidation','rtqController@brokerValidation');
 
