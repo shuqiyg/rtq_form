@@ -37,6 +37,9 @@
 <body style="width: 80%;margin:0 auto;border: 1px solid silver;">
 	<?php
         $bcList = json_decode(file_get_contents(public_path().'/json/brokercodelist.json'), true);
+        //echo sizeof($bcList[0]).' [] ';
+        ksort($bcList[0]);
+        //echo sizeof($bcList[0]).' [] ';
 		//print_r($bcList);
     ?>
 	<div style="margin : 10px 0px;padding: 20px;" >
@@ -44,7 +47,7 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label class="col-md-4" style="float: left;">Broker Code</label>
-					<input type="text" name="brokerCode" id="brokerCode" class="form-control col-md-8">
+					<input type="text" name="brokerCode" id="brokerCode" class="form-control col-md-8" placeholder="Add broker code to add new or update existing">
 				</div>
 			</div>
 		</div>
@@ -71,7 +74,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<button class="col-md-12 btn btn-primary form-control " id="addBC">Add</button>
+					<button class="col-md-12 btn btn-primary form-control " id="addBC">Add/Update</button>
 				</div>
 			</div>
 		</div>	
