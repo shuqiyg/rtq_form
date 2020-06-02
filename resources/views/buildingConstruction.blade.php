@@ -101,7 +101,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Roof - year updated</span></label>
-                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Wiring - year updated</span></label>
-                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Wiring - % completed</span></label>
@@ -167,7 +167,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Heating - year updated</span></label>
-                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Plumbing - year updated</span></label>
-                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
                     </div>
                 </div>
             </div>

@@ -1252,7 +1252,7 @@ class rtqController extends Controller
                     }
                     
                     if($risk_address_noOfClaims == ''){
-                        array_push($referMatchArray, 'Plese select  number of claims in the last 5 years ? field.');
+                        array_push($referMatchArray, 'Please select  number of claims in the last 5 years ? field.');
                     }
                 }
                 
@@ -1268,36 +1268,36 @@ class rtqController extends Controller
                     }
                     
                     if($risk_address_hasInsuredCancelInsurance == ""){
-                        array_push($referMatchArray, 'Plese select has the insured been cancelled/declined insurance ? field.');
+                        array_push($referMatchArray, 'Please select has the insured been cancelled/declined insurance ? field.');
                     }
                     if(trim($fd[0]['risk_address_incidenceInClaim']['value']) == "Yes"){
                         if($risk_address_incidenceOfClaim_type == ""){
-                            array_push($referMatchArray, 'Plese select type of claim field');
+                            array_push($referMatchArray, 'Please select type of claim field');
                         }
                     }
 
                     if($rtqForm == "rentedDwelling"){
                         //$occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
                         if($occupancy_rentedDwellingUnits == "" ){
-                            array_push($referMatchArray, 'Plese select rented dwelling units field.');
+                            array_push($referMatchArray, 'Please select rented dwelling units field.');
                         }
                     }else if($rtqForm == "ownerOccupied"){
                         //$occupancy_numberOfFamilies = trim($fd[0]['occupancy_numberOfFamilies']['value']);
                         if($occupancy_numberOfFamilies == "" ){
-                            array_push($referMatchArray, 'Plese select number of families field.');
+                            array_push($referMatchArray, 'Please select number of families field.');
                         }
                         //$insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
                         if($insured_isCorporation == "" ){
-                            array_push($referMatchArray, 'Plese select is insured a corporation field.');
+                            array_push($referMatchArray, 'Please select is insured a corporation field.');
                         }
                     }
                     
 
                     if($occupancy_commercialOperations == ""){
-                        array_push($referMatchArray, 'Plese select are there any commercial operations on the premises ? field.');
+                        array_push($referMatchArray, 'Please select are there any commercial operations on the premises ? field.');
                     }
                     if($occupancy_shortTermRentals == ""){
-                        array_push($referMatchArray, 'Plese select are short term rentals allowed (e.g. AirBNB) field.');
+                        array_push($referMatchArray, 'Please select are short term rentals allowed (e.g. AirBNB) field.');
                     }
                     
                     if(trim($fd[0]['liability_doesPremisesHavePool']['value']) == "Yes"){

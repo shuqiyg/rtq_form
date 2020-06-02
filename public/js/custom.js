@@ -2261,14 +2261,50 @@ $('#insured_isRiskAddressSame').change(function() {
     });
     return buildingAge;
   }
+// Get difference of enetered year from current year, if no value added then it consider as 0
+  function getYearDiff(val){
+    var currentYear = new Date().getFullYear();
+    
+    if(val != '' && val != null){
+      return currentYear - val;
+    }else{
+      return 0;
+    }
+  }
+
+  var buildingUpdatedAge = 0;
+  /** GET BUILDING YEAR UPDATED IF OVER 25 or UNDER**/
+  function getBuildingUpdated(){
+    
+    // get all updated building values
+    var roofUpated = getYearDiff($("#buildingConstruction_roofYearUpdated").val());
+    var wiringUpated = getYearDiff($("#buildingConstruction_wiringYearUpdated").val());
+    var heatUpated = getYearDiff($("#buildingConstruction_heatingYearUpdated").val());
+    var plumbingUpated = getYearDiff($("#buildingConstruction_plumbingYearUpdated").val());
+
+    var yearUpdated = {"roofUpated":roofUpated,"wiringUpated":wiringUpated,"heatUpated":heatUpated,"plumbingUpated":plumbingUpated};
+    // get max year updated [ year updated long before so get age it updated long before]
+    //var yearUpdatedMax = Object.keys(yearUpdated).reduce(function(a, b){ return yearUpdated[a] > yearUpdated[b] ? a : b });
+    // get max year updated [ year updated recently so get age it updated last]
+    var yearUpdatedMin = Math.min.apply( null, Object.keys( yearUpdated ).map(function ( key ) { return yearUpdated[key]; }) );
+    // get longest update year and return it
+    console.log(yearUpdatedMin);
+    //$("#buildingUpatedAge").val(buildingUpdatedAge);
+    return yearUpdatedMin;
+  }
+  /*$(document).on('focusout',".buildingUpdated",function(){
+    var bu = getBuildingUpdated();
+    console.log('bu : '+bu);
+  });*/
 
   // show AMF Property Extensions field in real time
-  $(document).on('keyup',".amfPropertyExtention",function(){
+  $(document).on('focusout',".amfPropertyExtention",function(){
     var tiv = getTIV();
     var buildingAge = getBuildingAge();  
+    var buildingAgeUpdated = getBuildingUpdated();
     var buildingConstruction_isBuildingHeritage = $("#buildingConstruction_isBuildingHeritage").val();
     //console.log("tiv "+tiv+" buildingAge "+buildingAge+" buildingConstruction_isBuildingHeritage "+buildingConstruction_isBuildingHeritage);
-    if(tiv >= 100000 && buildingAge < 25 && buildingConstruction_isBuildingHeritage != "Yes"){
+    if(tiv >= 100000 && (buildingAge < 25 || buildingAgeUpdated < 25) && buildingConstruction_isBuildingHeritage != "Yes"){
       // Set AMF Property Extension value
       //console.log('Here');
       $("#coverage_amfPropertyExt").val("Included*");
