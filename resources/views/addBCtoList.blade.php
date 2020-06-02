@@ -41,6 +41,18 @@
         ksort($bcList[0]);
         //echo sizeof($bcList[0]).' [] ';
 		//print_r($bcList);
+
+		/*** SET URL AS PER ENVIRONMENT SET IN .env FILE **/
+        $env = trim(env('APP_ENV')); 
+        if($env == "production"){
+            $addBrokerCodeToList = "/rtqform/api/2020/amf/root/addBrokerCodeToList";
+            $searchBrokerCodeToList = "/rtqform/api/2020/amf/root/searchBrokerCodeToList";
+        }else{
+            $addBrokerCodeToList = "/api/2020/amf/root/addBrokerCodeToList";
+            $searchBrokerCodeToList = "/api/2020/amf/root/searchBrokerCodeToList";
+        }
+
+
     ?>
 	<div style="margin : 10px 0px;padding: 20px;" >
 		<div class="row">
@@ -148,6 +160,9 @@
 				$("[data-toggle=tooltip]").tooltip();
 			});
 
+			var addBrokerCodeToList = "{!!$addBrokerCodeToList!!}";
+            var searchBrokerCodeToList = "{!!$searchBrokerCodeToList!!}";
+			
 			$("#addBC").on('click',function(){
 				var bc = $.trim($("#brokerCode").val());
 				var bd = $.trim($("#brokerDomain").val());
@@ -155,7 +170,7 @@
 
 				if(bc != '' && bc != null){
 					$.ajax({
-				        url:"/api/2020/amf/root/addBrokerCodeToList",
+				        url:addBrokerCodeToList,
 				        method:"post",
 				        //async: true,
 				        data: {bc:bc,bd:bd,bcType:bcType, _token:$('meta[name="csrf-token"]').attr('content')},
@@ -190,7 +205,7 @@
 				var search = $.trim($("#searchBrokerList").val());
 				if(search != '' && search != null){
 					$.ajax({
-				        url:"/api/2020/amf/root/searchBrokerCodeToList",
+				        url:searchBrokerCodeToList,
 				        method:"post",
 				        //async: true,
 				        data: {search:search,_token:$('meta[name="csrf-token"]').attr('content')},
