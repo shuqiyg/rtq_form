@@ -311,6 +311,12 @@ class rtqController extends Controller
         // get json data for claims
         $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
 
+        if($cgl_cglLimitsOfLiablitiy != ''){
+            $cglLimit = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
+        }else{
+            $cglLimit = '1mm'; // by default
+        }
+
         if($risk_address_noOfClaims > 2 || $risk_address_noOfClaims == ''){
             // Refer rule will be encounter
             $noOfClaim = 'Refer';
@@ -328,12 +334,6 @@ class rtqController extends Controller
             $priceArray['premium'] = $premium;
             $priceArray['total'] = $total_value ;
         }else{  
-            if($cgl_cglLimitsOfLiablitiy != ''){
-              $cglLimit = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
-            }else{
-              $cglLimit = '1mm'; // by default
-            }
-
             $cglPremium = $hi_claims["Claims".$cglLimit][0][$risk_address_noOfClaims]['Premium'];
             $claimModifier = $hi_claims["ClaimsModifier"][0][$risk_address_noOfClaims]['Modifier'];
             $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
