@@ -67,7 +67,7 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label class="col-md-4" style="float: left;">Domain</label>
-					<input type="text" name="brokerDomain" id="brokerDomain" class="form-control col-md-8">
+					<input type="text" name="brokerDomain" id="brokerDomain" class="form-control col-md-8" placeholder="add more domain using comma">
 				</div>
 			</div>
 		</div>	
@@ -92,7 +92,7 @@
 		</div>	
 		<div class="row">
 			<div class="col-md-12">
-				<p id="msg"> </p>
+				<p id="msg" style="display: none;"> </p>
 			</div>
 		</div>
 	</div>
@@ -120,9 +120,14 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group">
-				<input type="text" name="searchBrokerList" id="searchBrokerList" class="col-md-10 form-control" placeholder="Search using broker code" style="margin-left: 8%;">
+				<select class="form-control col-md-2" id="searchType" name="searchType" style="float: left;margin-left: 8%;margin-right: 10px;">
+					<option value="byCode">By Code</option>
+					<option value="byDomain">By Domain</option>
+				</select>
+				<input type="text" name="searchBrokerList" id="searchBrokerList" class="col-md-8 form-control" placeholder="Search using broker code , Press tab to see results">
 			</div>
 		</div>
+		<p class="col-md-12" id="searchMSG" style="display: none;color: red;padding-left: 8%;"></p>
 		<div class="col-md-12" id="listSearchBroker" style="display: none;">
 
 		</div>
@@ -156,9 +161,49 @@
 				html:true,
 			    placement : 'top'
 			});
+			// For Dynamically added broker list [ for search ]
 			$(document).on('mouseover','.bcCard',function () {
 				$("[data-toggle=tooltip]").tooltip();
 			});
+
+			/** only alphanumeric and some specific character allowed to input in some of field
+			    ^ - start of string
+			    (?!\d+$) - the negative lookahead that fails the match if a string is numeric only
+			    (?:[a-zA-Z0-9][a-zA-Z0-9 @&$]*)? - an optional sequence of:
+			        [a-zA-Z0-9] - a digit or a letter
+			        [a-zA-Z0-9 @&$]* - 0+ digits, letters, spaces, @, & or $ chars
+			    $ - end of string.
+			**/
+			$(".onlyValidText").on("keypress", function(e){
+				var keyCode = e.which;
+			    /*
+			        65-90 A-Z
+			        97-122 a-z
+			        127 delete button
+			        32 spacebar
+			        44 comma 
+			        47 backslash
+			        38 &
+			        46 dot
+			        39 single quote '
+			        dash - 45
+			        48-57 - (0-9)Numbers
+			    */
+			    var allowedCharacter = [32,127,44,47,38,39,45,46];
+				if ( (!(keyCode >= 48 && keyCode <= 57)) && (!(keyCode >= 65 && keyCode <= 90)) && (!(keyCode >= 97 && keyCode <= 122)) && jQuery.inArray(keyCode,allowedCharacter) == -1) { 
+			    	return false;
+			    }
+			});
+			/** Numeric values allowed **/
+			$(".onlyValidNumbers").on("keypress", function(e){
+		    	var keyCode = e.which;
+		      	/*
+			        48-57 - (0-9)Numbers
+		      	*/
+			    if ( (!(keyCode >= 48 && keyCode <= 57))) { 
+		        	return false;
+		      	}
+		  	});
 
 			var addBrokerCodeToList = "{!!$addBrokerCodeToList!!}";
             var searchBrokerCodeToList = "{!!$searchBrokerCodeToList!!}";
@@ -182,7 +227,7 @@
 				        	$("#brokerCode").val('');
 				        	$("#brokerDomain").val('');
 				        	$("#brokerCodeType").val('Standard');
-
+				        	$("#msg").show();
 				        	var sucessMsg = '<div class="alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="false">X</span></button> Added broker code '+bc+' Successfully. </div>';
 				        	$("#msg").html(sucessMsg);
 
@@ -201,31 +246,68 @@
 				}
 			});
 
+			// IF SEARCH TYPE CHANGE 
+			$("#searchType").on('change',function(){
+				// get value - By default it shows by code
+				var searchType = $("#searchType").val();
+				// if search type is by domain then remove class onlyNumbers so user can add any domain name
+				if(searchType == "byDomain"){
+					/*$("#searchBrokerList").removeClass('onlyValidNumbers');
+					$("#searchBrokerList").addClass('onlyValidText');*/
+					$("#searchBrokerList").attr('placeholder','Search using domain , Press tab to see results');
+				}else{
+					/*$("#searchBrokerList").removeClass('onlyValidText');
+					$("#searchBrokerList").addClass('onlyValidNumbers');*/
+					$("#searchBrokerList").attr('placeholder','Search using broker code , Press tab to see results');
+				}
+				$("#searchBrokerList").val('');
+				$("#searchMSG").text('');
+				$("#searchMSG").hide();
+				$(this).unbind('.onlyValidNumbers');
+			});
+			// AJAX REQUEST FOR SEARCH BROKER LIST
 			$("#searchBrokerList").on('focusout',function(){
 				var search = $.trim($("#searchBrokerList").val());
+				var searchType = $("#searchType").val();
+
 				if(search != '' && search != null){
 					$.ajax({
 				        url:searchBrokerCodeToList,
 				        method:"post",
 				        //async: true,
-				        data: {search:search,_token:$('meta[name="csrf-token"]').attr('content')},
+				        data: {search:search,searchType:searchType,_token:$('meta[name="csrf-token"]').attr('content')},
 				        datatype: 'json',
 				        success: function(msg){
 				        	console.log(msg);
 				        	var html = '';
 
-				        	$.each(msg,function(key,value){
-				        		//console.log(value);
-				        		html += '<div class="bcCard"><span data-toggle="tooltip" title="';
-				        		$.each(value,function(key1,value1){
-				        			html += '[ '+value1+' ] ';
-				        		});
-				        		html += '">'+key+'</span></div>';		
-				        	});
+				        	if(msg != '' && msg != null){
+				        		$.each(msg,function(key,value){
+					        		//console.log(value);
+					        		html += '<div class="bcCard"><span data-toggle="tooltip" title="';
+					        		$.each(value,function(key1,value1){
+					        			html += '[ '+value1+' ] ';
+					        		});
+					        		html += '">'+key+'</span></div>';		
+					        	});
 
-				        	//console.log(html);
-				        	$("#listSearchBroker").html(html);
-				        	$("#listSearchBroker").show();
+					        	//console.log(html);
+					        	$("#listSearchBroker").html(html);
+					        	$("#listSearchBroker").show();
+					        	$("#searchMSG").text('');
+					        	$("#searchMSG").hide();
+				        	}else{
+				        		$("#listSearchBroker").hide();
+								$("#listSearchBroker").html('');
+								$("#searchMSG").show();
+								if(searchType == "byDomain"){
+									$("#searchMSG").text('Search using domain '+search+' is not available.');
+								}else{
+									$("#searchMSG").text('Search using code '+search+' is not available.');
+								}
+				        		
+				        	}
+				        	
 				        },
 				        error: function(data){
 				        	console.log(data);

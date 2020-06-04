@@ -86,16 +86,28 @@ class bletjController extends Controller
     }
 
     public function searchBrokerCodeToList(Request $req){
-    	$search = $req['search'];	
+    	$search = $req['search'];  
+        $searchType = $req['searchType'];
 
-    	$list =  json_decode(file_get_contents(public_path().'/json/brokercodelist.json'), true);
-    	$results = array();
-    	foreach ($list[0] as $key => $value) {
-    		if(strpos($key, $search) !== false){
-    			$results[$key] = $value;
-    		}
-    	}
+        $list =  json_decode(file_get_contents(public_path().'/json/brokercodelist.json'), true);
+        $results = array();
 
-		return $results;
+        // if by domain
+        if($searchType == "byDomain"){
+            foreach ($list[0] as $key => $value) {
+                if(strpos($value['domain'], $search) !== false){
+                    $results[$key] = $value;
+                }
+            }   
+        }else{
+            foreach ($list[0] as $key => $value) {
+                if(strpos($key, $search) !== false){
+                    $results[$key] = $value;
+                }
+            }
+        }
+        
+
+        return $results;
     }
 }
