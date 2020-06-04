@@ -54,4 +54,27 @@ Route::post('/api/2020/amf/root/searchBrokerCodeToList','bletjController@searchB
 
 Route::post('/brokerValidation','rtqController@brokerValidation');
 
+/**
+	ROUTE FOR ADMIN TO CHANGE VALUES IN DIFFERENT JSON FILES
+**/
+Route::get('/api/2020/amf/root',function(){
+	return view('admin/admin');
+});
 
+Route::get('/api/2020/amf/root/bannerJSON','adminController@bannerJSON');
+Route::post('/api/2020/amf/root/bannerSave','adminController@bannerSave');
+
+// HERE IN amfRateJSON url , add ?formVal=formID to get amf rates specific to form
+Route::get('/api/2020/amf/root/amfRateJSON','adminController@amfRateJSON');
+
+// GET Province mod of property modifier
+Route::get('/api/2020/amf/root/propertyProvModJson','adminController@propertyProvModJson');
+Route::post('/api/2020/amf/root/propertyProvModSave','adminController@propertyProvModSave');
+
+// GET Towngrade mod of property modifier
+Route::get('/api/2020/amf/root/propertyTGModJson','adminController@propertyTGModJson');
+Route::post('/api/2020/amf/root/propertyTGModSave','adminController@propertyTGModSave');
+
+// GET Construction mod of property modifier
+Route::get('/api/2020/amf/root/propertyConModJson','adminController@propertyConModJson');
+Route::post('/api/2020/amf/root/propertyConModSave','adminController@propertyConModSave');
