@@ -276,19 +276,19 @@ class rtqController extends Controller
         }
         
         $priceArray = array();
-        $priceArray['propertyTotal'] = round($propertyTotal);
+        $priceArray['propertyTotal'] = round($propertyTotal,2);
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
-        $priceArray['inspectionFee'] = round($inspectionFee);
+        $priceArray['inspectionFee'] = round($inspectionFee,2);
         $priceArray['towngrade'] = $tg;
         $priceArray['cefRate'] = $cefRate;
         $priceArray['officeComputerRate'] = $officeComputerRate;
         $priceArray['profitsRate'] = $profitsRate;
         $priceArray['toolFloaterRate'] = $toolFloaterRate;
         $priceArray['amfRate'] = $amfRate;
-        $priceArray['rentalIncomeLimitRate'] = round($rentalIncomeLimitRate);
+        $priceArray['rentalIncomeLimitRate'] = round($rentalIncomeLimitRate,2);
         $priceArray['baseRate'] = $baseRate;
-        $priceArray['total'] = round($total);
+        $priceArray['total'] = round($total,2);
 
         return $priceArray;
     }
@@ -323,9 +323,9 @@ class rtqController extends Controller
 
             $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
 
-            $premium = round($baseAmount + $limitModifier); // claimModifier not calculting because claim is more than 2
+            $premium = round($baseAmount + $limitModifier,2); // claimModifier not calculting because claim is more than 2
             
-            $total_value = round($premium + $cglCEF + $cglFrill + $fees);
+            $total_value = round($premium + $cglCEF + $cglFrill + $fees,2);
 
             $priceArray['cglPremium'] = '';
             $priceArray['cglCEF'] = $cglCEF;
@@ -338,9 +338,9 @@ class rtqController extends Controller
             $claimModifier = $hi_claims["ClaimsModifier"][0][$risk_address_noOfClaims]['Modifier'];
             $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
 
-            $premium = round($baseAmount + $claimModifier + $limitModifier);
+            $premium = round($baseAmount + $claimModifier + $limitModifier,2);
             
-            $total_value = round($premium + $cglCEF + $cglFrill + $fees);
+            $total_value = round($premium + $cglCEF + $cglFrill + $fees,2);
 
             $priceArray['cglPremium'] = $cglPremium;
             $priceArray['cglCEF'] = $cglCEF;
