@@ -279,16 +279,16 @@ class rtqController extends Controller
         $priceArray['propertyTotal'] = round($propertyTotal);
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
-        $priceArray['inspectionFee'] = $inspectionFee;
+        $priceArray['inspectionFee'] = round($inspectionFee);
         $priceArray['towngrade'] = $tg;
         $priceArray['cefRate'] = $cefRate;
         $priceArray['officeComputerRate'] = $officeComputerRate;
         $priceArray['profitsRate'] = $profitsRate;
         $priceArray['toolFloaterRate'] = $toolFloaterRate;
         $priceArray['amfRate'] = $amfRate;
-        $priceArray['rentalIncomeLimitRate'] = $rentalIncomeLimitRate;
+        $priceArray['rentalIncomeLimitRate'] = round($rentalIncomeLimitRate);
         $priceArray['baseRate'] = $baseRate;
-        $priceArray['total'] = $total;
+        $priceArray['total'] = round($total);
 
         return $priceArray;
     }
