@@ -308,9 +308,25 @@ class rtqController extends Controller
             $cglFrill = 300;
         }
 
+        // get json data for claims
+        $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
+
         if($risk_address_noOfClaims > 2 || $risk_address_noOfClaims == ''){
             // Refer rule will be encounter
             $noOfClaim = 'Refer';
+
+            $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
+
+            $premium = round($baseAmount + $limitModifier); // claimModifier not calculting because claim is more than 2
+            
+            $total_value = $premium + $cglCEF + $cglFrill + $fees;
+
+            $priceArray['cglPremium'] = '';
+            $priceArray['cglCEF'] = $cglCEF;
+            $priceArray['cglFrill'] = $cglFrill;
+            $priceArray['fee'] = $fees;
+            $priceArray['premium'] = $premium;
+            $priceArray['total'] = $total_value ;
         }else{  
             if($cgl_cglLimitsOfLiablitiy != ''){
               $cglLimit = explode('/',$cgl_cglLimitsOfLiablitiy)[1];
@@ -318,8 +334,6 @@ class rtqController extends Controller
               $cglLimit = '1mm'; // by default
             }
 
-            // get json data for claims
-            $hi_claims = json_decode(file_get_contents(public_path().'/json/hi_claims.json'), true);  
             $cglPremium = $hi_claims["Claims".$cglLimit][0][$risk_address_noOfClaims]['Premium'];
             $claimModifier = $hi_claims["ClaimsModifier"][0][$risk_address_noOfClaims]['Modifier'];
             $limitModifier = $hi_claims["LimitModifier"][0][$cglLimit]['Modifier'];        
