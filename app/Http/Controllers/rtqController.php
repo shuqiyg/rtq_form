@@ -276,7 +276,7 @@ class rtqController extends Controller
         }
         
         $priceArray = array();
-        $priceArray['propertyTotal'] = $propertyTotal;
+        $priceArray['propertyTotal'] = round($propertyTotal);
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
         $priceArray['inspectionFee'] = $inspectionFee;
@@ -325,7 +325,7 @@ class rtqController extends Controller
 
             $premium = round($baseAmount + $limitModifier); // claimModifier not calculting because claim is more than 2
             
-            $total_value = $premium + $cglCEF + $cglFrill + $fees;
+            $total_value = round($premium + $cglCEF + $cglFrill + $fees);
 
             $priceArray['cglPremium'] = '';
             $priceArray['cglCEF'] = $cglCEF;
@@ -340,7 +340,7 @@ class rtqController extends Controller
 
             $premium = round($baseAmount + $claimModifier + $limitModifier);
             
-            $total_value = $premium + $cglCEF + $cglFrill + $fees;
+            $total_value = round($premium + $cglCEF + $cglFrill + $fees);
 
             $priceArray['cglPremium'] = $cglPremium;
             $priceArray['cglCEF'] = $cglCEF;
