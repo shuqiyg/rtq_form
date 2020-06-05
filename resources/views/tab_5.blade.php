@@ -80,7 +80,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Stock  </label>
-                <input type="text" id="coverage_contentsLimitStock" name="coverage_contentsLimitStock" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_contentsLimitStock" name="coverage_contentsLimitStock" class="form-control col-md-8 getTIV amfPropertyExtention commaValues" placeholder="Enter Limit " value="">
             </div>   
         </div>
     </div>
@@ -88,7 +88,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Equipment  </label>
-                <input type="text" id="coverage_contentsLimitEquipment" name="coverage_contentsLimitEquipment" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_contentsLimitEquipment" name="coverage_contentsLimitEquipment" class="form-control getTIV amfPropertyExtention col-md-8 commaValues" placeholder="Enter Limit " value="">
             </div>     
         </div>
     </div>
@@ -96,7 +96,7 @@
         <div class="col-md-12">   
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Tenants' improvements  </label>
-                <input type="text" id="coverage_contentsLimitImprovements" name="coverage_contentsLimitImprovements" class="form-control col-md-8 commaValues" placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_contentsLimitImprovements" name="coverage_contentsLimitImprovements" class="form-control col-md-8 getTIV amfPropertyExtention commaValues" placeholder="Enter Limit " value="">
             </div>
         </div>
     </div>
@@ -195,7 +195,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Tool Floater <span class="err">*</span></label>
-                <input type="text" id="coverage_toolFloater" name="coverage_toolFloater" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
+                <input type="text" id="coverage_toolFloater" name="coverage_toolFloater" class="form-control col-md-8 getTIV amfPropertyExtention commaValues required" placeholder="Enter Limit Required" value="">
             </div>
         </div>
     </div>
@@ -205,7 +205,7 @@
             <div class="form-group">
                 <!-- <label class="col-md-4 subFormLabel" style="float: left;" id="openCEF" data-toggle="tooltip" title="Open CEF sub form"> Contractors Equipment Floater <i class="fa fa-level-down"></i></label> -->
                 <label class="col-md-4 subFormLabel" style="float: left;" id="openCEF" data-toggle="tooltip" title="Open CEF Form"> Contractors Equipment Floater <i>(Open CEF App)</i></label>
-                <input type="text" style="float: left;" id="coverage_CEF" name="coverage_CEF" class="form-control col-md-8 commaValues " placeholder="Enter Limit Required" value="">
+                <input type="text" style="float: left;" id="coverage_CEF" name="coverage_CEF" class="form-control col-md-8 getTIV amfPropertyExtention commaValues " placeholder="Enter Limit Required" value="">
                 <p class="col-md-12" style="width:100%;float: left;display: none;" id="processSF"></p>
                 <p class="col-md-12" style="width:100%;color: red;float: left;display: none;" id="subformCEF_MSG">Please complete the CEF form</p>
             </div>
@@ -414,15 +414,6 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Voluntary Compensation <span class="err">*</span></label>
-                <input type="text" id="coverage_voluntaryCompensation" name="coverage_voluntaryCompensation" class="form-control col-md-8 commaValues required" placeholder="Enter Limit Required" value="">
-            </div>
-        </div>
-    </div>
-
     <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">

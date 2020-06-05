@@ -1241,6 +1241,7 @@ $('#insured_isRiskAddressSame').change(function() {
         //$(".buildingConstruction").hide();
         //$(".surroundingExposure").hide();
         $(".includeExclude").hide();  // Hide fields to not show in review
+        clearFields("includeExclude"); 
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").hide();
         $("#howManyMortgagees").hide();
@@ -2316,7 +2317,10 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   
-  $("#coverage_perils,#buildingConstruction_yearBuilt").on('change',function(){
+  $("#coverage_perils").on('change',function(){
+    hideShowIncludeExclude();
+  });
+  $("#buildingConstruction_yearBuilt").on('focusout',function(){
     hideShowIncludeExclude();
   });
   
@@ -2330,6 +2334,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
     if(buildingAge >= 25 || coverage_perils == "Named Perils"){
       $(".includeExclude").hide();  // Hide fields to not show in review
+      clearFields("includeExclude");
       //$("#coverageIncludeExcludeSection").hide();   
     }else{
       //$("#coverageIncludeExcludeSection").show();
@@ -2337,10 +2342,25 @@ $('#insured_isRiskAddressSame').change(function() {
         $(".includeExclude").show();      
       }else{
         $(".includeExclude").hide();    
+        clearFields("includeExclude");
       }
           
     }
   }
+
+  $("#buildingConstruction_isBuildingHeritage,#buildingConstruction_yearBuilt").on('change',function(){
+    var buildingAge = getBuildingAge();  
+    var isHeritage = $("#buildingConstruction_isBuildingHeritage").val();
+
+    if(buildingAge >= 25 || isHeritage == "Yes"){
+      $("#coverage_perils").val('Named Perils');
+      $(".includeExclude").hide();    
+      clearFields("includeExclude");
+    }else{
+      $("#coverage_perils").val('');
+      $(".includeExclude").show();
+    }
+  });
 
   /**
    Finish button will gather all form data in json format and send it to controller to process
