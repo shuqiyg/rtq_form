@@ -51,11 +51,12 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Perils <span class="err">*</span></label>
-                <select class="form-control col-md-8 required" id="coverage_perils" name="coverage_perils">
+                <input type="text" class="form-control col-md-8 required" id="coverage_perils" name="coverage_perils" value="All Risk" disabled>
+                <!-- <select class="form-control col-md-8 required" id="coverage_perils" name="coverage_perils">
                     <option value="">-Select Perils-</option>
                     <option value="All Risk">All Risk</option>
                     <option value="Named Perils">Named Perils</option>
-                </select>
+                </select> -->
             </div>
         </div>
     </div>
@@ -128,6 +129,15 @@
     <div class="row">
         <div class="col-md-12"  id="ifcoverageGrossEarningsLimitBox" style="display: none;">
             <div class="form-group">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">Co-ins </span> </label>
+                <select id="coverage_grossEarningsPer" name="coverage_grossEarningsPer" class="form-control col-md-8 ">
+                    <option value="">-Select value-</option>
+                    <option value="80% Co.">80% Co.</option>
+                    <option value="50% Co.">50% Co.</option>
+                    <option value="No Co.">No Co.</option>
+                </select>
+            </div> 
+            <!-- <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">80% Co. </span> </label>
                 <select id="coverage_grossEarnings80Per" name="coverage_grossEarnings80Per" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
@@ -150,7 +160,7 @@
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
-            </div> 
+            </div>  -->
         </div>
     </div>
     

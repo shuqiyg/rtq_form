@@ -53,6 +53,71 @@
                 margin: 0;
                 padding: 0;
             }
+
+            /** HELP WINDOW STYLE START **/
+
+                /* Button used to open the help form - fixed at the bottom of the page */
+                .open-button,#closeHelp {
+                    color: black;
+                    border: none;
+                    cursor: pointer;
+                    opacity: 0.8;
+                    position: fixed;
+                    bottom: 23px;
+                    right: 28px;
+                    font-size: 50px;
+                }
+                
+                /* The popup help - hidden by default */
+                .help-popup {
+                    display: none;
+                    position: fixed;
+                    bottom: 73px;
+                    right: 28px;
+                    border: 3px solid #ffbb45;
+                    z-index: 9;
+                    -webkit-box-shadow: 4px -1px 24px 1px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 4px -1px 24px 1px rgba(0,0,0,0.75);
+                    box-shadow: 4px -1px 24px 1px rgba(0,0,0,0.75);
+                }
+
+                /* Add styles to the help container */
+                .help-container {
+                    max-width: 500px;
+                    padding: 10px;
+                    background-color: #fffefa;
+                }
+
+                .meaning dt::after{
+                    content: '';
+                    background: linear-gradient(to right, #F48133 75%, transparent 75% 80%, #F48133 80%);
+                    height: 2px;
+                    width: 40%;
+                    display: block;
+                }
+                /*** Loader Help start ***/
+                .loaderHelp {
+                  border: 16px solid #f3f3f3; /* Light grey */
+                  border-top: 16px solid #ffcd42; /* Light blue */
+                  border-right: 16px solid #c9be9d; /* Light blue */
+                  border-bottom: 16px solid #ffcd42; /* Light blue */
+                  border-left: 16px solid #c9be9d; /* Light white */
+                  border-radius: 50%;
+                  width: 50px;
+                  height: 50px;
+                  position: absolute;
+                  left: 50%;
+                  top: 30%;
+                  z-index: 2000;
+                  animation: spinHelp 1s linear infinite;
+                }
+                @keyframes spinHelp {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+                /*** Loader Help end ***/
+
+            /** HELP WINDOW STYLE END **/
         </style>
 
     </head>

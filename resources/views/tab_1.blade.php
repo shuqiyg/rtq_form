@@ -7,6 +7,14 @@
     </div>
 </div>
 
+<div id="meaning-tab-1" style="display: none;">
+    <dl class="meaning">
+        <dt>Broker Name</dt>
+        <dd>First And Last name of broker</dd>
+        <dt>Broker Code</dt>
+        <dd>Four digit code given by AMF to authorized broker</dd>
+    </dl>
+</div>
 
 <section class="brokerInfo">
     <h3>Broker</h3>

@@ -54,6 +54,7 @@
                     <input type="hidden" id="equipmentScheduleCount" name="equipmentScheduleCount">
                     <input type="hidden" id="equipmentScheduleTotalAmount" name="equipmentScheduleTotalAmount">
                     <input type="hidden" id="equipmentScheduleDefaultB" name="equipmentScheduleDefaultB" value="<?php echo $defaultVal['plumbing'][0]['CEF']['deductibleDefaultB'];?>">
+                    <input type="hidden" id="setTotalAmountEquipSche5perForJson" name="setTotalAmountEquipSche5perForJson">
                     <div class="form-group">
                         <div class="col-md-12">
                             <span id="addEquipmentSchedule" data-toggle="tooltip" title="Add equipment Schedule"> <i class="fa fa-plus" style="cursor: pointer;"></i> </span>

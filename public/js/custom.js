@@ -21,6 +21,50 @@ $(document).ready(function(){
     placement : 'top'
   });
 
+  /** HELP POPUP **/
+  $("#openHelp").on('click',function(){
+    $("#helpBox").show();
+    $("#openHelp").hide();
+    $("#closeHelp").show();
+    getMeanings();
+  });
+  $("#closeHelp").on('click',function(){
+    $("#helpBox").hide();
+    $("#openHelp").show();
+    $("#closeHelp").hide();
+  });
+  
+
+  function getMeanings(){
+    // show loader
+    $(".loaderHelp").show();
+    var tabId = '';
+    $.each($(".step-anchor li"),function(k,v){
+      if($(this).hasClass('active')){
+        tabId += $(this).find('a').attr("href");
+        tabId = tabId.substring(1, tabId.length); // remove # sign from id
+        console.log(tabId);
+        return false;
+        
+      }
+    });    
+
+    if(tabId != ''){
+        // get meanings
+        var meanings = $.trim($("#meaning-"+tabId).html());
+        //console.log("Meaning : "+meanings);
+        if(meanings == '' || meanings == "undefined"){
+          $("#showMeanings").html('<h6>No Meanings Available.</h6>');
+        }else{
+          $("#showMeanings").html(meanings);  
+        }
+        
+        $("#showMeanings").show();
+        $(".loaderHelp").hide();
+    }
+  }
+  /******HELP POPUP END******/
+
   // Activate subforms tabs
   $( "#tabs" ).tabs();
 
@@ -1294,9 +1338,10 @@ $('#insured_isRiskAddressSame').change(function() {
         $("#ifcoverageGrossEarningsLimitBox").show();
       }else{
         $("#ifcoverageGrossEarningsLimitBox").hide();
-        $("#coverage_grossEarnings80Per").val('');
+        $("#coverage_grossEarningsPer").val('');
+        /*$("#coverage_grossEarnings80Per").val('');
         $("#coverage_grossEarnings50Per").val('');
-        $("#coverage_grossEarningsNoPer").val('');
+        $("#coverage_grossEarningsNoPer").val('');*/
       }
     });
 
@@ -2167,8 +2212,12 @@ $('#insured_isRiskAddressSame').change(function() {
     var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());console.log(amount5Per);
     if(amount5Per < defaultB){
       $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(defaultB));
+      // set value in hidden field used for back end
+      $("#setTotalAmountEquipSche5perForJson").val(commaSeparateNumber(defaultB));
     }else{
       $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(amount5Per));
+      // set value in hidden field used for back end
+      $("#setTotalAmountEquipSche5perForJson").val(commaSeparateNumber(amount5Per));
     }
   }
 
@@ -2317,9 +2366,6 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   
-  $("#coverage_perils").on('change',function(){
-    hideShowIncludeExclude();
-  });
   $("#buildingConstruction_yearBuilt").on('focusout',function(){
     hideShowIncludeExclude();
   });
@@ -2357,7 +2403,7 @@ $('#insured_isRiskAddressSame').change(function() {
       $(".includeExclude").hide();    
       clearFields("includeExclude");
     }else{
-      $("#coverage_perils").val('');
+      $("#coverage_perils").val('All Risk');
       $(".includeExclude").show();
     }
   });
@@ -2525,9 +2571,11 @@ $('#insured_isRiskAddressSame').change(function() {
 
   // function to get all form data including dynamic fields
   function getAllFormData(){
-      //var formData = JSON.stringify($('#rtq_form').serializeArray());
+      // remove attribute disable on input to get field data into json and then again disable them
+      var disabled = $('#rtq_form').find(':input:disabled').removeAttr('disabled');
       var fd = JSON.stringify($('#rtq_form').serializeArray());
-
+      disabled.attr('disabled','disabled');
+      
       var result = {};
 
       $.each(JSON.parse(fd), function() {

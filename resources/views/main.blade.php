@@ -116,6 +116,20 @@
         </div>
     </form>
 
+    <!-- HELP WINDOW START -->
+    <!-- <i class="fa fa-question-circle-o open-button" id="openHelp" data-toggle="tooltip" title="Need Help ?"></i>
+    <i class="fa fa-remove" id="closeHelp" style="display: none;"></i>
+        
+
+    <div class="help-popup" id="helpBox">
+        <div class="help-container">
+            <div class="loaderHelp" style="display: none;"></div>
+            <h5>Find meaning of question</h5>
+            <div id="showMeanings" style="display: none;"></div>
+        </div>
+    </div> -->
+    <!-- HELP WINDOW END -->
+
     <!-- OuiBounce Modal -->
         <div id="ouibounce-modal">
             <div class="underlay"></div>
