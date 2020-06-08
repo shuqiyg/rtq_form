@@ -413,6 +413,18 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                <label class="col-md-8" style="float: left;">Thawing of pipes <span class="err">*</span></label>
+                <select id="liability_engageOpsThawingOfPipes" name="liability_engageOpsThawingOfPipes" class="form-control col-md-4 required">
+                    <option value="">-Select value-</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
                 <label class="col-md-8" style="float: left;">Demolition or Wrecking <span class="err">*</span></label>
                 <select id="liability_engageOpsDemolition" name="liability_engageOpsDemolition" class="form-control col-md-4 required">
                     <option value="">-Select value-</option>
