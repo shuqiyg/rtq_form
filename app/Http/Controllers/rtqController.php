@@ -81,6 +81,17 @@ class rtqController extends Controller
             $coverage_toolFloater = $this->checkValue(trim($req['coverage_toolFloater']));
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($req['coverage_officeEquipmentsFloater']));
             $coverage_profits = $this->checkValue(trim($req['coverage_profits']));
+            $coverage_buildingLimit = $this->checkValue(trim($req['coverage_buildingLimit']));
+            $coverage_contentsLimit = $this->checkValue(trim($req['coverage_contentsLimit']));
+            $coverage_contentsLimitStock = $this->checkValue(trim($req['coverage_contentsLimitStock']));
+            $coverage_contentsLimitEquipment = $this->checkValue(trim($req['coverage_contentsLimitEquipment']));
+            $coverage_contentsLimitImprovements = $this->checkValue(trim($req['coverage_contentsLimitImprovements']));
+            $coverage_grossEarnings = $this->checkValue(trim($req['coverage_grossEarnings']));
+            $coverage_grossEarningsPer = trim($req['coverage_grossEarningsPer']);
+            $coverage_extraExpenses = $this->checkValue(trim($req['coverage_extraExpenses']));
+            $coverage_rentalIncomeLimit = $this->checkValue(trim($req['coverage_rentalIncomeLimit']));
+            $coverage_signFloater = $this->checkValue(trim($req['coverage_signFloater']));
+
             $coverage_liabilityLimit = trim($req['coverage_liabilityLimit']);
             $yearsBuilt =  $req['yearsBuilt'];
             
@@ -93,7 +104,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($req['distanceFromClosestCity']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -101,7 +112,7 @@ class rtqController extends Controller
     }
 
     // function to set priceArray / calculate for plumbing form
-    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
 
         // get values from json file
         $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
@@ -173,10 +184,73 @@ class rtqController extends Controller
             $baseRate = "NotAvailable";
         }
 
-        $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate'];
-        $officeComputerRate = $coverageRate[0]["Office Computer"]['rate'];
-        $profitsRate = $coverageRate[0]["Profits"]['rate'];
-        $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate'];
+        // Calculating rates for property total and calculate property total
+        if($baseRate != "NotAvailable"){
+            $commonRate = $baseRate + 0.2; // base rate + 20%
+
+            $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate']; // 1.5 $1.50 per $100 value so its 1.5 * CEF amount entered
+            $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate']; // 3.5 $3.50 per $100 value so its 3.5 * tool floater amount entered
+            $officeComputerRate = $commonRate + 0.05; // base rate + 20% + $0.05 per $100 (means 0.05%)
+            $profitsRate = $commonRate;
+            $buildingRate = $commonRate;
+            $contentRate = $commonRate;
+            $stockRate = $commonRate;
+            $equipmentRate = $commonRate;
+            $tenantImprovmentRate = $commonRate;
+
+            if(strpos($coverage_grossEarningsPer,'80') !== false){
+                // if 80% co-ins
+                $grossEarningRate = 0.6 * $baseRate; // 60% of base rate
+            }else if(strpos($coverage_grossEarningsPer,'50') !== false){
+                // if 50% co-ins
+                $grossEarningRate = 0.8 * $baseRate; // 80% of base rate
+            }else{
+                // if No Co-ins
+                $grossEarningRate = 1.5 * $baseRate; // 150% of base rate
+            }
+            $extraExpenseRate = 2 * $baseRate; // 200% of base rate
+            
+            if($province != '' && $province != null){
+                if($province == "Quebec"){
+                    $rentRate = $baseRate; // 100% of base rate
+                }else{
+                    $rentRate = 0.75 * $baseRate; // 75% of base rate
+                }
+            }else{
+                $rentRate = 0;
+            }
+            $signRate = 3; // $3 per $100 means 3%
+        }else{
+            $cefRate = 0;
+            $toolFloaterRate = 0;
+            $officeComputerRate = 0;
+            $profitsRate = 0;
+            $buildingRate = 0;
+            $contentRate = 0;
+            $stockRate = 0;
+            $equipmentRate = 0;
+            $tenantImprovmentRate = 0;
+            $grossEarningRate = 0;
+            $extraExpenseRate = 0;
+            $rentRate = 0;
+            $signRate = 0;
+        }
+
+        // Calculate amount of each property with rate to get property total
+        $cefAmount = ($coverage_CEF*$cefRate)/100;
+        $officeComputerAmount = ($coverage_officeEquipmentsFloater*$officeComputerRate)/100;
+        $profitsAmount = ($coverage_profits*$profitsRate)/100;
+        $toolFloaterAmount = ($coverage_toolFloater*$toolFloaterRate)/100;
+
+        $buildingAmount = ($coverage_buildingLimit * $buildingRate)/100;
+        $contentAmount = ($coverage_contentsLimit * $contentRate)/100;
+        $stockAmount = ($coverage_contentsLimitStock * $stockRate)/100;
+        $equipmentAmount = ($coverage_contentsLimitEquipment * $equipmentRate)/100;
+        $tenantImprovmentAmount = ($coverage_contentsLimitImprovements * $tenantImprovmentRate)/100;
+        $grossEarningAmount = ($coverage_grossEarnings * $grossEarningRate)/100;
+        $extraExpenseAmount = ($coverage_extraExpenses * $extraExpenseRate)/100;
+        $rentAmount = ($coverage_rentalIncomeLimit * $rentRate)/100;
+        $signFloaterAmount = ($coverage_signFloater * $signRate)/100;
 
         // if province is null or empty then make by default Ontario
         if($distanceFromClosestCity == null || empty($distanceFromClosestCity)){
@@ -212,11 +286,6 @@ class rtqController extends Controller
             $zone = 'NotAvailable';
         }
 
-        $cefAmount = ($coverage_CEF*$cefRate)/100;
-        $officeComputerAmount = ($coverage_officeEquipmentsFloater*$officeComputerRate)/100;
-        $profitsAmount = ($coverage_profits*$profitsRate)/100;
-        $toolFloaterAmount = ($coverage_toolFloater*$toolFloaterRate)/100;
-
         if($coverage_liabilityLimit == "1mm"){
             $liablity = 500;
         }else if($coverage_liabilityLimit == "2mm"){
@@ -225,8 +294,10 @@ class rtqController extends Controller
             $liablity = 0; // if no liability
         }
 
-        $propertyTotal = $cefAmount + $officeComputerAmount + $profitsAmount + $toolFloaterAmount;
+        // Property Total
+        $propertyTotal = $cefAmount + $officeComputerAmount + $profitsAmount + $toolFloaterAmount + $buildingAmount + $contentAmount + $stockAmount + $equipmentAmount + $tenantImprovmentAmount + $grossEarningAmount + $extraExpenseAmount + $rentAmount + $signFloaterAmount;
         $premiumWithoutFees = $propertyTotal + $liablity;
+
         if($premiumWithoutFees > 0 && $premiumWithoutFees < 5000){
             $feePremium = "below5k";
         }else if($premiumWithoutFees >= 5000 && $premiumWithoutFees < 10000){
@@ -266,7 +337,8 @@ class rtqController extends Controller
         }else{
             // get distance fee
             $distanceFee = $distanceFromClosestCity * 0.20;
-            $inspectionFee = $baseRateInspectionFee + $zoneFee + round($distanceFee);
+            $inspectionFee = ceil($baseRateInspectionFee + $zoneFee + $distanceFee); // ceil - round up even its 3.4 = 4 , 3.6 = 4
+            //$inspectionFee = $baseRateInspectionFee + $zoneFee + $distanceFee;
         }
 
         if($inspectionFee != ""){
@@ -279,12 +351,23 @@ class rtqController extends Controller
         $priceArray['propertyTotal'] = round($propertyTotal,2);
         $priceArray['liabilityVal'] = $liablity;
         $priceArray['fee'] = $policyFee;
-        $priceArray['inspectionFee'] = round($inspectionFee,2);
+        $priceArray['inspectionFee'] = $inspectionFee;
         $priceArray['towngrade'] = $tg;
+        /** Rates Start **/
         $priceArray['cefRate'] = $cefRate;
         $priceArray['officeComputerRate'] = $officeComputerRate;
         $priceArray['profitsRate'] = $profitsRate;
         $priceArray['toolFloaterRate'] = $toolFloaterRate;
+        $priceArray['buildingRate'] = $buildingRate;
+        $priceArray['contentRate'] = $contentRate;
+        $priceArray['stockRate'] = $stockRate;
+        $priceArray['equipmentRate'] = $equipmentRate;
+        $priceArray['tenantImprovmentRate'] = $tenantImprovmentRate;
+        $priceArray['grossEarningRate'] = $grossEarningRate;
+        $priceArray['extraExpenseRate'] = $extraExpenseRate;
+        $priceArray['rentRate'] = $rentRate;
+        $priceArray['signRate'] = $signRate;
+        /** Rates End **/
         $priceArray['amfRate'] = $amfRate;
         $priceArray['rentalIncomeLimitRate'] = round($rentalIncomeLimitRate,2);
         $priceArray['baseRate'] = $baseRate;
@@ -577,6 +660,18 @@ class rtqController extends Controller
             $coverage_toolFloater = $this->checkValue(trim($fd[0]['coverage_toolFloater']['value']));
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
+            $coverage_buildingLimit = $this->checkValue(trim($fd[0]['coverage_buildingLimit']['value']));
+            $coverage_contentsLimit = $this->checkValue(trim($fd[0]['coverage_contentsLimit']['value']));
+            $coverage_contentsLimitStock = $this->checkValue(trim($fd[0]['coverage_contentsLimitStock']['value']));
+            $coverage_contentsLimitEquipment = $this->checkValue(trim($fd[0]['coverage_contentsLimitEquipment']['value']));
+            $coverage_contentsLimitImprovements = $this->checkValue(trim($fd[0]['coverage_contentsLimitImprovements']['value']));
+            $coverage_grossEarnings = $this->checkValue(trim($fd[0]['coverage_grossEarnings']['value']));
+            $coverage_grossEarningsPer = trim($fd[0]['coverage_grossEarningsPer']['value']);
+            $coverage_extraExpenses = $this->checkValue(trim($fd[0]['coverage_extraExpenses']['value']));
+            $coverage_rentalIncomeLimit = $this->checkValue(trim($fd[0]['coverage_rentalIncomeLimit']['value']));
+            $coverage_signFloater = $this->checkValue(trim($fd[0]['coverage_signFloater']['value']));
+
+
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
             $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
             
@@ -589,7 +684,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
@@ -1613,6 +1708,17 @@ class rtqController extends Controller
             $coverage_toolFloater = $this->checkValue(trim($fd[0]['coverage_toolFloater']['value']));
             $coverage_officeEquipmentsFloater = $this->checkValue(trim($fd[0]['coverage_officeEquipmentsFloater']['value']));
             $coverage_profits = $this->checkValue(trim($fd[0]['coverage_profits']['value']));
+            $coverage_buildingLimit = $this->checkValue(trim($fd[0]['coverage_buildingLimit']['value']));
+            $coverage_contentsLimit = $this->checkValue(trim($fd[0]['coverage_contentsLimit']['value']));
+            $coverage_contentsLimitStock = $this->checkValue(trim($fd[0]['coverage_contentsLimitStock']['value']));
+            $coverage_contentsLimitEquipment = $this->checkValue(trim($fd[0]['coverage_contentsLimitEquipment']['value']));
+            $coverage_contentsLimitImprovements = $this->checkValue(trim($fd[0]['coverage_contentsLimitImprovements']['value']));
+            $coverage_grossEarnings = $this->checkValue(trim($fd[0]['coverage_grossEarnings']['value']));
+            $coverage_grossEarningsPer = trim($fd[0]['coverage_grossEarningsPer']['value']);
+            $coverage_extraExpenses = $this->checkValue(trim($fd[0]['coverage_extraExpenses']['value']));
+            $coverage_rentalIncomeLimit = $this->checkValue(trim($fd[0]['coverage_rentalIncomeLimit']['value']));
+            $coverage_signFloater = $this->checkValue(trim($fd[0]['coverage_signFloater']['value']));
+
             $coverage_liabilityLimit = trim($fd[0]['coverage_liabilityLimit']['value']);
             $yearsBuilt =  $fd[0]['buildingConstruction_yearBuilt']['value'];
             
@@ -1625,7 +1731,7 @@ class rtqController extends Controller
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
