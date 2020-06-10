@@ -34,6 +34,7 @@
         <script type="text/javascript" src="{{ URL::asset('js/ouibounce.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
         <script type="text/javascript" src="{{ URL::asset('js/admin.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/calculation.js') }}"></script>
         <!--<script type="text/javascript" src="{{ URL::asset('js/form-validate.js') }}"></script>-->
         
         <!-- call custom javascript while rendering form data [loaded dynamically from jquery]      
@@ -42,6 +43,9 @@
         <style type="text/css">
             .ui-accordion-content{
                 height: auto !important;
+            }
+            .w-100{
+                width: 100%;
             }
 
         </style>
@@ -54,7 +58,13 @@
         // get forms name and id from json
         $forms = json_decode(file_get_contents(public_path().'/json/forms.json'), true);
         //print_r($forms);
-                
+
+        // get us-canada state/province name list
+        $canState = json_decode(file_get_contents(public_path().'/json/canStateList.json'), true);
+
+        // get closest city
+        $closestCity = json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionCities.json'), true);
+        
         ?>
         <div style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
@@ -89,6 +99,11 @@
             <h3>Property Modifiers</h3>
             <div>
                 @include('admin/propertyModifiers')
+            </div>
+
+            <h3>Calculator</h3>
+            <div>
+                @include('admin/calculator')
             </div>
             
         </div>

@@ -78,3 +78,6 @@ Route::post('/api/2020/amf/root/propertyTGModSave','adminController@propertyTGMo
 // GET Construction mod of property modifier
 Route::get('/api/2020/amf/root/propertyConModJson','adminController@propertyConModJson');
 Route::post('/api/2020/amf/root/propertyConModSave','adminController@propertyConModSave');
+
+// Admin Calculation
+Route::post('/api/2020/amf/root/adminCalculate','rtqController@calculate');
