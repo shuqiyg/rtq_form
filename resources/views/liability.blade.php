@@ -58,7 +58,7 @@
             
         </div>
     </div>
-    <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount">
+    <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount" value="1">
     <div class="row">
         <div class="col-md-12" style="padding: 0% 10%;">
             <!-- <div class="form-group" style="display: flex;">

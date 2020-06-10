@@ -51,7 +51,7 @@
                     </div>
 
                     <h5>Equipment Schedule</h5>
-                    <input type="hidden" id="equipmentScheduleCount" name="equipmentScheduleCount">
+                    <input type="hidden" id="equipmentScheduleCount" name="equipmentScheduleCount" value="1">
                     <input type="hidden" id="equipmentScheduleTotalAmount" name="equipmentScheduleTotalAmount">
                     <input type="hidden" id="equipmentScheduleDefaultB" name="equipmentScheduleDefaultB" value="<?php echo $defaultVal['plumbing'][0]['CEF']['deductibleDefaultB'];?>">
                     <input type="hidden" id="setTotalAmountEquipSche5perForJson" name="setTotalAmountEquipSche5perForJson">

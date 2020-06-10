@@ -1780,6 +1780,7 @@ $('#insured_isRiskAddressSame').change(function() {
   // remove more liability items
   $(document).on('click',"[id^=removeEleDescription]",function(){
     $(this).closest('.ele_sections').remove();
+    var eleSectionSize = $("[class^=ele_sections]").size();
     
     // change counting number
     $.each($('[class^=ele_sections]'), function( key, value ) {
@@ -1808,12 +1809,11 @@ $('#insured_isRiskAddressSame').change(function() {
         $(this).attr('id',idTxt);
         $(this).attr('name',idTxt);
       
-        // set count in hidden fields
-        $("#liability_premisesHaveElevatorDetailsCount").val(counting);
-
       });
       //counting ++;
     });
+    // set count in hidden fields
+    $("#liability_premisesHaveElevatorDetailsCount").val(eleSectionSize);
     
   });
 
@@ -1859,7 +1859,8 @@ $('#insured_isRiskAddressSame').change(function() {
   // remove more liability items
   $(document).on('click',"[id^=removePFSDescription]",function(){
     $(this).closest('.pfs_sections').remove();
-    
+    var pfsSectionSize = $("[class^=pfs_sections]").size();
+
     // change counting number
     $.each($('[class^=pfs_sections]'), function( key, value ) {
       // fetch id of element of section
@@ -1887,13 +1888,11 @@ $('#insured_isRiskAddressSame').change(function() {
         $(this).attr('id',idTxt);
         $(this).attr('name',idTxt);
 
-        // set count in hidden fields
-        $("#liability_productsForSaleDetailsCount").val(counting);
-    
       });
       //counting ++;
     });
-    
+      // set count in hidden fields
+      $("#liability_productsForSaleDetailsCount").val(pfsSectionSize);
   });
 
 

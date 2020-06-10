@@ -54,7 +54,7 @@
         // get forms name and id from json
         $forms = json_decode(file_get_contents(public_path().'/json/forms.json'), true);
         //print_r($forms);
-
+                
         ?>
         <div style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
