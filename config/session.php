@@ -1,4 +1,11 @@
 <?php
+    
+    $env = trim(env('APP_ENV')); 
+    if($env == "production"){
+        $formPrefix = "/rtqform";
+    }else{
+        $formPrefix = "/";
+    }
 
 return [
 
@@ -137,8 +144,8 @@ return [
     | your application but you are free to change this when necessary.
     |
     */
-
-    'path' => '/rtqform',
+        
+    'path' => $formPrefix,
 
     /*
     |--------------------------------------------------------------------------
