@@ -183,6 +183,12 @@ $(document).ready(function(){
         var coverage_rentalIncomeLimit = $('#coverage_rentalIncomeLimit_plumbing').val();
         var coverage_signFloater = $('#coverage_signFloater').val();
 
+        var coverage_crime_broadFormMoney = $('#coverage_crime_broadFormMoney').val();
+        var coverage_crime_insideRobbery = $('#coverage_crime_insideRobbery').val();
+        var coverage_crime_outsideRobbery = $('#coverage_crime_outsideRobbery').val();
+        var coverage_crime_employeeDishonesty = $('#coverage_crime_employeeDishonesty').val();
+        var coverage_crime_3dRider = $('#coverage_crime_3dRider').val();
+
         var coverage_liabilityLimit = $('#coverage_liabilityLimit_plumbing').val();
         var yearsBuilt = $('#buildingConstruction_yearBuilt_plumbing').val();
         
@@ -202,7 +208,7 @@ $(document).ready(function(){
           $.ajax({
             url:"/api/2020/amf/root/adminCalculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_buildingLimit:coverage_buildingLimit,coverage_contentsLimit:coverage_contentsLimit,coverage_contentsLimitStock:coverage_contentsLimitStock,coverage_contentsLimitEquipment:coverage_contentsLimitEquipment,coverage_contentsLimitImprovements:coverage_contentsLimitImprovements,coverage_grossEarnings:coverage_grossEarnings,coverage_grossEarningsPer:coverage_grossEarningsPer,coverage_extraExpenses:coverage_extraExpenses,coverage_rentalIncomeLimit:coverage_rentalIncomeLimit,coverage_signFloater:coverage_signFloater,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,constructionType:constructionType,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_buildingLimit:coverage_buildingLimit,coverage_contentsLimit:coverage_contentsLimit,coverage_contentsLimitStock:coverage_contentsLimitStock,coverage_contentsLimitEquipment:coverage_contentsLimitEquipment,coverage_contentsLimitImprovements:coverage_contentsLimitImprovements,coverage_grossEarnings:coverage_grossEarnings,coverage_grossEarningsPer:coverage_grossEarningsPer,coverage_extraExpenses:coverage_extraExpenses,coverage_rentalIncomeLimit:coverage_rentalIncomeLimit,coverage_signFloater:coverage_signFloater,coverage_crime_broadFormMoney:coverage_crime_broadFormMoney,coverage_crime_insideRobbery:coverage_crime_insideRobbery,coverage_crime_outsideRobbery:coverage_crime_outsideRobbery,coverage_crime_employeeDishonesty:coverage_crime_employeeDishonesty,coverage_crime_3dRider:coverage_crime_3dRider,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,constructionType:constructionType,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               

@@ -48,6 +48,13 @@
                 width: 100%;
             }
 
+            #calculatorBox{
+                background: #4d464112;
+                padding: 15px 0;
+                border: 1px solid;
+                margin-bottom: 5px;
+            }
+
         </style>
 
     </head>

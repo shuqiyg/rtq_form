@@ -13,7 +13,7 @@
 </div>
 <hr>
 
-<div class="row" id="calculatorBox">
+<div class="row" id="calculatorBox" style="display: none;">
 	<!-- SHOW FIELDS AS PER FORM AND CALCULATE BUTTON -->
 	<!-- SOME FIELDS ARE SAME SO ADD IT ACCORDINGLY -->
 	<!-- USE CLASS 'formID'+'CalcBox' to show or hide form, THIS IS BECAUSE SOME FIELDS ARE USED IN TWO OR MORE FORMS -->

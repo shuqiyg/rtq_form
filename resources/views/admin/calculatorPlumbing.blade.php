@@ -197,6 +197,54 @@
 		        </div>
 		    </div>
 
+		    <hr>
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="form-group">
+		                <label class="col-md-4" style="float: left;"> Broad Form Money & Securities </label>
+		                <input type="text" id="coverage_crime_broadFormMoney" name="coverage_crime_broadFormMoney" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="form-group">
+		                <label class="col-md-4" style="float: left;"> Inside Robbery </label>
+		                <input type="text" id="coverage_crime_insideRobbery" name="coverage_crime_insideRobbery" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="form-group">
+		                <label class="col-md-4" style="float: left;"> Outside Robbery </label>
+		                <input type="text" id="coverage_crime_outsideRobbery" name="coverage_crime_outsideRobbery" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
+		            </div>
+		        </div>
+		    </div>
+
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="form-group">
+		                <label class="col-md-4" style="float: left;"> Employee Dishonesty - Form A</label>
+		                <input type="text" id="coverage_crime_employeeDishonesty" name="coverage_crime_employeeDishonesty" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
+		            </div>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="form-group">
+		                <label class="col-md-4" style="float: left;"> Comprehensive 3D rider </label>
+		                <input type="text" id="coverage_crime_3dRider" name="coverage_crime_3dRider" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
+		            </div>
+		        </div>
+		    </div>
+
+		    <hr>
+		    
 		    <div class="row">
 		        <div class="col-md-12">
 		            <div class="form-group" >
