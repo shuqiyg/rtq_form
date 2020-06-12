@@ -170,3 +170,107 @@ section{
 .hideLabel{
 	display: none;
 }
+
+.header5{
+	color: white; 
+	background-color: #b2bed1;
+	text-align: center;
+	padding:5px;
+}
+.opsWorkPerformed{
+	border: 1px solid;
+	background: #e8e8e8;
+	padding: 1%;
+	margin-bottom: 5px; 
+}
+
+
+
+/** DARK MODE CSS START **/
+
+.dark,
+.dark body , .dark #rtq_forms, .dark .step-content, .dark .form-control, .dark .rowHover{
+    background-color: #222;
+    color: #e6e6e6;
+}
+
+/* OPTGROUP IN PROVINCE */
+.dark optgroup{
+	color: black;
+}
+.dark select option{
+	background-color: #605e5e8c  !important;
+	color: #e6e6e6;
+}
+
+.dark .frontAutText{
+	background-color: black;
+}
+
+.dark .step-anchor{
+	background-color: grey !important;
+}
+.dark .step-anchor li a{
+	color:black !important;
+}
+/*.dark .step-anchor li > a::before{
+	background-color: grey !important;
+	color:white !important;
+	border-left:1px solid white !important;
+}
+.dark .step-anchor li > a::after{
+	background-color: grey !important;
+	color:white !important;
+	border-left:1px solid grey !important;
+}*/
+/* REVIEW TABLE */
+.dark .rowHover  tr:hover{
+	color: black;
+	background-color: #9b9b9b;
+}
+
+.dark .rowHover:hover{
+	-webkit-box-shadow: 7px 7px 28px -3px rgba(255,255,255,0.71);
+	-moz-box-shadow: 7px 7px 28px -3px rgba(255,255,255,0.71);
+	box-shadow: 7px 7px 28px -3px rgba(255,255,255,0.71);
+}
+
+.dark .opsWorkPerformed{
+	border: 1px solid;
+	background: grey;
+	padding: 1%;
+	margin-bottom: 5px; 
+	color: #e6e6e6;
+}
+.dark .opsWorkPerformed button{
+	border: 1px solid black;
+}
+
+.dark #tabs{
+	background-color: #222;
+}
+.dark .ui-widget-content{
+	color: #e6e6e6 !important;
+}
+.dark .ui-widget-content table{
+	color: #e6e6e6 !important;
+	background-color: #666 !important;
+}
+.dark .ui-widget-content table td input{
+	background-color: #222 !important;
+    color: #e6e6e6 !important;
+}
+
+.dark .header5{
+	background-color: #5a6d8a;
+}
+
+.dark #backToForm, .dark #closeWindow{
+	color: black;
+	border-color: black;
+}
+
+.dark #bindMsg{
+	color : white !important;
+}
+/** DARK MODE CSS END **/

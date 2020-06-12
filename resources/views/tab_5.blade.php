@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <h5 style="color: white; background-color: #b2bed1;text-align: center;padding:5px;">Property</h5>
+    <h5 class="header5">Property</h5>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -362,7 +362,7 @@
 @endif
 
     <br/>
-    <h5  style="color: white; background-color: #b2bed1;text-align: center;padding:5px;">Liability</h5>
+    <h5 class="header5">Liability</h5>
 
     <div class="row">
         <div class="col-md-12">

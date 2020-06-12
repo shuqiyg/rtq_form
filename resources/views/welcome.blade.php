@@ -118,6 +118,22 @@
                 /*** Loader Help end ***/
 
             /** HELP WINDOW STYLE END **/
+
+            .switch {
+                align-self: flex-end;
+                margin: 0.9375rem;
+            }
+            .inner-switch {
+                display: inline-block;
+                cursor: pointer;
+                border: 1px solid #555;
+                border-radius: 1.25rem;
+                width: 3.125rem;
+                text-align: center;
+                font-size: 1rem;
+                padding: 0.1875rem;
+                margin-left: 0.3125rem;
+            }
         </style>
 
     </head>
@@ -202,6 +218,9 @@
         <footer>
             <hr>
             <p style="text-align: center;">&copy; Copyright 2020 - <?php $cy = date('Y'); if($cy == "2020"){echo "Present";}else{echo $cy;}?>  <a href="https://www.amfredericks.com/" target="_blank" data-toggle="tooltip" title="<img src='{{URL::asset('img/amfsite.png')}}' width='150' height='100'>"> <b style="color: blue;"> A.M.Fredericks Underwriting Management Ltd.</b> </a></p>
+            <div class="switch" >Dark mode:              
+                <span class="inner-switch">OFF</span>
+            </div>
         </footer>
         <!-- End footer -->
     
@@ -342,6 +361,18 @@
                     //textNode.nodeValue = 'Show ' + ($el.hasClass('showArchieved') ? 'Incomplete' : 'Archived')
                     //$el.toggleClass('showArchieved');
                 });
+
+                /** DARK MODE **/
+                $( ".inner-switch" ).on("click", function() {
+                    if( $( "body" ).hasClass( "dark" )) {
+                      $( "body" ).removeClass( "dark" );
+                      $( ".inner-switch" ).text( "OFF" );
+                    } else {
+                      $( "body" ).addClass( "dark" );
+                      $( ".inner-switch" ).text( "ON" );
+                    }
+                });
+
             });
         </script>
     </body>

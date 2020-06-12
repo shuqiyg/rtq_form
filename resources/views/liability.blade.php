@@ -81,7 +81,7 @@
                 <label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span>
                 </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-4 commaValues required"  value="" >
             </div> -->
-            <div style="border: 1px solid;background: #e8e8e8;padding: 1%;margin-bottom: 5px; ">
+            <div class="opsWorkPerformed">
                 <div class="towf_sections" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
                     <label class="col-md-4" style="float: left;">Operation <span class="err">*</span> </label>
@@ -89,7 +89,7 @@
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label>
-                    <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-7 required"  value="" >
+                    <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-7 commaValues required"  value="" >
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">Payroll <span class="err">*</span></label>
