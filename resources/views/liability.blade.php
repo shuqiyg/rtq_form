@@ -8,7 +8,6 @@
                     <option value="">-Select Value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                    <option value="Not Applicable">Not Applicable</option>
                 </select>
             </div>
         </div>
@@ -40,7 +39,6 @@
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                    <option value="Not Applicable">Not Applicable</option>
                 </select>
                 <span class="col-md-1" id="addProductsForSaleBox" data-toggle="tooltip" title="Add more products for sale description" style="display: none"><i class="fa fa-plus iconPadding" style="cursor: pointer;"></i></span>
             </div>
@@ -192,7 +190,6 @@
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                    <option value="Not Applicable">Not Applicable</option>
                 </select>
             </div>
         </div>
@@ -378,7 +375,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;">Does forest fire prevenion act apply? <span class="err">*</span></label>
+                <label class="col-md-8" style="float: left;">Does forest fire prevention act apply? <span class="err">*</span></label>
                 <select id="liability_doesForestFirePreventionAct" name="liability_doesForestFirePreventionAct" class="form-control col-md-4 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>

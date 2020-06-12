@@ -1318,19 +1318,6 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
 
-    /*// display contents sub field on Coverage for Plumbing
-    $(document).on("focusout","#coverage_contentsLimit",function(){
-      var coverage_contentsLimit = $("#coverage_contentsLimit").val();
-      if(coverage_contentsLimit != ''){
-        $("#ifcoverageContentsLimitBox").show();
-      }else{
-        $("#ifcoverageContentsLimitBox").hide();
-        $("#coverage_contentsLimitStock").val('');
-        $("#coverage_contentsLimitEquipment").val('');
-        $("#coverage_contentsLimitImprovements").val('');
-      }
-    });*/
-
     // show gross earning sub fields on Coverage Tab for Plumbing
     $(document).on("focusout","#coverage_grossEarnings",function(){
       var coverage_grossEarnings = $("#coverage_grossEarnings").val();
@@ -1339,9 +1326,17 @@ $('#insured_isRiskAddressSame').change(function() {
       }else{
         $("#ifcoverageGrossEarningsLimitBox").hide();
         $("#coverage_grossEarningsPer").val('');
-        /*$("#coverage_grossEarnings80Per").val('');
-        $("#coverage_grossEarnings50Per").val('');
-        $("#coverage_grossEarningsNoPer").val('');*/
+      }
+    });
+
+    // show describe sub fields for coverage_otherLiability on Coverage Tab for Plumbing
+    $(document).on("focusout","#coverage_otherLiability",function(){
+      var coverage_otherLiability = $("#coverage_otherLiability").val();
+      if(coverage_otherLiability != ''){
+        $("#coverage_otherLiabilityBox").show();
+      }else{
+        $("#coverage_otherLiabilityBox").hide();
+        $("#coverage_otherLiabilityDescribe").val('');
       }
     });
 
@@ -2364,6 +2359,25 @@ $('#insured_isRiskAddressSame').change(function() {
     var bu = getBuildingUpdated();
     console.log('bu : '+bu);
   });*/
+
+  // SET VALUE IN SEF #96 FIELD
+  $(document).on('change',"#coverage_liabilityLimit",function(){
+
+    //get value
+    var liabilityLimit = $("#coverage_liabilityLimit").val();
+
+    // liablity limit is on each form so select correct form and add what to do
+    if(rtqFormGlobal == "plumbing"){
+      if(liabilityLimit == '1mm'){
+        $("#coverage_SEF96").val('1,000,000');
+      }else if(liabilityLimit == '2mm'){
+        $("#coverage_SEF96").val('2,000,000');
+      }else{
+        $("#coverage_SEF96").val('');
+      }
+    }
+
+  }); 
 
   // show AMF Property Extensions field in real time
   $(document).on('focusout',".amfPropertyExtention",function(){

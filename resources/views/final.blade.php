@@ -103,6 +103,9 @@
 				
 		<div class="row">
 			<div class="col-md-12">
+				<div>
+					<p id="bindMsg" style="color: blue;text-decoration: underline;font-weight: bold;font-size: 30px;text-shadow: 2px 2px 10px yellow;"></p>
+				</div>
 				<p>Thank you for submitting this application. You must click on the [Finish] button to complete.</p>
 				<p>Once you complete, the following will happen:</p>
 				<ul>
@@ -135,9 +138,7 @@
 				<p>AMFUM reserves the right to cancel binding or the policy on in-depth review.</p>
 			</div>
 		</div>
-		<div>
-			<p id="bindMsg" style="color: green;text-decoration: underline;font-weight: bold;"></p>
-		</div>
+		
 		<div class="row" style="margin-top: 20px">
 			<div class="col-md-12">
 				<button type="button" class="btn btn-secondary" id="resetForm">Reset</button>
