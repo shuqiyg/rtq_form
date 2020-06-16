@@ -55,6 +55,17 @@
                 margin-bottom: 5px;
             }
 
+            .changeFPR > input{
+                width : 20px;
+                border: 0;
+                background : transparent;
+            }
+
+            .changeFPR > input:focus{
+                background-color: white;
+                border: 1px solid silver;
+            }
+
         </style>
 
     </head>
@@ -78,6 +89,10 @@
 
         // get closest city
         $closestCity = json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionCities.json'), true);
+
+        // get form province rule json
+        $forms_provinceRules = json_decode(file_get_contents(public_path().'/json/forms_provinceRules.json'), true);
+        //print_r($forms_provinceRules);
         
         ?>
         <div style="text-align: center;width: 100%;">
@@ -121,6 +136,11 @@
             <h3>Calculator</h3>
             <div>
                 @include('admin/calculator')
+            </div>
+
+            <h3 id="fprTab">Form Province Rule</h3>
+            <div>
+                @include('admin/formProvinceRule')
             </div>
             
         </div>

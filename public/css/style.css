@@ -194,6 +194,10 @@ section{
     color: #e6e6e6;
 }
 
+.dark .logo{
+	background: #ffffff63;
+}
+
 /* OPTGROUP IN PROVINCE */
 .dark optgroup{
 	color: black;
@@ -272,5 +276,12 @@ section{
 
 .dark #bindMsg{
 	color : white !important;
+}
+
+.dark #priceBox table{
+	color: #e6e6e6 !important;
+}
+.dark #priceBox table .totalRow{
+	background-color: #6f6f6f !important;
 }
 /** DARK MODE CSS END **/

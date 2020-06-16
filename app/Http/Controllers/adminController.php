@@ -135,4 +135,32 @@ class adminController extends Controller
 
     	return "done";    	
     }
+
+    // FUNCTION TO GET form province rule table  JSON DATA
+    function getFormProvinceRulesJson(){
+        $formProvinceRulesJson = json_decode(file_get_contents(public_path().'/json/forms_provinceRules.json'), true);    
+        return $formProvinceRulesJson;
+    }
+
+    // FUNCTION TO SAVE/UPDATE form province rule table 
+    public function formProvinceRuleUpdate(Request $req){
+        $form = $req['fprForm'];
+        $province = $req['fprProvince'];
+        $roq = $req['fprRQ'];
+        // Read File
+        $jsonString = file_get_contents(public_path().'/json/forms_provinceRules.json');
+        $data = json_decode($jsonString, true);
+
+        if($roq == null || empty($roq)){
+            $roq = "";
+        }
+        // Update Key
+        $data[$form][$province] = $roq;
+        
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(public_path().'/json/forms_provinceRules.json', stripslashes($newJsonString));
+
+        return "done";      
+    }
 }

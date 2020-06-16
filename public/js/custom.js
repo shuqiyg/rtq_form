@@ -332,7 +332,6 @@ $('#insured_isRiskAddressSame').change(function() {
             $(this).prev('label').find('span').next('span').addClass('err2');
           }else{
             $(this).prev('label').find('span').addClass('err2');  
-            
           }
           // add class invalid
           $(this).addClass('invalid');
@@ -369,7 +368,7 @@ $('#insured_isRiskAddressSame').change(function() {
           if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
             $(this).prev('label').find('span').next('span').addClass('err2');
           }else{
-            $(this).prev('label').find('span').addClass('err2');  
+            $(this).prev('label').find('span').addClass('err2'); 
           }
           // add class invalid
           $(this).addClass('invalid');
@@ -397,15 +396,16 @@ $('#insured_isRiskAddressSame').change(function() {
     }
 */
 
+    // SHOW/HIDE ERROR MESSAGE FOR REQUIRED FIELD FOR SUB FORM - Plumbing 
+    if( rtqForm == "plumbing"){
+      showSubformErrorMSG('coverage_CEF','subformCEF');  
+    }
+      
     // below code will add and remove red steps based on required fields filled up or not
     $.when(e).then(function() {
       var total_error = $(anchorObject.attr('href')).find('input.required').prev('label').find('.err2').length + $(anchorObject.attr('href')).find('select.required').prev('label').find('.err2').length;
       
-      if( rtqForm == "plumbing"){
-        showSubformErrorMSG("subformCEF");
-      }
-      
-      if (total_error > 0 ) { 
+      if (total_error > 0 ) {  
         anchorObject.parent().addClass('danger');
       } else {
         anchorObject.parent().removeClass('danger');
@@ -416,8 +416,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
     });
   });
-  
-
+ 
   // Restricts input for the set of matched elements to the given inputFilter function.
 (function($) {
   $.fn.inputFilter = function(inputFilter) {
@@ -1375,6 +1374,8 @@ $('#insured_isRiskAddressSame').change(function() {
           
           // get broker code
           var brokerCode = $.trim($('#broker_code').val());
+          // get risk province for formProvince Rule
+          var riskProvince = $.trim($('#risk_address_province').val());
           
           // empty review form everytime comes to final step to show new latest values
           $("#reviewForm").empty();
@@ -1457,6 +1458,16 @@ $('#insured_isRiskAddressSame').change(function() {
                     console.log('valid == true');
                     // check broker code is valid or not
                     console.log("brokerCodeValidation "+brokerCodeValidation);
+
+                    // CHECK FORM PROVINCE RULE FIRST AND OVERRIDE BROKER CODE VALIDATION IF REFER
+                    var formProvinceRule = checkFormProvinceRule(riskProvince,rtqForm);
+                    if(formProvinceRule == "Refer"){
+                      brokerCodeValidation = false;
+                    }else{
+                      // if quote
+                      brokerCodeValidation = true;
+                    }
+
                     if(brokerCodeValidation){
                       $('#calculateBox').show();
                       $("#doesCalculated").val('quoted');
@@ -1544,6 +1555,32 @@ $('#insured_isRiskAddressSame').change(function() {
 
         }
     });
+
+    // FUNCTION TO CHECK IF PROVINCE FORM RULES IS REFER OR QUOTE
+    function checkFormProvinceRule(riskProvince, rtqForm){
+      var formProvinceRule = 'Refer'; // BY DEFAULT ITS REFER
+      $.ajax({
+        url:"checkFormProvinceQuoteRule",
+        method:"post",
+        async : false, // its because we need to complete request first to see result
+        data: {riskProvince:riskProvince,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+        datatype: 'json',
+        success: function(msg){
+          if(msg == "Q"){
+            formProvinceRule = "Quote";
+          }else{
+            formProvinceRule = "Refer";
+          }
+        },  
+        error: function(data){
+          console.log(data);
+          formProvinceRule = "Refer";
+        }
+      });  
+
+      return formProvinceRule;
+
+    }
 
     // select binding value top one
     $("#bindingUpper").on('click',function(e){
@@ -2249,46 +2286,79 @@ $('#insured_isRiskAddressSame').change(function() {
 
   /** Display error for required fields in subform **/
 
-  function showSubformErrorMSG(sfClassName){
+  function showSubformErrorMSG(sfField,sfClassName){
 
-    // get subForm all required fields
-    
-    $.each($('.'+sfClassName), function( key, value ) {
-      //console.log(sfClassName);
-      // get all required input and select fields
-      var valid = false;
-      $(this).find('input.required,select.required').each( function( key, value ) {
-        if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none' || $(this).parent('div').css('display') == 'none'){
-          //console.log($(this).attr('name')+'    not visible');
+    // get field value
+    var sfFieldVal = $("#"+sfField).val();
+
+    if(sfFieldVal != '' && sfFieldVal != null && sfFieldVal != 0){
+      //console.log('Value');
+      // get subForm all required fields      
+      $.each($('.'+sfClassName), function( key, value ) {
+        //console.log(sfClassName);
+        // get all required input and select fields
+        var valid = false;
+        $(this).find('input.required,select.required').each( function( key, value ) {
+          if($(this).css("visibility") == "hidden" || $(this).css('display') == 'none' || $(this).closest('div').parent('div').css('display') == 'none' || $(this).parent('div').css('display') == 'none'){
+            //console.log($(this).attr('name')+'    not visible');
+          }else{
+            // check if all required fields are correct and there is no error
+            var total_error = $(this).prev('label').find('.err2').length;
+            //console.log("TE "+total_error);
+            //console.log($(this).attr('id'));
+            if (total_error > 0 ) { 
+              valid = false; 
+              return false;
+            } else {
+              valid = true;
+            } 
+            //console.log($(this).attr('name')+'    '+valid);
+          }
+        });
+
+        // if valid false means there is required fields which don't have value   
+        if(valid == false){
+          $("#"+sfClassName+"_MSG").show();
+          // make icon in label red to notify user about subform
+          //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','red');
+          $("#"+sfClassName+"_MSG").parent().find('i').css('color','red');
         }else{
-          // check if all required fields are correct and there is no error
-          var total_error = $(this).prev('label').find('.err2').length;
-          //console.log("TE "+total_error);
-          //console.log($(this).attr('id'));
-          if (total_error > 0 ) { 
-            valid = false; 
-            return false;
-          } else {
-            valid = true;
-          } 
-          //console.log($(this).attr('name')+'    '+valid);
+          $("#"+sfClassName+"_MSG").hide();
+          // remove icon in label from red 
+          //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','');
+          $("#"+sfClassName+"_MSG").parent().find('i').css('color','');
         }
-      });
 
-      // if valid false means there is required fields which don't have value   
-      if(valid == false){
-        $("#"+sfClassName+"_MSG").show();
-        // make icon in label red to notify user about subform
-        //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','red');
-        $("#"+sfClassName+"_MSG").parent().find('i').css('color','red');
-      }else{
+      });
+    }else{
+      //console.log('No Value');
+
+      $.each($('.'+sfClassName), function( key, value ) {
+        //console.log(sfClassName);
+        // get all required input and select fields and remove error classes err2 and invalid
+        var valid = false;
+        $(this).find('input.required,select.required').each( function( key, value ) {
+          // check if span has nestedBox class then remove class err2 from next span
+          if($(this).prev('label').find('span').hasClass('nestedBox') || $(this).prev('label').find('span').hasClass('optionalBox')){
+            $(this).prev('label').find('span').next('span').removeClass('err2');
+          }else{
+            $(this).prev('label').find('span').removeClass('err2');  
+          }
+          // remove class invalid
+          $(this).removeClass('invalid');
+
+          var total_error = $(this).prev('label').find('.err2').length;
+          //console.log('SUBFORM TOTAL ERROR : '+total_error);
+
+        });
+        // HIDE ERROR MESSAGE
         $("#"+sfClassName+"_MSG").hide();
         // remove icon in label from red 
         //$("#"+sfClassName+"_MSG").next('label').find('i').css('color','');
         $("#"+sfClassName+"_MSG").parent().find('i').css('color','');
-      }
 
-    });
+      });
+    }
   }
 
   /**************************************************/

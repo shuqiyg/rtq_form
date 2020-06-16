@@ -170,7 +170,7 @@
         //print_r($forms);
 
         ?>
-        <div style="text-align: center;width: 100%;">
+        <div class="logo" style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
         </div>
         <h1 style="text-align: center;"> Automated Submissions  </h1>

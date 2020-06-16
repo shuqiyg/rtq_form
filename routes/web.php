@@ -30,6 +30,8 @@ Route::post('/resetForm','rtqController@resetForm');
 
 Route::post('/checkReferRules','rtqController@checkReferRules');
 
+Route::post('/checkFormProvinceQuoteRule','rtqController@checkFormProvinceQuoteRule');
+
 Route::get('/error', function () {
     return view('error');
 });
@@ -81,3 +83,7 @@ Route::post('/api/2020/amf/root/propertyConModSave','adminController@propertyCon
 
 // Admin Calculation
 Route::post('/api/2020/amf/root/adminCalculate','rtqController@calculate');
+
+// GET form province rule table 
+Route::get('/api/2020/amf/root/getFormProvinceRulesJson','adminController@getFormProvinceRulesJson');
+Route::post('/api/2020/amf/root/formProvinceRuleUpdate','adminController@formProvinceRuleUpdate');

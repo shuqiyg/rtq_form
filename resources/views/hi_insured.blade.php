@@ -181,7 +181,7 @@
                 <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8 required"  value="">
             </div>
             <div class="form-group riskAddressBOX" >
-                <label class="col-md-4" style="float: left;"> Province / State <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Province <span class="err">*</span> </label>
                 <select class="form-control col-md-8 required" id="risk_address_province" name="risk_address_province">
                     <option value="">-Select province-</option>
                     @foreach ($canState as $s)
@@ -190,7 +190,7 @@
                 </select>
             </div>
             <div class="form-group riskAddressBOX" >
-                <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Postal code <span class="err">*</span> </label>
                 <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
 

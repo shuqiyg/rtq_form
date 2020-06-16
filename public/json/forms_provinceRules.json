@@ -1,0 +1,62 @@
+{
+    "rentedDwelling": {
+        "Alberta": "R",
+        "British Columbia": "R",
+        "Manitoba": "R",
+        "New Brunswick": "R",
+        "Newfoundland and Labrador": "R",
+        "Northwest Territories": "R",
+        "Nova Scotia": "R",
+        "Nunavut": "R",
+        "Ontario": "Q",
+        "Prince Edward Island": "R",
+        "Quebec": "R",
+        "Saskatchewan": "R",
+        "Yukon": "R"
+    },
+    "ownerOccupied": {
+        "Alberta": "R",
+        "British Columbia": "R",
+        "Manitoba": "R",
+        "New Brunswick": "R",
+        "Newfoundland and Labrador": "R",
+        "Northwest Territories": "R",
+        "Nova Scotia": "R",
+        "Nunavut": "R",
+        "Ontario": "Q",
+        "Prince Edward Island": "R",
+        "Quebec": "R",
+        "Saskatchewan": "R",
+        "Yukon": "R"
+    },
+    "homeInspector": {
+        "Alberta": "Q",
+        "British Columbia": "Q",
+        "Manitoba": "Q",
+        "New Brunswick": "Q",
+        "Newfoundland and Labrador": "Q",
+        "Northwest Territories": "Q",
+        "Nova Scotia": "Q",
+        "Nunavut": "Q",
+        "Ontario": "Q",
+        "Prince Edward Island": "Q",
+        "Quebec": "Q",
+        "Saskatchewan": "Q",
+        "Yukon": "Q"
+    },
+    "plumbing": {
+        "Alberta": "Q",
+        "British Columbia": "Q",
+        "Manitoba": "Q",
+        "New Brunswick": "Q",
+        "Newfoundland and Labrador": "Q",
+        "Northwest Territories": "Q",
+        "Nova Scotia": "Q",
+        "Nunavut": "Q",
+        "Ontario": "Q",
+        "Prince Edward Island": "Q",
+        "Quebec": "Q",
+        "Saskatchewan": "Q",
+        "Yukon": "Q"
+    }
+}

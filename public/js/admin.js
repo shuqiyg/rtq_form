@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	// GET FORM PREFIX
+  	var formPrefix = $("#formPrefix").val();
 
 	// FUNCTION TO CLEAR ALL FIELDS VALUE IN BOX
 	function resetAllBoxFields(box){
@@ -25,7 +27,7 @@ $(document).ready(function(){
 		// get value of banner form
 		var formVal = $("#bannerForm").val();
 		if(formVal != '' && formVal != null){
-			$.getJSON('/rtqform/api/2020/amf/root/bannerJSON', function(banner) { 
+			$.getJSON(formPrefix+'api/2020/amf/root/bannerJSON', function(banner) { 
 				//console.log(banner);
             	// set values as per form selected
             	$("#bannerMSG").val(banner[formVal][0]['message']['value']);
@@ -46,7 +48,7 @@ $(document).ready(function(){
 
 		if(bannerForm != '' && bannerForm != null){
 			$.ajax({
-	            url:"/rtqform/api/2020/amf/root/bannerSave",
+	            url:formPrefix+"api/2020/amf/root/bannerSave",
 	            method:"post",
 	            data: {bannerForm:bannerForm,bannerMSG:bannerMSG,bannerActive:bannerActive,_token:$('meta[name="csrf-token"]').attr('content')},
 	            datatype: 'json',
@@ -88,7 +90,7 @@ $(document).ready(function(){
 		var tableKey = ['deviation','inspection','policy_fee','1','2','3','4','5','6','7','8','9','10','1mm','2mm','TIV Ceiling'];
 
 		if(formVal != '' && formVal != null){
-			$.getJSON('/rtqform/api/2020/amf/root/amfRateJSON?formVal='+formVal, function(amfRate) { 
+			$.getJSON(formPrefix+'api/2020/amf/root/amfRateJSON?formVal='+formVal, function(amfRate) { 
 				//console.log(amfRate);
 				var html = '';
 				if(amfRate.hasOwnProperty('message')){
@@ -177,7 +179,7 @@ $(document).ready(function(){
 		// get value of banner form
 		var province = $("#propertyProvModProvince").val();
 		if(province != '' && province != null){
-			$.getJSON('/rtqform/api/2020/amf/root/propertyProvModJson', function(pmp) { 
+			$.getJSON(formPrefix+'api/2020/amf/root/propertyProvModJson', function(pmp) { 
 				//console.log(banner);
             	// set values as per form selected
             	$("#propertyProvModMod").val(pmp[0][province]['Mod']);
@@ -195,7 +197,7 @@ $(document).ready(function(){
 
 		if(province != '' && province != null){
 			$.ajax({
-	            url:"/rtqform/api/2020/amf/root/propertyProvModSave",
+	            url:formPrefix+"api/2020/amf/root/propertyProvModSave",
 	            method:"post",
 	            data: {province:province,propertyProvModMod:propertyProvModMod,_token:$('meta[name="csrf-token"]').attr('content')},
 	            datatype: 'json',
@@ -226,7 +228,7 @@ $(document).ready(function(){
 		// get value of banner form
 		var tg = $("#propertyTGModTowngrade").val();
 		if(tg != '' && tg != null){
-			$.getJSON('/rtqform/api/2020/amf/root/propertyTGModJson', function(pmt) { 
+			$.getJSON(formPrefix+'api/2020/amf/root/propertyTGModJson', function(pmt) { 
 				//console.log(banner);
             	// set values as per form selected
             	$("#propertyTGModMod").val(pmt[0][tg]['Mod']);
@@ -244,7 +246,7 @@ $(document).ready(function(){
 
 		if(towngrade != '' && towngrade != null){
 			$.ajax({
-	            url:"/rtqform/api/2020/amf/root/propertyTGModSave",
+	            url:formPrefix+"api/2020/amf/root/propertyTGModSave",
 	            method:"post",
 	            data: {towngrade:towngrade,propertyTGModMod:propertyTGModMod,_token:$('meta[name="csrf-token"]').attr('content')},
 	            datatype: 'json',
@@ -275,7 +277,7 @@ $(document).ready(function(){
 		// get value of banner form
 		var constructionType = $("#propertyConModConType").val();
 		if(constructionType != '' && constructionType != null){
-			$.getJSON('/rtqform/api/2020/amf/root/propertyConModJson', function(pmc) { 
+			$.getJSON(formPrefix+'api/2020/amf/root/propertyConModJson', function(pmc) { 
 				//console.log(banner);
             	// set values as per form selected
             	$("#propertyConModMod").val(pmc[0][constructionType]['mod']);
@@ -296,7 +298,7 @@ $(document).ready(function(){
 
 		if(constructionType != '' && constructionType != null){
 			$.ajax({
-	            url:"/rtqform/api/2020/amf/root/propertyConModSave",
+	            url:formPrefix+"api/2020/amf/root/propertyConModSave",
 	            method:"post",
 	            data: {constructionType:constructionType,propertyConModMod:propertyConModMod,propertyConModCode:propertyConModCode,_token:$('meta[name="csrf-token"]').attr('content')},
 	            datatype: 'json',
@@ -322,5 +324,105 @@ $(document).ready(function(){
 		}
 	});
 
+	// When form or province change on FORM PROVINCE RULE TAB
+	$(".fprGetData").on('change',function(){
+		// get value of banner form
+		var fprForm = $("#fprForm").val();
+		var fprProvince = $("#fprProvince").val();
+
+		if(fprForm != '' && fprForm != null && fprProvince != '' && fprProvince != null){
+			$.getJSON(formPrefix+'api/2020/amf/root/getFormProvinceRulesJson', function(fpr) { 
+				//console.log(banner);
+            	// set values as per form selected
+            	$("#fprRQ").val(fpr[fprForm][fprProvince]);
+            }); 
+		}else{
+			$("#fprRQ").val('');
+		}
+	});
+
+	// if value in table column has changed in FORM PROVINCE RULE TAB
+	$("[class ^= fprVal]").on('change',function(){
+		// get all values
+		var fprForm = $(this).attr('data-form');
+		var fprProvince = $(this).attr('data-province');
+		var fprRQ = $(this).val();
+		
+		/*console.log('Form : '+fprForm);
+		console.log('Province : '+fprProvince);
+		console.log('Val : '+fprRQ);*/
+
+		if(fprForm != '' && fprForm != null && fprProvince != '' && fprProvince != null){
+			$.ajax({
+	            url:formPrefix+"api/2020/amf/root/formProvinceRuleUpdate",
+	            method:"post",
+	            data: {fprForm:fprForm,fprProvince:fprProvince,fprRQ:fprRQ,_token:$('meta[name="csrf-token"]').attr('content')},
+	            datatype: 'json',
+	            success: function(msg){
+	              //console.log(msg);
+	              $("#fprNotify").show();
+	              $("#fprNotify").css('color','green');
+	              $("#fprNotify").text('Form province rule updated successfully.');
+	              
+	              setTimeout(function(){
+	              	$("#fprNotify").hide();
+	              },2000);
+	              //showFPRTable();
+	            },
+	            error: function(data){
+	              console.log(data);
+	            }
+	          });
+		}else{
+			swal('select required fields.');
+		}
+	});
+
+
+	$(".fprValidateText").on("keypress", function(e){
+      	var keyCode = e.which;
+      	/*
+	      	R = 82
+	      	Q = 81
+      	*/
+      	var allowedCharacter = [82,81];
+      	if (jQuery.inArray(keyCode,allowedCharacter) == -1) { 
+        	return false;
+      	}
+ 	});
+
+	// When click on show table button on FORM PROVINCE RULE TAB
+	/*$("#fprTab").on('click',function(){
+		$("#fprTableBox").show();
+		showFPRTable();
+	});*/
+
+	function showFPRTable(){
+		$("#fprTableBox").hide();
+		$("#fprTable").empty();
+		$.getJSON(formPrefix+'api/2020/amf/root/getFormProvinceRulesJson', function(fpr) { 
+			var html = "<table  class='table table-striped table-bordered'>";
+			html += "<thead><th>Form</th><th>AB</th><th>BC</th><th>MB</th><th>NB</th><th>NFL</th><th>NT</th><th>NS</th><th>NU</th><th>ON</th><th>PEI</th><th>QC</th><th>SK</th><th>YT</th></thead>";
+			html += "<tbody>";
+			//console.log(fpr);
+			var i=0;
+			$.each(fpr,function(key,value){
+				html += "<tr>";
+				html += "<td>"+key+"</td>";
+				$.each(value,function(k,v){
+					html += "<td>"+v+"</td>";
+				});
+				html += "</tr>";
+				i++;
+				//return false;
+			});
+
+			html += "</tbody>";
+			html += "</table>";
+
+			$("#fprTable").html(html);
+			$("#fprTableBox").show();
+        }); 
+	}
 
 });
