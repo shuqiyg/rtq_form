@@ -2388,8 +2388,8 @@ $('#insured_isRiskAddressSame').change(function() {
     var currentYear = new Date().getFullYear();
     $(document).on('keyup',"#buildingConstruction_yearBuilt",function(){
         //console.log("Current Year "+currentYear);
-        buildingAge = currentYear - $(this).val()
-        //console.log("buildingAge "+buildingAge);;
+        buildingAge = currentYear - $(this).val();
+        //console.log("buildingAge "+buildingAge);
         
     });
     return buildingAge;
