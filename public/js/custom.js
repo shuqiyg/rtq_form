@@ -2383,13 +2383,20 @@ $('#insured_isRiskAddressSame').change(function() {
   }
 
   var buildingAge = 0;
+  $(document).on('keyup',"#buildingConstruction_yearBuilt",function(){
+      var currentYear = new Date().getFullYear();
+        //console.log("Current Year "+currentYear);
+        buildingAge = currentYear - $(this).val();
+        //console.log("buildingAge 1 "+buildingAge);
+        
+  });
   // GET building Age in realtime
   function getBuildingAge(){
     var currentYear = new Date().getFullYear();
     $(document).on('keyup',"#buildingConstruction_yearBuilt",function(){
         //console.log("Current Year "+currentYear);
         buildingAge = currentYear - $(this).val();
-        //console.log("buildingAge "+buildingAge);
+        //console.log("buildingAge 2 "+buildingAge);
         
     });
     return buildingAge;
