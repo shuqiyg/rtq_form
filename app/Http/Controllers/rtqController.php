@@ -192,7 +192,7 @@ class rtqController extends Controller
 
         // Calculating rates for property total and calculate property total
         if($baseRate != "NotAvailable"){
-            $commonRate = $baseRate + 0.2; // base rate + 20%
+            $commonRate = $baseRate + (($baseRate * 20)/100); // base rate + 20% of base rate
 
             $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate']; // 1.5 $1.50 per $100 value so its 1.5 * CEF amount entered
             $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate']; // 3.5 $3.50 per $100 value so its 3.5 * tool floater amount entered
