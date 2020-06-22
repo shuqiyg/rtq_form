@@ -137,7 +137,7 @@ class rtqController extends Controller
         
         // if province is null or empty then make by default Ontario
         if($province == null || empty($province)){
-            $pr = "Ontario";
+            $pr = 0;
         }else{
             $pr = $provincerate[$rtqForm][0][$province]['rate'];    
         }
@@ -307,9 +307,9 @@ class rtqController extends Controller
         }
 
         // CALCULATE LIABILITY TOTAL
-        $totalRevenue1mmPremium = ($totalRevenue * 10.56)/1000;
-        $liablity1mm = 500;
-        $liablity2mm = 250;
+        $totalRevenue1mmPremium = ($totalRevenue * $pr)/1000;
+        $liablity1mm = 0;
+        $liablity2mm = 0;
         if($coverage_liabilityLimit == "2mm"){
             if($totalRevenue1mmPremium > 500){
                 $liablity1mm = $totalRevenue1mmPremium;
@@ -392,6 +392,7 @@ class rtqController extends Controller
         $priceArray = array();
         $priceArray['propertyTotal'] = round($propertyTotal,2);
         $priceArray['liabilityVal'] = $liablity;
+        $priceArray['provinceRate'] = $pr;
         $priceArray['liablity1mm'] = $liablity1mm;
         $priceArray['liablity2mm'] = $liablity2mm;
         $priceArray['fee'] = $policyFee;
