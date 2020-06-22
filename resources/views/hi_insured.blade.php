@@ -13,7 +13,7 @@
         <div class="col-md-12">
             
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> SOLE or CORP <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Sole Proprietorship or Incorporated <span class="err">*</span> </label>
                 <select id="insured_soleOrCorp" name="insured_soleOrCorp" class="form-control col-md-8 infoToggle required">
                     <option value="">-Select Insured Type-</option>
                     <option value="Sole">Sole Owner </option>

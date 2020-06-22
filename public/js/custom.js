@@ -1051,6 +1051,15 @@ $('#insured_isRiskAddressSame').change(function() {
         $("#fireAlarmDetectors_sprinklerCoverage").val('');
       }
     });
+    // show sprinkler coverage percentage field if sprinklers coverage is partial
+    $("#fireAlarmDetectors_sprinklerCoverage").on('change',function(){
+      if($("#fireAlarmDetectors_sprinklerCoverage").val() == "partial"){
+        $("#sprinklersCoveragePartialBox").show();
+      }else{
+        $("#sprinklersCoveragePartialBox").hide();
+        $("#fireAlarmDetectors_sprinklerCoveragePer").val('');
+      }
+    });
 
     // display are premises fenced and gated field for liability section in occupancy tab
     $("#liability_doesPremisesHavePool").on('change',function(){
@@ -2125,9 +2134,9 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   // show State Limit of Liability required fields for Do you have any special agreement/s with Dept. of Lands and Forest? field on Liability Tab
-  $("#liability_specialAgreement").on('change',function(){
+  /*$("#liability_specialAgreement").on('change',function(){
       fieldOpenHide('liability_specialAgreement','Yes','','ifspecialAgreementBox',['liability_specialAgreementStateLimit'],'');
-  });
+  });*/
 
 
   /**
@@ -2159,7 +2168,12 @@ $('#insured_isRiskAddressSame').change(function() {
   });
   // open up subform when leave field
   $(document).on("focusout", "#coverage_CEF", function(){
-    openUpSubForm("subformCEF",'open');
+    // get value
+    var coverage_CEF = $.trim($("#coverage_CEF").val());
+    console.log("coverage_CEF "+coverage_CEF);
+    if(coverage_CEF != '' && coverage_CEF != "0"){
+      openUpSubForm("subformCEF",'open');  
+    }    
   });
 
   //var addEquipScheCount=2;
@@ -2513,6 +2527,20 @@ $('#insured_isRiskAddressSame').change(function() {
     }else{
       $("#coverage_perils").val('All Risk');
       $(".includeExclude").show();
+    }
+  });
+
+  // if No answer or answer of “None” or “Local” for interior alarm should be triggering for Multi Perils risks
+  $("#burglaryAlarm_interior").on('change',function(){
+    // get value
+    var burglaryAlarm_interior = $("#burglaryAlarm_interior").val();
+    if(burglaryAlarm_interior == '' || burglaryAlarm_interior == 'None' || burglaryAlarm_interior == 'Local'){
+      $("#coverage_perils").val('All Risk');
+      $(".includeExclude").show();
+    }else{
+      $("#coverage_perils").val('Named Perils');
+      $(".includeExclude").hide();    
+      clearFields("includeExclude");
     }
   });
 

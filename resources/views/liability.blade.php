@@ -185,8 +185,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"> Work Sublet out</label>
-                <select id="liability_workSubletOut" name="liability_workSubletOut" class="form-control col-md-4 ">
+                <label class="col-md-8" style="float: left;"> Work Sublet out <span class="err">*</span> </label>
+                <select id="liability_workSubletOut" name="liability_workSubletOut" class="form-control col-md-4 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -341,7 +341,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;">Is there any use of radioactive materials in the premises?</label>
+                <label class="col-md-8" style="float: left;">Is there any use of radioactive materials ?</label>
                 <select id="liability_anyRadioactiveMaterials" name="liability_anyRadioactiveMaterials" class="form-control col-md-4 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
@@ -372,7 +372,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-8" style="float: left;">Does forest fire prevention act apply? <span class="err">*</span></label>
@@ -404,7 +404,7 @@
                 <input type="text" id="liability_specialAgreementStateLimit" name="liability_specialAgreementStateLimit" class="form-control col-md-4 required"  value="">
             </div>    
         </div>
-    </div>
+    </div> -->
 
     <h5>Does the applicant engage any of the operation/s below:</h5>
     <div class="row">

@@ -392,7 +392,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> SEF #94 - Private Passenger & Light Commercial under 2,800Kg. </label>
-                <input type="text" id="coverage_SEF94" name="coverage_SEF94" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_SEF94" name="coverage_SEF94" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="50,000">
             </div>
         </div>
     </div>
@@ -419,7 +419,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Faulty Workmanship </label>
-                <input type="text" id="coverage_faultyWorkmanship" name="coverage_faultyWorkmanship" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_faultyWorkmanship" name="coverage_faultyWorkmanship" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="25,000">
             </div>
         </div>
     </div>
@@ -428,7 +428,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Tenant's Legal Liability</label>
-                <input type="text" id="coverage_TLL" name="coverage_TLL" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="">
+                <input type="text" id="coverage_TLL" name="coverage_TLL" class="form-control col-md-8 commaValues " placeholder="Enter Limit " value="250,000">
             </div>
         </div>
     </div>

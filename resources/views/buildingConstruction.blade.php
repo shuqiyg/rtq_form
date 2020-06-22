@@ -31,6 +31,8 @@
                     <option value="4.5">4.5</option>
                 </select>
             </div>
+
+        @if($formVal != "plumbing") 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Area - In sqft <span class="err">*</span> </label>
                 <select id="buildingConstruction_area" name="buildingConstruction_area" class="form-control col-md-8 required">
@@ -46,6 +48,16 @@
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">4000 plus - please specify </span> </label>
                 <input type="text" id="buildingConstruction_areaSpecify" name="buildingConstruction_areaSpecify" class="form-control col-md-8"  value="">
             </div>
+        @endif
+
+        @if($formVal == "plumbing")
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Area - In sqft <span class="err">*</span> </label>
+                <input type="text" id="buildingConstruction_area" name="buildingConstruction_area" class="form-control col-md-8 onlyNumbers required"  value="">
+            </div>
+
+        @endif
+        
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Year Built <span class="err">*</span></label>
                 <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear amfPropertyExtention required"  value="" maxlength="4">

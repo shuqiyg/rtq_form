@@ -20,9 +20,17 @@
                     <option value="Local">Local</option>
                 </select>
             </div>
-            <div class="form-group" id="sprinklersCoverageBox">
+            <div class="form-group" id="sprinklersCoverageBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Sprinkler Coverage</span></label>
-                <input type="text" id="fireAlarmDetectors_sprinklerCoverage" name="fireAlarmDetectors_sprinklerCoverage" class="form-control col-md-8 onlyNumbers"  value="">
+                <select id="fireAlarmDetectors_sprinklerCoverage" name="fireAlarmDetectors_sprinklerCoverage" class="form-control col-md-8">
+                    <option value="">-Select sprinkler coverage-</option>
+                    <option value="full">Full</option>
+                    <option value="partial">Partial</option>
+                </select>
+            </div>
+            <div class="form-group" id="sprinklersCoveragePartialBox" style="display: none;">
+                <label class="col-md-4" style="float: left;"><span class="nested2Box">Sprinkler Coverage Percentage</span></label>
+                <input type="number" id="fireAlarmDetectors_sprinklerCoveragePer" name="fireAlarmDetectors_sprinklerCoveragePer" class="form-control col-md-8"  onInput="return check(event,value)" min="0" max="100" step="0.01">
             </div>
 
             <!-- Below form value need some specific fields -->
