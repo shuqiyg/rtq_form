@@ -1158,8 +1158,8 @@ class rtqController extends Controller
             
         }else if($rtqForm == "plumbing"){
 
-            $insured_yearBusinessStarted = trim($fd[0]['insured_yearBusinessStarted']['value']);
-            $insured_yearOfExperience = trim($fd[0]['insured_yearOfExperience']['value']);
+            $insured_yearBusinessStarted = $this->checkValue($fd[0]['insured_yearBusinessStarted']['value']);
+            $insured_yearOfExperience = $this->checkValue($fd[0]['insured_yearOfExperience']['value']);
             // Calculate year of experince with year business started
             $currentYear = date('Y');
             $insuredNoYearBusinessStarted = $currentYear - $insured_yearBusinessStarted;
