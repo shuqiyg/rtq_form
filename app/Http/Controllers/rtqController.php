@@ -338,6 +338,9 @@ class rtqController extends Controller
 
         // Property Total
         $propertyTotal = $cefAmount + $officeComputerAmount + $profitsAmount + $toolFloaterAmount + $buildingAmount + $contentAmount + $stockAmount + $equipmentAmount + $tenantImprovmentAmount + $grossEarningAmount + $extraExpenseAmount + $rentAmount + $signFloaterAmount + $crimebroadFormMoneyAmount + $crimeinsideRobberyAmount + $crimeoutsideRobberyAmount + $crimeemployeeDishonestyAmount + $crime3dRiderAmount;
+        // round property total
+        $propertyTotal = round($propertyTotal);
+        
         $premiumWithoutFees = $propertyTotal + $liablity;
 
         if($premiumWithoutFees > 0 && $premiumWithoutFees < 5000){
