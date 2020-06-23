@@ -192,11 +192,11 @@ class rtqController extends Controller
 
         // Calculating rates for property total and calculate property total
         if($baseRate != "NotAvailable"){
-            $commonRate = $baseRate + (($baseRate * 20)/100); // base rate + 20% of base rate
+            $commonRate = round($baseRate + (($baseRate * 20)/100),3); // base rate + 20% of base rate
 
             $cefRate = $coverageRate[0]["Contractors Equipment Floater"]['rate']; // 1.5 $1.50 per $100 value so its 1.5 * CEF amount entered
             $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate']; // 3.5 $3.50 per $100 value so its 3.5 * tool floater amount entered
-            $officeComputerRate = $commonRate + 0.05; // base rate + 20% + $0.05 per $100 (means 0.05%)
+            $officeComputerRate = round($commonRate + 0.05,3); // base rate + 20% + $0.05 per $100 (means 0.05%)
             $profitsRate = $commonRate;
             $buildingRate = $commonRate;
             $contentRate = $commonRate;
@@ -206,21 +206,21 @@ class rtqController extends Controller
 
             if(strpos($coverage_grossEarningsPer,'80') !== false){
                 // if 80% co-ins
-                $grossEarningRate = 0.6 * $baseRate; // 60% of base rate
+                $grossEarningRate = round(0.6 * $baseRate,3); // 60% of base rate
             }else if(strpos($coverage_grossEarningsPer,'50') !== false){
                 // if 50% co-ins
-                $grossEarningRate = 0.8 * $baseRate; // 80% of base rate
+                $grossEarningRate = round(0.8 * $baseRate,3); // 80% of base rate
             }else{
                 // if No Co-ins
-                $grossEarningRate = 1.5 * $baseRate; // 150% of base rate
+                $grossEarningRate = round(1.5 * $baseRate,3); // 150% of base rate
             }
-            $extraExpenseRate = 2 * $baseRate; // 200% of base rate
+            $extraExpenseRate = round(2 * $baseRate,3); // 200% of base rate
             
             if($province != '' && $province != null){
                 if($province == "Quebec"){
                     $rentRate = $baseRate; // 100% of base rate
                 }else{
-                    $rentRate = 0.75 * $baseRate; // 75% of base rate
+                    $rentRate = round(0.75 * $baseRate,3); // 75% of base rate
                 }
             }else{
                 $rentRate = 0;
