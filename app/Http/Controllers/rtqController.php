@@ -318,10 +318,10 @@ class rtqController extends Controller
             }
 
             $totalRevenue2mmPremium = $totalRevenue1mmPremium * 0.25; // 25% of 1mm premium
-            if($totalRevenue2mmPremium > 250){
+            if($totalRevenue2mmPremium > 500){
                 $liablity2mm = $totalRevenue2mmPremium;
             }else{
-                $liablity2mm = 250; // Minimum 250
+                $liablity2mm = 500; // Minimum 500
             }
 
             $liablity = $liablity1mm + $liablity2mm; // it include liability for 1mm and other 1mm 
