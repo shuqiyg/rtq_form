@@ -198,7 +198,8 @@ class rtqController extends Controller
             $toolFloaterRate = $coverageRate[0]["Tool Floater"]['rate']; // 3.5 $3.50 per $100 value so its 3.5 * tool floater amount entered
             $officeComputerRate = round($commonRate + 0.05,3); // base rate + 20% + $0.05 per $100 (means 0.05%)
             $profitsRate = $commonRate;
-            $buildingRate = $commonRate;
+            
+            $buildingRate = $baseRate;
             $contentRate = $commonRate;
             $stockRate = $commonRate;
             $equipmentRate = $commonRate;
