@@ -1708,9 +1708,23 @@ $('#insured_isRiskAddressSame').change(function() {
         var closestCity = $('#closestCity').val();
         var distanceFromClosestCity = $('#distanceFromClosestCity').val();
 
-        if(province != '' && coverage_liabilityLimit != '' && closestCity != ''){
+        if(closestCity == '' || distanceFromClosestCity == ''){
+          // get TIV
+          var tivLimit = $("#tivLimit").val();
+          if(tivLimit > 100000){
+            // show error msg 
+            $("#closestCityMSG").show(); 
+            return false;  
+          }else{
+            // hide error msg 
+            $("#closestCityMSG").hide();
+          }      
+        }else{
           // hide error msg 
           $("#closestCityMSG").hide();
+        }
+
+        if(province != '' && coverage_liabilityLimit != ''){
 
           // send calculate request
           $.ajax({
@@ -1732,13 +1746,13 @@ $('#insured_isRiskAddressSame').change(function() {
             }
           });
         }else{
-          if(closestCity == ''){
+          /*if(closestCity == ''){
             $("#closestCityMSG").show();
           }else{
             $("#closestCityMSG").hide();
             swal('Some required fields are missing for calculation.');
-          }
-          
+          }*/
+          swal('Some required fields are missing for calculation.');
         }
 
       }else if(rtqForm == "rentedDwelling" || rtqForm == "ownerOccupied"){

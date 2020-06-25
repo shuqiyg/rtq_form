@@ -19,7 +19,7 @@
 			<div class="form-group" id="calculateBox" style="display: none;">
 				<h3>Result</h3>
         @if($formVal == "plumbing")
-				<p style="padding: 0;color: red;display: none;" id="closestCityMSG">Please select closest city.</p>
+				<p style="padding: 0;color: red;display: none;" id="closestCityMSG">Please select closest city and distance from city.</p>
 				<label class="col-md-4" style="float: left;">Select closest city</label>
 				<select id="closestCity" name="closestCity" class="form-control col-md-8">
 					<option value="">-Select closest city-</option>
