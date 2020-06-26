@@ -170,6 +170,9 @@
         //print_r($forms);
 
         ?>
+        <!-- SET FORM PREFIX -->
+        <input type="hidden" name="formPrefix" id="formPrefix" value="{{$ajaxUrlToLoadForm}}">
+        
         <div class="logo" style="text-align: center;width: 100%;">
             <img src="{{ URL::asset('img/amf25logo.png') }}" width="250" height="100" alt="AM Fredericks">
         </div>

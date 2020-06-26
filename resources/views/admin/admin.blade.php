@@ -60,8 +60,13 @@
                 border: 0;
                 background : transparent;
             }
+            .changeCEFsl > input{
+                width : 57px;
+                border: 0;
+                background : transparent;
+            }
 
-            .changeFPR > input:focus{
+            .changeFPR > input:focus , .changeCEFsl > input:focus{
                 background-color: white;
                 border: 1px solid silver;
             }
@@ -92,7 +97,10 @@
 
         // get form province rule json
         $forms_provinceRules = json_decode(file_get_contents(public_path().'/json/forms_provinceRules.json'), true);
-        //print_r($forms_provinceRules);
+        
+        // get cef schedule limit json
+        $cef_scheduleLimit = json_decode(file_get_contents(public_path().'/json/cefLimitByItemTotal.json'), true);
+        //print_r($cef_scheduleLimit);
         
         ?>
         <div style="text-align: center;width: 100%;">
@@ -141,6 +149,11 @@
             <h3 id="fprTab">Form Province Rule</h3>
             <div>
                 @include('admin/formProvinceRule')
+            </div>
+
+            <h3 id="fprTab">CEF Schedule Limit</h3>
+            <div>
+                @include('admin/cefScheduleLimit')
             </div>
             
         </div>

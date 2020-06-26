@@ -1,0 +1,60 @@
+[
+    {
+        "plumbing": {
+            "cefSceduleLimit": {
+                "Alberta": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "British Columbia": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Manitoba": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "New Brunswick": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Newfoundland and Labrador": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Northwest Territories": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Nova Scotia": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Nunavut": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Ontario": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Prince Edward Island": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Quebec": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Saskatchewan": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                },
+                "Yukon": {
+                    "limitByItem": "250000",
+                    "limitByTotal": "250000"
+                }
+            }
+        }
+    }
+]

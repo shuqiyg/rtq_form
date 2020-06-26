@@ -67,7 +67,7 @@
                                     <td>Manufacturer</td>
                                     <td>Description of Equipment</td>
                                     <td>Serial/Motor No.</td>
-                                    <td>Amount of Insurance (maximum $500,000 any one item)</td>
+                                    <td>Amount of Insurance (maximum $<span id="cefScheduleLimitHeader">250,000</span> any one item)</td>
                                 </tr>
                             </thead>
                             <tbody>

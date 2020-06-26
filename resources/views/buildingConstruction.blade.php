@@ -10,7 +10,7 @@
                     <option value="Masonary Wood Joist Roof">Masonary Wood Joist Roof</option>
                     <option value="Masonary Steel Deck Roof">Masonary Steel Deck Roof</option>
                     <option value="Fire Resistive">Fire Resistive</option>
-                    <option value="Other">Other</option>
+                    <option value="NotApplicable">Not Applicable</option>
                 </select>
             </div>
             <div class="form-group" id="buildingConstruction_overallConstructionOtherBox" style="display: none;">
@@ -60,13 +60,13 @@
         
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Year Built <span class="err">*</span></label>
-                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear amfPropertyExtention required"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear amfPropertyExtention buildingPerils required"  value="" maxlength="4">
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;">Is building considered a heritage building ? <span class="err">*</span></label>
-                        <select id="buildingConstruction_isBuildingHeritage" name="buildingConstruction_isBuildingHeritage" class="form-control col-md-8 amfPropertyExtention required">
+                        <select id="buildingConstruction_isBuildingHeritage" name="buildingConstruction_isBuildingHeritage" class="form-control col-md-8 amfPropertyExtention buildingPerils required">
                             <option value="">-Select value-</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
@@ -113,7 +113,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Roof - year updated</span></label>
-                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_roofYearUpdated" name="buildingConstruction_roofYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention buildingPerils"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Wiring - year updated</span></label>
-                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_wiringYearUpdated" name="buildingConstruction_wiringYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention buildingPerils"  value="" maxlength="4">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Wiring - % completed</span></label>
@@ -179,7 +179,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Heating - year updated</span></label>
-                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_heatingYearUpdated" name="buildingConstruction_heatingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention buildingPerils"  value="" maxlength="4">
                     </div>
                 </div>
             </div>
@@ -219,7 +219,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"><span class="nestedBox">Plumbing - year updated</span></label>
-                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention"  value="" maxlength="4">
+                        <input type="text" id="buildingConstruction_plumbingYearUpdated" name="buildingConstruction_plumbingYearUpdated" class="form-control col-md-8 onlyNumbers checkYear buildingUpdated amfPropertyExtention buildingPerils"  value="" maxlength="4">
                     </div>
                 </div>
             </div>

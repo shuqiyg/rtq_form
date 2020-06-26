@@ -163,4 +163,26 @@ class adminController extends Controller
 
         return "done";      
     }
+
+    // FUNCTION TO SAVE/UPDATE cefScheduleLimit table
+    public function cefScheduleLimitUpdate(Request $req){
+        $form = $req['cefSLForm'];
+        $province = $req['cefSLProvince'];
+        $cefSLTotal = $req['cefSLTotal'];
+        // Read File
+        $jsonString = file_get_contents(public_path().'/json/cefLimitByItemTotal.json');
+        $data = json_decode($jsonString, true);
+
+        if($cefSLTotal == null || empty($cefSLTotal)){
+            $cefSLTotal = "";
+        }
+        // Update Key
+        $data[0][$form]['cefSceduleLimit'][$province]['limitByTotal'] = $cefSLTotal;
+        
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(public_path().'/json/cefLimitByItemTotal.json', stripslashes($newJsonString));
+
+        return "done";      
+    }
 }

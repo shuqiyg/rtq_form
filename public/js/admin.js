@@ -425,4 +425,68 @@ $(document).ready(function(){
         }); 
 	}
 
+	// Restricts input for the set of matched elements to the given inputFilter function.
+	(function($) {
+	  $.fn.inputFilter = function(inputFilter) {
+	    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+	      if (inputFilter(this.value)) {
+	        this.oldValue = this.value;
+	        this.oldSelectionStart = this.selectionStart;
+	        this.oldSelectionEnd = this.selectionEnd;
+	      } else if (this.hasOwnProperty("oldValue")) {
+	        this.value = this.oldValue;
+	        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+	      } else {
+	        this.value = "";
+	      }
+	    });
+	  };
+	}(jQuery));
+
+	  // only number allowed to input in some of field
+	  $(".onlyNumbers").inputFilter(function(value) {
+	    return /^\d*$/.test(value); 
+	  });
+
+	/*** CEF Schedule limit total ***********/
+
+	// if value in table column has changed in FORM PROVINCE RULE TAB
+	$("[class ^= cefSLVal]").on('change',function(){
+		// get all values
+		var cefSLForm = $(this).attr('data-form');
+		var cefSLProvince = $(this).attr('data-province');
+		var cefSLTotal = $(this).val();
+		
+		/*console.log('Form : '+fprForm);
+		console.log('Province : '+fprProvince);
+		console.log('Val : '+fprRQ);*/
+
+		if(cefSLForm != '' && cefSLForm != null && cefSLProvince != '' && cefSLProvince != null){
+			$.ajax({
+	            url:formPrefix+"api/2020/amf/root/cefScheduleLimitUpdate",
+	            method:"post",
+	            data: {cefSLForm:cefSLForm,cefSLProvince:cefSLProvince,cefSLTotal:cefSLTotal,_token:$('meta[name="csrf-token"]').attr('content')},
+	            datatype: 'json',
+	            success: function(msg){
+	              //console.log(msg);
+	              $("#cefSLNotify").show();
+	              $("#cefSLNotify").css('color','green');
+	              $("#cefSLNotify").text('CEF Schedule limit updated successfully.');
+	              
+	              setTimeout(function(){
+	              	$("#cefSLNotify").hide();
+	              },2000);
+	              //showFPRTable();
+	            },
+	            error: function(data){
+	              console.log(data);
+	            }
+	          });
+		}else{
+			swal('select required fields.');
+		}
+	});
+
+	/***************************************/
+
 });

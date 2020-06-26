@@ -6,7 +6,7 @@
         },
         "Frame-Brick Veneer" : {
             "code" : "4",
-            "mod" : "175"
+            "mod" : "200"
         },
         "Masonary Steel Deck Roof" : {
             "code" : "2",
@@ -16,9 +16,9 @@
             "code" : "3",
             "mod" : "100"
         },
-        "Other" : {
+        "NotApplicable" : {
             "code" : "5",
-            "mod" : "200"
+            "mod" : "0"
         }
         
     }

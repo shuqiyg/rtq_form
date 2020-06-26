@@ -7,6 +7,9 @@ $(document).ready(function(){
 
   var brokerCodeValidation = false;
 
+  // GET FORM PREFIX
+  var formPrefix = $("#formPrefix").val();
+
   // add variable to use selected rtqform value to use in entire custom js
   var rtqFormGlobal = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
         
@@ -1711,7 +1714,7 @@ $('#insured_isRiskAddressSame').change(function() {
         if(closestCity == '' || distanceFromClosestCity == ''){
           // get TIV
           var tivLimit = $("#tivLimit").val();
-          if(tivLimit > 100000){
+          if(tivLimit > 150000){
             // show error msg 
             $("#closestCityMSG").show(); 
             return false;  
@@ -2262,15 +2265,54 @@ $('#insured_isRiskAddressSame').change(function() {
     fixEquipmentScheduleTotalAmount();
   });
 
+  function getCEFScheduleLimitTotal(riskProvince){
+    var cefScheduleLimit = 250000; // By Default
+
+    // FIND CEF EQUIPMENT SCHEDULE LIMIT BY TOTAL AND BY ITEM
+    /*$.getJSON(formPrefix+'getCEFScheduleLimit', function(data) { 
+      // set values as per form selected
+      cefScheduleLimit = data[0][rtqFormGlobal]['cefSceduleLimit'][riskProvince]['limitByTotal'];
+      console.log(data[0][rtqFormGlobal]['cefSceduleLimit'][riskProvince]);
+    }); */
+
+    $.ajax({
+      url:formPrefix+'getCEFScheduleLimit',
+      method:"get",
+      data: {_token:$('meta[name="csrf-token"]').attr('content')},
+      datatype: 'json',
+      async : false,
+      success: function(data){
+        // set values as per form selected
+        cefScheduleLimit = data[0][rtqFormGlobal]['cefSceduleLimit'][riskProvince]['limitByTotal'];
+        //console.log(data[0][rtqFormGlobal]['cefSceduleLimit'][riskProvince]);
+      },
+      error: function(data){
+        //console.log(data);
+      }
+    }); 
+    return cefScheduleLimit;
+  }
+
   // set real time equipment schedule amount and related fields when delete row of table
   function fixEquipmentScheduleTotalAmount(){
     var totalAmount = calculateEquipmentScheduleTotalAmount();
+    
+    // get risk address province
+    var riskProvince = $("#risk_address_province").val();
+    if(riskProvince == '' || riskProvince == null){
+      riskProvince = "Ontario";
+    }
+
+    var cefScheduleLimit = getCEFScheduleLimitTotal(riskProvince);
+    //console.log("cefScheduleLimit "+cefScheduleLimit);
+    //SHOW CEF SCHEDULE LIMT ON TABLE HEADER
+    $("#cefScheduleLimitHeader").text(commaSeparateNumber(cefScheduleLimit));
 
     // if total amount of equipment schedule items exceeds more than 500,000
-    if(totalAmount > 500000){
-      var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount > </b> 500,000 </p>";
+    if(totalAmount > cefScheduleLimit){
+      var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount > </b> "+commaSeparateNumber(cefScheduleLimit)+" </p>";
       $("#totalAmountES").html(lastRow);
-      totalAmountFinal = 500000;
+      totalAmountFinal = cefScheduleLimit;
     }else{
       var lastRow = "<p style='text-align:right;' id='totalEquipScheAmount'> <b>Total Amount : </b> "+commaSeparateNumber(totalAmount)+" </p>";
       $("#totalAmountES").html(lastRow);
@@ -2286,7 +2328,7 @@ $('#insured_isRiskAddressSame').change(function() {
     var tmf = removeCommas(totalAmountFinal);
     var amount5Per = (tmf*5)/100;
     // get default value for deductible clause B 
-    var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());console.log(amount5Per);
+    var defaultB = removeCommas($("#equipmentScheduleDefaultB").val());
     if(amount5Per < defaultB){
       $(".setTotalAmountEquipSche5per").text(commaSeparateNumber(defaultB));
       // set value in hidden field used for back end
@@ -2443,20 +2485,39 @@ $('#insured_isRiskAddressSame').change(function() {
   var buildingUpdatedAge = 0;
   /** GET BUILDING YEAR UPDATED IF OVER 25 or UNDER**/
   function getBuildingUpdated(){
-    
+    // make array
+    var yearUpdated = {};
     // get all updated building values
-    var roofUpated = getYearDiff($("#buildingConstruction_roofYearUpdated").val());
-    var wiringUpated = getYearDiff($("#buildingConstruction_wiringYearUpdated").val());
-    var heatUpated = getYearDiff($("#buildingConstruction_heatingYearUpdated").val());
-    var plumbingUpated = getYearDiff($("#buildingConstruction_plumbingYearUpdated").val());
+    if($("#buildingConstruction_roofYearUpdated").val() != '' && $("#buildingConstruction_roofYearUpdated").val() != null){
+      var roofUpdated = getYearDiff($("#buildingConstruction_roofYearUpdated").val());
+      yearUpdated["roofUpdated"] = roofUpdated;  
+    }
+    if($("#buildingConstruction_wiringYearUpdated").val() != '' && $("#buildingConstruction_wiringYearUpdated").val() != null){
+      var wiringUpdated = getYearDiff($("#buildingConstruction_wiringYearUpdated").val());
+      yearUpdated["wiringUpdated"] = wiringUpdated;  
+    }
+    if($("#buildingConstruction_heatingYearUpdated").val() != '' && $("#buildingConstruction_heatingYearUpdated").val() != null){
+      var heatUpdated = getYearDiff($("#buildingConstruction_heatingYearUpdated").val());
+      yearUpdated["heatUpdated"] = heatUpdated;  
+    }
+    if($("#buildingConstruction_plumbingYearUpdated").val() != '' && $("#buildingConstruction_plumbingYearUpdated").val() != null){
+      var plumbingUpdated = getYearDiff($("#buildingConstruction_plumbingYearUpdated").val());
+      yearUpdated["plumbingUpdated"] = plumbingUpdated;  
+    }
+    
+    /*var roofUpdated = getYearDiff($("#buildingConstruction_roofYearUpdated").val());
+    var wiringUpdated = getYearDiff($("#buildingConstruction_wiringYearUpdated").val());
+    var heatUpdated = getYearDiff($("#buildingConstruction_heatingYearUpdated").val());
+    var plumbingUpdated = getYearDiff($("#buildingConstruction_plumbingYearUpdated").val());*/
 
-    var yearUpdated = {"roofUpated":roofUpated,"wiringUpated":wiringUpated,"heatUpated":heatUpated,"plumbingUpated":plumbingUpated};
+    //var yearUpdated = {"roofUpdated":roofUpdated,"wiringUpdated":wiringUpdated,"heatUpdated":heatUpdated,"plumbingUpdated":plumbingUpdated};
+    //console.log(yearUpdated);
     // get max year updated [ year updated long before so get age it updated long before]
     //var yearUpdatedMax = Object.keys(yearUpdated).reduce(function(a, b){ return yearUpdated[a] > yearUpdated[b] ? a : b });
     // get max year updated [ year updated recently so get age it updated last]
     var yearUpdatedMin = Math.min.apply( null, Object.keys( yearUpdated ).map(function ( key ) { return yearUpdated[key]; }) );
     // get longest update year and return it
-    console.log(yearUpdatedMin);
+    //console.log("Min updated year "+yearUpdatedMin);
     //$("#buildingUpatedAge").val(buildingUpdatedAge);
     return yearUpdatedMin;
   }
@@ -2530,11 +2591,21 @@ $('#insured_isRiskAddressSame').change(function() {
     }
   }
 
-  $("#buildingConstruction_isBuildingHeritage,#buildingConstruction_yearBuilt").on('change',function(){
+  $(".buildingPerils").on('focusout',function(){
     var buildingAge = getBuildingAge();  
+    var buildingAgeUpdated = getBuildingUpdated();
     var isHeritage = $("#buildingConstruction_isBuildingHeritage").val();
 
-    if(buildingAge >= 25 || isHeritage == "Yes"){
+    var buildingAgeUpdatedFlag = true; // by default true means no value on updated fields so it consider only built year
+    if(buildingAgeUpdated > 0 && buildingAgeUpdated < 25){
+      buildingAgeUpdatedFlag = false;
+    }else{
+      // if value more than 25 for updated fields
+      buildingAgeUpdatedFlag = true;
+    }
+
+    console.log("buildingAge : "+buildingAge+" buildingAgeUpdated : "+buildingAgeUpdated);
+    if((buildingAge >= 25 && buildingAgeUpdatedFlag )  || isHeritage == "Yes"){
       $("#coverage_perils").val('Named Perils');
       $(".includeExclude").hide();    
       clearFields("includeExclude");

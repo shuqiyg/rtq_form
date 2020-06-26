@@ -32,6 +32,9 @@ Route::post('/checkReferRules','rtqController@checkReferRules');
 
 Route::post('/checkFormProvinceQuoteRule','rtqController@checkFormProvinceQuoteRule');
 
+// get cef schedule limit by total and by total on js
+Route::get('/getCEFScheduleLimit','rtqController@getCEFScheduleLimit');
+
 Route::get('/error', function () {
     return view('error');
 });
@@ -87,3 +90,5 @@ Route::post('/api/2020/amf/root/adminCalculate','rtqController@calculate');
 // GET form province rule table 
 Route::get('/api/2020/amf/root/getFormProvinceRulesJson','adminController@getFormProvinceRulesJson');
 Route::post('/api/2020/amf/root/formProvinceRuleUpdate','adminController@formProvinceRuleUpdate');
+
+Route::post('/api/2020/amf/root/cefScheduleLimitUpdate','adminController@cefScheduleLimitUpdate');
