@@ -2619,7 +2619,7 @@ $('#insured_isRiskAddressSame').change(function() {
   $("#burglaryAlarm_interior").on('change',function(){
     // get value
     var burglaryAlarm_interior = $("#burglaryAlarm_interior").val();
-    if(burglaryAlarm_interior == '' || burglaryAlarm_interior == 'None' || burglaryAlarm_interior == 'Local'){
+    if(burglaryAlarm_interior == 'None' || burglaryAlarm_interior == 'Local'){
       $("#coverage_perils").val('Named Perils');
       $(".includeExclude").hide();    
       clearFields("includeExclude");
