@@ -2616,7 +2616,7 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   // if No answer or answer of “None” or “Local” for interior alarm should be triggering for Multi Perils risks
-  $("#burglaryAlarm_interior").on('change',function(){
+  /*$("#burglaryAlarm_interior").on('change',function(){
     // get value
     var burglaryAlarm_interior = $("#burglaryAlarm_interior").val();
     if(burglaryAlarm_interior == 'None' || burglaryAlarm_interior == 'Local'){
@@ -2627,7 +2627,7 @@ $('#insured_isRiskAddressSame').change(function() {
       $("#coverage_perils").val('All Risk');
       $(".includeExclude").show();
     }
-  });
+  });*/
 
   /**
    Finish button will gather all form data in json format and send it to controller to process
