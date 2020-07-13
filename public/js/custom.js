@@ -1957,6 +1957,35 @@ $('#insured_isRiskAddressSame').change(function() {
     });
       // set count in hidden fields
       $("#liability_productsForSaleDetailsCount").val(pfsSectionSize);
+      // calculate revenue again when delete section
+      var totalRevenueAmount = calculateGrossAnnualReceipt();
+
+      // set revenue in hidden field
+      $("#totalRevenue").val(totalRevenue);
+  });
+
+  // calculate total revenue based on all gross annual sales - canada in real time
+  $(document).on('keyup',"[id^=liability_productsForSaleGrossAnnualSaleCanada]",function(){
+    var totalRevenueAmount = calculateGrossAnnualReceipt();
+
+    // set revenue in hidden field
+    $("#totalRevenue").val(totalRevenue);
+  });
+
+  // calculate total revenue based on all gross annual sales - canada in real time
+  $(document).on('keyup',"[id^=liability_productsForSaleGrossAnnualSaleUSA]",function(){
+    var totalRevenueAmount = calculateGrossAnnualReceipt();
+
+    // set revenue in hidden field
+    $("#totalRevenue").val(totalRevenue);
+  });
+
+  // calculate total revenue based on all gross annual sales - canada in real time
+  $(document).on('keyup',"[id^=liability_productsForSaleGrossAnnualSaleOther]",function(){
+    var totalRevenueAmount = calculateGrossAnnualReceipt();
+
+    // set revenue in hidden field
+    $("#totalRevenue").val(totalRevenue);
   });
 
 
@@ -2067,6 +2096,37 @@ $('#insured_isRiskAddressSame').change(function() {
       //console.log(currentRowVal);
       totalRevenue += currentRowVal; 
     });
+
+    // it also include product of sales gross annual sales
+    $.each($('[id^=liability_productsForSaleGrossAnnualSaleCanada]'), function( key, value ) {
+      var currentRowVal = parseInt($(this).val().replace(/,/g , ''));
+      if(currentRowVal == '' ||  isNaN(currentRowVal)){
+        currentRowVal = 0;
+      }
+      //console.log(currentRowVal);
+      totalRevenue += currentRowVal; 
+    });
+
+    // it also include product of sales gross annual sales
+    $.each($('[id^=liability_productsForSaleGrossAnnualSaleUSA]'), function( key, value ) {
+      var currentRowVal = parseInt($(this).val().replace(/,/g , ''));
+      if(currentRowVal == '' ||  isNaN(currentRowVal)){
+        currentRowVal = 0;
+      }
+      //console.log(currentRowVal);
+      totalRevenue += currentRowVal; 
+    });
+
+    // it also include product of sales gross annual sales
+    $.each($('[id^=liability_productsForSaleGrossAnnualSaleOther]'), function( key, value ) {
+      var currentRowVal = parseInt($(this).val().replace(/,/g , ''));
+      if(currentRowVal == '' ||  isNaN(currentRowVal)){
+        currentRowVal = 0;
+      }
+      //console.log(currentRowVal);
+      totalRevenue += currentRowVal; 
+    });
+
     return totalRevenue;
   }
   
