@@ -145,10 +145,10 @@
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Class</span></label>
                 <input type="text" id="burglaryAlarm_safeClass" name="burglaryAlarm_safeClass" class="form-control col-md-8 "  value="" >
             </div>
-            <div class="form-group burglaryAlarm_safeBox" style="display: none;">
+            <!-- <div class="form-group burglaryAlarm_safeBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Dimensions</span></label>
                 <input type="text" id="burglaryAlarm_safeDimensions" name="burglaryAlarm_safeDimensions" class="form-control col-md-8 "  value="" >
-            </div>
+            </div> -->
 
             <h5>Other Measures</h5>
             <div class="form-group">
