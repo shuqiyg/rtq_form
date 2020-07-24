@@ -348,6 +348,9 @@ class rtqController extends Controller
                     $row['productIAO'] = $iaoCode ;
                     $row['productProvRate'] = $pr ;
                     $row['productPremium'] = $opsRevenuePremium ;
+                    $row['ratingBasis'] = $ratingBasis;
+                    $row['annualRevenue'] = $annualRevenue;
+                    $row['annualPayroll'] = $annualPayroll;
                     array_push($opsProdIAO, $row);
                 }else{
                     $pr = 0;
