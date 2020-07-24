@@ -108,9 +108,11 @@ class rtqController extends Controller
             
             $closestCity = trim($req['closestCity']);
             $distanceFromClosestCity = $this->checkValue(trim($req['distanceFromClosestCity']));
+
+            $liability_typeOfOpsWorkPerformIAO = $req['liability_typeOfOpsWorkPerformIAO'];
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$liability_typeOfOpsWorkPerformIAO,$rtqForm);
 
         }
         return json_encode($calculateArray);
@@ -118,10 +120,10 @@ class rtqController extends Controller
     }
 
     // function to set priceArray / calculate for plumbing form
-    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm){
+    public function getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$liability_typeOfOpsWorkPerformIAO,$rtqForm){
 
         // get values from json file
-        $provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
+        //$provincerate = json_decode(file_get_contents(public_path().'/json/provincerate_plumbing.json'), true);  
         $coverageRate = json_decode(file_get_contents(public_path().'/json/plumbingPropertyCoverageRate.json'), true);  
         $policy_fee = json_decode(file_get_contents(public_path().'/json/policyFee.json'), true);  
         $getZone =   json_decode(file_get_contents(public_path().'/json/zoneWiseInspectionFee.json'), true);
@@ -134,13 +136,8 @@ class rtqController extends Controller
         $provinceMod = json_decode(file_get_contents(public_path().'/json/propertyMod_province.json'), true);
         $townGradeMod = json_decode(file_get_contents(public_path().'/json/propertyMod_towngrade.json'), true);
         $constructionMod = json_decode(file_get_contents(public_path().'/json/propertyMod_construction.json'), true);
-        
-        // if province is null or empty then make by default Ontario
-        if($province == null || empty($province)){
-            $pr = 0;
-        }else{
-            $pr = $provincerate[$rtqForm][0][$province]['rate'];    
-        }
+
+        $plumbing_iao = json_decode(file_get_contents(public_path().'/json/plumbing_iao.json'), true);
         
         // get rates to send for backend process
         $amf_rates = json_decode(file_get_contents(public_path().'/json/amf_rates_plumbing.json'), true);
@@ -306,9 +303,49 @@ class rtqController extends Controller
         }else{
             $zone = 'NotAvailable';
         }
+        
+        $totalRevenue1mmPremium = 0;
+        $opsProdIAO = array();
 
         // CALCULATE LIABILITY TOTAL
-        $totalRevenue1mmPremium = ($totalRevenue * $pr)/1000;
+        $iao = explode(',', $liability_typeOfOpsWorkPerformIAO);
+        foreach ($iao as $key => $value) {
+            $v = explode('-', $value);
+            // get iao code and annual revenue for specific product or operation
+            $iaoCode = $v[0];
+            $annualRevenue = $v[1];
+            // check if iao code is not null or empty
+            if($iaoCode != ''){
+                // check risk address province is not empty
+                if($province != null && !empty($province)){
+                    // get province rate
+                    $pr = $plumbing_iao[$iaoCode][$province];
+                    // calculate total revenue premium for 1mm
+                    $opsRevenuePremium = ($annualRevenue * $pr)/1000;      
+                    // check minimum premium
+                    $minPremium = $plumbing_iao[$iaoCode]['Min_prem'];
+
+                    // check totalRevenue1mmPremium is less than minimum premium then keep minimum premium
+                    if($opsRevenuePremium < $minPremium){
+                        $opsRevenuePremium = $minPremium;
+                    }
+
+                    // add sum to totalRevenue1mmPremium
+                    $totalRevenue1mmPremium += $opsRevenuePremium;
+
+                    // store values in array for backend
+                    $row = array();
+                    $row['productIAO'] = $iaoCode ;
+                    $row['productProvRate'] = $pr ;
+                    $row['productPremium'] = $opsRevenuePremium ;
+                    array_push($opsProdIAO, $row);
+                }else{
+                    $pr = 0;
+                }
+                
+            }
+        }
+        
         $liablity1mm = 0;
         $liablity2mm = 0;
         if($coverage_liabilityLimit == "2mm"){
@@ -395,8 +432,8 @@ class rtqController extends Controller
         
         $priceArray = array();
         $priceArray['propertyTotal'] = round($propertyTotal,2);
-        $priceArray['liabilityVal'] = $liablity;
-        $priceArray['provinceRate'] = $pr;
+        $priceArray['liabilityVal'] = round($liablity,2);
+        //$priceArray['provinceRate'] = $pr;
         $priceArray['liablity1mm'] = $liablity1mm;
         $priceArray['liablity2mm'] = $liablity2mm;
         $priceArray['fee'] = $policyFee;
@@ -416,6 +453,7 @@ class rtqController extends Controller
         $priceArray['extraExpenseRate'] = $extraExpenseRate;
         $priceArray['rentRate'] = $rentRate;
         $priceArray['signRate'] = $signRate;
+        $priceArray['opsProdIAO'] = $opsProdIAO;
         /** Rates End **/
         $priceArray['amfRate'] = $amfRate;
         $priceArray['rentalIncomeLimitRate'] = round($rentalIncomeLimitRate,2);
@@ -736,9 +774,11 @@ class rtqController extends Controller
             
             $closestCity = trim($fd[0]['closestCity']['value']);
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
+
+            $$liability_typeOfOpsWorkPerformIAO = trim($fd[0]['liability_typeOfOpsWorkPerformIAO']['value']);
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$liability_typeOfOpsWorkPerformIAO,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;
@@ -1180,7 +1220,7 @@ class rtqController extends Controller
             $liability_wsoSubConLiablityInsurance = $fd[0]['liability_wsoSubConLiablityInsurance']['value'];
 
             // Check any gross annual sales rather than canada in product for sale
-            $liability_productsForSaleDetailsCount = $fd[0]['liability_productsForSaleDetailsCount']['value'];
+            /*$liability_productsForSaleDetailsCount = $fd[0]['liability_productsForSaleDetailsCount']['value'];
             $referPFS = false;
             if($liability_productsForSaleDetailsCount > 0 ){
                 for($i=1;$i <= $liability_productsForSaleDetailsCount;$i++){
@@ -1194,10 +1234,10 @@ class rtqController extends Controller
                     }
                 }
             }
-            outPFS:
+            outPFS:*/
 
-            $liability_anyUSExposure  = $fd[0]['liability_anyUSExposure']['value'];
-            $liability_anyUSInstallation  = $fd[0]['liability_anyUSInstallation']['value'];
+            /*$liability_anyUSExposure  = $fd[0]['liability_anyUSExposure']['value'];
+            $liability_anyUSInstallation  = $fd[0]['liability_anyUSInstallation']['value'];*/
             $liability_anyRadioactiveMaterials  = $fd[0]['liability_anyRadioactiveMaterials']['value'];
 
             $liability_engageOpsDemolition  = $fd[0]['liability_engageOpsDemolition']['value'];
@@ -1233,6 +1273,29 @@ class rtqController extends Controller
             // get cef schedule limit
             $getCEFScheduleLimit = json_decode(file_get_contents(public_path().'/json/cefLimitByItemTotal.json'), true);   
             $cefScheduleLimit = $getCEFScheduleLimit[0][$rtqForm]['cefSceduleLimit'][$province]['limitByTotal'];
+
+            // Get operations / products values
+            $ltowpc = $this->checkValue($fd[0]['liability_typeOfOpsWorkPerformCount']['value']);
+            $ops = array(); // save all operations which has any us or foreign exposure
+            if($ltowpc != 0){
+                for($i=1;$i<=$ltowpc;$i++){
+                    // get value of US/Foreign Exposure
+                    $usForeignExposure = $fd[0]['liability_typeOfOpsWorkPerformUsForeignExposure_'.$i]['value'];
+                    // if any of product or operation has us or foreign exposure then refer it
+                    if($usForeignExposure == "Yes"){
+                        $opsProduct = $fd[0]['liability_typeOfOpsWorkPerformOperation_'.$i]['value'];
+                        if($opsProduct != ''){
+                            array_push($ops, $opsProduct);    
+                        }                        
+                    }
+                }
+                // get size of ops array if its  > 0 then its refer means there is us or foreign exposure
+                $opsUsForeignExposure = sizeof($ops);
+            }else{
+                $opsUsForeignExposure = 0;
+            }
+
+
         }
 
             $buildingConstruction_yearBuilt = trim($fd[0]['buildingConstruction_yearBuilt']['value']);
@@ -1270,8 +1333,8 @@ class rtqController extends Controller
             $referMatchArray = array();
             
             // if any rule is not matched then make valid false
-            if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees > 2) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "AMF")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims > 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "Liability") ||  (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age > 75) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "Knob & Tube") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "Wood-Solid") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "Volunteer") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes"))) ||  ($rtqForm == "plumbing" && (($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)) || $burglaryAlarm_otherMeasures_guardDog == "Yes" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "No")) || $liability_anyRadioactiveMaterials == "Yes" || $liability_engageOpsDemolition == "Yes"  || $liability_engageOpsShoring == "Yes"  || $liability_engageOpsUnderpinning == "Yes"  || $liability_engageOpsCaissonWork == "Yes"  || $liability_engageOpsExcavation == "Yes"  || $liability_engageOpsExplosives == "Yes"  || $liability_engageOpsTunneling == "Yes"  || $liability_engageOpsRaisingBuildings == "Yes" || $equipmentScheduleTotalAmount > $cefScheduleLimit || $liability_contractualListLeaseEtc == "Yes" || $coverage_boiler == "Yes"  || $coverage_crime_broadFormMoney > 10000  || $coverage_crime_insideRobbery > 10000  || $coverage_crime_outsideRobbery > 10000  || $coverage_crime_employeeDishonesty > 10000  || $coverage_crime_3dRider > 10000  || $coverage_otherLiability != '' || $coverage_includeExclude_flood == "Yes" || $coverage_includeExclude_earthquake == "Yes" || $liability_anyUSExposure == "Yes" || $liability_anyUSInstallation == "Yes" || $liability == "3mmOrMore" || $coverage_SEF94 > 50000 || $coverage_faultyWorkmanship > 25000 || $coverage_TLL > 250000 || $totalYearOperationExperience < 3 || $referPFS) )){
-
+            if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees > 2) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "AMF")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims > 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "Liability") ||  (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age > 75) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "Knob & Tube") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "Wood-Solid") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "Volunteer") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes"))) ||  ($rtqForm == "plumbing" && (($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)) || $burglaryAlarm_otherMeasures_guardDog == "Yes" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "No")) || $liability_anyRadioactiveMaterials == "Yes" || $liability_engageOpsDemolition == "Yes"  || $liability_engageOpsShoring == "Yes"  || $liability_engageOpsUnderpinning == "Yes"  || $liability_engageOpsCaissonWork == "Yes"  || $liability_engageOpsExcavation == "Yes"  || $liability_engageOpsExplosives == "Yes"  || $liability_engageOpsTunneling == "Yes"  || $liability_engageOpsRaisingBuildings == "Yes" || $equipmentScheduleTotalAmount > $cefScheduleLimit || $liability_contractualListLeaseEtc == "Yes" || $coverage_boiler == "Yes"  || $coverage_crime_broadFormMoney > 10000  || $coverage_crime_insideRobbery > 10000  || $coverage_crime_outsideRobbery > 10000  || $coverage_crime_employeeDishonesty > 10000  || $coverage_crime_3dRider > 10000  || $coverage_otherLiability != '' || $coverage_includeExclude_flood == "Yes" || $coverage_includeExclude_earthquake == "Yes" || $liability == "3mmOrMore" || $coverage_SEF94 > 50000 || $coverage_faultyWorkmanship > 25000 || $coverage_TLL > 250000 || $totalYearOperationExperience < 3 || $opsUsForeignExposure > 0) )){
+                // $referPFS || 
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
                     if(($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units")){
@@ -1387,9 +1450,16 @@ class rtqController extends Controller
                         }
                     }
 
-                    if($referPFS){
-                        array_push($referMatchArray, 'There is gross annual sales outside of Canada.');   
+                    if($opsUsForeignExposure > 0){
+                        // show all operation or product that has us or foreign exposure
+                        foreach ($ops as $key => $value) {
+                            array_push($referMatchArray, 'There is US or Foreign Exposure for '.$value.'.');
+                        }
                     }
+
+                    /*if($referPFS){
+                        array_push($referMatchArray, 'There is gross annual sales outside of Canada.');   
+                    }*/
 
                     if($liability_anyRadioactiveMaterials  == "Yes"){
                         array_push($referMatchArray, 'There is any use of radioactive materials in the premises.');
@@ -1464,12 +1534,12 @@ class rtqController extends Controller
                         array_push($referMatchArray, 'There is earthquake coverage included.');
                     }
 
-                    if($liability_anyUSExposure == 'Yes'){
+                    /*if($liability_anyUSExposure == 'Yes'){
                         array_push($referMatchArray, 'There is US exposure.');
                     }
                     if($liability_anyUSInstallation == 'Yes'){
                         array_push($referMatchArray, 'There is US installation.');
-                    }
+                    }*/
                     if($liability == '3mmOrMore'){
                         array_push($referMatchArray, 'There is CGL liability limit $3mm or more.');
                     }
@@ -1477,7 +1547,7 @@ class rtqController extends Controller
 
                 }
                 
-            }else if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $building_age == 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_heatingPrimaryType == "") || ($buildingRequirement != "No" && (in_array($rtqForm,array('plumbing')) && $building_age == 0) || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_heatingPrimaryType == "")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "" || $insured_isCorporation == "")) ||  ($rtqForm == "plumbing" && ( $burglaryAlarm_otherMeasures_guardDog == "" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "")) || $liability_anyRadioactiveMaterials == "" || $liability_engageOpsDemolition == ""  || $liability_engageOpsShoring == ""  || $liability_engageOpsUnderpinning == ""  || $liability_engageOpsCaissonWork == ""  || $liability_engageOpsExcavation == ""  || $liability_engageOpsExplosives == ""  || $liability_engageOpsTunneling == ""  || $liability_engageOpsRaisingBuildings == "" || $liability_anyUSExposure == "" || $liability_anyUSInstallation == "") ) ){
+            }else if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $building_age == 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $buildingConstruction_heatingPrimaryType == "") || ($buildingRequirement != "No" && (in_array($rtqForm,array('plumbing')) && $building_age == 0) || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_isBuildingHeritage == "") || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_wiringType == "") || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_amperage == "" ) || (in_array($rtqForm,array('plumbing')) && $buildingConstruction_heatingPrimaryType == "")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "") || ($rtqForm == "rentedDwelling" && ($occupancy_rentedDwellingUnits == "")) || ($rtqForm == "ownerOccupied" && ($occupancy_numberOfFamilies == "" || $insured_isCorporation == "")) ||  ($rtqForm == "plumbing" && ( $burglaryAlarm_otherMeasures_guardDog == "" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "")) || $liability_anyRadioactiveMaterials == "" || $liability_engageOpsDemolition == ""  || $liability_engageOpsShoring == ""  || $liability_engageOpsUnderpinning == ""  || $liability_engageOpsCaissonWork == ""  || $liability_engageOpsExcavation == ""  || $liability_engageOpsExplosives == ""  || $liability_engageOpsTunneling == ""  || $liability_engageOpsRaisingBuildings == "" ) ) ){
 
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
@@ -1590,13 +1660,13 @@ class rtqController extends Controller
                     if($burglaryAlarm_otherMeasures_guardDog  == ""){
                         array_push($referMatchArray, 'Please select guard dog field.');
                     }
-
+/*
                     if($liability_anyUSExposure  == ""){
                         array_push($referMatchArray, 'Please select Any U.S. Exposure (Past/Present/Future) field.');
                     }
                     if($liability_anyUSInstallation  == ""){
                         array_push($referMatchArray, 'Please select Any U.S. Installation (Past/Present/Future field.');
-                    }
+                    }*/
 
                     if($liability_workSubletOut == "Yes"){
                         if($liability_wsoSubConLiablityInsurance == ""){
@@ -1872,9 +1942,11 @@ class rtqController extends Controller
             
             $closestCity = trim($fd[0]['closestCity']['value']);
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
+
+            $liability_typeOfOpsWorkPerformIAO = trim($fd[0]['liability_typeOfOpsWorkPerformIAO']['value']);
             
             // get calculateArray for plumbing form
-            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$rtqForm);
+            $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$liability_typeOfOpsWorkPerformIAO,$rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation']= $calculateArray;

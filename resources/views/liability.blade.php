@@ -31,7 +31,7 @@
             
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group" style="display: flex;">
                 <label class="col-md-8" style="float: left;"> Products for Sale </label>
@@ -47,7 +47,7 @@
     <input type="hidden" name="liability_productsForSaleDetailsCount" id="liability_productsForSaleDetailsCount">
     <div id="liability_productsForSaleDetails" style="display: none;">
             
-    </div>
+    </div> -->
 
 
     <div class="row">
@@ -57,6 +57,7 @@
         </div>
     </div>
     <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount" value="1">
+    <input type="hidden" name="liability_typeOfOpsWorkPerformIAO" id="liability_typeOfOpsWorkPerformIAO">
     <div class="row">
         <div class="col-md-12" style="padding: 0% 10%;">
             <!-- <div class="form-group" style="display: flex;">
@@ -84,20 +85,61 @@
             <div class="opsWorkPerformed">
                 <div class="towf_sections" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
-                    <label class="col-md-4" style="float: left;">Operation <span class="err">*</span> </label>
-                    <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" >
+                    <label class="col-md-4" style="float: left;">Operation / Product <span class="err">*</span> </label>
+                    <!-- <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" > -->
+                    <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required">
+                        <option value="">-Select Operation/Product-</option>
+                        <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
+                        <option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option>
+                        <option data-iao="1521" value="Driveway, Parking Area Construction">Driveway, Parking Area Construction</option>
+                        <option data-iao="1522" value="Fence Construction">Fence Construction</option>
+                        <option data-iao="1523" value="Sidewalk Construction N.O.C.">Sidewalk Construction N.O.C.</option>
+                        <option data-iao="1527" value="Cleaning Sewers & Drains">Cleaning Sewers & Drains</option>
+                        <option data-iao="1528" value="Cleaning Streets (No Snow)">Cleaning Streets (No Snow)</option>
+                        <option data-iao="1534" value="Antenna Installation (TV, Parabolic - ie cable)">Antenna Installation (TV, Parabolic - ie cable)</option>
+                        <option data-iao="1535" value="Glazier">Glazier</option>
+                        <option data-iao="1713" value="Steamfitting">Steamfitting</option>
+                        <option data-iao="1715" value="Heating & A. C. (Oil/Gas)">Heating & A. C. (Oil/Gas)</option>
+                        <option data-iao="1716" value="Heating & A. C. (Solid Fuel)">Heating & A. C. (Solid Fuel)</option>
+                        <option data-iao="1717" value="Air Conditioning incl. Heat Pumps">Air Conditioning incl. Heat Pumps</option>
+                        <option data-iao="1718" value="Refrigeration (Commercial)">Refrigeration (Commercial)</option>
+                        <option data-iao="1719" value="Solar Energy Contractors">Solar Energy Contractors</option>
+                        <option data-iao="1720" value="Water Softening/Treatment Equipment Installation">Water Softening/Treatment Equipment Installation</option>
+                        <option data-iao="1731" value="Electrical Wiring incl. Fixtures/Appliances: (Not apparatus installation)">Electrical Wiring incl. Fixtures/Appliances: (Not apparatus installation)</option>
+                        <option data-iao="1741" value="Cement, Concrete Work NOC, Not Masonry: (Residential Only)">Cement, Concrete Work NOC, Not Masonry: (Residential Only)</option>
+                        <option data-iao="1743" value="Masonry, Incl. Bricklaying, Stonework, Stuccoing">Masonry, Incl. Bricklaying, Stonework, Stuccoing</option>
+                        <option data-iao="1744" value="Plastering and Lathing including Drywall">Plastering and Lathing including Drywall</option>
+                        <option data-iao="1745" value="Terrazzo/Tilework (no masonry, sewers, drains, ceilings)">Terrazzo/Tilework (no masonry, sewers, drains, ceilings)</option>
+                        <option data-iao="1751" value="Carpentry (Shop Operations Only): (Excludes toys, child/infant furniture/products)">Carpentry (Shop Operations Only): (Excludes toys, child/infant furniture/products)</option>
+                        <option data-iao="1752" value="Carpentry (Away from Shop)">Carpentry (Away from Shop)</option>
+                        <option data-iao="1754" value="Painting/Wall Paper - excluding spray painting">Painting/Wall Paper - excluding spray painting</option>
+                        <option data-iao="1756" value="Furnishings, Acoustic Ceilings, Floor Coverings Installation">Furnishings, Acoustic Ceilings, Floor Coverings Installation</option>
+                        <option data-iao="1757" value="Interior Decorator - No Structural">Interior Decorator - No Structural</option>
+                        <option data-iao="1761" value="Sheet Metal - Shop Only">Sheet Metal - Shop Only</option>
+                        <option data-iao="1762" value="Sheet Metal - Away from Shop (NOT ROOFING)">Sheet Metal - Away from Shop (NOT ROOFING)</option>
+                        <option data-iao="1766" value="Metal Doors, Windows, Awnings Installation">Metal Doors, Windows, Awnings Installation</option>
+                        <option data-iao="7394" value="Janitorial Service">Janitorial Service</option>
+                    </select>
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label>
                     <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-7 commaValues required"  value="" >
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">Payroll <span class="err">*</span></label>
+                    <label class="col-md-4" style="float: left;">Projected Annual Payroll <span class="err">*</span></label>
                     <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-7 commaValues required"  value="" >
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">Gross Annual Receipts <span class="err">*</span>
+                    <label class="col-md-4" style="float: left;">Projected Gross Annual Revenue <span class="err">*</span>
                     </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-7 commaValues required"  value="" >
+
+                    <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                    <label class="col-md-4" style="float: left;">US / Foreign Exposure <span class="err">*</span></label>
+                    <select id="liability_typeOfOpsWorkPerformUsForeignExposure_1" name="liability_typeOfOpsWorkPerformUsForeignExposure_1" class="form-control col-md-7 required">
+                        <option value="">-Select Value-</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
 
                 <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
@@ -121,7 +163,7 @@
     <!-- hidden total revenue field -->
     <input type="hidden" id="totalRevenue" name="totalRevenue">
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group" style="display: flex;">
                 <label class="col-md-8" style="float: left;"> Any U.S. Exposure (Past/Present/Future) <span class="err">*</span></label>
@@ -145,7 +187,7 @@
                 </select>
             </div>
         </div>
-    </div>
+    </div> -->
         
     <div class="row">
         <div class="col-md-12">

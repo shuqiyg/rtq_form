@@ -1358,8 +1358,8 @@ $('#insured_isRiskAddressSame').change(function() {
         if((stepNumber == 8 && (rtqFormGlobal == "homeInspector" || rtqFormGlobal == "plumbing")) || (stepNumber == 6 && (rtqFormGlobal == "rentedDwelling" || rtqFormGlobal == "ownerOccupied")) ){
           console.log('final step');
 
-          // disable next button when in final step
-          $(".sw-btn-next").hide();
+          // hide next button when in final step
+          $(".sw-btn-next").css('visibility','hidden');
 
           /** OUIBOUNCE MODAL **/
           var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
@@ -1560,8 +1560,8 @@ $('#insured_isRiskAddressSame').change(function() {
           //console.log($(anchorObject.attr('href')).find('section:first').find('input:first').attr('name'));
           $(anchorObject.attr('href')).find('section:first').find(':input:enabled:visible:first').focus();
 
-          // enable next button when not in final step
-          $(".sw-btn-next").show();
+          // show next button when not in final step
+          $(".sw-btn-next").css('visibility','');
           // remove  next button disable 
           $(".sw-btn-next").removeAttr('disabled');
 
@@ -1965,7 +1965,7 @@ $('#insured_isRiskAddressSame').change(function() {
   });
 
   // calculate total revenue based on all gross annual sales - canada in real time
-  $(document).on('keyup',"[id^=liability_productsForSaleGrossAnnualSaleCanada]",function(){
+  /*$(document).on('keyup',"[id^=liability_productsForSaleGrossAnnualSaleCanada]",function(){
     var totalRevenueAmount = calculateGrossAnnualReceipt();
 
     // set revenue in hidden field
@@ -1986,7 +1986,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
     // set revenue in hidden field
     $("#totalRevenue").val(totalRevenue);
-  });
+  });*/
 
 
   $("#liability_typeOfOpsWorkPerform").on('change',function(){
@@ -2020,9 +2020,9 @@ $('#insured_isRiskAddressSame').change(function() {
     // set count in hidden fields
     $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
     
-    /*var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';*/
+    /*var html = '<div class="towf_sections" data-value="'+addTOWFCount+'"><label class="col-md-8" style="float: left;"><span id="countTOWF">'+addTOWFCount+'</span>.  Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-4 required"  value="" ><label class="col-md-8" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ><label class="col-md-8" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-4 commaValues required"  value="" ></div>';*//*<input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-7 onlyValidText required" autocomplete="off" value="" >*/
 
-    var html = '<div class="towf_sections" style="width: 100%;" data-value="'+addTOWFCount+'"><span class="col-md-1" style="float: left;text-align: center;"> <span id="countTOWF">'+addTOWFCount+'</span>) </span><label class="col-md-4" style="float: left;">Operation <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><input type="text" id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-7 onlyValidText required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Gross Annual Receipts <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ></div>';
+    var html = '<div class="towf_sections" style="width: 100%;" data-value="'+addTOWFCount+'"><span class="col-md-1" style="float: left;text-align: center;"> <span id="countTOWF">'+addTOWFCount+'</span>) </span><label class="col-md-4" style="float: left;">Operation / Product <span class="err">*</span>  <i class="fa fa-times" style="cursor: pointer;" id="removeTOWFDescription_'+addTOWFCount+'" ></i> </label><select id="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformOperation_'+addTOWFCount+'" class="form-control col-md-7 required"><option value="">-Select Operation/Product-</option><option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option><option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option><option data-iao="1521" value="Driveway, Parking Area Construction">Driveway, Parking Area Construction</option><option data-iao="1522" value="Fence Construction">Fence Construction</option><option data-iao="1523" value="Sidewalk Construction N.O.C.">Sidewalk Construction N.O.C.</option><option data-iao="1527" value="Cleaning Sewers & Drains">Cleaning Sewers & Drains</option><option data-iao="1528" value="Cleaning Streets (No Snow)">Cleaning Streets (No Snow)</option><option data-iao="1534" value="Antenna Installation (TV, Parabolic - ie cable)">Antenna Installation (TV, Parabolic - ie cable)</option><option data-iao="1535" value="Glazier">Glazier</option><option data-iao="1713" value="Steamfitting">Steamfitting</option><option data-iao="1715" value="Heating & A. C. (Oil/Gas)">Heating & A. C. (Oil/Gas)</option><option data-iao="1716" value="Heating & A. C. (Solid Fuel)">Heating & A. C. (Solid Fuel)</option><option data-iao="1717" value="Air Conditioning incl. Heat Pumps">Air Conditioning incl. Heat Pumps</option><option data-iao="1718" value="Refrigeration (Commercial)">Refrigeration (Commercial)</option><option data-iao="1719" value="Solar Energy Contractors">Solar Energy Contractors</option><option data-iao="1720" value="Water Softening/Treatment Equipment Installation">Water Softening/Treatment Equipment Installation</option><option data-iao="1731" value="Electrical Wiring incl. Fixtures/Appliances: (Not apparatus installation)">Electrical Wiring incl. Fixtures/Appliances: (Not apparatus installation)</option><option data-iao="1741" value="Cement, Concrete Work NOC, Not Masonry: (Residential Only)">Cement, Concrete Work NOC, Not Masonry: (Residential Only)</option><option data-iao="1743" value="Masonry, Incl. Bricklaying, Stonework, Stuccoing">Masonry, Incl. Bricklaying, Stonework, Stuccoing</option><option data-iao="1744" value="Plastering and Lathing including Drywall">Plastering and Lathing including Drywall</option><option data-iao="1745" value="Terrazzo/Tilework (no masonry, sewers, drains, ceilings)">Terrazzo/Tilework (no masonry, sewers, drains, ceilings)</option><option data-iao="1751" value="Carpentry (Shop Operations Only): (Excludes toys, child/infant furniture/products)">Carpentry (Shop Operations Only): (Excludes toys, child/infant furniture/products)</option><option data-iao="1752" value="Carpentry (Away from Shop)">Carpentry (Away from Shop)</option><option data-iao="1754" value="Painting/Wall Paper - excluding spray painting">Painting/Wall Paper - excluding spray painting</option><option data-iao="1756" value="Furnishings, Acoustic Ceilings, Floor Coverings Installation">Furnishings, Acoustic Ceilings, Floor Coverings Installation</option><option data-iao="1757" value="Interior Decorator - No Structural">Interior Decorator - No Structural</option><option data-iao="1761" value="Sheet Metal - Shop Only">Sheet Metal - Shop Only</option><option data-iao="1762" value="Sheet Metal - Away from Shop (NOT ROOFING)">Sheet Metal - Away from Shop (NOT ROOFING)</option><option data-iao="1766" value="Metal Doors, Windows, Awnings Installation">Metal Doors, Windows, Awnings Installation</option><option data-iao="7394" value="Janitorial Service">Janitorial Service</option></select><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformNoEmployee_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Projected Annual Payroll <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformPayroll_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">Projected Gross Annual Revenue <span class="err">*</span></label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" value="" ><span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span><label class="col-md-4" style="float: left;">US / Foreign Exposure <span class="err">*</span></label><select  id="liability_typeOfOpsWorkPerformUsForeignExposure_'+addTOWFCount+'" name="liability_typeOfOpsWorkPerformUsForeignExposure_'+addTOWFCount+'" class="form-control col-md-7 commaValues required" autocomplete="off" ><option value="">-Select Value-</option><option value="Yes">Yes</option><option value="No">No</option></select></div>';
 
     // add box in div
     $("#liability_typeOfOpsWorkPerformDetails").show();
@@ -2040,12 +2040,12 @@ $('#insured_isRiskAddressSame').change(function() {
       var counting = key+1;
       // change text of count
       $(this).find("#countTOWF").text(key+1);
-      
-      $.each($(this).find('input'), function( key2, value2) {
+      // Change id number on each input
+      $($(this).find('input,select')).each(function( key2, value2) {
 
         var eleID = $(this).attr('id');
         
-        //console.log(eleID);
+        console.log(eleID);
         // split id by underscore to get text and can add number at end to create new id and name
         var idTxtArray = eleID.split('_');
         // get sizeof idTxt because we don't know how many _ there
@@ -2065,6 +2065,7 @@ $('#insured_isRiskAddressSame').change(function() {
         $("#liability_typeOfOpsWorkPerformCount").val(counting);
 
       });
+
       //counting ++;
     });
     
@@ -2083,6 +2084,35 @@ $('#insured_isRiskAddressSame').change(function() {
     $("#totalRevenue").val(totalRevenue);
   });
 
+  var iao = [];
+  // SET DATA_IAO attribute to each select element of operation/product in plumbing
+  $(document).on('change',"[id^=liability_typeOfOpsWorkPerformOperation]",function(){
+    var id = $(this).attr('name');
+    saveIAO(id);
+  });
+
+  // SET DATA_IAO attribute to each select element of operation/product in plumbing
+  $(document).on('change',"[id^=liability_typeOfOpsWorkPerformGrossAnnualReceipt]",function(){
+    var id = $(this).attr('name');
+    saveIAO(id);
+  });
+
+  function saveIAO(id){
+    //seperate number from id
+    var count = id.split('_'); // 0-liability 1-typeOfOpsWorkPerformOperation 2-count
+    var i = count[2]-1; // array start with 0 and count start with 1 so deduct 1
+    var getIAO = $("#liability_typeOfOpsWorkPerformOperation_"+count[2]).find('option:selected').attr('data-iao');
+    
+    //get gross annual reciepts 
+    var annualReceipts = removeCommas($("#liability_typeOfOpsWorkPerformGrossAnnualReceipt_"+count[2]).val());
+    
+    if(getIAO != ''){
+      iao[i] = getIAO+'-'+annualReceipts;
+    }
+    
+    console.log(iao);
+    $("#liability_typeOfOpsWorkPerformIAO").val(iao);
+  }
   
   var totalRevenue;
   // Calculate revenue - Plumbing Form
@@ -2098,7 +2128,7 @@ $('#insured_isRiskAddressSame').change(function() {
     });
 
     // it also include product of sales gross annual sales
-    $.each($('[id^=liability_productsForSaleGrossAnnualSaleCanada]'), function( key, value ) {
+    /*$.each($('[id^=liability_productsForSaleGrossAnnualSaleCanada]'), function( key, value ) {
       var currentRowVal = parseInt($(this).val().replace(/,/g , ''));
       if(currentRowVal == '' ||  isNaN(currentRowVal)){
         currentRowVal = 0;
@@ -2125,7 +2155,7 @@ $('#insured_isRiskAddressSame').change(function() {
       }
       //console.log(currentRowVal);
       totalRevenue += currentRowVal; 
-    });
+    });*/
 
     return totalRevenue;
   }
@@ -2866,6 +2896,7 @@ $('#insured_isRiskAddressSame').change(function() {
         // find title
         var title = $("#"+id).prev('label').text();
         row["title"] = title;
+        
         result[this.name] = row;
       });
 
