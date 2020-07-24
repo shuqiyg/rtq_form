@@ -165,11 +165,6 @@
                 @include('admin/cefScheduleLimit')
             </div>
 
-            <h3>CEF Schedule Limit</h3>
-            <div>
-                @include('admin/cefScheduleLimit')
-            </div>
-
             <h3>Plumbing Operation/Product IAO - Rates</h3>
             <div>
                 @include('admin/plumbing_iao_rates')
