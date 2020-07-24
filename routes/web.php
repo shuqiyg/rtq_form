@@ -92,3 +92,4 @@ Route::get('/api/2020/amf/root/getFormProvinceRulesJson','adminController@getFor
 Route::post('/api/2020/amf/root/formProvinceRuleUpdate','adminController@formProvinceRuleUpdate');
 
 Route::post('/api/2020/amf/root/cefScheduleLimitUpdate','adminController@cefScheduleLimitUpdate');
+Route::post('/api/2020/amf/root/plumbingIAORatesUpdate','adminController@plumbingIAORatesUpdate');

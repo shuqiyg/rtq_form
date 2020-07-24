@@ -66,7 +66,13 @@
                 background : transparent;
             }
 
-            .changeFPR > input:focus , .changeCEFsl > input:focus{
+            .changePIAOR > input{
+                width : 60px;
+                border: 0;
+                background : transparent;
+            }
+
+            .changeFPR > input:focus , .changeCEFsl > input:focus, .changePIAOR > input:focus{
                 background-color: white;
                 border: 1px solid silver;
             }
@@ -100,6 +106,9 @@
         
         // get cef schedule limit json
         $cef_scheduleLimit = json_decode(file_get_contents(public_path().'/json/cefLimitByItemTotal.json'), true);
+
+        // get plumbing iao product/operation json
+        $plumbing_iao = json_decode(file_get_contents(public_path().'/json/plumbing_iao.json'), true);
         //print_r($cef_scheduleLimit);
         
         ?>
@@ -146,14 +155,24 @@
                 @include('admin/calculator')
             </div>
 
-            <h3 id="fprTab">Form Province Rule</h3>
+            <h3>Form Province Rule</h3>
             <div>
                 @include('admin/formProvinceRule')
             </div>
 
-            <h3 id="fprTab">CEF Schedule Limit</h3>
+            <h3>CEF Schedule Limit</h3>
             <div>
                 @include('admin/cefScheduleLimit')
+            </div>
+
+            <h3>CEF Schedule Limit</h3>
+            <div>
+                @include('admin/cefScheduleLimit')
+            </div>
+
+            <h3>Plumbing Operation/Product IAO - Rates</h3>
+            <div>
+                @include('admin/plumbing_iao_rates')
             </div>
             
         </div>

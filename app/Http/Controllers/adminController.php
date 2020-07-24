@@ -185,4 +185,23 @@ class adminController extends Controller
 
         return "done";      
     }
+
+    // FUNCTION TO SAVE/UPDATE plumbingIAORates table
+    public function plumbingIAORatesUpdate(Request $req){
+        $iao = $req['iao'];
+        $key = $req['key'];
+        $iaoRatesVal = $req['iaoRatesVal'];
+        // Read File
+        $jsonString = file_get_contents(public_path().'/json/plumbing_iao.json');
+        $data = json_decode($jsonString, true);
+
+        // Update Key
+        $data[$iao][$key] = $iaoRatesVal;
+        
+        // Write File
+        $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(public_path().'/json/plumbing_iao.json', stripslashes($newJsonString));
+
+        return "done";      
+    }
 }

@@ -489,4 +489,42 @@ $(document).ready(function(){
 
 	/***************************************/
 
+	// if value in table column has changed in PLUMBING IAO RATES TAB
+	$("[class ^= piaorVal]").on('change',function(){
+		// get all values
+		var iao = $(this).attr('data-iao');
+		var key = $(this).attr('data-key');
+		var iaoRatesVal = $(this).val();
+		
+		/*console.log('Form : '+fprForm);
+		console.log('Province : '+fprProvince);
+		console.log('Val : '+fprRQ);*/
+
+		if(iao != '' && key != null && iaoRatesVal != '' && iaoRatesVal != null){
+			$.ajax({
+	            url:formPrefix+"api/2020/amf/root/plumbingIAORatesUpdate",
+	            method:"post",
+	            data: {iao:iao,key:key,iaoRatesVal:iaoRatesVal,_token:$('meta[name="csrf-token"]').attr('content')},
+	            datatype: 'json',
+	            success: function(msg){
+	              //console.log(msg);
+	              $("#piaorNotify").show();
+	              $("#piaorNotify").css('color','green');
+	              $("#piaorNotify").text('Plumbing IAO rates updated successfully.');
+	              
+	              setTimeout(function(){
+	              	$("#piaorNotify").hide();
+	              },2000);
+	              //showFPRTable();
+	            },
+	            error: function(data){
+	              console.log(data);
+	            }
+	          });
+		}else{
+			swal('There is some problem.');
+		}
+	});
+	/************************************/
+
 });

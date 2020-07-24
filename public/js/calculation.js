@@ -203,6 +203,8 @@ $(document).ready(function(){
         var closestCity = $('#closestCity').val();
         var distanceFromClosestCity = $('#distanceFromClosestCity').val();
 
+        var liability_typeOfOpsWorkPerformIAO = $("#liability_typeOfOpsWorkPerformIAO").val();
+
         if(province != '' && coverage_liabilityLimit != '' && closestCity != ''){
           // hide error msg 
           $("#closestCityMSG").hide();
@@ -211,7 +213,7 @@ $(document).ready(function(){
           $.ajax({
             url:formPrefix+"api/2020/amf/root/adminCalculate",
             method:"post",
-            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_buildingLimit:coverage_buildingLimit,coverage_contentsLimit:coverage_contentsLimit,coverage_contentsLimitStock:coverage_contentsLimitStock,coverage_contentsLimitEquipment:coverage_contentsLimitEquipment,coverage_contentsLimitImprovements:coverage_contentsLimitImprovements,coverage_grossEarnings:coverage_grossEarnings,coverage_grossEarningsPer:coverage_grossEarningsPer,coverage_extraExpenses:coverage_extraExpenses,coverage_rentalIncomeLimit:coverage_rentalIncomeLimit,coverage_signFloater:coverage_signFloater,coverage_crime_broadFormMoney:coverage_crime_broadFormMoney,coverage_crime_insideRobbery:coverage_crime_insideRobbery,coverage_crime_outsideRobbery:coverage_crime_outsideRobbery,coverage_crime_employeeDishonesty:coverage_crime_employeeDishonesty,coverage_crime_3dRider:coverage_crime_3dRider,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,constructionType:constructionType,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
+            data: {province:province,totalRevenue:totalRevenue,coverage_CEF:coverage_CEF,coverage_toolFloater:coverage_toolFloater,coverage_officeEquipmentsFloater:coverage_officeEquipmentsFloater,coverage_profits:coverage_profits,coverage_buildingLimit:coverage_buildingLimit,coverage_contentsLimit:coverage_contentsLimit,coverage_contentsLimitStock:coverage_contentsLimitStock,coverage_contentsLimitEquipment:coverage_contentsLimitEquipment,coverage_contentsLimitImprovements:coverage_contentsLimitImprovements,coverage_grossEarnings:coverage_grossEarnings,coverage_grossEarningsPer:coverage_grossEarningsPer,coverage_extraExpenses:coverage_extraExpenses,coverage_rentalIncomeLimit:coverage_rentalIncomeLimit,coverage_signFloater:coverage_signFloater,coverage_crime_broadFormMoney:coverage_crime_broadFormMoney,coverage_crime_insideRobbery:coverage_crime_insideRobbery,coverage_crime_outsideRobbery:coverage_crime_outsideRobbery,coverage_crime_employeeDishonesty:coverage_crime_employeeDishonesty,coverage_crime_3dRider:coverage_crime_3dRider,coverage_liabilityLimit:coverage_liabilityLimit,yearsBuilt:yearsBuilt,constructionType:constructionType,fireDeptDistance:fireDeptDistance,fireDeptType:fireDeptType,hydrant:hydrant,closestCity:closestCity,distanceFromClosestCity:distanceFromClosestCity,liability_typeOfOpsWorkPerformIAO:liability_typeOfOpsWorkPerformIAO,rtqForm:rtqForm,_token:$('meta[name="csrf-token"]').attr('content')},
             datatype: 'json',
             success: function(msg){
               
