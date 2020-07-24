@@ -314,14 +314,24 @@ class rtqController extends Controller
             // get iao code and annual revenue for specific product or operation
             $iaoCode = $v[0];
             $annualRevenue = $v[1];
+            $annualPayroll = $v[2];
             // check if iao code is not null or empty
             if($iaoCode != ''){
                 // check risk address province is not empty
                 if($province != null && !empty($province)){
                     // get province rate
                     $pr = $plumbing_iao[$iaoCode][$province];
-                    // calculate total revenue premium for 1mm
-                    $opsRevenuePremium = ($annualRevenue * $pr)/1000;      
+                    // get rating basis
+                    $ratingBasis = $plumbing_iao[$iaoCode]['Rating Base'];
+                    // Consider payroll value if rating basis is payroll else annual revenue
+                    if($ratingBasis == "Payroll"){
+                        // calculate total revenue premium for 1mm
+                        $opsRevenuePremium = ($annualPayroll * $pr)/1000; 
+                    }else{
+                        // calculate total revenue premium for 1mm
+                        $opsRevenuePremium = ($annualRevenue * $pr)/1000; 
+                    }
+                         
                     // check minimum premium
                     $minPremium = $plumbing_iao[$iaoCode]['Min_prem'];
 
