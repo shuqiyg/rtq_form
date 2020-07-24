@@ -785,7 +785,7 @@ class rtqController extends Controller
             $closestCity = trim($fd[0]['closestCity']['value']);
             $distanceFromClosestCity = $this->checkValue(trim($fd[0]['distanceFromClosestCity']['value']));
 
-            $$liability_typeOfOpsWorkPerformIAO = trim($fd[0]['liability_typeOfOpsWorkPerformIAO']['value']);
+            $liability_typeOfOpsWorkPerformIAO = trim($fd[0]['liability_typeOfOpsWorkPerformIAO']['value']);
             
             // get calculateArray for plumbing form
             $calculateArray = $this->getCalculateArrayPlumbing($province,$totalRevenue,$coverage_CEF,$coverage_toolFloater,$coverage_officeEquipmentsFloater,$coverage_profits,$coverage_buildingLimit,$coverage_contentsLimit,$coverage_contentsLimitStock,$coverage_contentsLimitEquipment,$coverage_contentsLimitImprovements,$coverage_grossEarnings,$coverage_grossEarningsPer,$coverage_extraExpenses,$coverage_rentalIncomeLimit,$coverage_signFloater,$coverage_crime_broadFormMoney,$coverage_crime_insideRobbery,$coverage_crime_outsideRobbery,$coverage_crime_employeeDishonesty,$coverage_crime_3dRider,$coverage_liabilityLimit,$yearsBuilt,$constructionType,$fireDeptDistance,$fireDeptType,$hydrant,$closestCity,$distanceFromClosestCity,$liability_typeOfOpsWorkPerformIAO,$rtqForm);
