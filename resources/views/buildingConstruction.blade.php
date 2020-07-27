@@ -101,9 +101,12 @@
                         <label class="col-md-4" style="float: left;"> <span class="nestedBox">Roof - Type of Covering</span> <span class="err">*</span> </label>
                         <select id="buildingConstruction_roofTypeCovering" name="buildingConstruction_roofTypeCovering" class="form-control col-md-8 required">
                             <option value="">-Select type of covering-</option>
-                            <option value="Shingles">Shingles</option>
-                            <option value="Asphalt">Asphalt</option>
+                            <option value="Asphalt Shingles">Asphalt Shingles</option>
+                            <option value="Shake Shingles">Shake Shingles</option>
                             <option value="Tar and Gravel">Tar and Gravel</option>
+                            <option value="Tile">Tile</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                 </div>
@@ -136,9 +139,9 @@
                 <select id="buildingConstruction_wiringType" name="buildingConstruction_wiringType" class="form-control col-md-8 required">
                     <option value="">-Select wiring type-</option>
                     <option value="Copper">Copper</option>
-                    <option value="Aluminum">Aluminum</option>
-                    <option value="BX">BX</option>
-                    <option value="Knob & Tube">Knob & Tube</option>
+                    <option value="Aluminum">Aluminum</option>                   
+                    <option value="Knob and Tube">Knob and Tube</option>
+                     <option value="Other">Other</option>
                 </select>
             </div>
             <div class="form-group">
@@ -171,6 +174,7 @@
                             <option value="Oil">Oil</option>
                             <option value="Propane">Propane</option>
                             <option value="Wood-Solid">Wood/Solid</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                 </div>
@@ -211,7 +215,15 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Plumbing - Type </label>
-                        <input type="text" id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8"  value="">
+                       <!--  <input type="text" id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8"  value=""> -->
+                         <select id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8 required">
+                            <option value="">-Select Plumbing - Type-</option>
+                            <option value="Copper">Copper</option>
+                            <option value="Galvanized">Galvanized</option>
+                            <option value="Plastic">Plastic</option>
+                            <option value="Cast Iron">Cast Iron</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                 </div>
             </div>

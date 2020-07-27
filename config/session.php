@@ -1,6 +1,7 @@
 <?php
     
     $env = trim(env('APP_ENV')); 
+    //dd($env);
     if($env == "production"){
         $formPrefix = "/rtqform";
     }else{

@@ -1328,6 +1328,8 @@ class rtqController extends Controller
             
             $buildingConstruction_isBuildingHeritage = trim($fd[0]['buildingConstruction_isBuildingHeritage']['value']);
             $buildingConstruction_wiringType = trim($fd[0]['buildingConstruction_wiringType']['value']);
+            $buildingConstruction_plumbingType = trim($fd[0]['buildingConstruction_plumbingType']['value']);
+            $buildingConstruction_roofTypeCovering = trim($fd[0]['buildingConstruction_roofTypeCovering']['value']);
             $buildingConstruction_amperage = trim($fd[0]['buildingConstruction_amperage']['value']);
             $buildingConstruction_heatingPrimaryType = trim($fd[0]['buildingConstruction_heatingPrimaryType']['value']);
             $fireAlarmDetectors_fireDeptTye = trim($fd[0]['fireAlarmDetectors_fireDeptTye']['value']);
@@ -1341,12 +1343,33 @@ class rtqController extends Controller
                 $insured_isCorporation = trim($fd[0]['insured_isCorporation']['value']);
             }
 
+                      //  dd( $buildingConstruction_wiringType);
+
+
             // now check all rules
             $valid = false;
             $referMatchArray = array();
             
             // if any rule is not matched then make valid false
-            if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees > 2) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "AMF")  || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims > 0) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "Liability") ||  (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age > 75) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "Yes") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_wiringType == "Knob & Tube") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse")) || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_heatingPrimaryType == "Wood-Solid") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "Volunteer") || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "No") || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units"))) || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes"))) ||  ($rtqForm == "plumbing" && (($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)) || $burglaryAlarm_otherMeasures_guardDog == "Yes" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "No")) || $liability_anyRadioactiveMaterials == "Yes" || $liability_engageOpsDemolition == "Yes"  || $liability_engageOpsShoring == "Yes"  || $liability_engageOpsUnderpinning == "Yes"  || $liability_engageOpsCaissonWork == "Yes"  || $liability_engageOpsExcavation == "Yes"  || $liability_engageOpsExplosives == "Yes"  || $liability_engageOpsTunneling == "Yes"  || $liability_engageOpsRaisingBuildings == "Yes" || $equipmentScheduleTotalAmount > $cefScheduleLimit || $liability_contractualListLeaseEtc == "Yes" || $coverage_boiler == "Yes"  || $coverage_crime_broadFormMoney > 10000  || $coverage_crime_insideRobbery > 10000  || $coverage_crime_outsideRobbery > 10000  || $coverage_crime_employeeDishonesty > 10000  || $coverage_crime_3dRider > 10000  || $coverage_otherLiability != '' || $coverage_includeExclude_flood == "Yes" || $coverage_includeExclude_earthquake == "Yes" || $liability == "3mmOrMore" || $coverage_SEF94 > 50000 || $coverage_faultyWorkmanship > 25000 || $coverage_TLL > 250000 || $totalYearOperationExperience < 3 || $opsUsForeignExposure > 0) )){
+            if((in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_howmany_mortgagees > 2) 
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_existingInsurer == "AMF") 
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_hasInsuredCancelInsurance == "Yes")
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $risk_address_noOfClaims > 0) 
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $risk_address_incidenceOfClaim_type == "Liability") 
+                 ||  (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_commercialOperations == "Yes") 
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $occupancy_shortTermRentals == "Yes") 
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $building_age > 75) 
+                 || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $buildingConstruction_isBuildingHeritage == "Yes") 
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && in_array($buildingConstruction_wiringType,array('Knob and Tube', 'Other'))) 
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && in_array($buildingConstruction_plumbingType,array('Other')))
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && in_array($buildingConstruction_roofTypeCovering,array('Other')))
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && ($buildingConstruction_amperage == "60AMP" || $buildingConstruction_amperage == "100AMP Fuse")) 
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) &&  in_array($buildingConstruction_heatingPrimaryType,array('Other','Wood-Solid')))
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied','plumbing')) && $fireAlarmDetectors_fireDeptTye == "Volunteer") 
+                || (in_array($rtqForm,array('rentedDwelling','ownerOccupied')) && $liability_doesPremisesFenced == "No")
+                || ($rtqForm == "rentedDwelling" && (($occupancy_rentedDwellingUnits == "4-6 units" || $occupancy_rentedDwellingUnits == "6+ units")))
+                || ($rtqForm == "ownerOccupied" && (($occupancy_numberOfFamilies == "3" || $occupancy_numberOfFamilies == "More") || ($insured_isCorporation == "Yes"))) 
+                ||  ($rtqForm == "plumbing" && (($buildingConstruction_OccupancyByOther != '' || !empty($buildingConstruction_OccupancyByOther)) || $burglaryAlarm_otherMeasures_guardDog == "Yes" || ($liability_workSubletOut == "Yes" && ($liability_wsoSubConLiablityInsurance == "No")) || $liability_anyRadioactiveMaterials == "Yes" || $liability_engageOpsDemolition == "Yes"  || $liability_engageOpsShoring == "Yes"  || $liability_engageOpsUnderpinning == "Yes"  || $liability_engageOpsCaissonWork == "Yes"  || $liability_engageOpsExcavation == "Yes"  || $liability_engageOpsExplosives == "Yes"  || $liability_engageOpsTunneling == "Yes"  || $liability_engageOpsRaisingBuildings == "Yes" || $equipmentScheduleTotalAmount > $cefScheduleLimit || $liability_contractualListLeaseEtc == "Yes" || $coverage_boiler == "Yes"  || $coverage_crime_broadFormMoney > 10000  || $coverage_crime_insideRobbery > 10000  || $coverage_crime_outsideRobbery > 10000  || $coverage_crime_employeeDishonesty > 10000  || $coverage_crime_3dRider > 10000  || $coverage_otherLiability != '' || $coverage_includeExclude_flood == "Yes" || $coverage_includeExclude_earthquake == "Yes" || $liability == "3mmOrMore" || $coverage_SEF94 > 50000 || $coverage_faultyWorkmanship > 25000 || $coverage_TLL > 250000 || $totalYearOperationExperience < 3 || $opsUsForeignExposure > 0) )){
                 // $referPFS || 
                 /*if($rtqForm == "rentedDwelling"){
                     $occupancy_rentedDwellingUnits = trim($fd[0]['occupancy_rentedDwellingUnits']['value']);
@@ -1430,16 +1453,26 @@ class rtqController extends Controller
                         if($buildingConstruction_isBuildingHeritage == "Yes"){
                             array_push($referMatchArray, 'Building is heritage.');
                         }
-                        if($buildingConstruction_wiringType == "Knob & Tube"){
-                            array_push($referMatchArray, 'Building wiring type is knob & tube.');
+                        if(in_array($buildingConstruction_wiringType,array('Knob and Tube', 'Other'))){
+                            array_push($referMatchArray, 'Building wiring type is '.$buildingConstruction_wiringType.'.');
                         }
+                        if(in_array($buildingConstruction_plumbingType,array('Other'))){
+                            array_push($referMatchArray, 'Building plumbing type is '.$buildingConstruction_plumbingType.'.');
+                        }
+                        if(in_array($buildingConstruction_roofTypeCovering,array('Other'))){
+                            array_push($referMatchArray, 'Building roof covering type is '.$buildingConstruction_roofTypeCovering.'.');
+                        }
+                        
                         if(in_array($buildingConstruction_amperage, array("60AMP","100AMP Fuse") ) ){
                             array_push($referMatchArray, 'Building construnction amperage is 60 AMP or 100 AMP fuse.');
                         }
-
+                        if(in_array($buildingConstruction_heatingPrimaryType,array('Other','Wood-Solid'))){
+                            array_push($referMatchArray, 'Buildingheating primary type is '.$buildingConstruction_heatingPrimaryType.'.');
+                        }
+/*
                         if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
                             array_push($referMatchArray, 'Building heating primary type is wood/solid.');
-                        }
+                        }*/
                     }
                     
                     if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
