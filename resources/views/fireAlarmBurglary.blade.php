@@ -49,9 +49,9 @@
                 <label class="col-md-4" style="float: left;"> Hydrant(s) <span class="err">*</span></label>
                 <select id="fireAlarmDetectors_hydrant" name="fireAlarmDetectors_hydrant" class="form-control col-md-8 required">
                     <option value="">-Select hydrant-</option>
-                    <option value="Within 75m">Within 75m (246 feet)</option>
-                    <option value="Within 150m">Within 150m (492 feet)</option>
-                    <option value="Over 150m">Over 150m (493 feet or more)</option>
+                    <option value="Within 75m">Within 75m (=< 250 feet)</option>
+                    <option value="Within 150m">Within 150m (=< 500 feet)</option>
+                    <option value="Over 150m">Over 150m (>500 feet)</option>
                 </select>
             </div>
             <div class="row">
@@ -60,10 +60,10 @@
                         <label class="col-md-4" style="float: left;"> Fire Department - Distance <span class="err">*</span></label>
                         <select id="fireAlarmDetectors_fireDeptDistance" name="fireAlarmDetectors_fireDeptDistance" class="form-control col-md-8 required">
                             <option value="">-Select fire department distance-</option>
-                            <option value="Within 3km">Within 3km</option>
-                            <option value="Within 5km">Within 5km</option>
-                            <option value="Within 10km">Within 10km</option>
-                            <option value="Over 10km">Over 10km</option>
+                            <option value="Within 3km">Within 3km (< 1.75 miles)</option>
+                            <option value="Within 5km">Within 5km (< 3 miles)</option>
+                            <option value="Within 10km">Within 10km (< 6 miles)</option>
+                            <option value="Over 10km">Over 10km (> 6 miles)</option>
                         </select>
                     </div>
                 </div>

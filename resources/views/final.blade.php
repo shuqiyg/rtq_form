@@ -106,7 +106,7 @@
 				<div>
 					<p id="bindMsg" style="color: blue;text-decoration: underline;font-weight: bold;font-size: 30px;text-shadow: 2px 2px 10px yellow;"></p>
 				</div>
-				<p>Thank you for submitting this application. You must click on the [Finish] button to complete.</p>
+				<p>Thank you for submitting this application. You must click on the <button type="button" class="btn btn-success" id="finish" >Finish</button> button to complete.</p>
 				<p>Once you complete, the following will happen:</p>
 				<ul>
 					<li>If you were provided a quote:
@@ -141,8 +141,8 @@
 		
 		<div class="row" style="margin-top: 20px">
 			<div class="col-md-12">
-				<button type="button" class="btn btn-secondary" id="resetForm">Reset</button>
-	        	<button type="button" class="btn btn-success" id="finish" style="float: right;">Finish</button>
+				<button type="button" class="btn btn-secondary" id="resetForm" style="float: right;">Reset</button>
+	        	<button type="button" class="btn btn-success" id="finish" >Finish</button>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 50px;">

@@ -146,7 +146,7 @@
                 
                 </div>
                 <div class="col-md-12" style="float: left;display: contents;">
-                    <button class="btn btn-secondary" id="addTypeOfOpsWorkPerformBox">Add</button>
+                    <button class="btn btn-secondary" id="addTypeOfOpsWorkPerformBox">Add More</button>
                 </div>
             </div>
         </div>

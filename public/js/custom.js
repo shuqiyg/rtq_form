@@ -1729,8 +1729,9 @@ $('#insured_isRiskAddressSame').change(function() {
           $("#closestCityMSG").hide();
         }
 
-        if(province != '' && coverage_liabilityLimit != ''){
-
+        if(province != ''){
+          if(coverage_liabilityLimit == '' || coverage_liabilityLimit == 'none')
+            coverage_liabilityLimit =0;
           // send calculate request
           $.ajax({
             url:"calculate",
@@ -1757,7 +1758,7 @@ $('#insured_isRiskAddressSame').change(function() {
             $("#closestCityMSG").hide();
             swal('Some required fields are missing for calculation.');
           }*/
-          swal('Some required fields are missing for calculation.');
+          swal('Make sure you have selected risk province for calculation');
         }
 
       }else if(rtqForm == "rentedDwelling" || rtqForm == "ownerOccupied"){

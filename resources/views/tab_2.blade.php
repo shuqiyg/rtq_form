@@ -63,7 +63,7 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record ? <span class="err">*</span> </label>
+                        <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record? <span class="err">*</span> </label>
                         <select class="form-control col-md-8 required" id="insured_criminal_record" name="insured_criminal_record">
                             <option value="">-Select Value-</option>
                             <option value="Yes">Yes</option>
