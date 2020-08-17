@@ -1930,10 +1930,10 @@ class rtqController extends Controller
                     }*/
 
                     if(isset($liability_workSubletOut) && $liability_workSubletOut == "Yes"){
-                        //if(!isset($liability_wsoSubConLiablityInsurance)){
+                        if(!isset($liability_wsoSubConLiablityInsurance)){
                             array_push($referMatchArray, 'Please select Are sub-contractors required to carry liability insurance? field.');
                             $valid = 'Empty';
-                       // }
+                        }
                     }
                     if(!isset($liability_anyRadioactiveMaterials)){
                         array_push($referMatchArray, 'Please select Is there any use of radioactive materials in the premises? field.');
