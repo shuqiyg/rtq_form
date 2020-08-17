@@ -1471,7 +1471,10 @@ $('#insured_isRiskAddressSame').change(function() {
         $(".includeExclude").show();
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").show();
+        //console.log(!$(".howManyMortgageesBox").find('label').find("span"));
+        //if(!$(".howManyMortgageesBox").find('label').find("span"))
         $(".howManyMortgageesBox").find('label').append('<span class="err">*</span>');
+
          $(".howManyMortgageesBox").find('select').addClass("required");
         // clear all fields in section
         //clearFields('buildingConstruction');
@@ -2315,13 +2318,10 @@ $('#insured_isRiskAddressSame').change(function() {
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">US / Foreign Exposure <span class="err">*</span></label>
-                 <!--    <select id="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" class="form-control col-md-7 required">
-                        <option value="">-Select Value-</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select> -->
-                      <div class="radio_group">
-                        <input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="Yes" required=><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="No" required><span class="radio_title">No</span>
+                
+                     <div class="radio_group required">
+                        <input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="No"><span class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
                         </div> 
                 </div>`;
 
