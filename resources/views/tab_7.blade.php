@@ -63,11 +63,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-10" style="float: left;">  Has any policy on your behalf or on behalf of any your principals, firm partners, officers, employees, predecessors been declined or cancelled in the past 5 years? <span class="err">*</span> </label>
-                <select id="claimHistory_anyPolicyReportedOnUrBehalf" name="claimHistory_anyPolicyReportedOnUrBehalf" class="form-control col-md-2 required">
+                <!-- <select id="claimHistory_anyPolicyReportedOnUrBehalf" name="claimHistory_anyPolicyReportedOnUrBehalf" class="form-control col-md-2 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes </option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="claimHistory_anyPolicyReportedOnUrBehalf" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_anyPolicyReportedOnUrBehalf" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             <div class="form-group anyPolicyReportedBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox"> Steps to prevent reoccurence of claim </span> </label>
@@ -79,11 +83,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-10" style="float: left;">  Any unresolved act for errors and omissions or renewal refused or any claims, suits, demands for arbitration made or liabilities assumed?   <span class="err">*</span> </label>
-                <select id="claimHistory_anyUnresolvedAct" name="claimHistory_anyUnresolvedAct" class="form-control col-md-2 required">
+              <!--   <select id="claimHistory_anyUnresolvedAct" name="claimHistory_anyUnresolvedAct" class="form-control col-md-2 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes </option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group required">
+                <input type="radio" id="yes" name="claimHistory_anyUnresolvedAct" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_anyUnresolvedAct" value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             <div class="form-group anyUnresolvedActBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox"> Provide Full Details  </span></label>
@@ -95,11 +103,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-10" style="float: left;">  With regard to Questions above, it is understood and agreed that if any such claim, act, error, omission, dispute or circumstance exists, then such claim and/or any claim arising from such act, error, omission, dispute or circumstance is excluded from coverage that may be provided under this proposed insurance. Further, failure to disclose such claim, act, error, omission, dispute or circumstance may result in the proposed insurance being void, and/or subject to rescission.   <span class="err">*</span> </label>
-                <select id="claimHistory_ifSubjectToRescission" name="claimHistory_ifSubjectToRescission" class="form-control col-md-2 required">
+               <!--  <select id="claimHistory_ifSubjectToRescission" name="claimHistory_ifSubjectToRescission" class="form-control col-md-2 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes </option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                    <input type="radio" id="yes" name="claimHistory_ifSubjectToRescission" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_ifSubjectToRescission" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                    </div>
             </div>
 
         </div>
@@ -111,12 +123,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a Loss ? <span class="err">*</span></label>
-                <select class="form-control col-md-2 required" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
-                    <option value="">-Select value-</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
+                <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a Loss?  <span class="err">*</span> </label>  
+                 <div class="radio_group required">
+                    <input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
+
             </div>
         </div>
     </div>

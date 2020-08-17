@@ -229,11 +229,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Boiler & Other Machinery </label>
-                <select id="coverage_boiler" name="coverage_boiler" class="form-control col-md-8 " style="margin-top: 5px;">
+               <!--  <select id="coverage_boiler" name="coverage_boiler" class="form-control col-md-8 " style="margin-top: 5px;">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <!--  <input class="checkbox_custom" type="checkbox"  id="coverage_boiler" name="coverage_boiler"> -->
+                <div class="radio_group">
+                <input type="radio" id="yes" name="coverage_boiler" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_boiler" value="No" required><span class="radio_title">No</span>
+                </div> 
             </div>
         </div>
     </div>
@@ -263,11 +267,14 @@
         <div class="col-md-12 includeExclude">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Flood </label>
-                <select id="coverage_includeExclude_flood" name="coverage_includeExclude_flood" class="form-control col-md-8 ">
+               <!--  <select id="coverage_includeExclude_flood" name="coverage_includeExclude_flood" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group">
+                <input type="radio" id="yes" name="coverage_includeExclude_flood" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_flood" value="No"><span class="radio_title">No</span>
+                </div>
             </div>
         </div>
     </div>
@@ -276,11 +283,14 @@
         <div class="col-md-12 includeExclude">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Earthquake </label>
-                <select id="coverage_includeExclude_earthquake" name="coverage_includeExclude_earthquake" class="form-control col-md-8 ">
+               <!--  <select id="coverage_includeExclude_earthquake" name="coverage_includeExclude_earthquake" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group">
+                <input type="radio" id="yes" name="coverage_includeExclude_earthquake" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_earthquake" value="No"><span class="radio_title">No</span>
+                </div>
             </div>
         </div>
     </div>
@@ -289,11 +299,14 @@
         <div class="col-md-12 includeExclude">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Sewer Backup</label>
-                <select id="coverage_includeExclude_sewerBackup" name="coverage_includeExclude_sewerBackup" class="form-control col-md-8 ">
+              <!--   <select id="coverage_includeExclude_sewerBackup" name="coverage_includeExclude_sewerBackup" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group">
+                <input type="radio" id="yes" name="coverage_includeExclude_sewerBackup" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_sewerBackup" value="No"><span class="radio_title">No</span>
+                </div>
             </div>
         </div>
     </div>

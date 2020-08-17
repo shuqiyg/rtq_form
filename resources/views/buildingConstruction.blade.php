@@ -65,12 +65,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;">Is building considered a heritage building ? <span class="err">*</span></label>
-                        <select id="buildingConstruction_isBuildingHeritage" name="buildingConstruction_isBuildingHeritage" class="form-control col-md-8 amfPropertyExtention buildingPerils required">
-                            <option value="">-Select value-</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <label class="col-md-4" style="float: left;">Is building considered a heritage building?</label>
+                        <!-- <input class="checkbox_custom" type="checkbox" id="buildingConstruction_isBuildingHeritage" name="buildingConstruction_isBuildingHeritage"> -->
+                        <div class="radio_group">
+                        <input type="radio" id="yes" name="buildingConstruction_isBuildingHeritage" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="buildingConstruction_isBuildingHeritage" value="No"><span class="radio_title">No</span>
+                        </div> 
                     </div>
                 </div>
             </div>

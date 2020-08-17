@@ -36,8 +36,9 @@
                 </select>
             </div>
             <div class="form-group">
+                <p class="validPostalError" style="display: none;color: red;">Please enter valid Postal Code</p>
                 <label class="col-md-4" style="float: left;"> Postal code <span class="err">*</span> </label>
-                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
+                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
         
         @if($formVal != "plumbing")  
@@ -59,12 +60,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Is building coverage required?<span class="err">*</span> </label>
-                        <select class="form-control col-md-8 required" id="risk_address_requireBuildingCoverage" name="risk_address_requireBuildingCoverage">
-                            <option value="">-Select value-</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <label class="col-md-4" style="float: left;"> Is building coverage required? <span class="err">*</span> </label>
+                         <div class="radio_group required">
+                            <input type="radio" id="yes" name="risk_address_requireBuildingCoverage" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_requireBuildingCoverage" value="No"><span class="radio_title">No</span>
+                            <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                            </div> 
                     </div>
                 </div>
             </div>
@@ -95,12 +95,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Has the insured been cancelled/declined insurance ? <span class="err">*</span> </label>
-                        <select class="form-control col-md-8 required" id="risk_address_hasInsuredCancelInsurance" name="risk_address_hasInsuredCancelInsurance">
-                            <option value="">-Select value-</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <label class="col-md-4" style="float: left;"> Has the insured been cancelled/declined insurance?<span class="err">*</span></label>
+                        <div class="radio_group required">
+                        <input type="radio" id="yes" name="risk_address_hasInsuredCancelInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_hasInsuredCancelInsurance" value="No"><span class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,7 +113,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Number of claims in the last 5 years ? <span class="err">*</span> </label>
+                        <label class="col-md-4" style="float: left;"> Number of claims in the last 5 years? <span class="err">*</span> </label>
                         <select class="form-control col-md-8 required" id="risk_address_noOfClaims" name="risk_address_noOfClaims">
                             <option value="">-Select claims-</option>
                             <option value="0">None</option>
@@ -139,12 +138,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Are you aware of any incidence that may result in a claim ? <span class="err">*</span></label>
-                        <select class="form-control col-md-8 required" id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">
-                            <option value="">-Select value-</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <label class="col-md-4" style="float: left;"> Are you aware of any incidence that may result in a claim?</label>
+                        <input class="checkbox_custom" type="checkbox"  id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim"> 
                     </div>
                 </div>
             </div>

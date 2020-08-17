@@ -14,11 +14,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Add Contractors Equipment Floater (CEF)? <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="cgl_contractorsEquipmentFloater" name="cgl_contractorsEquipmentFloater">
+              <!--   <select class="col-md-8 form-control required" id="cgl_contractorsEquipmentFloater" name="cgl_contractorsEquipmentFloater">
                     <option value="">-Select Value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="cgl_contractorsEquipmentFloater" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_contractorsEquipmentFloater" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -26,11 +30,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Add Additional Property Frill? <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="cgl_additionalPropertyFrill" name="cgl_additionalPropertyFrill">
+                <!-- <select class="col-md-8 form-control required" id="cgl_additionalPropertyFrill" name="cgl_additionalPropertyFrill">
                     <option value="">-Select Value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="cgl_additionalPropertyFrill" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_additionalPropertyFrill" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -74,11 +82,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Employee benefit E/O  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="cgl_cglCoverages_employeeBenefitEO" name="cgl_cglCoverages_employeeBenefitEO">
+              <!--   <select class="col-md-8 form-control required" id="cgl_cglCoverages_employeeBenefitEO" name="cgl_cglCoverages_employeeBenefitEO">
                     <option value="">-Select Employee benefit E/O-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="cgl_cglCoverages_employeeBenefitEO" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_employeeBenefitEO" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -87,11 +99,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Employees as additional insureds  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="cgl_cglCoverages_employeeAsAdditionalInsured" name="cgl_cglCoverages_employeeAsAdditionalInsured">
+             <!--    <select class="col-md-8 form-control required" id="cgl_cglCoverages_employeeAsAdditionalInsured" name="cgl_cglCoverages_employeeAsAdditionalInsured">
                     <option value="">-Select Employees as additional insureds-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="cgl_cglCoverages_employeeAsAdditionalInsured" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_employeeAsAdditionalInsured" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -100,11 +116,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Personal injury limit <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="cgl_cglCoverages_personalInjuryLimit" name="cgl_cglCoverages_personalInjuryLimit">
+              <!--   <select class="col-md-8 form-control required" id="cgl_cglCoverages_personalInjuryLimit" name="cgl_cglCoverages_personalInjuryLimit">
                     <option value="">-Select Personal injury limit-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="cgl_cglCoverages_personalInjuryLimit" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_personalInjuryLimit" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>

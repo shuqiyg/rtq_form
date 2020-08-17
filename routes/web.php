@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*Route::get('/lia', 'rtqController@lia');*/
 Route::post('/loadForm', 'rtqController@loadForm');
 
 Route::post('/getBannerMessage','rtqController@getBannerMessage');

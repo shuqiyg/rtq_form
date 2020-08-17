@@ -37,11 +37,15 @@
             @if($formVal == "plumbing")
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Pull Box </label>
-                <select id="fireAlarmDetectors_pullBox" name="fireAlarmDetectors_pullBox" class="form-control col-md-8">
+                <!-- <select id="fireAlarmDetectors_pullBox" name="fireAlarmDetectors_pullBox" class="form-control col-md-8">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <!-- <input class="checkbox_custom" type="checkbox"  id="fireAlarmDetectors_pullBox" name="fireAlarmDetectors_pullBox">  --> 
+                <div class="radio_group">
+                        <input type="radio" id="yes" name="fireAlarmDetectors_pullBox" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fireAlarmDetectors_pullBox" value="No"><span class="radio_title">No</span>
+                        </div>
             </div>
             @endif
 
@@ -81,12 +85,17 @@
             <!-- Below form value need some specific fields -->
             @if($formVal == "plumbing")
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Inhouse Portable Extinguisher/s <span class="err">*</span></label>
-                <select id="fireAlarmDetectors_inhousePortableExtinguishers" name="fireAlarmDetectors_inhousePortableExtinguishers" class="form-control col-md-8 required">
+                <label class="col-md-4" style="float: left;"> Inhouse Portable Extinguisher/s<span class="err">*</span></label>
+            <!--     <select id="fireAlarmDetectors_inhousePortableExtinguishers" name="fireAlarmDetectors_inhousePortableExtinguishers" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <!-- <input class="checkbox_custom" type="checkbox"  id="fireAlarmDetectors_inhousePortableExtinguishers" name="fireAlarmDetectors_inhousePortableExtinguishers">  -->
+                  <div class="radio_group required">
+                    <input type="radio" id="yes" name="fireAlarmDetectors_inhousePortableExtinguishers" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fireAlarmDetectors_inhousePortableExtinguishers" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             @endif
 
@@ -135,11 +144,15 @@
 
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Safe </label>
-                <select id="burglaryAlarm_safe" name="burglaryAlarm_safe" class="form-control col-md-8 ">
+              <!--   <select id="burglaryAlarm_safe" name="burglaryAlarm_safe" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+               <!--   <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_safe" name="burglaryAlarm_safe"> -->
+                  <div class="radio_group">
+                        <input type="radio" id="yes" name="burglaryAlarm_safe" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_safe" value="No"><span class="radio_title">No</span>
+                        </div> 
             </div>
             <div class="form-group burglaryAlarm_safeBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Class</span></label>
@@ -153,35 +166,52 @@
             <h5>Other Measures</h5>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Bars on Windows </label>
-                <select id="burglaryAlarm_otherMeasures_barsOnWindows" name="burglaryAlarm_otherMeasures_barsOnWindows" class="form-control col-md-8 ">
+             <!--    <select id="burglaryAlarm_otherMeasures_barsOnWindows" name="burglaryAlarm_otherMeasures_barsOnWindows" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+               <!--  <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_barsOnWindows" name="burglaryAlarm_otherMeasures_barsOnWindows"> --> 
+                 <div class="radio_group">
+                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_barsOnWindows" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_barsOnWindows" value="No"><span class="radio_title">No</span>
+                        </div> 
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Deadbolt on doors </label>
-                <select id="burglaryAlarm_otherMeasures_deadboltOnDoors" name="burglaryAlarm_otherMeasures_deadboltOnDoors" class="form-control col-md-8 ">
+              <!--   <select id="burglaryAlarm_otherMeasures_deadboltOnDoors" name="burglaryAlarm_otherMeasures_deadboltOnDoors" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+              <!--   <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_deadboltOnDoors" name="burglaryAlarm_otherMeasures_deadboltOnDoors">  -->
+                 <div class="radio_group">
+                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="No"><span class="radio_title">No</span>
+                        </div> 
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Perimeter Lighting </label>
-                <select id="burglaryAlarm_otherMeasures_perimeterLighting" name="burglaryAlarm_otherMeasures_perimeterLighting" class="form-control col-md-8 ">
+              <!--   <select id="burglaryAlarm_otherMeasures_perimeterLighting" name="burglaryAlarm_otherMeasures_perimeterLighting" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+          <!--       <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_perimeterLighting" name="burglaryAlarm_otherMeasures_perimeterLighting">  -->
+                 <div class="radio_group">
+                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_perimeterLighting" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_perimeterLighting" value="No" ><span class="radio_title">No</span>
+                        </div> 
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Guard Dog </label>
-                <select id="burglaryAlarm_otherMeasures_guardDog" name="burglaryAlarm_otherMeasures_guardDog" class="form-control col-md-8 ">
+               <!--  <select id="burglaryAlarm_otherMeasures_guardDog" name="burglaryAlarm_otherMeasures_guardDog" class="form-control col-md-8 ">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+<!--                 <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_guardDog" name="burglaryAlarm_otherMeasures_guardDog"> 
+ -->                 <div class="radio_group required">
+                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_guardDog" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_guardDog" value="No"><span class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        </div> 
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Other </label>

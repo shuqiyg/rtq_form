@@ -27,11 +27,9 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Will they renew ? </span></label>
-                <select class="form-control col-md-8" id="risk_address_existingInsurerWillRenew" name="risk_address_existingInsurerWillRenew">
-                    <option value="">-Select value-</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
+                <div class="radio_group">
+                        <input type="radio" id="yes" name="risk_address_existingInsurerWillRenew" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_existingInsurerWillRenew" value="No"><span class="radio_title">No</span>
+                        </div>
             </div>
             <div class="form-group" id="risk_address_existingInsurerNonRenewalBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox"> If no, give reason for non-renewal </span> </label>

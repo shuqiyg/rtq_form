@@ -86,12 +86,11 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record? <span class="err">*</span> </label>
-                        <select class="form-control col-md-8 required" id="insured_criminal_record" name="insured_criminal_record">
-                            <option value="">-Select Value-</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record?</label>
+                        <!--  <input class="checkbox_custom" type="checkbox"  id="insured_criminal_record" name="insured_criminal_record"> -->
+                           <div class="radio_group">
+                            <input type="radio" id="yes" name="insured_criminal_record" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_criminal_record" value="No"><span class="radio_title">No</span>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -141,8 +140,9 @@
                 <a id="revertProvinceList" class="col-md-1" style="cursor: pointer;" data-toggle="tooltip" title="Click to reset list"><i class="fa fa-rotate-right" style="padding-top: 10px;"></i></a>
             </div>
             <div class="form-group">
+                <p class="validPostalError" style="display: none;color: red;">Please enter valid Postal Code</p>
                 <label class="col-md-4" style="float: left;"> Postal code / Zip code <span class="err">*</span> </label>
-                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
+                <input type="text" id="mailing_address_postalCode" name="mailing_address_postalCode" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
             <div class="form-group"  id="mailing_address_countryBox">
                 <label class="col-md-4" style="float: left;"> Country <span class="err">*</span> </label>
@@ -190,8 +190,9 @@
                 </select>
             </div>
             <div class="form-group riskAddressBOX" >
+                <p class="validPostalError" style="display: none;color: red;">Please enter valid Postal Code</p>
                 <label class="col-md-4" style="float: left;"> Postal code <span class="err">*</span> </label>
-                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 onlyNumbersAndLetters required"  value="" maxlength="10">
+                <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required"  value="" maxlength="10">
             </div>
 
             <div class="form-group">
@@ -208,11 +209,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-md-4" style="float: left;"> Are you Licenced? <span class="err">*</span> </label>
-                        <select class="form-control col-md-8 required" id="insured_licenced" name="insured_licenced">
+                       <!--  <select class="form-control col-md-8 required" id="insured_licenced" name="insured_licenced">
                             <option value="">-Select Value-</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </select> -->
+                         <div class="radio_group required">
+                            <input type="radio" id="yes" name="insured_licenced" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_licenced" value="No"><span class="radio_title">No</span>
+                              <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                            </div>
                     </div>
                 </div>
             </div>

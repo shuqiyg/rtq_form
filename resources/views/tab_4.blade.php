@@ -48,11 +48,15 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Are there any commercial operations on the premises ?<span class="err">*</span> </label>
-                        <select id="occupancy_commercialOperations" name="occupancy_commercialOperations" class="form-control col-md-8 required">
+                       <!--  <select id="occupancy_commercialOperations" name="occupancy_commercialOperations" class="form-control col-md-8 required">
                             <option value="">-Select value-</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </select> -->
+                        <div class="radio_group required">
+                        <input type="radio" id="yes" name="occupancy_commercialOperations" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_commercialOperations" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,11 +69,15 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Are there any Rental Suites? <span class="err">*</span> </label>
-                        <select id="occupancy_anyRentalSuites" name="occupancy_anyRentalSuites" class="form-control col-md-8 required">
+                      <!--   <select id="occupancy_anyRentalSuites" name="occupancy_anyRentalSuites" class="form-control col-md-8 required">
                             <option value="">-Select value-</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </select> -->
+                         <div class="radio_group required">
+                        <input type="radio" id="yes" name="occupancy_anyRentalSuites" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_anyRentalSuites" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,11 +92,15 @@
             @endif
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Are short term rentals allowed (e.g. AirBNB) <span class="err">*</span> </label>
-                <select id="occupancy_shortTermRentals" name="occupancy_shortTermRentals" class="form-control col-md-8 required">
+               <!--  <select id="occupancy_shortTermRentals" name="occupancy_shortTermRentals" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                        <input type="radio" id="yes" name="occupancy_shortTermRentals" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_shortTermRentals" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        </div>
             </div>
             
         </div>
@@ -107,23 +119,32 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Does the premises have a pool? <span class="err">*</span></label>
-                <select id="liability_doesPremisesHavePool" name="liability_doesPremisesHavePool" class="form-control col-md-8 required">
+               <!--  <select id="liability_doesPremisesHavePool" name="liability_doesPremisesHavePool" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
-            </div>
+                </select> -->
+                <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_doesPremisesHavePool" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_doesPremisesHavePool" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
+    </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifPremiseHasPoolBox" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">If Yes, Are the premises fenced and gated? </span> </label>
-                <select id="liability_doesPremisesFenced" name="liability_doesPremisesFenced" class="form-control col-md-8">
+                <!-- <select id="liability_doesPremisesFenced" name="liability_doesPremisesFenced" class="form-control col-md-8">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+
+                <div class="radio_group">
+                <input type="radio" id="yes" name="liability_doesPremisesFenced" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_doesPremisesFenced" value="No"><span class="radio_title">No</span>
+                </div>
+
             </div>
         </div>
     </div>
@@ -132,11 +153,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Do you own any Saddle or Draft Animals? <span class="err">*</span></label>
-                <select id="liability_ownSaddleDraftAnimals" name="liability_ownSaddleDraftAnimals" class="form-control col-md-8 required">
+              <!--   <select id="liability_ownSaddleDraftAnimals" name="liability_ownSaddleDraftAnimals" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_ownSaddleDraftAnimals" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownSaddleDraftAnimals" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -144,11 +169,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Do you own any Watercraft or Trailers? <span class="err">*</span></label>
-                <select id="liability_ownWatercraftTrailers" name="liability_ownWatercraftTrailers" class="form-control col-md-8 required">
+                <!-- <select id="liability_ownWatercraftTrailers" name="liability_ownWatercraftTrailers" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_ownWatercraftTrailers" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownWatercraftTrailers" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -156,11 +185,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Do you own/rent any other properties? <span class="err">*</span></label>
-                <select id="liability_ownOrRentOtherProperties" name="liability_ownOrRentOtherProperties" class="form-control col-md-8 required">
+               <!--  <select id="liability_ownOrRentOtherProperties" name="liability_ownOrRentOtherProperties" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_ownOrRentOtherProperties" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownOrRentOtherProperties" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>

@@ -10,10 +10,11 @@
     <form id="rtq_form">
         <div id="smartwizard" class="sw-main sw-theme-arrows">
             <ul class="nav nav-tabs step-anchor">
+               <!--  <li><a href="#tab-12">Liability<br /><small>Liability details</small></a></li> -->
                 <li><a href="#legal">Legal<br /><small>T&C</small></a></li>
                 <li><a href="#tab-1">Broker<br /><small>Broker Info</small></a></li>
                 <li><a href="#tab-2">Insured<br /><small>Insured Info</small></a></li>
-                @if($formVal == "homeInspector")
+                 @if($formVal == "homeInspector")
                 <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
                 @endif
                 @if($formVal == "homeInspector" || $formVal == "plumbing")
@@ -33,7 +34,7 @@
                 <li><a href="#tab-12">Liability<br /><small>Liability details</small></a></li>
                 @endif
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
-                @endif
+                @endif 
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
             </ul>
          

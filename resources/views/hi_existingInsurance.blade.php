@@ -13,11 +13,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Are you currently insured? <span class="err">*</span> </label>
-                <select id="existingInsurance_currentlyInsured" name="existingInsurance_currentlyInsured" class="form-control col-md-8 required">
+                <!-- <select id="existingInsurance_currentlyInsured" name="existingInsurance_currentlyInsured" class="form-control col-md-8 required">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes </option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group required">
+                <input type="radio" id="yes" name="existingInsurance_currentlyInsured" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="existingInsurance_currentlyInsured" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
             

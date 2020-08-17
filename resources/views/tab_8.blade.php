@@ -24,11 +24,15 @@
             
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Do you provide service outside of Canada?  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_doProvideServiceOutsideOfCanada" name="ops_doProvideServiceOutsideOfCanada">
+                <!-- <select class="col-md-8 form-control required" id="ops_doProvideServiceOutsideOfCanada" name="ops_doProvideServiceOutsideOfCanada">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_doProvideServiceOutsideOfCanada" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_doProvideServiceOutsideOfCanada" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
             
@@ -75,11 +79,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Do you carry employer's liability insurance? <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_carryEmployerLiablityInsurance" name="ops_carryEmployerLiablityInsurance">
+               <!--  <select class="col-md-8 form-control required" id="ops_carryEmployerLiablityInsurance" name="ops_carryEmployerLiablityInsurance">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_carryEmployerLiablityInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_carryEmployerLiablityInsurance" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -95,11 +103,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Are they covered by Worker's Compensation?   <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_coveredByWorkerCompensation" name="ops_coveredByWorkerCompensation">
+               <!--  <select class="col-md-8 form-control required" id="ops_coveredByWorkerCompensation" name="ops_coveredByWorkerCompensation">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_coveredByWorkerCompensation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_coveredByWorkerCompensation" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -116,11 +128,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Do you have a contract for your services in place?  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_haveContractForServices" name="ops_haveContractForServices">
+               <!--  <select class="col-md-8 form-control required" id="ops_haveContractForServices" name="ops_haveContractForServices">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_haveContractForServices" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveContractForServices" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -138,11 +154,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Do you have subcontactors that preform services?  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_haveSubContractors" name="ops_haveSubContractors">
+                <!-- <select class="col-md-8 form-control required" id="ops_haveSubContractors" name="ops_haveSubContractors">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_haveSubContractors" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -164,11 +184,15 @@
         <div class="col-md-12">
             <div class="form-group haveSubContractorsBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">hold harmless agreement  <span class="err">*</span></span> </label>
-                <select class="col-md-8 form-control required" id="ops_haveSubContractors_harmlessAgreement" name="ops_haveSubContractors_harmlessAgreement">
+                <!-- <select class="col-md-8 form-control required" id="ops_haveSubContractors_harmlessAgreement" name="ops_haveSubContractors_harmlessAgreement">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_haveSubContractors_harmlessAgreement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_harmlessAgreement" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
         </div>
@@ -177,11 +201,15 @@
         <div class="col-md-12">
             <div class="form-group haveSubContractorsBOX" style="display: none;">
                 <label class="col-md-4" style="float: left;"> Do you ask them to carry minimum liability insurance?  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_haveSubContractors_askToCarryMinLiaInsurance" name="ops_haveSubContractors_askToCarryMinLiaInsurance">
+               <!--  <select class="col-md-8 form-control required" id="ops_haveSubContractors_askToCarryMinLiaInsurance" name="ops_haveSubContractors_askToCarryMinLiaInsurance">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_haveSubContractors_askToCarryMinLiaInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_askToCarryMinLiaInsurance" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
         </div>
@@ -207,11 +235,15 @@
         <div class="col-md-12">
             <div class="form-group minLiaInsuranceBOX"  style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">added as additional insured  <span class="err">*</span> </span></label>
-                <select class="col-md-8 form-control required" id="ops_haveSubContractors_additionalInsured" name="ops_haveSubContractors_additionalInsured">
+               <!--  <select class="col-md-8 form-control required" id="ops_haveSubContractors_additionalInsured" name="ops_haveSubContractors_additionalInsured">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                  <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_haveSubContractors_additionalInsured" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_additionalInsured" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
         </div>
@@ -221,11 +253,15 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Is there any branch office or subsidiary?  <span class="err">*</span> </label>
-                <select class="col-md-8 form-control required" id="ops_anyBranchOrSubsidiary" name="ops_anyBranchOrSubsidiary">
+              <!--   <select class="col-md-8 form-control required" id="ops_anyBranchOrSubsidiary" name="ops_anyBranchOrSubsidiary">
                     <option value="">-Select value-</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
-                </select>
+                </select> -->
+                 <div class="radio_group required">
+                <input type="radio" id="yes" name="ops_anyBranchOrSubsidiary" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_anyBranchOrSubsidiary" value="No"><span class="radio_title">No</span>
+                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                </div>
             </div>
             
         </div>

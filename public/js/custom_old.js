@@ -584,7 +584,7 @@ $(document).ready(function(){
     // display attach details field & type of claims for if any incidence in claim happen
     $("#risk_address_incidenceInClaim").on('change',function(){
       var risk_address_incidenceInClaim = $("#risk_address_incidenceInClaim").val();
-      if(risk_address_incidenceInClaim == 'Yes'){
+      if(risk_address_incidenceInClaim){
         $("#incidenceOfClaimBox").show();
       }else{
         $("#incidenceOfClaimBox").hide();
