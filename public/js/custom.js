@@ -1458,7 +1458,8 @@ $('#insured_isRiskAddressSame').change(function() {
         clearFields("includeExclude"); 
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").hide();
-        $(".howManyMortgageesBox").find('label').find("span").remove();
+        $(".howManyMortgageesBox").find('label').find("span").empty();
+        $(".howManyMortgageesBox").find('label').find("span").removeClass("err");
         $(".howManyMortgageesBox").find('select').removeClass("required");
         $("#howManyMortgagees").hide();
         $("#howManyMortgagees").empty(); // empty box
@@ -1473,7 +1474,8 @@ $('#insured_isRiskAddressSame').change(function() {
         $(".howManyMortgageesBox").show();
         //console.log(!$(".howManyMortgageesBox").find('label').find("span"));
         //if(!$(".howManyMortgageesBox").find('label').find("span"))
-        $(".howManyMortgageesBox").find('label').append('<span class="err">*</span>');
+        $(".howManyMortgageesBox").find('label').find("span").html('*');
+        $(".howManyMortgageesBox").find('label').find("span").addClass("err");
 
          $(".howManyMortgageesBox").find('select').addClass("required");
         // clear all fields in section
@@ -3014,7 +3016,43 @@ $('#insured_isRiskAddressSame').change(function() {
       var currentYear = new Date().getFullYear();
         //console.log("Current Year "+currentYear);
         buildingAge = currentYear - $(this).val();
+        if(buildingAge >=25){
+          if(!$("#buildingConstruction_roofYearUpdated").parent().find("label").find('span').hasClass('err'))
+          $("#buildingConstruction_roofYearUpdated").parent().find("label").append("<span class='err'> *</span>");
+
+          $("#buildingConstruction_roofYearUpdated").addClass("required");
+
+           if(!$("#buildingConstruction_wiringYearUpdated").parent().find("label").find('span').hasClass('err'))
+          $("#buildingConstruction_wiringYearUpdated").parent().find("label").append("<span class='err'> *</span>");
+
+          $("#buildingConstruction_wiringYearUpdated").addClass("required");
+
+           if(!$("#buildingConstruction_heatingYearUpdated").parent().find("label").find('span').hasClass('err'))
+          $("#buildingConstruction_heatingYearUpdated").parent().find("label").append("<span class='err'> *</span>");
+
+          $("#buildingConstruction_heatingYearUpdated").addClass("required");
+
+           if(!$("#buildingConstruction_plumbingYearUpdated").parent().find("label").find('span').hasClass('err'))
+          $("#buildingConstruction_plumbingYearUpdated").parent().find("label").append("<span class='err'> *</span>");
+
+          $("#buildingConstruction_plumbingYearUpdated").addClass("required");
+
+        }else{
+          //if(!$("#buildingConstruction_wiringYearUpdated").parent().find("label").find('span').hasClass('err'))
+          $("#buildingConstruction_roofYearUpdated").parent().find("label").find("span.err").remove();
+          $("#buildingConstruction_roofYearUpdated").removeClass("required");
+
+           $("#buildingConstruction_wiringYearUpdated").parent().find("label").find("span.err").remove();
+          $("#buildingConstruction_wiringYearUpdated").removeClass("required");
+
+           $("#buildingConstruction_heatingYearUpdated").parent().find("label").find("span.err").remove();
+          $("#buildingConstruction_heatingYearUpdated").removeClass("required");
+
+           $("#buildingConstruction_plumbingYearUpdated").parent().find("label").find("span.err").remove();
+          $("#buildingConstruction_plumbingYearUpdated").removeClass("required");
+        }
         //console.log("buildingAge 1 "+buildingAge);
+        console.log(buildingAge);
         
   });
   // GET building Age in realtime
