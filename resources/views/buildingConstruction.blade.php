@@ -160,7 +160,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Wiring - % completed</span></label>
-                <input type="number" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01"  >
+                <input type="number" id="buildingConstruction_wiringPercentageCompleted" name="buildingConstruction_wiringPercentageCompleted" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)"  min="0" max="100"  >
             </div>
             <div class="row">
                 <div class="col-md-12">

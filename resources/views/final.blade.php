@@ -49,10 +49,10 @@
 
 	<!-- Binding Option Upper -->
 	<div class='row ' style="width: 100%;margin-left: 0px;"> 
-		<div class='col-md-12'> 
+		<div class='col-md-12' style="text-align: center;"> 
 			<div class="form-group">
-				<button class="btn btn-success" id="submitOnlyUp" style="margin-left: 5px;float: right;" >Submit Only</button>
-				<button class="btn btn-warning bindingBox" style="display: none;float: right;" id="bindingUpper">Bind & Submit</button>
+				<button class="btn btn-success" id="submitOnlyUp" style="margin-left: 5px;" >Submit Only (Without Binding)</button>
+				<button class="btn btn-warning bindingBox" style="display: none;" id="bindingUpper">Bind & Submit</button>
 				
 			</div> 
 		</div>

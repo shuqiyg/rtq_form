@@ -450,7 +450,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Other </label>
-                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 "  value="">
+                <input type="text" id="coverage_otherLiability" name="coverage_otherLiability" class="form-control col-md-8 commaValues"  value="">
             </div>
         </div>
     </div>

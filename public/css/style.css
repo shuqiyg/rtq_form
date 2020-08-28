@@ -7,6 +7,38 @@ body{
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+/*  .custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
+*/
+  
+/* to remove spin scroll on number field start*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+/* to remove spin scroll on number field end*/
+
+
 .work_sublet_style{
 position: relative;
 background: #bfbfbf5e;

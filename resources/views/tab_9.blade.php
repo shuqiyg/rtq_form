@@ -20,7 +20,7 @@
                 </select> -->
                   <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_radioactiveSamplingTesting" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_radioactiveSamplingTesting" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
     <div class="row">
@@ -34,7 +34,7 @@
                 </select> -->
                   <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_radioactiveSamplingTesting_thirdPartyInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_radioactiveSamplingTesting_thirdPartyInsurance" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
                 </select> -->
                   <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_offerRepairServiceAfterInspection" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_offerRepairServiceAfterInspection" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -196,7 +196,7 @@
                 </select> -->
                   <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_provideWrittenInspectionReport" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_provideWrittenInspectionReport" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@
                 </select> -->
                 <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_doProvideServiceOutsideOfCanada" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_doProvideServiceOutsideOfCanada" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
             
@@ -86,7 +86,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_carryEmployerLiablityInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_carryEmployerLiablityInsurance" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_coveredByWorkerCompensation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_coveredByWorkerCompensation" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_haveContractForServices" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveContractForServices" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_haveSubContractors" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
                 </select> -->
                 <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_haveSubContractors_harmlessAgreement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_harmlessAgreement" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
             
@@ -208,7 +208,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_haveSubContractors_askToCarryMinLiaInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_askToCarryMinLiaInsurance" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
             
@@ -242,7 +242,7 @@
                 </select> -->
                   <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_haveSubContractors_additionalInsured" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_haveSubContractors_additionalInsured" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
             
@@ -260,7 +260,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="ops_anyBranchOrSubsidiary" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="ops_anyBranchOrSubsidiary" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
             

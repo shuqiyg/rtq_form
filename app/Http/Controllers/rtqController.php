@@ -307,9 +307,10 @@ class rtqController extends Controller
         
         $totalRevenue1mmPremium = 0;
         $opsProdIAO = array();
-
+        if(!empty($liability_typeOfOpsWorkPerformIAO)){
         // CALCULATE LIABILITY TOTAL
         $iao = explode(',', $liability_typeOfOpsWorkPerformIAO);
+       // dd( $liability_typeOfOpsWorkPerformIAO );
         foreach ($iao as $key => $value) {
             $v = explode('-', $value);
             // get iao code and annual revenue for specific product or operation
@@ -360,7 +361,7 @@ class rtqController extends Controller
                 
             }
         }
-        
+        }
         $liablity1mm = 0;
         $liablity2mm = 0;
         if($coverage_liabilityLimit == "2mm"){
@@ -1275,6 +1276,9 @@ class rtqController extends Controller
             if(isset($fd[0]['burglaryAlarm_otherMeasures_guardDog']))
             $burglaryAlarm_otherMeasures_guardDog = $fd[0]['burglaryAlarm_otherMeasures_guardDog']['value'];
 
+            if(isset($fd[0]['burglaryAlarm_otherMeasures_other']))
+            $burglaryAlarm_otherMeasures_other = $fd[0]['burglaryAlarm_otherMeasures_other']['value'];
+
             if(isset($fd[0]['liability_contractualListLeaseEtc']))
             $liability_contractualListLeaseEtc = $fd[0]['liability_contractualListLeaseEtc']['value'];
 
@@ -1408,6 +1412,7 @@ class rtqController extends Controller
             $buildingConstruction_roofTypeCovering = trim($fd[0]['buildingConstruction_roofTypeCovering']['value']);
             $buildingConstruction_amperage = trim($fd[0]['buildingConstruction_amperage']['value']);
             $buildingConstruction_heatingPrimaryType = trim($fd[0]['buildingConstruction_heatingPrimaryType']['value']);
+            $buildingConstruction_heatingSecondaryType = trim($fd[0]['buildingConstruction_heatingSecondaryType']['value']);
             $fireAlarmDetectors_fireDeptTye = trim($fd[0]['fireAlarmDetectors_fireDeptTye']['value']);
             
             
@@ -1598,6 +1603,13 @@ class rtqController extends Controller
                             array_push($referMatchArray, 'Buildingheating primary type is '.$buildingConstruction_heatingPrimaryType.'.');
                              $valid = false;
                         }
+
+                         if(in_array($buildingConstruction_heatingSecondaryType,array('Other','Wood-Solid'))){
+                            array_push($referMatchArray, 'Buildingheating secondary type is '.$buildingConstruction_heatingSecondaryType.'.');
+                             $valid = false;
+                        }
+
+
 /*
                         if($buildingConstruction_heatingPrimaryType == "Wood-Solid"){
                             array_push($referMatchArray, 'Building heating primary type is wood/solid.');
@@ -1621,6 +1633,11 @@ class rtqController extends Controller
                     }
                     if(isset($burglaryAlarm_otherMeasures_guardDog) && $burglaryAlarm_otherMeasures_guardDog  == "Yes"){
                         array_push($referMatchArray, 'There is guard dog.');
+                         $valid = false;
+                    }
+
+                     if(isset($burglaryAlarm_otherMeasures_other) && !empty($burglaryAlarm_otherMeasures_other)){
+                        array_push($referMatchArray, 'There is non-empty Other filed in Burglary Alarm Systems section.');
                          $valid = false;
                     }
                     if(isset($liability_workSubletOut) && $liability_workSubletOut == "Yes"){
@@ -1805,7 +1822,7 @@ class rtqController extends Controller
                 
 
                 if($rtqForm == "rentedDwelling" || $rtqForm == "ownerOccupied" || $rtqForm == "plumbing"){
-                    if($rtqForm == "plumbing" && isset($buildingRequirement) && $buildingRequirement == "No"){
+                    if($rtqForm == "plumbing" && isset($buildingRequirement) && $buildingRequirement == "Yes"){
                         if($risk_address_howmany_mortgagees == ""){
                             array_push($referMatchArray, 'Please select how many mortgagee field.');
                             $valid = 'Empty';
@@ -1906,6 +1923,11 @@ class rtqController extends Controller
 
                     if($buildingConstruction_heatingPrimaryType == ""){
                         array_push($referMatchArray, 'Please select heating primary type field.');
+                        $valid = 'Empty';
+                    }
+
+                     if($buildingConstruction_heatingSecondaryType == ""){
+                        array_push($referMatchArray, 'Please select heating secondary type field.');
                         $valid = 'Empty';
                     }
                     

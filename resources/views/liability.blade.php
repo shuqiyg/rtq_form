@@ -17,7 +17,7 @@
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
                     <label class="col-md-4" style="float: left;">Operation / Product <span class="err">*</span> </label>
                     <!-- <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" > -->
-                    <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required">
+                    <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required combobox">
                         <option value="">-Select Operation/Product-</option>
                         <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
                         <option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option>
@@ -68,7 +68,7 @@
                
                       <div class="radio_group required">
                         <input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_1" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_typeOfOpsWorkPerformUsForeignExposure_1" value="No"><span class="radio_title">No</span>
-                        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div> 
                 </div>
 
@@ -174,7 +174,7 @@
        <!--  <input class="checkbox_custom" type="checkbox" id="liability_workSubletOut" name="liability_workSubletOut">  --> 
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_workSubletOut" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_workSubletOut" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>                          
     </div>
     </div>
@@ -194,7 +194,7 @@
                
         <div class="radio_group required">
         <input type="radio" id="yes" name="liability_wsoSubConLiablityInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_wsoSubConLiablityInsurance" value="No"><span class="radio_title">No</span>
-          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+          <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
             </div>
         </div>
@@ -224,7 +224,7 @@
              
                   <div class="radio_group required">
         <input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceFormalAgreement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_wsoSubConLiabilityInsuranceFormalAgreement" value="No"><span class="radio_title">No</span>
-          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+          <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
             </div>
         </div>
@@ -247,7 +247,7 @@
         <label class="col-md-6">Are all employees covered by Workmen's compensation <span class="err">*</span></label>                         
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_employeesCoveredByCompensation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_employeesCoveredByCompensation" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -300,7 +300,7 @@
         <label class="col-md-6">Thawing of pipes <span class="err">*</span></label>
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsThawingOfPipes" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsThawingOfPipes" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -310,7 +310,7 @@
         <label class="col-md-6">Demolition or Wrecking <span class="err">*</span></label>
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsDemolition" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsDemolition" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -320,7 +320,7 @@
         <label class="col-md-6">Shoring <span class="err">*</span></label>
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsShoring" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsShoring" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -330,7 +330,7 @@
         <label class="col-md-6">Underpinning <span class="err">*</span></label>                         
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsUnderpinning" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsUnderpinning" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -340,7 +340,7 @@
         <label class="col-md-6">Caisson Work <span class="err">*</span></label>                      
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsCaissonWork" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsCaissonWork" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -350,7 +350,7 @@
         <label class="col-md-6">Excavation <span class="err">*</span></label>                            
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsExcavation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsExcavation" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -360,7 +360,7 @@
         <label class="col-md-6">Use of Explosives <span class="err">*</span></label>                 
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsExplosives" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsExplosives" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -370,7 +370,7 @@
         <label class="col-md-6">Tunneling <span class="err">*</span></label>
          <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsTunneling" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsTunneling" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -382,7 +382,7 @@
         <label class="col-md-6">Raising or moving of buildings and structures <span class="err">*</span></label>
           <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsRaisingBuildings" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsRaisingBuildings" value="No"><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>

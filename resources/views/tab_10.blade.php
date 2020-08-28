@@ -21,7 +21,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_contractorsEquipmentFloater" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_contractorsEquipmentFloater" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_additionalPropertyFrill" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_additionalPropertyFrill" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_cglCoverages_employeeBenefitEO" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_employeeBenefitEO" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_cglCoverages_employeeAsAdditionalInsured" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_employeeAsAdditionalInsured" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -123,7 +123,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_cglCoverages_personalInjuryLimit" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_cglCoverages_personalInjuryLimit" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>

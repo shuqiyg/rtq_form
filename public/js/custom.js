@@ -1,4 +1,142 @@
 $(document).ready(function(){
+
+  /*  $( function() {
+    $.widget( "custom.combobox", {
+      _create: function() {
+        this.wrapper = $( "<span>" )
+          .addClass( "custom-combobox" )
+          .insertAfter( this.element );
+ 
+        this.element.hide();
+        this._createAutocomplete();
+        this._createShowAllButton();
+      },
+ 
+      _createAutocomplete: function() {
+        var selected = this.element.children( ":selected" ),
+          value = selected.val() ? selected.text() : "";
+ 
+        this.input = $( "<input>" )
+          .appendTo( this.wrapper )
+          .val( value )
+          .attr( "title", "" )
+          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+          .autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: $.proxy( this, "_source" )
+          })
+          .tooltip({
+            classes: {
+              "ui-tooltip": "ui-state-highlight"
+            }
+          });
+ 
+        this._on( this.input, {
+          autocompleteselect: function( event, ui ) {
+            ui.item.option.selected = true;
+            this._trigger( "select", event, {
+              item: ui.item.option
+            });
+          },
+ 
+          autocompletechange: "_removeIfInvalid"
+        });
+      },
+ 
+      _createShowAllButton: function() {
+        var input = this.input,
+          wasOpen = false;
+ 
+        $( "<a>" )
+          .attr( "tabIndex", -1 )
+          .attr( "title", "Show All Items" )
+          .tooltip()
+          .appendTo( this.wrapper )
+          .button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          })
+          .removeClass( "ui-corner-all" )
+          .addClass( "custom-combobox-toggle ui-corner-right" )
+          .on( "mousedown", function() {
+            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+          })
+          .on( "click", function() {
+            input.trigger( "focus" );
+ 
+            // Close if already visible
+            if ( wasOpen ) {
+              return;
+            }
+ 
+            // Pass empty string as value to search for, displaying all results
+            input.autocomplete( "search", "" );
+          });
+      },
+ 
+      _source: function( request, response ) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+        response( this.element.children( "option" ).map(function() {
+          var text = $( this ).text();
+          if ( this.value && ( !request.term || matcher.test(text) ) )
+            return {
+              label: text,
+              value: text,
+              option: this
+            };
+        }) );
+      },
+ 
+      _removeIfInvalid: function( event, ui ) {
+ 
+        // Selected an item, nothing to do
+        if ( ui.item ) {
+          return;
+        }
+ 
+        // Search for a match (case-insensitive)
+        var value = this.input.val(),
+          valueLowerCase = value.toLowerCase(),
+          valid = false;
+        this.element.children( "option" ).each(function() {
+          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+            this.selected = valid = true;
+            return false;
+          }
+        });
+ 
+        // Found a match, nothing to do
+        if ( valid ) {
+          return;
+        }
+ 
+        // Remove invalid value
+        this.input
+          .val( "" )
+          .attr( "title", value + " didn't match any item" )
+          .tooltip( "open" );
+        this.element.val( "" );
+        this._delay(function() {
+          this.input.tooltip( "close" ).attr( "title", "" );
+        }, 2500 );
+        this.input.autocomplete( "instance" ).term = "";
+      },
+ 
+      _destroy: function() {
+        this.wrapper.remove();
+        this.element.show();
+      }
+    });
+ 
+    $( ".combobox" ).combobox();
+   /* $( "#toggle" ).on( "click", function() {
+      $( ".combobox" ).toggle();
+    });*/
+  /*} );*/
+
  function checkbox() {
     if(this.is(":checked")){
       this.checked = true;
@@ -984,6 +1122,15 @@ $('#insured_isRiskAddressSame').change(function() {
 
     // display other mailing address province field
     $("#mailing_address_province").on('change',function(){
+      if( $("#mailing_address_province").val() == "Quebec"){
+          $("input[type=radio][name=insured_criminal_record]").parent().addClass("required");
+          $("input[type=radio][name=insured_criminal_record]").parent().find("span.radio_error").show();
+          $("input[type=radio][name=insured_criminal_record]").parent().parent().find("label").append('<span class="err" style="color:red"> *</span>');
+      }else{
+          $("input[type=radio][name=insured_criminal_record]").parent().removeClass("required");
+          $("input[type=radio][name=insured_criminal_record]").parent().find("span.radio_error").hide();
+          $("input[type=radio][name=insured_criminal_record]").parent().parent().find("label").find("span.err").remove();
+      }
       fieldOpenHide('mailing_address_province','other','mailing_address_provBox','mailing_address_provOtherBox',['mailing_address_province_other'],'Yes');
       /*var mailing_address_province = $("#mailing_address_province").val();
       if(mailing_address_province == 'other'){
@@ -1450,7 +1597,7 @@ $('#insured_isRiskAddressSame').change(function() {
     // show entire section/Step if buildingCoverage required Yes
     //$("#risk_address_requireBuildingCoverage").on('change',function(){
        $("input[type=radio][name=risk_address_requireBuildingCoverage]").on('change',function(){
-      if(this.value == "Yes"){
+      if(this.value == "No"){
         // hide building construction section and surroundign exposure section
         //$(".buildingConstruction").hide();
         //$(".surroundingExposure").hide();
@@ -2323,7 +2470,7 @@ $('#insured_isRiskAddressSame').change(function() {
                 
                      <div class="radio_group required">
                         <input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_typeOfOpsWorkPerformUsForeignExposure_`+addTOWFCount+`" value="No"><span class="radio_title">No</span>
-                        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                        <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div> 
                 </div>`;
 

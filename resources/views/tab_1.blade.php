@@ -63,7 +63,7 @@
        <!--  <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_applicantPersonally" name="brokerSurvey_applicantPersonally">    -->
        <div class="radio_group required">
         <input type="radio" id="yes" name="brokerSurvey_applicantPersonally" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_applicantPersonally" value="No" required><span class="radio_title">No</span>
-        <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
     </div>
@@ -83,7 +83,7 @@
 <!--                 <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_OrderDirectApplicant" name="brokerSurvey_OrderDirectApplicant"> -->
              <div class="radio_group required">
             <input type="radio" id="yes" name="brokerSurvey_OrderDirectApplicant" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_OrderDirectApplicant" value="No"><span class="radio_title">No</span> 
-             <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+             <span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                <!--  <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_handleOtherInsurance" name="brokerSurvey_handleOtherInsurance"> -->
                 <div class="radio_group required">
                 <input type="radio" id="yes" name="brokerSurvey_handleOtherInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_handleOtherInsurance" value="No"><span class="radio_title">No</span>
-                <span class="radio_error" style="display:none;color: red;">This field is required.</span>  
+                <span class="radio_error" style="display:none;color: red;">Required.</span>  
             </div>
             </div>
         </div>
@@ -123,7 +123,7 @@
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_recommandRisk" name="brokerSurvey_recommandRisk"> --> 
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="brokerSurvey_recommandRisk" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_recommandRisk" value="No"><span class="radio_title">No</span>
-                <span class="radio_error" style="display:none;color: red;">This field is required.</span> 
+                <span class="radio_error" style="display:none;color: red;">Required.</span> 
             </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_riskRenewalToOffice" name="brokerSurvey_riskRenewalToOffice"> --> 
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
-                <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
             </div>
         </div>

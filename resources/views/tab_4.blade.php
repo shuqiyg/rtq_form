@@ -55,7 +55,7 @@
                         </select> -->
                         <div class="radio_group required">
                         <input type="radio" id="yes" name="occupancy_commercialOperations" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_commercialOperations" value="No"><span class="radio_title">No</span>
-                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         </select> -->
                          <div class="radio_group required">
                         <input type="radio" id="yes" name="occupancy_anyRentalSuites" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_anyRentalSuites" value="No"><span class="radio_title">No</span>
-                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 </select> -->
                  <div class="radio_group required">
                         <input type="radio" id="yes" name="occupancy_shortTermRentals" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="occupancy_shortTermRentals" value="No"><span class="radio_title">No</span>
-                          <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
             </div>
             
@@ -126,7 +126,7 @@
                 </select> -->
                 <div class="radio_group required">
                 <input type="radio" id="yes" name="liability_doesPremisesHavePool" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_doesPremisesHavePool" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
     </div>
         </div>
@@ -160,7 +160,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="liability_ownSaddleDraftAnimals" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownSaddleDraftAnimals" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -176,7 +176,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="liability_ownWatercraftTrailers" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownWatercraftTrailers" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
                 </select> -->
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="liability_ownOrRentOtherProperties" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_ownOrRentOtherProperties" value="No"><span class="radio_title">No</span>
-                  <span class="radio_error" style="display:none;color: red;">This field is required.</span>
+                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
