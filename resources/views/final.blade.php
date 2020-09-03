@@ -114,6 +114,7 @@
 							<li>The information will be sent to AMFUM and entered into our system</li>
 							<li>You will receive an email with a copy of the application filled out and,</li>
 							<li>Acknowledgement that we have received your Binding instructions.</li>
+							<li>Please note the policy fee and (if applicable) the inspection fee are 100% retained.</li>
 							<li>You must get the application signed and returned to us.</li>
 							<li>Within 5 business days, you will receive Policy Documents electronically.</li>
 						</ul>

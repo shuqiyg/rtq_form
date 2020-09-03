@@ -62,7 +62,7 @@
 			</ul>
 		</li>
 	</ul>
-	<br/>
+	
 	<h3 class="legalHeader">Limitations on Binding (if applicable)</h3>
 	<p>Although Binding is initiated by the Broker through this form, it is not considered Bound until the representative receives a confirmation email directly from AMFUM. This confirmation will contain:</p>
 	<ul>
@@ -77,15 +77,21 @@
 		@endif
 	</ul>
 	<p>Please note that completion of the on-line application does not eliminate the requirement for a signed application. Once the application is received, it is to be signed by your client and sent to us within five (5) days after coverage is bound.</p>
+	<h3 class="legalHeader">Supplemental Documentation Required:</h3>
+	<p>Please note we reserve the right to request additional information about any risk bound through this portal upon review of the information received.</p>
+	<p>Required Supplemental Documentation if binding is required:</p>
+	<p>In consideration of the limit of Business Interruption Coverage being requested, in order to bind we will require the following:</p>
+	<p>If the requested Business Interruption Limit is over $ 100,000 (but not over $ 250,000):<br/>A copy of a satisfactorily completed Business Interruption Worksheet is required within five days of binding.</p>
+	<p>If the requested business Interruption limit is over $ 250,000:<br/>A copy of the insured`s most recent financial statements is required within 10 days of binding.</p>
 	<p>As is the case with quotes based on the traditional printed applications, our electronic quotation is made with reliance on the information contained in the electronic application. Any subsequently discovered errors or changes in exposures must be brought to our attention a.s.a.p.</p>
-	<br>
+	
 	<h3 class="legalHeader">Language</h3>
 	<p>The Language flag in the application applies to the final Policy Documents. Not to the interface language.</p>
-	<br>
+	
 	<h3 class="legalHeader">Privacy Policy</h3>
 	<p>A copy of our company privacy policy is located here: <a href="https://www.amfredericks.com/privacy-policy" target="_blank">https://www.amfredericks.com/privacy-policy</a></p>
 	<p>Additionally, as it pertains to this application, no information is stored online and is transmitted securely to our internal system. AMFUM has no control over the Broker’s systems and assume all standard security protocols are followed by the Broker.</p>
-	<br>
+	
 	<h3 class="legalHeader">Acknowledgements</h3>
 	<p class="acknowledgeError" style="display: none;color: red;"></p>
 	<div class="row">

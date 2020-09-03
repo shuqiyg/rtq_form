@@ -49,6 +49,15 @@
                         <option data-iao="1762" value="Sheet Metal - Away from Shop (NOT ROOFING)">Sheet Metal - Away from Shop (NOT ROOFING)</option>
                         <option data-iao="1766" value="Metal Doors, Windows, Awnings Installation">Metal Doors, Windows, Awnings Installation</option>
                         <option data-iao="7394" value="Janitorial Service">Janitorial Service</option>
+                        <option data-iao="1777" value="Waterproofing Operations">Waterproofing Operations</option>
+                        <option data-iao="1778" value="Septic Tank Installation/Service/Repair">Septic Tank Installation/Service/Repair</option>
+                        <option data-iao="1779" value="Building Cleaning - Exterior - (no sandblasting, less than 4 stories)">Building Cleaning - Exterior - (no sandblasting, less than 4 stories)</option>
+                        <option data-iao="1811" value="Building Construction - Incl. Renovation, Repairs (1 or 2 family Dwellings only)">Building Construction - Incl. Renovation, Repairs (1 or 2 family Dwellings only)</option>
+                        <option data-iao="1812" value="Residential Building Construction - Apts & Townhouses">Residential Building Construction - Apts & Townhouses</option>
+                        <option data-iao="1831" value="Swimming Pool Installation, Service & Repairs">Swimming Pool Installation, Service & Repairs</option>
+                        <option data-iao="5257" value="Building Materials (incl. lumber, masonry, tools and building supplies)">Building Materials (incl. lumber, masonry, tools and building supplies)</option>
+                        <option data-iao="5254" value="Paint & Wallpaper Supplies">Paint & Wallpaper Supplies</option>
+                        <option data-iao="5162" value="Miscellaneous Building, Hardware, Cleaning Supplies">Miscellaneous Building, Hardware, Cleaning Supplies</option>
                     </select>
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
