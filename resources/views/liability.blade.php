@@ -11,7 +11,12 @@
     <input type="hidden" name="liability_typeOfOpsWorkPerformIAO" id="liability_typeOfOpsWorkPerformIAO">
     <div class="row">
         <div class="col-md-12" style="padding: 0% 10%;">
-        
+            <?php
+              // get form province rule json
+                $plumbing_iao = json_decode(file_get_contents(public_path().'/json/plumbing_iao.json'), true);
+                array_multisort( array_column($plumbing_iao, "desc"), SORT_ASC, $plumbing_iao );
+            //dd( $plumbing_iao);
+            ?>
             <div class="opsWorkPerformed">
                 <div class="towf_sections" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
@@ -19,7 +24,10 @@
                     <!-- <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" > -->
                     <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required combobox">
                         <option value="">-Select Operation/Product-</option>
-                        <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
+                        @foreach( $plumbing_iao as $k=>$v)
+                          <option data-iao="{{$k}}" value="{{$v['desc']}}">{{$v['desc']}}</option>
+                        @endforeach
+                        <!-- <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
                         <option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option>
                         <option data-iao="1521" value="Driveway, Parking Area Construction">Driveway, Parking Area Construction</option>
                         <option data-iao="1522" value="Fence Construction">Fence Construction</option>
@@ -57,7 +65,7 @@
                         <option data-iao="1831" value="Swimming Pool Installation, Service & Repairs">Swimming Pool Installation, Service & Repairs</option>
                         <option data-iao="5257" value="Building Materials (incl. lumber, masonry, tools and building supplies)">Building Materials (incl. lumber, masonry, tools and building supplies)</option>
                         <option data-iao="5254" value="Paint & Wallpaper Supplies">Paint & Wallpaper Supplies</option>
-                        <option data-iao="5162" value="Miscellaneous Building, Hardware, Cleaning Supplies">Miscellaneous Building, Hardware, Cleaning Supplies</option>
+                        <option data-iao="5162" value="Miscellaneous Building, Hardware, Cleaning Supplies">Miscellaneous Building, Hardware, Cleaning Supplies</option> -->
                     </select>
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
@@ -386,11 +394,20 @@
 
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                              
-       
+    <div class="form-group col-md-12 item_flex">                   
         <label class="col-md-6">Raising or moving of buildings and structures <span class="err">*</span></label>
           <div class="radio_group required">
         <input type="radio" id="yes" name="liability_engageOpsRaisingBuildings" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsRaisingBuildings" value="No"><span class="radio_title">No</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        </div>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="form-group col-md-12 item_flex">                   
+        <label class="col-md-6">Eqiuptments rented to others <span class="err">*</span></label>
+          <div class="radio_group required">
+        <input type="radio" id="yes" name="liability_equipmentRented" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_equipmentRented" value="No"><span class="radio_title">No</span>
         <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>

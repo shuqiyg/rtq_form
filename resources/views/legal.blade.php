@@ -8,7 +8,7 @@
 </div>
 
 <section class="legalTerms">
-	<h3 class="legalHeader"> Purpose of this Form </h3>
+	
 	<!-- Home Inspector OLD VERSION LEGAL --
 	<p>This is an application for insurance and the insurer is not obligated to accept the applicant for coverage. If a policy is issued, one signed copy of the application will be attached to the policy or certificate. Signature on the application form and submission of a premium payment does not bind the insurer to complete an insurance transaction with the applicant. Coverage is bound upon receipt from A.M. Fredericks Underwriting Management Ltd. Confirming Policy #, coverage and Effective Date. If a policy is issued, it provides Errors and Omissions insurance that applies on a claims-made basis. The following provides a general description of this coverage and is subject to the terms and provisions of the actual policy. </p>
 	<ul>
@@ -46,6 +46,25 @@
 		<input name="qaqcUpload" id="qaqcUpload" type="file">
 	</div>
 	 -->
+	 	
+	<h3 class="legalHeader">Acknowledgements</h3>
+	<p class="acknowledgeError" style="display: none;color: red;"></p>
+	<div class="row">
+		<div class="col-md-12">
+			<input type="checkbox" class="form-control col-md-1" id="cb1" style="float: left;"><span class="col-md-11">I acknowledge that I am a representative of the Brokerage used for this application</span> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<input type="checkbox" class="form-control col-md-1" id="cb2" style="float: left;"><span class="col-md-11">I acknowledge that I am licensed in the province where the Risk is located</span>
+		</div>
+	</div>
+	<div class="row"> 
+		<div class="col-md-12">
+			<input type="checkbox" class="form-control col-md-1" id="cb3" style="float: left;"><span class="col-md-11">I acknowledge that I have read and understood the information contained on this page</span> 
+		</div>
+	</div>
+	<h3 class="legalHeader"> Purpose of this Form </h3>
 	<p>This application can provide an actual quote that can be bound by the Broker’s Representative. Certain conditions must be met: </p>
 	<ul>
 		<li> The broker must be approved by AM Fredericks Underwriting Management Ltd (AMFUM). This means that:
@@ -91,23 +110,5 @@
 	<h3 class="legalHeader">Privacy Policy</h3>
 	<p>A copy of our company privacy policy is located here: <a href="https://www.amfredericks.com/privacy-policy" target="_blank">https://www.amfredericks.com/privacy-policy</a></p>
 	<p>Additionally, as it pertains to this application, no information is stored online and is transmitted securely to our internal system. AMFUM has no control over the Broker’s systems and assume all standard security protocols are followed by the Broker.</p>
-	
-	<h3 class="legalHeader">Acknowledgements</h3>
-	<p class="acknowledgeError" style="display: none;color: red;"></p>
-	<div class="row">
-		<div class="col-md-12">
-			<input type="checkbox" class="form-control col-md-1" id="cb1" style="float: left;"><span class="col-md-11">I acknowledge that I am a representative of the Brokerage used for this application</span> 
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<input type="checkbox" class="form-control col-md-1" id="cb2" style="float: left;"><span class="col-md-11">I acknowledge that I am licensed in the province where the Risk is located</span>
-		</div>
-	</div>
-	<div class="row"> 
-		<div class="col-md-12">
-			<input type="checkbox" class="form-control col-md-1" id="cb3" style="float: left;"><span class="col-md-11">I acknowledge that I have read and understood the information contained on this page</span> 
-		</div>
-	</div>
-	
+
 </section>

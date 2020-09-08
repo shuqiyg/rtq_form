@@ -1334,6 +1334,9 @@ class rtqController extends Controller
             if(isset($fd[0]['liability_engageOpsRaisingBuildings']))
             $liability_engageOpsRaisingBuildings  = $fd[0]['liability_engageOpsRaisingBuildings']['value'];
 
+             if(isset($fd[0]['liability_equipmentRented']))
+            $liability_equipmentRented  = $fd[0]['liability_equipmentRented']['value'];
+
             if(isset( $fd[0]['coverage_boiler']))
             $coverage_boiler = $fd[0]['coverage_boiler']['value'];
 
@@ -1616,11 +1619,11 @@ class rtqController extends Controller
                         }*/
                     }
                     
-                    if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
+                  /*  if($fireAlarmDetectors_fireDeptTye == "Volunteer"){
                         array_push($referMatchArray, 'Fire department type is volunteer.');
                          $valid = false;
                     }
-
+*/
                 if($rtqForm == "plumbing"){
                     if($totalYearOperationExperience != '' && !empty($totalYearOperationExperience) && $totalYearOperationExperience < 3){
                         array_push($referMatchArray, 'Years of operation and experince is less than 2.');
@@ -1696,6 +1699,12 @@ class rtqController extends Controller
                         array_push($referMatchArray, 'Engage in operation of raising or moving of buildings and structures.');
                          $valid = false;
                     }
+
+                     if(isset($liability_equipmentRented) && $liability_equipmentRented  == "Yes"){
+                        array_push($referMatchArray, 'Engage in  equipments rented to others');
+                         $valid = false;
+                    }
+
                     if($equipmentScheduleTotalAmount  > $cefScheduleLimit){
                         array_push($referMatchArray, 'CEF equipment schedule coverage is more than '.$cefScheduleLimit.'.');
                          $valid = false;
@@ -1992,6 +2001,10 @@ class rtqController extends Controller
                     }
                     if(!isset($liability_engageOpsRaisingBuildings)){
                         array_push($referMatchArray, 'Please select Raising or moving of buildings and structures field.');
+                        $valid = 'Empty';
+                    }
+                     if(!isset($liability_equipmentRented)){
+                        array_push($referMatchArray, 'Please select Eqiuptments rented to others');
                         $valid = 'Empty';
                     }
 
