@@ -2417,7 +2417,7 @@ $('#insured_isRiskAddressSame').change(function() {
     // set count in hidden fields
     $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
       
-          $.getJSON('../json/plumbing_iao.json', function( data ) {
+          $.getJSON(window.location.pathname+'/json/plumbing_iao.json', function( data ) {
             // object to array
           var arr = Object.keys(data).map(function (key) { return data[key]; });
          
