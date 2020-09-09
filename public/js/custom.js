@@ -2398,10 +2398,16 @@ $('#insured_isRiskAddressSame').change(function() {
     Add more liablity items detail type(s) of operations and work performed by applicant
   **/
   //var addTOWFCount = 2; // one is by default showing in form
+
+
   $("#addTypeOfOpsWorkPerformBox").on('click',function(e){
     e.preventDefault();
     addtypeOfOpsWorkPerformDescription();
   });
+
+
+
+
   function addtypeOfOpsWorkPerformDescription(){
     // get size of section
     var size = $("[id^=liability_typeOfOpsWorkPerformOperation").size(); // adding 1 to it because we have default one already
@@ -2410,10 +2416,21 @@ $('#insured_isRiskAddressSame').change(function() {
     
     // set count in hidden fields
     $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount);
-    
-   
-                      var items = [];
-              $.getJSON('../json/plumbing_iao.json', function( data ) {
+      
+          $.getJSON('../json/plumbing_iao.json', function( data ) {
+            // object to array
+          var arr = Object.keys(data).map(function (key) { return data[key]; });
+         
+          // array sort
+          arr.sort(function(a, b) {
+          if (a.desc > b.desc) {
+          return 1;
+          } else if (a.desc < b.desc) {
+          return -1;
+          }
+          return 0;
+          });
+        
               var html = `
               <div class="towf_sections" data-value="`+addTOWFCount+`" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> `+addTOWFCount+`) </span>
@@ -2422,8 +2439,8 @@ $('#insured_isRiskAddressSame').change(function() {
                     <select id="liability_typeOfOpsWorkPerformOperation_`+addTOWFCount+`" name="liability_typeOfOpsWorkPerformOperation_`+addTOWFCount+`" class="form-control col-md-7 required combobox">
                         <option value="">-Select Operation/Product-</option>
                     `;
-              $.each( data, function( key, val ) {
-              html += ` <option data-iao="`+key+`" value="`+val.desc+`">`+val.desc+`</option>`;
+              $.each( arr, function( key, val ) {
+              html += ` <option data-iao="`+val.iao+`" value="`+val.desc+`">`+val.desc+`</option>`;
               });
               
           html += `</select>

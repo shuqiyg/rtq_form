@@ -25,7 +25,7 @@
                     <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required combobox">
                         <option value="">-Select Operation/Product-</option>
                         @foreach( $plumbing_iao as $k=>$v)
-                          <option data-iao="{{$k}}" value="{{$v['desc']}}">{{$v['desc']}}</option>
+                          <option data-iao="{{$v['iao']}}" value="{{$v['desc']}}">{{$v['desc']}}</option>
                         @endforeach
                         <!-- <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
                         <option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option>

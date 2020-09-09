@@ -1220,7 +1220,7 @@ class rtqController extends Controller
 
     // function to validate rented dwelling and owner occupied form
     function validateRentedAndOwnerAndPlumbing($fd,$rtqForm,$filesRequired){
-       // dd($fd);
+        //dd($fd);
         $liability = $fd[0]['coverage_liabilityLimit']['value'];
 
          // get all data need to validate or  refer from form data
@@ -2066,7 +2066,7 @@ class rtqController extends Controller
         $insuredName = addslashes($insuredName);
 
         $formData = json_encode($fd);
-
+        
         // sending email
         //$result = Mail::send($email_template, array('submission' => $submission,'email_template',$email_template), function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
         $result = Mail::send([], [], function ($message) use ($formData,$insuredName) {
