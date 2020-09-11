@@ -1358,8 +1358,8 @@ $('#insured_isRiskAddressSame').change(function() {
     //$("#liability_doesPremisesHavePool").on('change',function(){
         $('input[type=radio][name=liability_doesPremisesHavePool]').change(function() {
       //fieldOpenHide('liability_doesPremisesHavePool','Yes','','ifPremiseHasPoolBox',['liability_doesPremisesFenced'],'');
-      var liability_doesPremisesHavePool =  this.value;
-      if(liability_doesPremisesHavePool){
+        var liability_doesPremisesHavePool = this.value;
+      if(liability_doesPremisesHavePool == "Yes"){
         $("#ifPremiseHasPoolBox").show();
       }else{
         $("#ifPremiseHasPoolBox").hide();

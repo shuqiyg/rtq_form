@@ -9,12 +9,8 @@
 		"id" : "ownerOccupied"
 	},
 	
+
 	"2" : {
-		"name" : "Home Inspector",
-		"id" : "homeInspector"
-	},
-	
-	"3" : {
 		"name" : "Contractor",
 		"id" : "plumbing"
 	}

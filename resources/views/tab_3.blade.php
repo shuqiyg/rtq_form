@@ -139,7 +139,11 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Are you aware of any incidence that may result in a claim?</label>
-                        <input class="checkbox_custom" type="checkbox"  id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim"> 
+                       <!--  <input class="checkbox_custom" type="checkbox"  id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">  -->
+                          <div class="radio_group">
+                        <input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span>
+                       
+                        </div>
                     </div>
                 </div>
             </div>
