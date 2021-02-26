@@ -365,10 +365,10 @@ class rtqController extends Controller
         $liablity1mm = 0;
         $liablity2mm = 0;
         if($coverage_liabilityLimit == "2mm"){
-            if($totalRevenue1mmPremium > 500){
+            if($totalRevenue1mmPremium > 1500){
                 $liablity1mm = $totalRevenue1mmPremium;
             }else{
-                $liablity1mm = 500;     // Minimum 500
+                $liablity1mm = 1500;     // Minimum 1500 // HELPDESK-8446 -Roy ticket
             }
 
             $totalRevenue2mmPremium = $totalRevenue1mmPremium * 0.25; // 25% of 1mm premium
@@ -380,10 +380,10 @@ class rtqController extends Controller
 
             $liablity = $liablity1mm + $liablity2mm; // it include liability for 1mm and other 1mm 
         }else if($coverage_liabilityLimit == "1mm"){
-            if($totalRevenue1mmPremium > 500){
+            if($totalRevenue1mmPremium > 1500){
                 $liablity1mm = $totalRevenue1mmPremium;
             }else{
-                $liablity1mm = 500;     // Minimum 500
+                $liablity1mm = 1500;     // Minimum 1500
             }
             $liablity = $liablity1mm;
         }else{
@@ -2105,11 +2105,12 @@ class rtqController extends Controller
         if($referValid['valid'] == false){
             // check which refer vaidation rules is not matched to show it to users
             $matchedOrNot = $referValid['matchArray'];
-        }else if($referValid['valid'] == 'Empty'){
+        }else if($referValid['valid'] === 'Empty'){
             $matchedOrNot = 'Empty';
-        }else{
-            $referValid['valid'] = 'NotMatched';
         }
+        /*else{
+            $referValid['valid'] = 'NotMatched';
+        }*/
        // dd($referValid);
         return $referValid;
     }
