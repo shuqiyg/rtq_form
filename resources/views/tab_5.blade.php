@@ -113,16 +113,16 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Profits [100% co.]</label>
-                <input type="text" id="coverage_profits" name="coverage_profits" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit " value="">
+                <label class="col-md-4" style="float: left;"><input type="radio" id="profit_toggle" name="profit_grossEarning_toggle" value="profit_toggle"> Profits [100% co.]</label>
+                <input type="text" id="coverage_profits" name="coverage_profits" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit " value="" disabled>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Gross Earnings </label>
-                <input type="text" id="coverage_grossEarnings" name="coverage_grossEarnings" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit " value="">
+                <label class="col-md-4" style="float: left;"> <input type="radio" id="grossEarning_toggle" name="profit_grossEarning_toggle" value="grossEarning_toggle"> Gross Earnings </label>
+                <input type="text" id="coverage_grossEarnings" name="coverage_grossEarnings" class="form-control col-md-8 commaValues getTIV amfPropertyExtention " placeholder="Enter Limit " value="" disabled>
             </div>
         </div>
     </div>
@@ -204,7 +204,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="col-md-4" style="float: left;"> Tool Floater</label>
+                <label class="col-md-4" style="float: left;" > Tool Floater (Max $1,000 per any one item or set of items)</label>
                 <input type="text" id="coverage_toolFloater" name="coverage_toolFloater" class="form-control col-md-8 getTIV amfPropertyExtention commaValues " placeholder="Enter Limit " value="">
             </div>
         </div>
@@ -317,7 +317,20 @@
 @if($formVal == "plumbing")
 <section>
     <h3>Crime</h3>
-    <div class="row">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="form-group" >
+                <label class="col-md-4" style="float: left;"> Crime Type </label>
+                <select class="form-control col-md-8" id="crime_type" name="crime_type">
+                    <option value="">-Select Type-</option>
+                    <option value="Broad Form Money & Securities">Broad Form Money & Securities / Employee Dishonesty - Form A</option>
+                    <option value="Inside Robbery">Inside Robbery / Outside Robbery</option>
+                    <option value="Comprehensive 3D rider">Comprehensive 3D rider</option>
+                </select>
+            </div>
+      </div>
+    </div>
+    <div class="row" id="broad_form_money" style="display:none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Broad Form Money & Securities </label>
@@ -326,16 +339,8 @@
         </div>
     </div>
 
-    <!-- <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="col-md-4" style="float: left;"> IN & Out Hold-up </label>
-                <input type="text" id="coverage_crime_inOutHoldup" name="coverage_crime_inOutHoldup" class="form-control col-md-8 commaValues " placeholder="Enter Limit" value="">
-            </div>
-        </div>
-    </div> -->
 
-    <div class="row">
+    <div class="row" id="inside_robbery" style="display:none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Inside Robbery </label>
@@ -344,7 +349,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="outside_robbery" style="display:none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Outside Robbery </label>
@@ -353,7 +358,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="employee_dishonesty" style="display:none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Employee Dishonesty - Form A</label>
@@ -362,7 +367,7 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row" id="comprehensive_rider" style="display:none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Comprehensive 3D rider </label>

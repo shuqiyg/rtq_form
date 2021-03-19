@@ -1913,7 +1913,7 @@ class rtqController extends Controller
                 }
 
                 if(in_array($rtqForm,array('rentedDwelling','ownerOccupied')) || ($rtqForm == "plumbing" && isset($buildingRequirement) && $buildingRequirement != "No") ){
-                    if($building_age > 75){
+                    if($building_age = ""){
                         array_push($referMatchArray, 'Please select year built field.');
                         $valid = 'Empty';
                     }

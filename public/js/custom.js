@@ -137,6 +137,51 @@ $(document).ready(function(){
     });*/
   /*} );*/
 
+$("#crime_type").on('click',function(){
+  var crime_type = this.value;
+  
+  if(crime_type === "Broad Form Money & Securities" ){
+  $("#broad_form_money").show();
+  $("#employee_dishonesty").show();
+  $("#inside_robbery").hide();
+  $("#outside_robbery").hide();
+  $("#comprehensive_rider").hide();
+  }else if(crime_type === "Inside Robbery"){
+  $("#broad_form_money").hide();
+  $("#employee_dishonesty").hide();
+  $("#inside_robbery").show();
+  $("#outside_robbery").show();
+  $("#comprehensive_rider").hide()
+  }else if(crime_type === "Comprehensive 3D rider"){
+  $("#broad_form_money").hide();
+  $("#employee_dishonesty").hide();
+  $("#inside_robbery").hide();
+  $("#outside_robbery").hide();
+  $("#comprehensive_rider").show()
+  }
+});
+
+  // display describe field for commercial operations on premises on occupancy tab
+    $("input[type=radio][name=profit_grossEarning_toggle]").on('change',function(){
+    //$("#occupancy_commercialOperations").on('change',function(){
+      //fieldOpenHide('occupancy_commercialOperations','Yes','','occupancy_commercialOperationsDescribeBox',['occupancy_commercialOperationsDescribe'],'');
+      var profit_grossEarning_toggle = this.value;
+      console.log(profit_grossEarning_toggle);
+      
+      if(profit_grossEarning_toggle == 'profit_toggle'){
+       // $("#coverage_profits").show();
+        $( "#coverage_profits" ).prop( "disabled", false );
+        $( "#coverage_grossEarnings" ).prop( "disabled", true );
+        $( "#coverage_grossEarnings" ).val("");
+        $("#ifcoverageGrossEarningsLimitBox").hide();
+      }else{
+       $( "#coverage_grossEarnings" ).prop( "disabled", false );
+       $( "#coverage_profits" ).prop( "disabled", true );
+        $( "#coverage_profits" ).val("");
+       
+      }
+    });
+
  function checkbox() {
     if(this.is(":checked")){
       this.checked = true;
