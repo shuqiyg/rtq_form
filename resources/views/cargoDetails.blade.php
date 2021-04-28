@@ -27,7 +27,7 @@
 	                <input type="text" id="mtc_filing" name="mtc_filing" class="form-control col-md-8 required"  value="">
             	</div>
             	<div class="form-group fillReq" style="display: none;">
-	                <label class="col-md-4" style="float: left;"> Prov/States R <span class="err">*</span> </label>
+	                <label class="col-md-4" style="float: left;"> Prov/States Required <span class="err">*</span> </label>
 	                <input type="text" id="prov_states" name="prov_states" class="form-control col-md-8 required"  value="">
             	</div>
             </div>
@@ -41,35 +41,35 @@
             <div class="form-group">
                 <div class="input-group">
                 	<label class="col-md-4" style="float: left;"> 500km <span class="err">*</span> </label>
-                	<input type="text" id="radius_500" name="radius_500" class="form-control col-md-8 required radius-of-op"  value="0">
+                	<input type="text" id="radius_500" name="radius_500" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 800km <span class="err">*</span> </label>
-                	<input type="text" id="radius_800" name="radius_800" class="form-control col-md-8 required radius-of-op"  value="0">
+                	<input type="text" id="radius_800" name="radius_800" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 1200km <span class="err">*</span> </label>
-                	<input type="text" id="radius_1200" name="radius_1200" class="form-control col-md-8 required radius-of-op"  value="0">
+                	<input type="text" id="radius_1200" name="radius_1200" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 1600km <span class="err">*</span> </label>
-                	<input type="text" id="radius_1600" name="radius_1600" class="form-control col-md-8 required radius-of-op"  value="0">
+                	<input type="text" id="radius_1600" name="radius_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> more than 1600km <span class="err">*</span> </label>
-                	<input type="text" id="radius_over_1600" name="radius_over_1600" class="form-control col-md-8 required radius-of-op"  value="0">
+                	<input type="text" id="radius_over_1600" name="radius_over_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>

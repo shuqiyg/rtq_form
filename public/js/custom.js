@@ -207,6 +207,10 @@ var changeCloneId = (object, counter)=>{
 function deleteCommodity (object){
   console.log(object);
 }
+
+$(".highlightOnClick").on('click', function(){
+  $(this).select();
+});
 // ######################                             Motor Truck Cargo js                                                           #####################
 
 $("#crime_type").on('click',function(){

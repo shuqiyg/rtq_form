@@ -32,11 +32,11 @@
                         
                         <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                         <label class="col-md-4" style="float: left;">Serial No.</label>
-                        <input type="text" id="vehicleSeral_xyz" name="vehicleSeral_xyz" class="form-control col-md-7 commaValues"  value="" >
+                        <input type="text" id="vehicleSeral_xyz" name="vehicleSeral_xyz" class="form-control col-md-7"  value="" >
 
                         <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                         <label class="col-md-4" style="float: left;">Year </label>
-                        <input type="text" id="vehicleYear_xyz" name="vehicleYear_xyz" class="form-control col-md-7 commaValues"  value="" >
+                        <input type="number" id="vehicleYear_xyz" name="vehicleYear_xyz" class="form-control col-md-7"  value="" >
                         
                         <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                         <label class="col-md-4" style="float: left;">Tonnage</label>
