@@ -6,7 +6,6 @@
 
             // use formVal value coming from controller to use to select fields according to it.
         ?>
-
     <form id="rtq_form">
         <div id="smartwizard" class="sw-main sw-theme-arrows">
             <ul class="nav nav-tabs step-anchor">
@@ -14,25 +13,31 @@
                 <li><a href="#legal">Legal<br /><small>T&C</small></a></li>
                 <li><a href="#tab-1">Broker<br /><small>Broker Info</small></a></li>
                 <li><a href="#tab-2">Insured<br /><small>Insured Info</small></a></li>
-                 @if($formVal == "homeInspector")
+                @if($formVal == "homeInspector" || $formVal == "motor_truck_cargo")
                 <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
                 @endif
-                @if($formVal == "homeInspector" || $formVal == "plumbing")
+                @if($formVal == "homeInspector" || $formVal == "plumbing" || $formVal == "motor_truck_cargo")
                 <li><a href="#tab-7">Loss History<br /><small>Claim and loss</small></a></li> 
                 @endif
                 @if($formVal == "homeInspector")
                 <li><a href="#tab-8">OPS<br /><small>Industry general</small></a></li> 
                 <li><a href="#tab-9">OPS<br /><small>Industry specific</small></a></li> 
-                <li><a href="#tab-10">CGL<br /><small>Required Coverage</small></a></li>     
+                <li><a href="#tab-10">CGL<br /><small>Required Coverage</small></a></li>
+                @elseif($formVal == "motor_truck_cargo")
+                <li><a href="#description_of_operation">Description<br /><small>Operation details</small></a></li>
+                <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>  
                 @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
-                @if($formVal != "plumbing")
-                <li><a href="#tab-4">Occupancy<br /><small>Building details</small></a></li>
-                @endif
-                @if($formVal == "plumbing")
-                <li><a href="#tab-11">Protections<br /><small>Protections details</small></a></li>
-                <li><a href="#tab-12">Liability<br /><small>Liability details</small></a></li>
-                @endif
+                    @if($formVal != "plumbing")
+                    <li><a href="#tab-4">Occupancy<br /><small>Building details</small></a></li>
+                    @endif
+               <!--  @if($formVal == "motor_truck_cargo")
+                <li><a href="#description_of_operation">Description<br /><small>Operation details</small></a></li>
+                @endif -->
+                    @if($formVal == "plumbing")
+                    <li><a href="#tab-11">Protections<br /><small>Protections details</small></a></li>
+                    <li><a href="#tab-12">Liability<br /><small>Liability details</small></a></li>
+                    @endif
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
                 @endif 
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
@@ -57,13 +62,13 @@
                     
                 </div>
                 
-                @if($formVal == "homeInspector")
+                @if($formVal == "homeInspector" || $formVal == "motor_truck_cargo")
                 <!-- Existing Insurance -->
                 <div id="tab-6" class="">
                     @include('hi_existingInsurance')
                 </div>
                 @endif
-                @if($formVal == "homeInspector" || $formVal == "plumbing")
+                @if($formVal == "homeInspector" || $formVal == "plumbing" || $formVal == "motor_truck_cargo")
                 <!-- Claim History -->
                 <div id="tab-7" class="">
                     @include('tab_7')
@@ -81,6 +86,15 @@
                 <!-- CGL -->
                 <div id="tab-10" class="">
                     @include('tab_10')
+                </div>
+                @elseif($formVal == "motor_truck_cargo")
+                <!-- Description of Operation -->
+                <div id="description_of_operation" class="">
+                    @include('description')
+                </div>
+                <!-- coverage tab motortruck cargo -->
+                <div id="tab-5" class="">
+                    @include('tab_5')
                 </div>
                 @else
                 <!-- Risk Address -->

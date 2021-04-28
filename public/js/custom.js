@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+  //activare boostrap select
+     // $('.selectpicker').selectpicker();
+     $('.selectpicker').selectpicker();
   /*  $( function() {
     $.widget( "custom.combobox", {
       _create: function() {
@@ -136,6 +139,75 @@ $(document).ready(function(){
       $( ".combobox" ).toggle();
     });*/
   /*} );*/
+
+// ######################                             Motor Truck Cargo js                                                           #####################
+
+$('#addItemBox').on('click',()=>{
+  var counter = $("#VehicleCount").val();
+  // var check = $('#new_sections_xyz').clone();
+  $('#new_sections_xyz').clone().attr('id','new_sections_'+ counter).appendTo('.new_sections');
+  var c = document.getElementById('new_sections_'+counter);
+  //remove display:none from cloned object.
+  c.style.display = '';
+  changeCloneId(c.children,counter);
+  counter = parseInt(counter)+1;
+  $("#VehicleCount").val(counter);
+});
+
+$('#removeItemBox').on('click',()=>{
+  var counter = $("#VehicleCount").val();
+  if (parseInt(counter) > 1) {
+    counter = parseInt(counter)-1;
+    $('#new_sections_' + counter).remove();
+    $("#VehicleCount").val(counter);
+  }
+});
+
+$('#commoditySelect').on('change',function (){
+  var selectedVal = $('#commoditySelect').val();
+  if (selectedVal) {
+    
+    var selectedId = $(this).find(":selected").attr("id");
+    // console.log(selectedId);
+    var rowHtml = `<tr>
+                        <th scope="row">${selectedVal}</th>
+                        <td><input min="0" id="" type="number" name=""></td>
+                        <td><input min="0" id="" type="number" name=""></td>
+                        <td><input min="0" id="" type="number" name=""></td>
+                        <td><input type="hidden" value="${selectedId}"><button type="button" class="btn btn-danger commodityRemove"><i class="fa fa-trash fa-lg" data-toggle="tooltip" title="Remove"></i></button></td>
+                      </tr>`;
+    $('#commodityTable').append(rowHtml);
+    $('#'+selectedId).attr('disabled',true);
+  }
+});
+$(document).on('click','.commodityRemove',function(){
+  $(this).closest("tr").remove();
+  $("#" + $(this).siblings("input:hidden").val()).attr('disabled',false);
+  $("#defaultSelect").prop("selected",true);
+//
+});
+//checks adds up to 100% idea write a universal function that checks the fields if it adds to 100% or not maybe takes an object
+var checkOneHundred = (object)=>{
+  for (var i = 0; i < object.length; i++) {
+
+  }
+}
+
+//change the id of childeren for cloned objects (only changes first child in the tree non recursive)
+var changeCloneId = (object, counter)=>{
+  console.log(counter);
+  for (var i = 0; i < object.length; i++) {
+    if(object[i].id){
+      object[i].id = object[i].id.replace("xyz",counter);
+      object[i].name = object[i].name.replace("xyz",counter);
+    }
+  }
+}
+
+function deleteCommodity (object){
+  console.log(object);
+}
+// ######################                             Motor Truck Cargo js                                                           #####################
 
 $("#crime_type").on('click',function(){
   var crime_type = this.value;
@@ -1508,6 +1580,16 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
 
+    // display existing fillings for motor truck cargo
+    $("input[type=radio][name=filingRequired]").on('change',function(){
+      var fillingRequired = this.value;
+      if(fillingRequired == 'Yes'){
+        $(".fillReq").show();
+      }else{
+        $(".fillReq").hide();
+        clearFields(".fillReq");
+      }
+    });
    /* // display claimHistory_anyClaimsReportedOnUrBehalf for Home Inspector
     $("#claimHistory_anyClaimsReportedOnUrBehalf").on('change',function(){
       var claimHistory_anyClaimsReportedOnUrBehalf = $("#claimHistory_anyClaimsReportedOnUrBehalf").val();

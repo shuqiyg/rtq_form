@@ -9,6 +9,342 @@
 
 <section class="coverageRequired">
     <h3>Coverage Required</h3>
+    @if($formVal == "motor_truck_cargo")
+    <h5 class="header5">Property</h5>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="col-md-12" style="float: left;">Vehicles</h5>   
+        </div>
+    </div>
+    <input type="hidden" name="VehicleCount" id="VehicleCount" value="1">
+    <!-- <input type="hidden" name="liability_typeOfOpsWorkPerformIAO" id="liability_typeOfOpsWorkPerformIAO"> -->
+    <div class="row">
+        <div class="col-md-12" style="padding: 0% 10%;">
+        
+            <div class="opsWorkPerformed" id ="vehicles_table">
+                <div class="new_sections" id="" style="width: 100%;">
+                    <div id="new_sections_xyz" style="display:none">
+                        <hr>
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Manufacturer / Model </label>
+                        <input type="text" id="vehicleModel_xyz" name="vehicleModel_xyz" class="form-control col-md-7"  value="" >
+                        
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Serial No.</label>
+                        <input type="text" id="vehicleSeral_xyz" name="vehicleSeral_xyz" class="form-control col-md-7 commaValues"  value="" >
+
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Year </label>
+                        <input type="text" id="vehicleYear_xyz" name="vehicleYear_xyz" class="form-control col-md-7 commaValues"  value="" >
+                        
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Tonnage</label>
+                        <input type="text" id="vehicleTonnage_xyz" name="vehicleTonnage_xyz" class="form-control col-md-7 commaValues"  value="" >                   
+                    </div>
+                </div>
+
+                <div id="liability_premisesHaveElevatorDetails" style="display: none;">
+                
+                </div>
+                <div class="col-md-12" style="float: left;display: contents;">
+                    <button class="btn btn-secondary" id="addItemBox">Add</button>
+                    <button class="btn btn-secondary" id="removeItemBox">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="col-md-12" style="float: left;">Equipment</h5>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+              <caption>List of Power Units</caption>
+              <thead>
+                <tr>
+                  <th scope="col">&nbsp</th>
+                  <th scope="col">Owned</th>
+                  <th scope="col">Non-Owned</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Tractors</th>
+                  <td><input id="ownedTractors" min="0" type="number" name="ownedTractors"></td>
+                  <td><input id="non_ownedTractors" min="0" type="number" name="non_ownedTractors"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Stright Trucks</th>
+                  <td><input id="ownedStrightTrucks" min="0" type="number" name="ownedStrightTrucks"></td>
+                  <td><input id="non_ownedStrightTrucks" min="0" type="number" name="non_ownedStrightTrucks"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Refer Trucks</th>
+                  <td><input id="ownedReferTrucks" min="0" type="number" name="ownedReferTrucks"></td>
+                  <td><input id="non_ownedReferTrucks" min="0" type="number" name="non_ownedReferTrucks"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Tank Trucks</th>
+                  <td><input id="ownedTankTrucks" min="0" type="number" name="ownedTankTrucks"></td>
+                  <td><input id="non_ownedTankTrucks" min="0" type="number" name="non_ownedTankTrucks"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Other Power Units</th>
+                  <td><input id="ownedOtherPowerUnits" min="0" type="number" name="ownedOtherPowerUnits"></td>
+                  <td><input id="non_ownedOtherPowerUnits" min="0" type="number" name="non_ownedOtherPowerUnits"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-responsive">
+              <caption>List of trailers Units</caption>
+              <thead>
+                <tr>
+                  <th scope="col">&nbsp</th>
+                  <th scope="col">Owned</th>
+                  <th scope="col">Non-Owned</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Refer Trailers</th>
+                  <td><input id="ownedReferTrailers" min="0" type="number" name="ownedReferTrailers"></td>
+                  <td><input id="non_ownedReferTrailers" min="0" type="number" name="non_ownedReferTrailers"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Flat Bed Trailers</th>
+                  <td><input id="" min="0" type="number" name=""></td>
+                  <td><input id="" min="0" type="number" name=""></td>
+                </tr>
+                <tr>
+                  <th scope="row">Tank Trailers</th>
+                  <td><input min="0" id="ownedTankTrailers" type="number" name="ownedTankTrailers"></td>
+                  <td><input min="0" id="non_ownedTankTrailers" type="number" name="non_ownedTankTrailers"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Other Trailers</th>
+                  <td><input min="0" id="ownedOtherTrailers" type="number" name="ownedOtherTrailers"></td>
+                  <td><input min="0" id="non_ownedOtherTrailers" type="number" name="non_ownedOtherTrailers"></td>
+                </tr><tr>
+                  <th scope="row">&nbsp</th>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="col-md-12" style="float: left;">Limits of Liability</h5>  
+        </div>
+    </div>
+    <hr> 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Motor Truck Cargo: per Vehicle <span class="err">*</span> </label>
+                    <input min="0" type="number" id="mtCargoPerVehicle" name="mtCargoPerVehicle" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Deductible <span class="err">*</span> </label>
+                    <input min="0" type="number" id="mtCargoPerVehicleDeductible" name="mtCargoPerVehicleDeductible" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Commercial General Liability <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_mtComGenLiability" name="liability_mtComGenLiability" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Deductible <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_mtCargoPerVehicleDeductible" name="liability_mtCargoPerVehicleDeductible" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Non-Owned trailer CAT Limit  <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_nonOwnedTrailerCAT" name="liability_nonOwnedTrailerCAT" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Deductible <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_nonOwnedTrailerCATDeductible" name="liability_nonOwnedTrailerCATDeductible" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Non-Owned Trailer any one trailer  <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_nonOwnedAnyoneTrailer" name="liability_nonOwnedAnyoneTrailer" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Deductible <span class="err">*</span> </label>
+                    <input min="0" type="number" id="liability_nonOwnedAnyoneTrailerDeductible" name="liability_nonOwnedAnyoneTrailerDeductible" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="col-md-12" style="float: left;">Commodity Carried</h5>  
+        </div>
+    </div>
+    <!-- get list of commodity -->
+    <?php
+              
+                $Commodity = json_decode(file_get_contents(public_path().'/json/commodity.json'), true);
+                // array_multisort( array_column($Commodity, "desc"), SORT_ASC, $Commodity);
+            // dd($Commodity);
+                foreach ($Commodity as $section) {
+                    // dd($key);
+                }
+    ?>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Commodity <span class="err">*</span> </label>
+                <select id="commoditySelect" name="commoditySelect" class="form-control col-md-7 required combobox selectpicker custom-select" data-live-search="true">
+                    <option id="defaultSelect" value="">-Select Commodity/Product-</option>
+                    @foreach($Commodity as $key=>$val)
+                    <!--  -->
+                        <optgroup label="{{$key}}" >
+                            <!-- <i class="fa fa-exclamation-triangle fa-lg" data-toggle="tooltip" title="{{$key}}"></i> -->
+                            @foreach($val as $item)
+                            <option id ="{{$item['id']}}" value="{{$item['name']}}">{{$item['name']}}</option>
+                            @endforeach
+                        </optgroup>
+                    @endforeach
+
+                    <!-- generate option from php grab json file from json folder -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+         <table class="table">
+                  <caption>List of Commodity</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Commodity</th>
+                      <th scope="col">%</th>
+                      <th scope="col">Avg. $ Value per Load</th>
+                      <th scope="col">Max $ Value per Load</th>
+                      <th scope="col">Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody id='commodityTable'>
+                    <!-- <tr id='alcohol-lala'>
+                      <th scope="row">Alcohol</th>
+                      <td><input min="0" id="" type="number" name=""></td>
+                      <td><input min="0" id="" type="number" name=""></td>
+                      <td><input min="0" id="" type="number" name=""></td>
+                      <td><button type="button" class="btn btn-danger commodityRemove"><i class="fa fa-trash fa-lg" data-toggle="tooltip" title="Remove"></i></button></td>
+                    </tr> -->
+                  </tbody>
+            </table>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <b><p style="color:#0000FF">*** Please email a copy of the Applicant's Bill of Lading or Standard contract to us once you get the application copy ***</p></b> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <h5>Annual gross Receipts</h5>
+                <hr>
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Past 12 Months <span class="err">*</span> </label>
+                    <input min="0" type="number" id="grossReceiptsPast12Mnths" name="grossReceiptsPast12Mnths" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Next 12 Months (Estimated) <span class="err">*</span> </label>
+                    <input min="0" type="number" id="grossReceiptsNext12Mnths" name="grossReceiptsNext12Mnths" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <h5>U.S. Exposure</h5>
+                <hr>
+                <div class="input-group">
+                    <label class="col-md-4" style="float: left;"> Past <span class="err">*</span> </label>
+                    <input min="0" type="number" id="usExposurePast" name="usExposurePast" class="form-control col-md-8 required" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Present <span class="err">*</span> </label>
+                    <input min="0" type="number" id="usExposurePresent" name="usExposurePresent" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+                <div class="input-group md-2">
+                    <label class="col-md-4" style="float: left;"> Future <span class="err">*</span> </label>
+                    <input min="0" type="number" id="usExposureFuture" name="usExposureFuture" class="form-control col-md-8 required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">$</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     @if($formVal == "rentedDwelling" || $formVal == "ownerOccupied")
     <div class="row">
         <div class="col-md-12">

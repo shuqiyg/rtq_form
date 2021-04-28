@@ -1,0 +1,221 @@
+{
+	"target": {
+		"0" : {
+			"name" : "Alcohol",
+			"id" : "alcohol"
+		},
+
+		"1" : {
+			"name" : "Computer-Electronics",
+			"id" : "computer_electronics"
+		},
+		
+
+		"2" : {
+			"name" : "Tobacco Products",
+			"id" : "tobaco_products"
+		},
+		
+		"3" : {
+			"name" : "Hazardous Goods, Paint, Batteries",
+			"id" : "hazardous_goods"
+		},
+		"4" : {
+			"name" : "Temperature Conreolled Items, Chilled, Frozen Foods",
+			"id" : "temp_controlled_items"
+		},
+		"5" : {
+			"name" : "Meat, Seafood, Poultry (Boxed)",
+			"id" : "meat"
+		},
+		"6" : {
+			"name" : "Other Perishables",
+			"id" : "other_perishables"
+		},
+		"7" : {
+			"name" : "Containers",
+			"id" : "containers"
+		}
+	},
+	"nonTarget": {
+		"0" : {
+			"name" : "Automobile",
+			"id" : "automobile"
+		},
+
+		"1" : {
+			"name" : "Agricultural Machinery",
+			"id" : "agricultural_machinery"
+		},
+		
+
+		"2" : {
+			"name" : "Appliances",
+			"id" : "appliances"
+		},
+		
+		"3" : {
+			"name" : "Boats",
+			"id" : "boats"
+		},
+		"4" : {
+			"name" : "Cameras",
+			"id" : "cameras"
+		},
+		"5" : {
+			"name" : "Canned Goods",
+			"id" : "canned_goods"
+		},
+		"6" : {
+			"name" : "China",
+			"id" : "china"
+		},
+		"7" : {
+			"name" : "Coffee",
+			"id" : "coffee"
+		},
+		"8" : {
+			"name" : "Dairy Products",
+			"id" : "dairy_products"
+		},
+
+		"9" : {
+			"name" : "Drugs",
+			"id" : "drugs"
+		},
+		
+
+		"10" : {
+			"name" : "Electronic",
+			"id" : "electronic"
+		},
+		
+		"11" : {
+			"name" : "Fine Arts",
+			"id" : "fine_arts"
+		},
+		"12" : {
+			"name" : "Fruit & Vegetables",
+			"id" : "fruit_vegetables"
+		},
+		"13" : {
+			"name" : "Furniture (New)",
+			"id" : "furniture"
+		},
+		"14" : {
+			"name" : "Glassware",
+			"id" : "glassware"
+		},
+		"15" : {
+			"name" : "Large Appliances",
+			"id" : "large_appliances"
+		},
+		"16" : {
+			"name" : "Machinery",
+			"id" : "machinery"
+		},
+		"17" : {
+			"name" : "Medical Products",
+			"id" : "medical products"
+		},
+		"18" : {
+			"name" : "Metals-Manufactured",
+			"id" : "metals_manufactured"
+		},
+		"19" : {
+			"name" : "Office Machines",
+			"id" : "ofiice_machines"
+		},
+		"20" : {
+			"name" : "Office Machines",
+			"id" : "ofiice_machines"
+		},
+		"21" : {
+			"name" : "Paper & Paper Products",
+			"id" : "paper_products"
+		},
+		"22" : {
+			"name" : "Photographic Equipment",
+			"id" : "photographic_equipment"
+		},
+		"23" : {
+			"name" : "Plumbing Materials and Supplies",
+			"id" : "pluming_materials_supplies"
+		},
+		"24" : {
+			"name" : "Livestock",
+			"id" : "livestock"
+		},
+		"25" : {
+			"name" : "Radio & T.V. Equipment",
+			"id" : "radio_tv_equipment"
+		},
+		"26" : {
+			"name" : "Shoes",
+			"id" : "shoes"
+		},
+		"27" : {
+			"name" : "Soft Drinks",
+			"id" : "soft_drinks"
+		},
+		"28" : {
+			"name" : "Sugar",
+			"id" : "sugar"
+		},
+		"29" : {
+			"name" : "Textiles",
+			"id" : "textiles"
+		},
+		"30" : {
+			"name" : "Tires",
+			"id" : "tires"
+		},
+		"31" : {
+			"name" : "Toys",
+			"id" : "toys"
+		},
+		"32" : {
+			"name" : "Video Equipment & Supplies",
+			"id" : "video_equipment_and_supplies"
+		}
+	},
+	"other": {
+		"0" : {
+			"name" : "Fur & Fur trimmed Garments",
+			"id" : "fur"
+		},
+
+		"1" : {
+			"name" : "Guns & Ammunition",
+			"id" : "guns_ammunition"
+		},
+		
+
+		"2" : {
+			"name" : "Jewellery",
+			"id" : "jewellery"
+		},
+		
+		"4" : {
+			"name" : "Leather Goods",
+			"id" : "leather_goods"
+		},
+		"5" : {
+			"name" : "Natural Gas",
+			"id" : "natural_gas"
+		},
+		"6" : {
+			"name" : "Meat, Seafood, Poultry (Boxed)",
+			"id" : "meat"
+		},
+		"7" : {
+			"name" : "Other Perishables",
+			"id" : "other_perishables"
+		},
+		"8" : {
+			"name" : "Containers",
+			"id" : "containers"
+		}
+	}
+
+}

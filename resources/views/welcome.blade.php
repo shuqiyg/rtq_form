@@ -17,22 +17,27 @@
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> 
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/css/smart_wizard_theme_arrows.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/ouibounce.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
         
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
           <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
         
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+        <!-- <script scr="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script> -->
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
         <script src="https://cdn.jsdelivr.net/npm/smartwizard@4.3.1/dist/js/jquery.smartWizard.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
         
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script type="text/javascript" src="{{ URL::asset('js/ouibounce.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
         <!--<script type="text/javascript" src="{{ URL::asset('js/form-validate.js') }}"></script>-->
         
         <!-- call custom javascript while rendering form data [loaded dynamically from jquery]      
@@ -232,6 +237,7 @@
             var loadCustomJsURL = "{!!$loadCustomJsURL!!}";
 
             $(document).ready(function(){
+
                 //activate bootstrap tooltip
                 $('[data-toggle="tooltip"]').tooltip({
                     html:true,
@@ -247,8 +253,9 @@
                 // when form select
                 $("#rtq_forms").on('change',function(){
                     var formVal  = $("#rtq_forms").val();
-
+                    
                     console.log(formVal);
+                    // console.log($('meta[name="csrf-token"]').attr('content'));
                     if(formVal != '' && formVal != null){
                         // first check if showForm div has form then give alert before show form to avoid loosing data
                         if($("#showForm").text().length > 0){
@@ -286,13 +293,18 @@
                     }
                 });
 
+// $('.selectpicker').selectpicker();
                 //function show form
                 function showForm(formVal){
                     $("#showForm").empty();
                     $(".loader").show();
                     $.ajax({
+                        // headers: {
+                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        //     },
                         url:'loadForm',
                         data:{formVal:formVal,_token:$('meta[name="csrf-token"]').attr('content')},
+                        // data:{formVal:formVal},
                         type:'post',
                         success: function(data){
                             $(".loader").hide();
@@ -335,8 +347,12 @@
                 // function to load banner 
                 function loadBanner(formID){
                     $.ajax({
+                        // headers: {
+                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        // },
                         url:'getBannerMessage',
                         data:{formID:formID,_token:$('meta[name="csrf-token"]').attr('content')},
+                        // data:{formID:formID},
                         type:'post',
                         success: function(bannerMessage){
                             //console.log(bannerMessage);
