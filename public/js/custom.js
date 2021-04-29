@@ -162,7 +162,41 @@ $('#removeItemBox').on('click',()=>{
     $("#VehicleCount").val(counter);
   }
 });
+// save button on commoodity Modal adds to table form
+$('#commoditySubmit').on('click',(function(e){
+  $("#commodityTableList").empty();
+  e.preventDefault();
+  $(".commodityList").each(function(index){
+    var type = $(this).attr('id');
+    var typeColor;
+    switch (type) {
+      case 'target':
+      typeColor = 'badge-danger';
+      break;
+      case 'nonTarget':
+      typeColor = 'badge-warning';
+      break;
+      default:
+      typeColor = 'badge-secondary';
+    }
+    var data = $("form#"+$(this).attr('id')).serializeArray();
+    $.each(data,function(index) {
+      var value = this.name;
+      var name = $("#"+value).text();
+      var rowItemHtml = `<tr>
+                              <th scope="row">${name}</th>
+                              <td><input min="0" id="" type="number" name=""></td>
+                              <td><input min="0" id="" type="number" name=""></td>
+                              <td><input min="0" id="" type="number" name=""></td>
+                              <td><input type="hidden" value="${value}"><span class="badge ${typeColor}"><input type="hidden" value="${type}">${type}</span></td>
+                          </tr>`;
+    $("#commodityTableList").append(rowItemHtml);
+    });
+  });
+  // console.log($("form#target").serializeArray());
+}));
 
+// not used commodity select change to a modal radio selection START
 $('#commoditySelect').on('change',function (){
   var selectedVal = $('#commoditySelect').val();
   if (selectedVal) {
@@ -186,6 +220,8 @@ $(document).on('click','.commodityRemove',function(){
   $("#defaultSelect").prop("selected",true);
 //
 });
+// not used commodity select changed to a modal radio selection END
+
 //checks adds up to 100% idea write a universal function that checks the fields if it adds to 100% or not maybe takes an object
 var checkOneHundred = (object)=>{
   for (var i = 0; i < object.length; i++) {

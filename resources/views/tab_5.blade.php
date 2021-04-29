@@ -228,7 +228,7 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <h5 class="col-md-12" style="float: left;">Commodity Carried</h5>  
+            <h5 class="col-md-12" style="float: left;">Commodity Carried</h5>
         </div>
     </div>
     <!-- get list of commodity -->
@@ -241,8 +241,8 @@
                     // dd($key);
                 }
     ?>
-
-    <div class="row">
+<!-- NOT USED BUT IT WORKS SEARCH SELECT **popping in a modal of selection for Commodity instead-->
+    <div class="row" style="display: none">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Commodity <span class="err">*</span> </label>
@@ -263,7 +263,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="display: none">
         <div class="col-md-12">
          <table class="table">
                   <caption>List of Commodity</caption>
@@ -277,6 +277,27 @@
                     </tr>
                   </thead>
                   <tbody id='commodityTable'>
+                  </tbody>
+            </table>   
+        </div>
+    </div>
+<!-- END OF NOT USE BUT IT WORKS SEARCH SELECT -->
+    <div class="row">
+        <div class="col-md-12">
+         <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Commodity</th>
+                      <th scope="col">%</th>
+                      <th scope="col">Avg. $ Value per Load</th>
+                      <th scope="col">Max $ Value per Load</th>
+                      <th scope="col"><span style="padding:0;" type="button" style="
+                        color: #000;
+                        background-color: #fbfbfb;
+                        border-color: #111;" data-toggle="modal" data-target="#commodityModal" class="btn commodityEdit"><i class="fa fa-edit fa-lg" data-toggle="tooltip" title="Edit"></i>Edit</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id='commodityTableList'>
                     <!-- <tr id='alcohol-lala'>
                       <th scope="row">Alcohol</th>
                       <td><input min="0" id="" type="number" name=""></td>
@@ -287,6 +308,50 @@
                   </tbody>
             </table>   
         </div>
+    </div>
+    <!-- test modal -->
+    <!-- test modal -->
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-xl" id="commodityModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">List of Commodity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form></form>
+            <div class="modal-body">
+                    <div class="row" id="">
+                    @foreach($Commodity as $key=>$val)
+                    <form class="commodityList" id="{{$key}}" method="">
+                        <div class="col-lg">
+                        @if($key=="target")
+                        <h5>Target</h5>
+                        @elseif($key=="nonTarget")
+                        <h5>Non-Target</h5>
+                        @else
+                        <h5>Others</h5>
+                        @endif
+                        <hr>
+                        @foreach($val as $item)
+                            <div style="white-space: nowrap;">
+                                <input class="" type="checkbox" id="{{$item['id']}}" name="{{$item['id']}}">
+                                <label style="white-space: nowrap;" for="{{$item['id']}}">{{$item['name']}} </label>
+                            </div>
+                        @endforeach
+                        </div>
+                    </form>
+                    @endforeach
+                    </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="commoditySubmit">Save Changes</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
         <div class="col-md-12">
