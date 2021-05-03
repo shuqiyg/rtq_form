@@ -358,10 +358,10 @@
             <b><p style="color:#0000FF">*** Please email a copy of the Applicant's Bill of Lading or Standard contract to us once you get the application copy ***</p></b> 
         </div>
     </div>
+    <h5>Annual gross Receipts</h5>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <h5>Annual gross Receipts</h5>
                 <hr>
                 <div class="input-group">
                     <label class="col-md-4" style="float: left;"> Past 12 Months <span class="err">*</span> </label>
@@ -380,11 +380,11 @@
             </div>
         </div>
     </div>
+    <h5>U.S. Exposure</h5>
+    <hr>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <h5>U.S. Exposure</h5>
-                <hr>
                 <div class="input-group">
                     <label class="col-md-4" style="float: left;"> Past <span class="err">*</span> </label>
                     <input min="0" type="number" id="usExposurePast" name="usExposurePast" class="form-control col-md-8 required" >
@@ -409,6 +409,428 @@
             </div>
         </div>
     </div>
+    <h5>Theft Exposure</h5>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;">Are Vehicles Left Unlocked or Unattended?<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="vehiclesUnlocked" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehiclesUnlocked" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group secuirtyMessures" style="display: none;">
+                    <label class="col-md-4" style="float: left;">What other secuirty messures were taken place?</label>
+                    <textarea type="text" id="secuirtyMessures" name="secuirtyMessures" class="form-control col-md-8"  value=""></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-6" style="float: left;white-space: nowrap;">Does Applicant ever leave Loaded Trailers Detached from Power Units?<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group detachTralierReason" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Please describe</label>
+                    <textarea type="text" id="detachTralierReason" name="detachTralierReason" class="form-control col-md-8"  value=""></textarea>
+                </div>
+            </div>
+<!--             <div class="form-group">
+                <label class="col-md-4" style="float: left;">Does Applicant ever leave Loaded Trailers Detached from Power Units?<span class="err">*</span></label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group detachTralierReason" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Please describe</label>
+                    <textarea type="text" id="detachTralierReason" name="detachTralierReason" class="form-control col-md-8"  value=""></textarea>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <h5>Driver Information</h5>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Total Numbers of Drivers</label>
+                    <input type="number" id="totalDriversNums" name="totalDriversNums" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of Drivers Under 25 Years old</label>
+                    <input type="number" id="under25DriversNums" name="under25DriversNums" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of Drivers over 60 years old</label>
+                    <input type="number" id="over60DriversNums" name="over60DriversNums" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of Full Time Employee Drivers</label>
+                    <input type="number" id="fullTimeDriversNums" name="fullTimeDriversNums" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of Drivers on Long Term Lease</label>
+                    <input type="number" id="longTermLeaseDriversNums" name="longTermLeaseDriversNums" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of two Person Driver Teams</label>
+                    <input type="number" id="twoPeopleDriversTeams" name="twoPeopleDriversTeams" class="form-control col-md-8">
+                </div>
+                <div class="form-group driversDetails" style="">
+                    <label class="col-md-4" style="float: left;">Number of Drivers or Persons assigned to Each Vehicle?</label>
+                    <input type="number" id="driversAssignedToEachVehicle" name="driversAssignedToEachVehicle" class="form-control col-md-8">
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-4" style="float: left;">Are all Drivers & Helpers Regular Employees?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="allRegularEmployees" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="allRegularEmployees" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-4" style="float: left;">Is Driver Required to be Present While Loading?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="presentWhileLoading" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="presentWhileLoading" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-4" style="float: left;">Is There a Vehicle Maintenance Program in Effect?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="vehicleMaintenanceProgram" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehicleMaintenanceProgram" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-4" style="float: left;">Are all Drivers & Helpers Regular Employees?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="allRegularEmployees" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="allRegularEmployees" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-6" style="float: left; white-space: nowrap;">Is Merchandise Ever Transported to Another Motor Truck Carrier?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="merchandiseTransport" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="merchandiseTransport" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-4" style="float: left;">Are Vehicles Equipped with alarms?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="vehicleAlarms" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehicleAlarms" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+                <div class="form-group driverDetailsMVR">
+                    <label class="col-md-4" style="float: left;">Does Applicant Obtain MVR on all Drivers?<span class="err">*</span> </label>
+                    <div class="row">
+                        <div class="radio_group required">
+                            <input type="radio" id="yes" name="mvr" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="mvr" value="No"><span class="radio_title">No</span>
+                              <span class="radio_error" style="display:none;color: red;">Required.</span>
+                        </div>
+                        <div class="col-md-12 form-group MVR" style="display: none;">
+                            <p style="float: left;"><b>***Please Provide Copies of all MVRs***</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group driverDetails">
+                    
+                </div>
+                <div class="form-group driverDetails">
+                    <label class="col-md-6" style="float: left; white-space: nowrap;">Are any Vehicles Assigned to a Particular Shipper,Carrying Shippers Products Only?<span class="err">*</span> </label>
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="assignedParticularShipper" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="assignedParticularShipper" value="No"><span class="radio_title">No</span>
+                          <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                    <div class="form-group particularShipperList" style="display:none">
+                        <div class="row">
+                            <div class="col-md-12" style="padding: 0% 10%;">
+                                <div class="assignedParticularShipperList" id ="shipper_table">
+                                    <div class="new_shipper" id="" style="width: 100%;">
+                                        <input type="hidden" id="particulaShipperCount" value=1>
+                                        <div id="new_shipper_xyz" style="display:none">
+                                            <hr>
+                                            <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                                            <label class="col-md-4" style="float: left;">Name </label>
+                                            <input type="text" id="particularShipperName_xyz" name="particularShipperName_xyz" class="form-control col-md-7"  value="" >
+                                            
+                                            <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                                            <label class="col-md-4" style="float: left;">Product</label>
+                                            <input type="text" id="particularShipperProduct_xyz" name="particularShipperProduct_xyz" class="form-control col-md-7"  value="" >                   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="float: left;display: contents;">
+                                        <button class="btn btn-secondary" id="addParticulaShipperBox">Add</button>
+                                        <button class="btn btn-secondary" id="removeParticulaShipperBox">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5>Terminals</h5>
+    <hr>
+    <div class="row">
+        <div class="col-md-12" style="padding: 0% 10%;">
+            <div class="terminalList" id ="terminal_table">
+                <div class="new_terminal" id="" style="width: 100%;">
+                    <input type="hidden" id="terminalCount" value=1>
+                    <div id="new_terminal_xyz" style="display:none">
+                        <hr>
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Location </label>
+                        <input type="text" id="terminalLocation_xyz" name="terminalLocation_xyz" class="form-control col-md-7"  value="" >
+                        
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Maximum Values</label>
+                        <input type="text" id="ternimalMaxVal_xyz" name="ternimalMaxVal_xyz" class="form-control col-md-7"  value="">
+
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Construction</label>
+                        <input type="text" id="terminalConstruction_xyz" name="terminalConstruction_xyz" class="form-control col-md-7"  value="">
+
+                        <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
+                        <label class="col-md-4" style="float: left;">Terminal Security/Fire Protection</label>
+                        <textarea type="text" id="terminalSecurity_xyz" name="terminalSecurity_xyz" class="form-control col-md-7"  value=""></textarea>                   
+                    </div>
+                </div>
+                <div class="col-md-12" style="float: left;display: contents;">
+                    <button class="btn btn-secondary" id="addTerminalBox">Add</button>
+                    <button class="btn btn-secondary" id="removeTerminalBox">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5> Reefer Mechanical breakdown(Complete this section if cover extension is required)</h5>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">Maintenance Scheduel:</label>
+                <textarea type="text" id="reeferMaintenanceScheduel" name="reeferMaintenanceScheduel" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">What are indicator lights of reefer failure located? Are they clearly visiable to driver?</label>
+                <textarea type="text" id="visibilityReeferLights" name="visibilityReeferLights" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">What is the established procedure for drivers to check this gauge and log the reading and how often?(hours)</label>
+                <textarea type="text" id="reeferCheckProcedure" name="reeferCheckProcedure" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">In the event of a reefer problem, what procedures has the Insured outline for drivers to follow?</label>
+                <textarea type="text" id="proceduresToFollow" name="proceduresToFollow" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">What insured and uninsured losses has the Insured had with respect to this particular coverage?(5 years history)</label>
+                <textarea type="text" id="insuredUninsuredLosses" name="insuredUninsuredLosses" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">Is a Ryan's Chart maintained on all shipments?</label>
+                <textarea type="text" id="ryanChartMaintained" name="ryanChartMaintained" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group ReeferDetails" style="">
+                <label class="col-md-4" style="float: left;">How long has the insured been using reefer units?</label>
+                <textarea type="text" id="howLongUseReeferUnits" name="howLongUseReeferUnits" class="form-control col-md-8"></textarea>
+            </div>
+        </div>
+    </div>
+    <h5>Optional Endorsments Schedule</h5>
+    <hr>
+    <div class="row">
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Refrigeration Breakdown Endorsement<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="fridgeBreakdownEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fridgeBreakdownEndorsment" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group fridgeBreakdownDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="fridgeEndorsementDeductible" name="fridgeEndorsementDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group fridgeBreakdownDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="fridgeEndorsementLimit" name="fridgeEndorsementLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Riggers Endorsement<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="riggersEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="riggersEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group riggersEndorsmentDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="riggersEndorsementDeductible" name="riggersEndorsementDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group riggersEndorsmentDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="riggersEndorsementLimit" name="riggersEndorsementLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Contingent Transit Endorsement (Truck Brokering)<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="contingentTransitEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="contingentTransitEndorsment" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group contingentTransitEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="contingentTransitDeductible" name="contingentTransitDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group contingentTransitEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="contingentTransitLimit" name="contingentTransitLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Unattended Truck Endorsement<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="unattendedTruckEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="unattendedTruckEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group unattendedTruckEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="unattendedTruckDeductible" name="unattendedTruckDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group unattendedTruckEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="unattendedTruckLimit" name="unattendedTruckLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Earned Freight Endorsment<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="earnedFreightEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="earnedFreightEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group earnedFreightEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="earnedFreightDeductible" name="earnedFreightDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group earnedFreightEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="earnedFreightLimit" name="earnedFreightLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Debris Removal Endorsment<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="debrisRemovalEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="debrisRemovalEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group debrisRemovalEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="debrisRemovalDeductible" name="debrisRemovalDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group debrisRemovalEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="debrisRemovalLimit" name="debrisRemovalLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">L.T.L Endorsement (72 Hour Off Truck Cover)<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="lTLEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="lTLEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group lTLEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="lTLDeductible" name="lTLDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group lTLEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="lTLLimit" name="lTLLimit" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group lTLEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Trailer Limit</label>
+                    <input type="number" id="perLTLLimit" name="perLTLLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">In Full Premium Endorsement (Specified Vehicles)<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="fullPremiumEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fullPremiumEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group fullPremiumEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="fullPremiumDeductible" name="debrisRemovalDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group fullPremiumEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="fullPremiumLimit" name="debrisRemovalLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div> 
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-4" style="float: left;">Trailer Intercharge Endorsement<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="trailerInterchargeEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerInterchargeEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group trailerInterchargeEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="trailerInterchargeDeductible" name="trailerInterchargeDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group trailerInterchargeEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="trailerInterchargeLimit" name="trailerInterchargeLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-12">
+           <div class="form-group">
+                <label class="col-md-6" style="float: left; white-space: nowrap;">Improper Setting of Temperature Endorsement and Warranty Clasue<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="temperatureEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="temperatureEndorsement" value="No"><span class="radio_title">No</span>
+                      <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                <div class="form-group temperatureEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Deductible</label>
+                    <input type="number" id="temperatureDeductible" name="temperatureDeductible" class="form-control col-md-8" min=0>
+                </div>
+                <div class="form-group temperatureEndorsementDetail" style="display: none;">
+                    <label class="col-md-4" style="float: left;">Limit</label>
+                    <input type="number" id="temperatureLimit" name="temperatureLimit" class="form-control col-md-8" min=0>
+                </div>
+            </div>
+       </div>
+    </div>
+
     @endif
     @if($formVal == "rentedDwelling" || $formVal == "ownerOccupied")
     <div class="row">

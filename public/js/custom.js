@@ -141,7 +141,7 @@ $(document).ready(function(){
   /*} );*/
 
 // ######################                             Motor Truck Cargo js                                                           #####################
-
+// 
 $('#addItemBox').on('click',()=>{
   var counter = $("#VehicleCount").val();
   // var check = $('#new_sections_xyz').clone();
@@ -162,6 +162,45 @@ $('#removeItemBox').on('click',()=>{
     $("#VehicleCount").val(counter);
   }
 });
+// For assignedShipment list
+$('#addParticulaShipperBox').on('click',()=>{
+  var counter = $("#particulaShipperCount").val();
+  $("#new_shipper_xyz").clone().attr("id","new_shipper_"+counter).appendTo('.new_shipper');
+  var c = document.getElementById('new_shipper_'+counter);
+  c.style.display='';
+  changeCloneId(c.children,counter);
+  counter = parseInt(counter)+1;
+  $("#particulaShipperCount").val(counter);
+});
+
+$("#removeParticulaShipperBox").on('click',()=>{
+  var counter = $("#particulaShipperCount").val();
+  if (parseInt(counter) > 1) {
+    counter = parseInt(counter)-1;
+    $("#new_shipper_" + counter).remove();
+    $("#particulaShipperCount").val(counter);
+  }
+});
+// For terminal List
+$("#addTerminalBox").on('click',()=>{
+  var counter =$("#terminalCount").val();
+  $("#new_terminal_xyz").clone().attr('id','new_terminal_' + counter).appendTo('.new_terminal');
+  var c = document.getElementById('new_terminal_'+counter);
+  c.style.display = '';
+  changeCloneId(c.children,counter);
+  counter = parseInt(counter)+1;
+  $("#terminalCount").val(counter);
+});
+
+$("#removeTerminalBox").on("click", ()=>{
+  var counter = $("#terminalCount").val();
+  if (parseInt(counter) > 1) {
+    counter = parseInt(counter)-1;
+    $("#new_terminal_" + counter).remove();
+    $("#terminalCount").val(counter);
+  }
+});
+
 // save button on commoodity Modal adds to table form
 $('#commoditySubmit').on('click',(function(e){
   $("#commodityTableList").empty();
@@ -185,9 +224,9 @@ $('#commoditySubmit').on('click',(function(e){
       var name = $("#"+value).text();
       var rowItemHtml = `<tr>
                               <th scope="row">${name}</th>
-                              <td><input min="0" id="" type="number" name=""></td>
-                              <td><input min="0" id="" type="number" name=""></td>
-                              <td><input min="0" id="" type="number" name=""></td>
+                              <td><input min="0" id="${value}Percentage" type="number" name="${value}Percentage"></td>
+                              <td><input min="0" id="${value}AvgPerLoad" type="number" name="${value}AvgPerLoad"></td>
+                              <td><input min="0" id="${value}MaxPerLoad" type="number" name="${value}MaxPerLoad"></td>
                               <td><input type="hidden" value="${value}"><span class="badge ${typeColor}"><input type="hidden" value="${type}">${type}</span></td>
                           </tr>`;
     $("#commodityTableList").append(rowItemHtml);
@@ -221,12 +260,107 @@ $(document).on('click','.commodityRemove',function(){
 //
 });
 // not used commodity select changed to a modal radio selection END
+//assignedParticularShipper
+$("input[type=radio][name=assignedParticularShipper]").on('change',function(){
+      var assignedParticularShipper = this.value;
+  
+      toggleInput(assignedParticularShipper,"particularShipperList");
+});
+//
+$("input[type=radio][name=vehiclesUnlocked]").on('change',function(){
+      var vehiclesUnlocked = this.value;
+     
+      toggleInput(vehiclesUnlocked,"secuirtyMessures");
+});
 
+$("input[type=radio][name=mvr]").on('change',function(){
+      var mvr = this.value;
+     
+      toggleInput(mvr,"MVR");
+});
+
+$("input[type=radio][name=trailerDetached]").on('change',function(){
+      var trailerDetached = this.value;
+      
+      toggleInput(trailerDetached,"detachTralierReason");
+});
+
+$("input[type=radio][name=fridgeBreakdownEndorsement]").on('change',function(){
+  var fridgeBreakdownEndorsement = this.value;
+
+  toggleInput(fridgeBreakdownEndorsement, 'fridgeBreakdownDetail');
+});
+
+$("input[type=radio][name=riggersEndorsement]").on('change',function(){
+  var riggersEndorsement = this.value;
+
+  toggleInput(riggersEndorsement, 'riggersEndorsementDetail');
+});
+
+$("input[type=radio][name=contingentTransitEndorsement]").on('change',function(){
+  var contingentTransitEndorsement = this.value;
+
+  toggleInput(contingentTransitEndorsement, 'contingentTransitEndorsementDetail');
+});
+
+$("input[type=radio][name=unattendedTruckEndorsement]").on('change',function(){
+  var unattendedTruckEndorsement = this.value;
+
+  toggleInput(unattendedTruckEndorsement, 'unattendedTruckEndorsementDetail');
+});
+
+$("input[type=radio][name=earnedFreightEndorsement]").on('change',function(){
+  var earnedFreightEndorsement = this.value;
+
+  toggleInput(earnedFreightEndorsement, 'earnedFreightEndorsementDetail');
+});
+
+$("input[type=radio][name=debrisRemovalEndorsement]").on('change',function(){
+  var debrisRemovalEndorsement = this.value;
+
+  toggleInput(debrisRemovalEndorsement, 'debrisRemovalEndorsementDetail');
+});
+
+$("input[type=radio][name=lTLEndorsement]").on('change',function(){
+  var lTLEndorsement = this.value;
+
+  toggleInput(lTLEndorsement, 'lTLEndorsementDetail');
+});
+
+$("input[type=radio][name=fullPremiumEndorsement]").on('change',function(){
+  var fullPremiumEndorsement = this.value;
+
+  toggleInput(fullPremiumEndorsement, 'fullPremiumEndorsementDetail');
+});
+
+$("input[type=radio][name=trailerInterchargeEndorsement]").on('change',function(){
+  var trailerInterchargeEndorsement = this.value;
+
+  toggleInput(trailerInterchargeEndorsement, 'trailerInterchargeEndorsementDetail');
+});
+
+$("input[type=radio][name=temperatureEndorsement]").on('change',function(){
+  var temperatureEndorsement = this.value;
+
+  toggleInput(temperatureEndorsement, 'temperatureEndorsementDetail');
+});
+
+var toggleInput = (value,toggleClass)=>{
+// this function hide/show the radios that are toggle fields base on selection
+  if(value == 'Yes'){
+    $("." + toggleClass).show();
+  }else{
+    $("." + toggleClass).hide();
+    if(toggleClass != "MVR"){
+      clearFields(toggleClass);
+    }
+  }
+}
 //checks adds up to 100% idea write a universal function that checks the fields if it adds to 100% or not maybe takes an object
 var checkOneHundred = (object)=>{
-  for (var i = 0; i < object.length; i++) {
+  // for (var i = 0; i < object.length; i++) {
 
-  }
+  // }
 }
 
 //change the id of childeren for cloned objects (only changes first child in the tree non recursive)
@@ -240,9 +374,9 @@ var changeCloneId = (object, counter)=>{
   }
 }
 
-function deleteCommodity (object){
-  console.log(object);
-}
+// function deleteCommodity (object){
+//   console.log(object);
+// }
 
 $(".highlightOnClick").on('click', function(){
   $(this).select();
@@ -490,6 +624,9 @@ function clearFields(fieldID){
     $(this).val('');
   });
   $.each($("."+fieldID).find('select'),function(k,v){
+    $(this).val('');
+  });
+  $.each($("."+fieldID).find('textarea'),function(k,v){
     $(this).val('');
   });
 }
@@ -1620,14 +1757,14 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
 
-    // display existing fillings for motor truck cargo
+    // display existing fillings for MTC
     $("input[type=radio][name=filingRequired]").on('change',function(){
       var fillingRequired = this.value;
       if(fillingRequired == 'Yes'){
         $(".fillReq").show();
       }else{
         $(".fillReq").hide();
-        clearFields(".fillReq");
+        clearFields("fillReq");
       }
     });
    /* // display claimHistory_anyClaimsReportedOnUrBehalf for Home Inspector
