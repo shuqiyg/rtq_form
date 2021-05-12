@@ -3778,6 +3778,7 @@ $('#insured_isRiskAddressSame').change(function() {
       // get all form data including dynamic fields
       var getFormData = getAllFormData();
       var formData = getFormData.formData;
+      console.log(formData);
       /*var noOfMortgageesArray = getFormData.noOfMortgageesArray;
       var noOfClaimsArray = getFormData.noOfClaimsArray;*/
       // json encode of reasons

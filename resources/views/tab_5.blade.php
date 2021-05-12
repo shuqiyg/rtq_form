@@ -503,13 +503,6 @@
                     </div>
                 </div>
                 <div class="form-group driverDetails">
-                    <label class="col-md-4" style="float: left;">Are all Drivers & Helpers Regular Employees?<span class="err">*</span> </label>
-                    <div class="radio_group required">
-                        <input type="radio" id="yes" name="allRegularEmployees" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="allRegularEmployees" value="No"><span class="radio_title">No</span>
-                          <span class="radio_error" style="display:none;color: red;">Required.</span>
-                    </div>
-                </div>
-                <div class="form-group driverDetails">
                     <label class="col-md-6" style="float: left; white-space: nowrap;">Is Merchandise Ever Transported to Another Motor Truck Carrier?<span class="err">*</span> </label>
                     <div class="radio_group required">
                         <input type="radio" id="yes" name="merchandiseTransport" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="merchandiseTransport" value="No"><span class="radio_title">No</span>
@@ -659,7 +652,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Refrigeration Breakdown Endorsement<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="fridgeBreakdownEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fridgeBreakdownEndorsment" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="fridgeBreakdownEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fridgeBreakdownEndorsement" value="No"><span class="radio_title">No</span>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group fridgeBreakdownDetail" style="display: none;">
@@ -679,11 +672,11 @@
                     <input type="radio" id="yes" name="riggersEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="riggersEndorsement" value="No"><span class="radio_title">No</span>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
-                <div class="form-group riggersEndorsmentDetail" style="display: none;">
+                <div class="form-group riggersEndorsementDetail" style="display: none;">
                     <label class="col-md-4" style="float: left;">Deductible</label>
                     <input type="number" id="riggersEndorsementDeductible" name="riggersEndorsementDeductible" class="form-control col-md-8" min=0>
                 </div>
-                <div class="form-group riggersEndorsmentDetail" style="display: none;">
+                <div class="form-group riggersEndorsementDetail" style="display: none;">
                     <label class="col-md-4" style="float: left;">Limit</label>
                     <input type="number" id="riggersEndorsementLimit" name="riggersEndorsementLimit" class="form-control col-md-8" min=0>
                 </div>
@@ -693,7 +686,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Contingent Transit Endorsement (Truck Brokering)<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="contingentTransitEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="contingentTransitEndorsment" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="contingentTransitEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="contingentTransitEndorsement" value="No"><span class="radio_title">No</span>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group contingentTransitEndorsementDetail" style="display: none;">

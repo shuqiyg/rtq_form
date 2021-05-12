@@ -668,6 +668,7 @@ class rtqController extends Controller
 
     ***/
     function finish(Request $req){
+        dd($req);
         $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
@@ -2074,7 +2075,8 @@ class rtqController extends Controller
             //$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
             $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com' // test@amfum.com
             $message->subject('RTQ-'.$insuredName); //'RTQ-Form'
-            $message->to('jagruti.bhudiya@amfredericks.com'); // rtq@amfredericks.com
+            // $message->to('jagruti.bhudiya@amfredericks.com');
+            $message->to('andrew.zhao@amfredericks.com'); // rtq@amfredericks.com
             $message->setBody($formData);
 
             $email = $message->getSwiftMessage();
