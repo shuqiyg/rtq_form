@@ -142,7 +142,12 @@ $(document).ready(function(){
 
 // ######################                             Motor Truck Cargo js                                                           #####################
 // 
-$('#addItemBox').on('click',()=>{
+$('input[type=number]').on('mousewheel', function(e) {
+  $(e.target).blur();
+});
+
+$('#addItemBox').on('click',(e)=>{
+  e.preventDefault();
   var counter = $("#VehicleCount").val();
   // var check = $('#new_sections_xyz').clone();
   $('#new_sections_xyz').clone().attr('id','new_sections_'+ counter).appendTo('.new_sections');
@@ -154,7 +159,8 @@ $('#addItemBox').on('click',()=>{
   $("#VehicleCount").val(counter);
 });
 
-$('#removeItemBox').on('click',()=>{
+$('#removeItemBox').on('click',(e)=>{
+  e.preventDefault();
   var counter = $("#VehicleCount").val();
   if (parseInt(counter) > 1) {
     counter = parseInt(counter)-1;
@@ -163,7 +169,8 @@ $('#removeItemBox').on('click',()=>{
   }
 });
 // For assignedShipment list
-$('#addParticulaShipperBox').on('click',()=>{
+$('#addParticulaShipperBox').on('click',(e)=>{
+  e.preventDefault();
   var counter = $("#particulaShipperCount").val();
   $("#new_shipper_xyz").clone().attr("id","new_shipper_"+counter).appendTo('.new_shipper');
   var c = document.getElementById('new_shipper_'+counter);
@@ -173,7 +180,8 @@ $('#addParticulaShipperBox').on('click',()=>{
   $("#particulaShipperCount").val(counter);
 });
 
-$("#removeParticulaShipperBox").on('click',()=>{
+$("#removeParticulaShipperBox").on('click',(e)=>{
+  e.preventDefault();
   var counter = $("#particulaShipperCount").val();
   if (parseInt(counter) > 1) {
     counter = parseInt(counter)-1;
@@ -182,7 +190,8 @@ $("#removeParticulaShipperBox").on('click',()=>{
   }
 });
 // For terminal List
-$("#addTerminalBox").on('click',()=>{
+$("#addTerminalBox").on('click',(e)=>{
+  e.preventDefault();
   var counter =$("#terminalCount").val();
   $("#new_terminal_xyz").clone().attr('id','new_terminal_' + counter).appendTo('.new_terminal');
   var c = document.getElementById('new_terminal_'+counter);
@@ -192,7 +201,8 @@ $("#addTerminalBox").on('click',()=>{
   $("#terminalCount").val(counter);
 });
 
-$("#removeTerminalBox").on("click", ()=>{
+$("#removeTerminalBox").on("click", (e)=>{
+  e.preventDefault();
   var counter = $("#terminalCount").val();
   if (parseInt(counter) > 1) {
     counter = parseInt(counter)-1;

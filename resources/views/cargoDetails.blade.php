@@ -41,35 +41,35 @@
             <div class="form-group">
                 <div class="input-group">
                 	<label class="col-md-4" style="float: left;"> 500km <span class="err">*</span> </label>
-                	<input type="text" id="radius_500" name="radius_500" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
+                	<input type="number" min="0" id="radius_500" name="radius_500" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 800km <span class="err">*</span> </label>
-                	<input type="text" id="radius_800" name="radius_800" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
+                	<input type="number" min="0" id="radius_800" name="radius_800" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 1200km <span class="err">*</span> </label>
-                	<input type="text" id="radius_1200" name="radius_1200" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
+                	<input type="number" min="0" id="radius_1200" name="radius_1200" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> 1600km <span class="err">*</span> </label>
-                	<input type="text" id="radius_1600" name="radius_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
+                	<input type="number" min="0" id="radius_1600" name="radius_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>
                 </div>
                 <div class="input-group md-2">
                 	<label class="col-md-4" style="float: left;"> more than 1600km <span class="err">*</span> </label>
-                	<input type="text" id="radius_over_1600" name="radius_over_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
+                	<input type="number" min="0" id="radius_over_1600" name="radius_over_1600" class="form-control col-md-8 required radius-of-op highlightOnClick"  value="0">
                 	<div class="input-group-append">
       					<div class="input-group-text">%</div>
     				</div>

@@ -668,7 +668,7 @@ class rtqController extends Controller
 
     ***/
     function finish(Request $req){
-        // dd($req);
+        dd($req);
         $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);

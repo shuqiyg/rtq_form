@@ -47,7 +47,7 @@
                 <div id="liability_premisesHaveElevatorDetails" style="display: none;">
                 
                 </div>
-                <div class="col-md-12" style="float: left;display: contents;">
+                <div class="col-md-12" style="float: left;display:contents;">
                     <button class="btn btn-secondary" id="addItemBox">Add</button>
                     <button class="btn btn-secondary" id="removeItemBox">Remove</button>
                 </div>
