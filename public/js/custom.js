@@ -146,6 +146,44 @@ $('input[type=number]').on('mousewheel', function(e) {
   $(e.target).blur();
 });
 
+$('.powerUnits').blur(function(){
+  var ownedTotal = 0;
+  var non_ownedTotal = 0;
+  $('.ownedPowerUnits').each(function(){
+    if($(this).val()) {
+      ownedTotal = ownedTotal + parseInt($(this).val());
+    }
+  });
+
+  $('.non_ownedPowerUnits').each(function(){
+    if($(this).val()) {
+      non_ownedTotal = non_ownedTotal+ parseInt($(this).val());
+    }
+  });
+
+  $("#ownedTotalPowerUnits").val(ownedTotal);
+  $("#non_ownedTotalPowerUnits").val(non_ownedTotal);
+});
+
+$('.trailerUnits').blur(function(){
+  var ownedTotal = 0;
+  var non_ownedTotal = 0;
+
+  $('.ownedTrailers').each(function(){
+    if($(this).val()){
+      ownedTotal = ownedTotal + parseInt($(this).val());
+    }
+  });
+
+  $('.ownedTrailers').each(function(){
+    if($(this).val()){
+      non_ownedTotal = non_ownedTotal + parseInt($(this).val());
+    }
+  });
+  $("#ownedTotalTrailers").val(ownedTotal);
+  $("#non_ownedTotalTrailers").val(non_ownedTotal);
+});
+
 $('#addItemBox').on('click',(e)=>{
   e.preventDefault();
   var counter = $("#VehicleCount").val();

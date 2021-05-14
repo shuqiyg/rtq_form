@@ -74,28 +74,33 @@
               <tbody>
                 <tr>
                   <th scope="row">Tractors</th>
-                  <td><input id="ownedTractors" min="0" type="number" name="ownedTractors"></td>
-                  <td><input id="non_ownedTractors" min="0" type="number" name="non_ownedTractors"></td>
+                  <td><input class='powerUnits ownedPowerUnits' id="ownedTractors" min="0" type="number" name="ownedTractors"></td>
+                  <td><input class='powerUnits non_ownedPowerUnits' id="non_ownedTractors" min="0" type="number" name="non_ownedTractors"></td>
                 </tr>
                 <tr>
                   <th scope="row">Stright Trucks</th>
-                  <td><input id="ownedStrightTrucks" min="0" type="number" name="ownedStrightTrucks"></td>
-                  <td><input id="non_ownedStrightTrucks" min="0" type="number" name="non_ownedStrightTrucks"></td>
+                  <td><input class='powerUnits ownedPowerUnits' id="ownedStrightTrucks" min="0" type="number" name="ownedStrightTrucks"></td>
+                  <td><input class='powerUnits non_ownedPowerUnits' id="non_ownedStrightTrucks" min="0" type="number" name="non_ownedStrightTrucks"></td>
                 </tr>
                 <tr>
                   <th scope="row">Refer Trucks</th>
-                  <td><input id="ownedReferTrucks" min="0" type="number" name="ownedReferTrucks"></td>
-                  <td><input id="non_ownedReferTrucks" min="0" type="number" name="non_ownedReferTrucks"></td>
+                  <td><input class='powerUnits ownedPowerUnits' id="ownedReferTrucks" min="0" type="number" name="ownedReferTrucks"></td>
+                  <td><input class='powerUnits non_ownedPowerUnits' id="non_ownedReferTrucks" min="0" type="number" name="non_ownedReferTrucks"></td>
                 </tr>
                 <tr>
                   <th scope="row">Tank Trucks</th>
-                  <td><input id="ownedTankTrucks" min="0" type="number" name="ownedTankTrucks"></td>
-                  <td><input id="non_ownedTankTrucks" min="0" type="number" name="non_ownedTankTrucks"></td>
+                  <td><input class='powerUnits ownedPowerUnits' id="ownedTankTrucks" min="0" type="number" name="ownedTankTrucks"></td>
+                  <td><input class='powerUnits non_ownedPowerUnits' id="non_ownedTankTrucks" min="0" type="number" name="non_ownedTankTrucks"></td>
                 </tr>
                 <tr>
                   <th scope="row">Other Power Units</th>
-                  <td><input id="ownedOtherPowerUnits" min="0" type="number" name="ownedOtherPowerUnits"></td>
-                  <td><input id="non_ownedOtherPowerUnits" min="0" type="number" name="non_ownedOtherPowerUnits"></td>
+                  <td><input class='powerUnits ownedPowerUnits' id="ownedOtherPowerUnits" min="0" type="number" name="ownedOtherPowerUnits"></td>
+                  <td><input class='powerUnits non_ownedPowerUnits' id="non_ownedOtherPowerUnits" min="0" type="number" name="non_ownedOtherPowerUnits"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Total Power Units</th>
+                  <td><input class='powerUnits' id="ownedTotalPowerUnits" min="0" type="number" name="ownedTotalPowerUnits"></td>
+                  <td><input class='powerUnits' id="non_ownedTotalPowerUnits" min="0" type="number" name="non_ownedTotalPowerUnits"></td>
                 </tr>
               </tbody>
             </table>
@@ -113,27 +118,33 @@
               <tbody>
                 <tr>
                   <th scope="row">Refer Trailers</th>
-                  <td><input id="ownedReferTrailers" min="0" type="number" name="ownedReferTrailers"></td>
-                  <td><input id="non_ownedReferTrailers" min="0" type="number" name="non_ownedReferTrailers"></td>
+                  <td><input class='trailerUnits ownedTrailers' id="ownedReferTrailers" min="0" type="number" name="ownedReferTrailers"></td>
+                  <td><input class='trailerUnits non_ownedTrailers' id="non_ownedReferTrailers" min="0" type="number" name="non_ownedReferTrailers"></td>
                 </tr>
                 <tr>
                   <th scope="row">Flat Bed Trailers</th>
-                  <td><input id="" min="0" type="number" name=""></td>
-                  <td><input id="" min="0" type="number" name=""></td>
+                  <td><input class='trailerUnits ownedTrailers' id="ownedFlatBedTrailers" min="0" type="number" name="ownedFlatBedTrailers"></td>
+                  <td><input class='trailerUnits non_ownedTrailers' id="non_ownedFlatBedTrailers" min="0" type="number" name="non_ownedFlatBedTrailers"></td>
                 </tr>
                 <tr>
                   <th scope="row">Tank Trailers</th>
-                  <td><input min="0" id="ownedTankTrailers" type="number" name="ownedTankTrailers"></td>
-                  <td><input min="0" id="non_ownedTankTrailers" type="number" name="non_ownedTankTrailers"></td>
+                  <td><input class='trailerUnits ownedTrailers' min="0" id="ownedTankTrailers" type="number" name="ownedTankTrailers"></td>
+                  <td><input class='trailerUnits non_ownedTrailers' min="0" id="non_ownedTankTrailers" type="number" name="non_ownedTankTrailers"></td>
                 </tr>
                 <tr>
                   <th scope="row">Other Trailers</th>
-                  <td><input min="0" id="ownedOtherTrailers" type="number" name="ownedOtherTrailers"></td>
-                  <td><input min="0" id="non_ownedOtherTrailers" type="number" name="non_ownedOtherTrailers"></td>
-                </tr><tr>
+                  <td><input class='trailerUnits ownedTrailers' min="0" id="ownedOtherTrailers" type="number" name="ownedOtherTrailers"></td>
+                  <td><input class='trailerUnits non_ownedTrailers' min="0" id="non_ownedOtherTrailers" type="number" name="non_ownedOtherTrailers"></td>
+                </tr>
+                <tr>
                   <th scope="row">&nbsp</th>
                   <td>&nbsp</td>
                   <td>&nbsp</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total Number of Trailers</th>
+                  <td><input class='trailerUnits' id="ownedTotalTrailers" min="0" type="number" name="ownedTotalTrailers"></td>
+                  <td><input class='trailerUnits' id="non_ownedTotalTrailers" min="0" type="number" name="non_ownedTotalTrailers"></td>
                 </tr>
               </tbody>
             </table>
