@@ -288,6 +288,7 @@
         <label class="col-md-6">Is there any use of radioactive materials?</label>                           
          <div class="radio_group">
         <input type="radio" id="yes" name="liability_anyRadioactiveMaterials" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_anyRadioactiveMaterials" value="No"><span class="radio_title">No</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>     
     </div>
     </div>

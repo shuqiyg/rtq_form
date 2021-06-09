@@ -3853,8 +3853,9 @@ $('#insured_isRiskAddressSame').change(function() {
           data: {formData:formData,rtqForm:rtqForm,binding:binding,referNotMatchReason:referNotMatchReason,filesRequired:filesRequired, _token:$('meta[name="csrf-token"]').attr('content')},
           datatype: 'json',
           success: function(msg){
-            //console.log(msg);
+            console.log(msg);
             if(msg.success){
+              // console.log('message');
               $(".loader").hide();
               swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
               //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');

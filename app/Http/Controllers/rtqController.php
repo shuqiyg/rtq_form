@@ -668,7 +668,7 @@ class rtqController extends Controller
 
     ***/
     function finish(Request $req){
-        dd($req);
+        // dd($req);
         $formData = json_decode($req['formData'],true);
         $rtqForm = $req['rtqForm'];
         $referNotMatchReason = json_decode($req['referNotMatchReason'], true);
@@ -811,6 +811,7 @@ class rtqController extends Controller
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
+        dd($emailSent);
         if($emailSent == 0){
             $message = array('message'=>'Form has been sent to AMF.','success'=>'true');
         }else{
