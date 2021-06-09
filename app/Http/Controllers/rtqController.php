@@ -811,7 +811,7 @@ class rtqController extends Controller
         // now Send email to ..... to process email
         $emailSent = $this->emailSent($fd);
         //$emailSent = 0;
-        dd($emailSent);
+        // dd($emailSent);
         if($emailSent == 0){
             $message = array('message'=>'Form has been sent to AMF.','success'=>'true');
         }else{

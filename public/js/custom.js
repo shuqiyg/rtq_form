@@ -3864,7 +3864,7 @@ $('#insured_isRiskAddressSame').change(function() {
               },2000);
               
             }else{
-              //console.log('There is error : '+msg.message);
+              console.log('There is error : '+msg.message);
               swal(msg.message);
             }
           },
