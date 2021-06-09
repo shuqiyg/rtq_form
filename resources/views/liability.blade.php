@@ -309,8 +309,19 @@
             </div>    
         </div>
     </div>
+
     <!--********************************************************************************-->
     <h5>Does the applicant engage any of the operation/s below:</h5>
+
+    <div class="row">
+    <div class="form-group col-md-12 item_flex">                              
+        <label class="col-md-6">Does the insured do any work in buildings with more than four (4) stories?<span class="err">*</span></label>
+         <div class="radio_group required">
+        <input type="radio" id="yes" name="liability_anyFourStories" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="liability_anyFourStories" value="No"><span class="radio_title">No</span>
+        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        </div>
+    </div>
+    </div>
 
     <div class="row">
     <div class="form-group col-md-12 item_flex">                              

@@ -1308,6 +1308,9 @@ class rtqController extends Controller
 
             /*$liability_anyUSExposure  = $fd[0]['liability_anyUSExposure']['value'];
             $liability_anyUSInstallation  = $fd[0]['liability_anyUSInstallation']['value'];*/
+            if (isset($fd[0]['liability_anyFourStories']))
+                $liability_anyFourStories = $fd[0]['liability_anyFourStories']['value'];
+
             if(isset($fd[0]['liability_anyRadioactiveMaterials']))
             $liability_anyRadioactiveMaterials  = $fd[0]['liability_anyRadioactiveMaterials']['value'];
 
@@ -1662,6 +1665,10 @@ class rtqController extends Controller
                     /*if($referPFS){
                         array_push($referMatchArray, 'There is gross annual sales outside of Canada.');   
                     }*/
+                    if(isset($liability_anyFourStories) && $liability_anyFourStories == "Yes") {
+                        array_push($referMatchArray, 'You are working with building taller than four stories.');
+                        $valid = false;
+                    }
 
                     if(isset($liability_anyRadioactiveMaterials) && $liability_anyRadioactiveMaterials  == "Yes"){
                         array_push($referMatchArray, 'There is any use of radioactive materials in the premises.');
@@ -1969,6 +1976,10 @@ class rtqController extends Controller
                     }
                     if(!isset($liability_anyRadioactiveMaterials)){
                         array_push($referMatchArray, 'Please select Is there any use of radioactive materials in the premises? field.');
+                        $valid = 'Empty';
+                    }
+                    if(!isset($liability_anyFourStories)) {
+                        array_push($referMatchArray, 'Please Select if you are working with building taller than four stories? field.');
                         $valid = 'Empty';
                     }
                     
