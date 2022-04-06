@@ -62,7 +62,7 @@
         <label class="col-md-4"> Do you know the Applicant Personally <span class="err">*</span> </label>
        <!--  <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_applicantPersonally" name="brokerSurvey_applicantPersonally">    -->
        <div class="radio_group required">
-        <input type="radio" id="yes" name="brokerSurvey_applicantPersonally" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_applicantPersonally" value="No" required><span class="radio_title">No</span>
+        <label><input type="radio" id="yes" name="brokerSurvey_applicantPersonally" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="brokerSurvey_applicantPersonally" value="No" required><span class="radio_title">No</span></label>
         <span class="radio_error" style="display:none;color: red;">Required.</span>
         </div>
     </div>
@@ -82,7 +82,7 @@
                 <label class="col-md-4" style="float: left;"> Did you receive the order direct from the Applicant <span class="err">*</span> </label>         
 <!--                 <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_OrderDirectApplicant" name="brokerSurvey_OrderDirectApplicant"> -->
              <div class="radio_group required">
-            <input type="radio" id="yes" name="brokerSurvey_OrderDirectApplicant" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_OrderDirectApplicant" value="No"><span class="radio_title">No</span> 
+            <label><input type="radio" id="yes" name="brokerSurvey_OrderDirectApplicant" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="brokerSurvey_OrderDirectApplicant" value="No"><span class="radio_title">No</span> </label>
              <span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
             </div>
@@ -102,7 +102,7 @@
                 <label class="col-md-4" style="float: left;"> Do you handle other Insurance for the Applicant <span class="err">*</span> </label>
                <!--  <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_handleOtherInsurance" name="brokerSurvey_handleOtherInsurance"> -->
                 <div class="radio_group required">
-                <input type="radio" id="yes" name="brokerSurvey_handleOtherInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_handleOtherInsurance" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="brokerSurvey_handleOtherInsurance" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="brokerSurvey_handleOtherInsurance" value="No"><span class="radio_title">No</span></label>
                 <span class="radio_error" style="display:none;color: red;">Required.</span>  
             </div>
             </div>
@@ -122,7 +122,7 @@
                 <label class="col-md-4" style="float: left;"> Do you recommend this risk in every Respect  <span class="err">*</span> </label>
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_recommandRisk" name="brokerSurvey_recommandRisk"> --> 
                  <div class="radio_group required">
-                <input type="radio" id="yes" name="brokerSurvey_recommandRisk" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_recommandRisk" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="brokerSurvey_recommandRisk" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="brokerSurvey_recommandRisk" value="No"><span class="radio_title">No</span></label>
                 <span class="radio_error" style="display:none;color: red;">Required.</span> 
             </div>
             </div>
@@ -143,7 +143,7 @@
                 <label class="col-md-4" style="float: left;"> Is this risk a renewal to your office <span class="err">*</span> </label>
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_riskRenewalToOffice" name="brokerSurvey_riskRenewalToOffice"> --> 
                  <div class="radio_group required">
-                <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span></label>
                 <span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
             </div>

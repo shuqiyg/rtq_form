@@ -13,7 +13,7 @@
         <div class="form-group col-md-12" style="padding-left: 0px;">
             <h3 class="col-md-5" style="float: left;padding-left: 0px;">Risk Address</h3>
             <input type="checkbox" class="form-control col-md-1" name="sameAsMailingAddress" id="sameAsMailingAddress" style="float: left;"> 
-            <label class="col-md-6" style="padding-top: 5px;"> Same as mailing address </label>
+            <label class="col-md-6" style="padding-top: 5px;" for="sameAsMailingAddress"> Same as mailing address </label>
         </div>
     </div>
     <div class="row">
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Is building coverage required? <span class="err">*</span> </label>
                          <div class="radio_group required">
-                            <input type="radio" id="yes" name="risk_address_requireBuildingCoverage" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_requireBuildingCoverage" value="No"><span class="radio_title">No</span>
+                            <label><input type="radio" id="yes" name="risk_address_requireBuildingCoverage" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="risk_address_requireBuildingCoverage" value="No"><span class="radio_title">No</span></label>
                             <span class="radio_error" style="display:none;color: red;">Required.</span>
                             </div> 
                     </div>
@@ -97,7 +97,7 @@
                     <div class="form-group">
                         <label class="col-md-4" style="float: left;"> Has the insured been cancelled/declined insurance?<span class="err">*</span></label>
                         <div class="radio_group required">
-                        <input type="radio" id="yes" name="risk_address_hasInsuredCancelInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_hasInsuredCancelInsurance" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="risk_address_hasInsuredCancelInsurance" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="risk_address_hasInsuredCancelInsurance" value="No"><span class="radio_title">No</span></label>
                         <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                         <label class="col-md-4" style="float: left;"> Are you aware of any incidence that may result in a claim?</label>
                        <!--  <input class="checkbox_custom" type="checkbox"  id="risk_address_incidenceInClaim" name="risk_address_incidenceInClaim">  -->
                           <div class="radio_group">
-                        <input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span></label>
                        
                         </div>
                     </div>

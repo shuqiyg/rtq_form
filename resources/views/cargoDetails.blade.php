@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Are fillings required? <span class="err">*</span> </label>
                 <div class="radio_group required">
-	                <input type="radio" id="yes" name="filingRequired" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="filingRequired" value="No"><span class="radio_title">No</span>
+	                <label><input type="radio" id="yes" name="filingRequired" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="filingRequired" value="No"><span class="radio_title">No</span></label>
 	                  <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
 

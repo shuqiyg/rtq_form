@@ -25,7 +25,7 @@
                 </select> -->
 
                  <div class="radio_group required">
-                <input type="radio" id="yes" name="insured_isCorporation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_isCorporation" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="insured_isCorporation" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="insured_isCorporation" value="No"><span class="radio_title">No</span></label>
                   <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <div class="col-md-12">
                         <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record?</label>
                          <div class="radio_group">
-                            <input type="radio" id="yes" name="insured_criminal_record" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_criminal_record" value="No"><span class="radio_title">No</span>
+                            <label><input type="radio" id="yes" name="insured_criminal_record" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="insured_criminal_record" value="No"><span class="radio_title">No</span></label>
                              <span class="radio_error" style="display:none;color: red;">Required.</span>
                             </div>
                     </div>

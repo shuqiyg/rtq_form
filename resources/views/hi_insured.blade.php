@@ -89,7 +89,7 @@
                         <label class="col-md-4" style="float: left;"> Does the Insured have a criminal record?</label>
                         <!--  <input class="checkbox_custom" type="checkbox"  id="insured_criminal_record" name="insured_criminal_record"> -->
                            <div class="radio_group">
-                            <input type="radio" id="yes" name="insured_criminal_record" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_criminal_record" value="No"><span class="radio_title">No</span>
+                            <label><input type="radio" id="yes" name="insured_criminal_record" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="insured_criminal_record" value="No"><span class="radio_title">No</span></label>
                              <span class="radio_error" style="display:none;color: red;">Required.</span>
                             </div>
                     </div>
@@ -216,7 +216,7 @@
                             <option value="No">No</option>
                         </select> -->
                          <div class="radio_group required">
-                            <input type="radio" id="yes" name="insured_licenced" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="insured_licenced" value="No"><span class="radio_title">No</span>
+                            <label><input type="radio" id="yes" name="insured_licenced" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="insured_licenced" value="No"><span class="radio_title">No</span></label>
                               <span class="radio_error" style="display:none;color: red;">Required.</span>
                             </div>
                     </div>

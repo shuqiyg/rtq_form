@@ -226,7 +226,7 @@
         <!-- footer -->
         <footer>
             <hr>
-            <p style="text-align: center;">&copy; Copyright 2020 - <?php $cy = date('Y'); if($cy == "2020"){echo "Present";}else{echo $cy;}?>  <a href="https://www.amfredericks.com/" target="_blank" data-toggle="tooltip" title="<img src='{{URL::asset('img/amfsite.png')}}' width='150' height='100'>"> <b style="color: blue;"> A.M.Fredericks Underwriting Management Ltd.</b> </a></p>
+            <p style="text-align: center;">&copy; Copyright 2020 - <?php $cy = date('Y'); if($cy == "2020"){echo "Present";}else{echo $cy;}?>  <a href="https://www.amfredericks.com/" target="_blank" data-toggle="tooltip" title="<img src='https://rtq-form.amfum.com/public/img/amfsite.png' width='150' height='100'>"> <b style="color: blue;"> A.M.Fredericks Underwriting Management Ltd.</b> </a></p>
             <div class="switch" >Dark mode:              
                 <span class="inner-switch">OFF</span>
             </div>

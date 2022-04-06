@@ -44,7 +44,7 @@
                 </select> -->
                 <!-- <input class="checkbox_custom" type="checkbox"  id="fireAlarmDetectors_pullBox" name="fireAlarmDetectors_pullBox">  --> 
                 <div class="radio_group">
-                        <input type="radio" id="yes" name="fireAlarmDetectors_pullBox" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fireAlarmDetectors_pullBox" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="fireAlarmDetectors_pullBox" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="fireAlarmDetectors_pullBox" value="No"><span class="radio_title">No</span></label>
                         </div>
             </div>
             @endif
@@ -93,7 +93,7 @@
                 </select> -->
                  <!-- <input class="checkbox_custom" type="checkbox"  id="fireAlarmDetectors_inhousePortableExtinguishers" name="fireAlarmDetectors_inhousePortableExtinguishers">  -->
                   <div class="radio_group required">
-                    <input type="radio" id="yes" name="fireAlarmDetectors_inhousePortableExtinguishers" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fireAlarmDetectors_inhousePortableExtinguishers" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="fireAlarmDetectors_inhousePortableExtinguishers" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="fireAlarmDetectors_inhousePortableExtinguishers" value="No"><span class="radio_title">No</span></label>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                 </select> -->
                <!--   <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_safe" name="burglaryAlarm_safe"> -->
                   <div class="radio_group">
-                        <input type="radio" id="yes" name="burglaryAlarm_safe" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_safe" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="burglaryAlarm_safe" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="burglaryAlarm_safe" value="No"><span class="radio_title">No</span></label>
                         </div> 
             </div>
             <div class="form-group burglaryAlarm_safeBox" style="display: none;">
@@ -173,7 +173,7 @@
                 </select> -->
                <!--  <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_barsOnWindows" name="burglaryAlarm_otherMeasures_barsOnWindows"> --> 
                  <div class="radio_group">
-                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_barsOnWindows" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_barsOnWindows" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="burglaryAlarm_otherMeasures_barsOnWindows" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="burglaryAlarm_otherMeasures_barsOnWindows" value="No"><span class="radio_title">No</span></label>
                         </div> 
             </div>
             <div class="form-group">
@@ -185,7 +185,7 @@
                 </select> -->
               <!--   <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_deadboltOnDoors" name="burglaryAlarm_otherMeasures_deadboltOnDoors">  -->
                  <div class="radio_group">
-                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="burglaryAlarm_otherMeasures_deadboltOnDoors" value="No"><span class="radio_title">No</span></label>
                         </div> 
             </div>
             <div class="form-group">
@@ -197,7 +197,7 @@
                 </select> -->
           <!--       <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_perimeterLighting" name="burglaryAlarm_otherMeasures_perimeterLighting">  -->
                  <div class="radio_group">
-                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_perimeterLighting" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_perimeterLighting" value="No" ><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="burglaryAlarm_otherMeasures_perimeterLighting" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="burglaryAlarm_otherMeasures_perimeterLighting" value="No" ><span class="radio_title">No</span></label>
                         </div> 
             </div>
             <div class="form-group">
@@ -209,7 +209,7 @@
                 </select> -->
 <!--                 <input class="checkbox_custom" type="checkbox"  id="burglaryAlarm_otherMeasures_guardDog" name="burglaryAlarm_otherMeasures_guardDog"> 
  -->                 <div class="radio_group required">
-                        <input type="radio" id="yes" name="burglaryAlarm_otherMeasures_guardDog" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="burglaryAlarm_otherMeasures_guardDog" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="burglaryAlarm_otherMeasures_guardDog" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="burglaryAlarm_otherMeasures_guardDog" value="No"><span class="radio_title">No</span></label>
                         <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div> 
             </div>

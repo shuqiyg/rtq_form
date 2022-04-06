@@ -60,7 +60,7 @@
         
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Year Built <span class="err">*</span></label>
-                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear amfPropertyExtention buildingPerils required"  value="" maxlength="4">
+                <input type="text" id="buildingConstruction_yearBuilt" name="buildingConstruction_yearBuilt" class="form-control col-md-8 onlyNumbers checkYear amfPropertyExtention buildingPerils required"  maxlength="4">
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -68,7 +68,7 @@
                         <label class="col-md-4" style="float: left;">Is building considered a heritage building?</label>
                         <!-- <input class="checkbox_custom" type="checkbox" id="buildingConstruction_isBuildingHeritage" name="buildingConstruction_isBuildingHeritage"> -->
                         <div class="radio_group">
-                        <input type="radio" id="yes" name="buildingConstruction_isBuildingHeritage" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="buildingConstruction_isBuildingHeritage" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="Yes" name="buildingConstruction_isBuildingHeritage" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="No" name="buildingConstruction_isBuildingHeritage" value="No"><span class="radio_title">No</span></label>
                         </div> 
                     </div>
                 </div>

@@ -69,7 +69,7 @@
                     <option value="No">No</option>
                 </select> -->
                  <div class="radio_group required">
-                <input type="radio" id="yes" name="claimHistory_anyPolicyReportedOnUrBehalf" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_anyPolicyReportedOnUrBehalf" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="claimHistory_anyPolicyReportedOnUrBehalf" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="claimHistory_anyPolicyReportedOnUrBehalf" value="No"><span class="radio_title">No</span></label>
                   <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <option value="No">No</option>
                 </select> -->
                 <div class="radio_group required">
-                <input type="radio" id="yes" name="claimHistory_anyUnresolvedAct" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_anyUnresolvedAct" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="claimHistory_anyUnresolvedAct" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="claimHistory_anyUnresolvedAct" value="No"><span class="radio_title">No</span></label>
                 <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                     <option value="No">No</option>
                 </select> -->
                  <div class="radio_group required">
-                    <input type="radio" id="yes" name="claimHistory_ifSubjectToRescission" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="claimHistory_ifSubjectToRescission" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="claimHistory_ifSubjectToRescission" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="claimHistory_ifSubjectToRescission" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
             </div>
@@ -125,7 +125,7 @@
             <div class="form-group">
                 <label class="col-md-10" style="float: left;"> Are you aware of any incidence that may result in a Loss?  <span class="err">*</span> </label>  
                  <div class="radio_group required">
-                    <input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="risk_address_incidenceInClaim" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="risk_address_incidenceInClaim" value="No"><span class="radio_title">No</span></label>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
 

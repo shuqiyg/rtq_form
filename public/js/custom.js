@@ -3860,7 +3860,7 @@ $('#insured_isRiskAddressSame').change(function() {
               swal(msg.message, "Page automatically redirecting in 2 seconds..", "success");
               //swal('success',msg.message+' \n\n\n Page automatically redirecting in 2 seconds..');
               setTimeout(function(){
-                window.location.href='/rtqform';
+                window.location.href='/';
               },2000);
               
             }else{
@@ -4277,11 +4277,11 @@ $('#insured_isRiskAddressSame').change(function() {
             if(abandonStatus == "reset"){
               $(".loader").hide();
               // to make reset, make clicked = true and send location to root
-              window.location.href='/rtqform';
+              window.location.href='/';
             }else if(abandonStatus == "windowClose"){
               $(".loader").hide(); 
               //clicked = true;
-              window.location.href='/rtqform';
+              window.location.href='/';
             }else{
               //clicked = true;
             }

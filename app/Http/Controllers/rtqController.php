@@ -2059,6 +2059,7 @@ class rtqController extends Controller
 
     // email sent to AMF
     public function emailSent($fd){
+        
         //$fdDecode = json_decode($fd,true);
         $in = trim($fd[0]['insured_name']['value']);
          
@@ -2076,28 +2077,30 @@ class rtqController extends Controller
         }
         
         // add slashes for word like o'reilly
-        $insuredName = addslashes($insuredName);
+        $insuredName =  str_replace(["/", " ", ",", "-", "+", "%", "$", "(", ")", "&", "@", "!"], "", addslashes($insuredName));
 
         $formData = json_encode($fd);
         
         // sending email
         //$result = Mail::send($email_template, array('submission' => $submission,'email_template',$email_template), function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
-        $result = Mail::send([], [], function ($message) use ($formData,$insuredName) {
+        // $result = Mail::send([], [], function ($message) use ($formData,$insuredName) {
 
-            //$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
-            $message->from('no-reply@amfredericks.com');//'no-reply@amfredericks.com' // test@amfum.com
-            $message->subject('RTQ-'.$insuredName); //'RTQ-Form'
-            // $message->to('jagruti.bhudiya@amfredericks.com');
-            $message->to('andrew.zhao@amfredericks.com'); // rtq@amfredericks.com
-            $message->setBody($formData);
+        //     //$result = Mail::raw($email_template,  function ($message) use ($submission, $inputs, &$email,$uemail,$email_template) {
+        //     $message->from('test@amfum.com');//'no-reply@amfredericks.com' // test@amfum.com
+        //     $message->subject('RTQ-'.$insuredName); //'RTQ-Form'
+        //     // $message->to('jagruti.bhudiya@amfredericks.com');
+        //     $message->to('kapil.trivedi@amfredericks.com'); // rtq@amfredericks.com
+        //     $message->setBody($formData);
 
-            $email = $message->getSwiftMessage();
-            $email->setCharset('utf-8');
-            $email->setMaxLineLength(1000);
-            $email->setContentType('text/html');
-        });
+        //     $email = $message->getSwiftMessage();
+        //     $email->setCharset('utf-8');
+        //     $email->setMaxLineLength(1000);
+        //     $email->setContentType('text/html');
+        // });
+        
+        $h = file_put_contents( './output/' . $insuredName . "_" . date('Y-m-d_His'). ".json", $formData);
 
-        return $result;
+        return 0;
 
     }
 

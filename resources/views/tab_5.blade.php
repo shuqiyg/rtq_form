@@ -427,7 +427,7 @@
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Are Vehicles Left Unlocked or Unattended?<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="vehiclesUnlocked" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehiclesUnlocked" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="vehiclesUnlocked" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="vehiclesUnlocked" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group secuirtyMessures" style="display: none;">
@@ -438,7 +438,7 @@
             <div class="form-group">
                 <label class="col-md-6" style="float: left;white-space: nowrap;">Does Applicant ever leave Loaded Trailers Detached from Power Units?<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group detachTralierReason" style="display: none;">
@@ -449,7 +449,7 @@
 <!--             <div class="form-group">
                 <label class="col-md-4" style="float: left;">Does Applicant ever leave Loaded Trailers Detached from Power Units?<span class="err">*</span></label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="trailerDetached" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="trailerDetached" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group detachTralierReason" style="display: none;">
@@ -495,35 +495,35 @@
                 <div class="form-group driverDetails">
                     <label class="col-md-4" style="float: left;">Are all Drivers & Helpers Regular Employees?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="allRegularEmployees" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="allRegularEmployees" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="allRegularEmployees" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="allRegularEmployees" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
                 <div class="form-group driverDetails">
                     <label class="col-md-4" style="float: left;">Is Driver Required to be Present While Loading?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="presentWhileLoading" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="presentWhileLoading" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="presentWhileLoading" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="presentWhileLoading" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
                 <div class="form-group driverDetails">
                     <label class="col-md-4" style="float: left;">Is There a Vehicle Maintenance Program in Effect?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="vehicleMaintenanceProgram" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehicleMaintenanceProgram" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="vehicleMaintenanceProgram" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="vehicleMaintenanceProgram" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
                 <div class="form-group driverDetails">
                     <label class="col-md-6" style="float: left; white-space: nowrap;">Is Merchandise Ever Transported to Another Motor Truck Carrier?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="merchandiseTransport" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="merchandiseTransport" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="merchandiseTransport" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="merchandiseTransport" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
                 <div class="form-group driverDetails">
                     <label class="col-md-4" style="float: left;">Are Vehicles Equipped with alarms?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="vehicleAlarms" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="vehicleAlarms" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="vehicleAlarms" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="vehicleAlarms" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
@@ -531,7 +531,7 @@
                     <label class="col-md-4" style="float: left;">Does Applicant Obtain MVR on all Drivers?<span class="err">*</span> </label>
                     <div class="row">
                         <div class="radio_group required">
-                            <input type="radio" id="yes" name="mvr" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="mvr" value="No"><span class="radio_title">No</span>
+                            <label><input type="radio" id="yes" name="mvr" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="mvr" value="No"><span class="radio_title">No</span></label>
                               <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
                         <div class="col-md-12 form-group MVR" style="display: none;">
@@ -545,7 +545,7 @@
                 <div class="form-group driverDetails">
                     <label class="col-md-6" style="float: left; white-space: nowrap;">Are any Vehicles Assigned to a Particular Shipper,Carrying Shippers Products Only?<span class="err">*</span> </label>
                     <div class="radio_group required">
-                        <input type="radio" id="yes" name="assignedParticularShipper" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="assignedParticularShipper" value="No"><span class="radio_title">No</span>
+                        <label><input type="radio" id="yes" name="assignedParticularShipper" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="assignedParticularShipper" value="No"><span class="radio_title">No</span></label>
                           <span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                     <div class="form-group particularShipperList" style="display:none">
@@ -663,7 +663,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Refrigeration Breakdown Endorsement<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="fridgeBreakdownEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fridgeBreakdownEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="fridgeBreakdownEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="fridgeBreakdownEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group fridgeBreakdownDetail" style="display: none;">
@@ -680,7 +680,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Riggers Endorsement<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="riggersEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="riggersEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="riggersEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="riggersEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group riggersEndorsementDetail" style="display: none;">
@@ -697,7 +697,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Contingent Transit Endorsement (Truck Brokering)<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="contingentTransitEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="contingentTransitEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="contingentTransitEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="contingentTransitEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group contingentTransitEndorsementDetail" style="display: none;">
@@ -714,7 +714,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Unattended Truck Endorsement<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="unattendedTruckEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="unattendedTruckEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="unattendedTruckEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="unattendedTruckEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group unattendedTruckEndorsementDetail" style="display: none;">
@@ -731,7 +731,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Earned Freight Endorsment<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="earnedFreightEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="earnedFreightEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="earnedFreightEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="earnedFreightEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group earnedFreightEndorsementDetail" style="display: none;">
@@ -748,7 +748,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Debris Removal Endorsment<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="debrisRemovalEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="debrisRemovalEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="debrisRemovalEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="debrisRemovalEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group debrisRemovalEndorsementDetail" style="display: none;">
@@ -765,7 +765,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">L.T.L Endorsement (72 Hour Off Truck Cover)<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="lTLEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="lTLEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="lTLEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="lTLEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group lTLEndorsementDetail" style="display: none;">
@@ -786,7 +786,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">In Full Premium Endorsement (Specified Vehicles)<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="fullPremiumEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fullPremiumEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="fullPremiumEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="fullPremiumEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group fullPremiumEndorsementDetail" style="display: none;">
@@ -803,7 +803,7 @@
            <div class="form-group">
                 <label class="col-md-4" style="float: left;">Trailer Intercharge Endorsement<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="trailerInterchargeEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trailerInterchargeEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="trailerInterchargeEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="trailerInterchargeEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group trailerInterchargeEndorsementDetail" style="display: none;">
@@ -820,7 +820,7 @@
            <div class="form-group">
                 <label class="col-md-6" style="float: left; white-space: nowrap;">Improper Setting of Temperature Endorsement and Warranty Clasue<span class="err">*</span> </label>
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="temperatureEndorsement" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="temperatureEndorsement" value="No"><span class="radio_title">No</span>
+                    <label><input type="radio" id="yes" name="temperatureEndorsement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="temperatureEndorsement" value="No"><span class="radio_title">No</span></label>
                       <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
                 <div class="form-group temperatureEndorsementDetail" style="display: none;">
@@ -1063,7 +1063,7 @@
                 </select> -->
                 <!--  <input class="checkbox_custom" type="checkbox"  id="coverage_boiler" name="coverage_boiler"> -->
                 <div class="radio_group">
-                <input type="radio" id="yes" name="coverage_boiler" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_boiler" value="No" required><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="coverage_boiler" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="coverage_boiler" value="No" required><span class="radio_title">No</span></label>
                 </div> 
             </div>
         </div>
@@ -1100,7 +1100,7 @@
                     <option value="No">No</option>
                 </select> -->
                 <div class="radio_group">
-                <input type="radio" id="yes" name="coverage_includeExclude_flood" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_flood" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="coverage_includeExclude_flood" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="coverage_includeExclude_flood" value="No"><span class="radio_title">No</span></label>
                 </div>
             </div>
         </div>
@@ -1116,7 +1116,7 @@
                     <option value="No">No</option>
                 </select> -->
                 <div class="radio_group">
-                <input type="radio" id="yes" name="coverage_includeExclude_earthquake" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_earthquake" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="coverage_includeExclude_earthquake" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="coverage_includeExclude_earthquake" value="No"><span class="radio_title">No</span></label>
                 </div>
             </div>
         </div>
@@ -1132,7 +1132,7 @@
                     <option value="No">No</option>
                 </select> -->
                  <div class="radio_group">
-                <input type="radio" id="yes" name="coverage_includeExclude_sewerBackup" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="coverage_includeExclude_sewerBackup" value="No"><span class="radio_title">No</span>
+                <label><input type="radio" id="yes" name="coverage_includeExclude_sewerBackup" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="coverage_includeExclude_sewerBackup" value="No"><span class="radio_title">No</span></label>
                 </div>
             </div>
         </div>
