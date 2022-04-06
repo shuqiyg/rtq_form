@@ -1,10 +1,11 @@
 <section class="liabilityTab">
     <h3>Liability</h3>
 
-     <div class="row">
+    <div class="row">
         <div class="col-md-12">
-            <h5 class="col-md-12" style="float: left;">Show in detail type(s) of operations and work performed by applicant ( Add as many as required )</h5>
-            
+            <h5 class="col-md-12" style="float: left;">Show in detail type(s) of operations and work performed by
+                applicant ( Add as many as required )</h5>
+
         </div>
     </div>
     <input type="hidden" name="liability_typeOfOpsWorkPerformCount" id="liability_typeOfOpsWorkPerformCount" value="1">
@@ -12,20 +13,24 @@
     <div class="row">
         <div class="col-md-12" style="padding: 0% 10%;">
             <?php
-              // get form province rule json
-                $plumbing_iao = json_decode(file_get_contents(public_path().'/json/plumbing_iao.json'), true);
-                array_multisort( array_column($plumbing_iao, "desc"), SORT_ASC, $plumbing_iao );
+            // get form province rule json
+            $plumbing_iao = json_decode(file_get_contents(public_path() . '/json/plumbing_iao.json'), true);
+            array_multisort(array_column($plumbing_iao, 'desc'), SORT_ASC, $plumbing_iao);
             //dd( $plumbing_iao);
             ?>
             <div class="opsWorkPerformed">
                 <div class="towf_sections" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
-                    <label class="col-md-4" style="float: left;">Operation / Product <span class="err">*</span> </label>
+                    <label class="col-md-4" style="float: left;">Operation / Product <span
+                            class="err">*</span> </label>
                     <!-- <input type="text" id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required"  value="" > -->
-                    <select id="liability_typeOfOpsWorkPerformOperation_1" name="liability_typeOfOpsWorkPerformOperation_1" class="form-control col-md-7 required combobox">
+                    <select id="liability_typeOfOpsWorkPerformOperation_1"
+                        name="liability_typeOfOpsWorkPerformOperation_1"
+                        class="form-control col-md-7 required combobox">
                         <option value="">-Select Operation/Product-</option>
-                        @foreach( $plumbing_iao as $k=>$v)
-                          <option data-iao="{{$v['iao']}}" value="{{$v['desc']}}">{{$v['desc']}}</option>
+                        @foreach ($plumbing_iao as $k => $v)
+                            <option data-iao="{{ $v['iao'] }}" value="{{ $v['desc'] }}">{{ $v['desc'] }}
+                            </option>
                         @endforeach
                         <!-- <option data-iao="1711" value="Plumbing - including Hot Tubs">Plumbing - including Hot Tubs</option>
                         <option data-iao="5092" value="Hardware, Plumbing Supplies, Electrical Apparatus">Hardware, Plumbing Supplies, Electrical Apparatus</option>
@@ -69,28 +74,41 @@
                     </select>
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">Number of Employees <span class="err">*</span></label>
-                    <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1" name="liability_typeOfOpsWorkPerformNoEmployee_1" class="form-control col-md-7 commaValues required"  value="" >
+                    <label class="col-md-4" style="float: left;">Number of Employees <span
+                            class="err">*</span></label>
+                    <input type="text" id="liability_typeOfOpsWorkPerformNoEmployee_1"
+                        name="liability_typeOfOpsWorkPerformNoEmployee_1"
+                        class="form-control col-md-7 commaValues required" value="">
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">Projected Annual Payroll <span class="err">*</span></label>
-                    <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1" name="liability_typeOfOpsWorkPerformPayroll_1" class="form-control col-md-7 commaValues required"  value="" >
+                    <label class="col-md-4" style="float: left;">Projected Annual Payroll <span
+                            class="err">*</span></label>
+                    <input type="text" id="liability_typeOfOpsWorkPerformPayroll_1"
+                        name="liability_typeOfOpsWorkPerformPayroll_1"
+                        class="form-control col-md-7 commaValues required" value="">
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">Projected Gross Annual Revenue <span class="err">*</span>
-                    </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1" class="form-control col-md-7 commaValues required"  value="" >
+                    <label class="col-md-4" style="float: left;">Projected Gross Annual Revenue <span
+                            class="err">*</span>
+                    </label><input type="text" id="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1"
+                        name="liability_typeOfOpsWorkPerformGrossAnnualReceipt_1"
+                        class="form-control col-md-7 commaValues required" value="">
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
-                    <label class="col-md-4" style="float: left;">US / Foreign Exposure <span class="err">*</span></label>
-               
-                      <div class="radio_group required">
-                        <label><input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_1" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_typeOfOpsWorkPerformUsForeignExposure_1" value="No"><span class="radio_title">No</span></label>
+                    <label class="col-md-4" style="float: left;">US / Foreign Exposure <span
+                            class="err">*</span></label>
+
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="liability_typeOfOpsWorkPerformUsForeignExposure_1"
+                            value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no"
+                            name="liability_typeOfOpsWorkPerformUsForeignExposure_1" value="No"><span
+                            class="radio_title">No</span>
                         <span class="radio_error" style="display:none;color: red;">Required.</span>
-                        </div> 
+                    </div>
                 </div>
 
                 <div id="liability_typeOfOpsWorkPerformDetails" style="display: none;">
-                
+
                 </div>
                 <div class="col-md-12" style="float: left;display: contents;">
                     <button class="btn btn-secondary" id="addTypeOfOpsWorkPerformBox">Add More</button>
@@ -104,31 +122,37 @@
     <div class="row">
         <div class="col-md-12">
             <h5 class="col-md-12" style="float: left;">Does the premises have Elevators/Escalators?</h5>
-            
+
         </div>
     </div>
-    <input type="hidden" name="liability_premisesHaveElevatorDetailsCount" id="liability_premisesHaveElevatorDetailsCount" value="1">
+    <input type="hidden" name="liability_premisesHaveElevatorDetailsCount"
+        id="liability_premisesHaveElevatorDetailsCount" value="1">
     <!-- <input type="hidden" name="liability_typeOfOpsWorkPerformIAO" id="liability_typeOfOpsWorkPerformIAO"> -->
     <div class="row">
         <div class="col-md-12" style="padding: 0% 10%;">
-        
+
             <div class="opsWorkPerformed">
                 <div class="ele_sections" style="width: 100%;">
                     <span class="col-md-1" style="float: left;text-align: center;"> 1) </span>
                     <label class="col-md-4" style="float: left;">Description </label>
-                    <input type="text" id="liability_premisesHaveElevatorDescription_1" name="liability_premisesHaveElevatorDescription_1" class="form-control col-md-7"  value="" >
-                    
+                    <input type="text" id="liability_premisesHaveElevatorDescription_1"
+                        name="liability_premisesHaveElevatorDescription_1" class="form-control col-md-7" value="">
+
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">Number</label>
-                    <input type="text" id="liability_premisesHaveElevatorNumber_1" name="liability_premisesHaveElevatorNumber_1" class="form-control col-md-7 commaValues"  value="" >
+                    <input type="text" id="liability_premisesHaveElevatorNumber_1"
+                        name="liability_premisesHaveElevatorNumber_1" class="form-control col-md-7 commaValues"
+                        value="">
 
                     <span class="col-md-1" style="float: left;text-align: center;"> &nbsp; </span>
                     <label class="col-md-4" style="float: left;">Location </label>
-                    <input type="text" id="liability_premisesHaveElevatorLocation_1" name="liability_premisesHaveElevatorLocation_1" class="form-control col-md-7 commaValues"  value="" >                   
+                    <input type="text" id="liability_premisesHaveElevatorLocation_1"
+                        name="liability_premisesHaveElevatorLocation_1" class="form-control col-md-7 commaValues"
+                        value="">
                 </div>
 
                 <div id="liability_premisesHaveElevatorDetails" style="display: none;">
-                
+
                 </div>
                 <div class="col-md-12" style="float: left;display: contents;">
                     <button class="btn btn-secondary" id="addElevatorBox">Add More</button>
@@ -142,172 +166,229 @@
     <input type="hidden" id="totalRevenue" name="totalRevenue">
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex"> 
-      <label class="col-md-6">
-        Are any of the premises leased or rented in their entirety to others who control and operate the premises?
-        </label>                             
-       <!--  <input class="checkbox_custom" type="checkbox" id="liability_anyPremisesLeasedRentedToOther" name="liability_anyPremisesLeasedRentedToOther" style="padding-left: 50px"> -->
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">
+                Are any of the premises leased or rented in their entirety to others who control and operate the
+                premises?
+            </label>
+            <!--  <input class="checkbox_custom" type="checkbox" id="liability_anyPremisesLeasedRentedToOther" name="liability_anyPremisesLeasedRentedToOther" style="padding-left: 50px"> -->
 
-        <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_anyPremisesLeasedRentedToOther" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_anyPremisesLeasedRentedToOther" value="No"><span class="radio_title">No</span></label>
+            <div class="radio_group">
+                <input type="radio" id="yes" name="liability_anyPremisesLeasedRentedToOther" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_anyPremisesLeasedRentedToOther" value="No"><span class="radio_title">No</span>
+            </div>
+
         </div>
-      
+
     </div>
-   
-    </div>
-  
+
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">    
-        <label class="col-md-6">Contractual Agreements ( Other than premises lease )</label>                          
-      <!--   <input class="checkbox_custom" type="checkbox" id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc"> -->
-         <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_contractualListLeaseEtc" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_contractualListLeaseEtc" value="No"><span class="radio_title">No</span></label>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Contractual Agreements ( Other than premises lease )</label>
+            <!--   <input class="checkbox_custom" type="checkbox" id="liability_contractualListLeaseEtc" name="liability_contractualListLeaseEtc"> -->
+            <div class="radio_group">
+                <input type="radio" id="yes" name="liability_contractualListLeaseEtc" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_contractualListLeaseEtc" value="No"><span class="radio_title">No</span>
+            </div>
         </div>
     </div>
-    </div>
 
-    <div class="row" >
-        <div class="col-md-12" >
+    <div class="row">
+        <div class="col-md-12">
             <div class="form-group ifcontractualListLeaseEtcDescBox" style="display: none;">
-            
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" >
-            <div class="form-group ifcontractualListLeaseEtcDescBox"  style="display: none;">
-                <label class="col-md-12" style="float: left;"><span class="optionalBox"> <b>Railway siding agreements, etc. (Obtain copies of agreements where possible)</b></span> </label>
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">  Description </span> </label>
-                <textarea rows="5" class="form-control col-md-8" id="liability_contractualListLeaseEtcDesc" name="liability_contractualListLeaseEtcDesc" ></textarea>
-            </div>
-            
-        </div>
-    </div>
 
-    <div class="row">
-    <div class="form-group col-md-12 item_flex">
-        <label class="col-md-6">Work Sublet out<span class="err">*</span></label>
-       <!--  <input class="checkbox_custom" type="checkbox" id="liability_workSubletOut" name="liability_workSubletOut">  --> 
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_workSubletOut" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_workSubletOut" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
-        </div>                          
-    </div>
-    </div>
-    <div class="work_sublet" style="position: relative;background: #bfbfbf5e">
-    <div class="row">
-        <div class="col-md-12" id="ifworkSubletOutBox" style="display: none;">
-            <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="optionalBox">  Cost of Work Sublet </span> </label>
-                <input type="text" id="liability_wsoCost" name="liability_wsoCost" class="form-control col-md-4 commaValues"  value="">
-            </div>
-            <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="optionalBox"> Type of work </span> </label>
-                <input type="text" id="liability_wsoType" name="liability_wsoType" class="form-control col-md-4 "  value="">
-            </div>
-            <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="optionalBox"> Are sub-contractors required to carry liability insurance?<span class="err">*</span></span> </label>
-               
-        <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_wsoSubConLiablityInsurance" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_wsoSubConLiablityInsurance" value="No"><span class="radio_title">No</span></label>
-          <span class="radio_error" style="display:none;color: red;">Required.</span>
-        </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" id="ifwsoSubContractorLiablityInsuranceBox" style="display: none;">
-            <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="nested2Box"> If Yes, Specify Limits </span> </label>
-                <input type="text" id="liability_wsoSubConLiabilityInsuranceLimits" name="liability_wsoSubConLiabilityInsuranceLimits" class="form-control col-md-4 "  value="">
-            </div>
-            <div class="form-group" >
-                <label class="col-md-8" style="float: left;"><span class="nested2Box">Are sub-contractors required to submit liability certificates? </span> </label>
-             
-                  <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_wsoAskSubConSubmitLiabilityInsurance" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_wsoAskSubConSubmitLiabilityInsurance" value="No"><span class="radio_title">No</span></label>
-        </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-8" style="float: left;"><span class="nested2Box">Is the applicant added as an additional Insured to their Policy? </span> </label>
-          
-                  <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceAdditionInsured" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_wsoSubConLiabilityInsuranceAdditionInsured" value="No"><span class="radio_title">No</span></label>
-        </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-8" style="float: left;"><span class="nested2Box">Does the applicant and sub-contractor/s enter into formal agreement/s</span> <span class="err">*</span></label>
-             
-                  <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceFormalAgreement" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_wsoSubConLiabilityInsuranceFormalAgreement" value="No"><span class="radio_title">No</span></label>
-          <span class="radio_error" style="display:none;color: red;">Required.</span>
-        </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group" id="ifwsoSubConLiabilityInsuranceFormalAgreementBox" style="display: none;">
-                <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, does it include a "Hold Harmless" clause in your favour? (Submit copy of usual contract form) </span> </label>
-               
-                 <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless" value="No"><span class="radio_title">No</span></label>
+            <div class="form-group ifcontractualListLeaseEtcDescBox" style="display: none;">
+                <label class="col-md-12" style="float: left;"><span class="optionalBox"> <b>Railway siding
+                            agreements, etc. (Obtain copies of agreements where possible)</b></span> </label>
+                <label class="col-md-4" style="float: left;"><span class="optionalBox"> Description </span>
+                </label>
+                <textarea rows="5" class="form-control col-md-8" id="liability_contractualListLeaseEtcDesc"
+                    name="liability_contractualListLeaseEtcDesc"></textarea>
+            </div>
+
         </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Work Sublet out<span class="err">*</span></label>
+            <!--  <input class="checkbox_custom" type="checkbox" id="liability_workSubletOut" name="liability_workSubletOut">  -->
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_workSubletOut" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_workSubletOut"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
+        </div>
+    </div>
+    <div class="work_sublet" style="position: relative;background: #bfbfbf5e">
+        <div class="row">
+            <div class="col-md-12" id="ifworkSubletOutBox" style="display: none;">
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="optionalBox"> Cost of Work Sublet
+                        </span> </label>
+                    <input type="text" id="liability_wsoCost" name="liability_wsoCost"
+                        class="form-control col-md-4 commaValues" value="">
+                </div>
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="optionalBox"> Type of work
+                        </span> </label>
+                    <input type="text" id="liability_wsoType" name="liability_wsoType" class="form-control col-md-4 "
+                        value="">
+                </div>
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="optionalBox"> Are sub-contractors
+                            required to carry liability insurance?<span class="err">*</span></span> </label>
+
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="liability_wsoSubConLiablityInsurance" value="Yes"><span
+                            class="radio_title">Yes</span><input type="radio" id="no"
+                            name="liability_wsoSubConLiablityInsurance" value="No"><span
+                            class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="ifwsoSubContractorLiablityInsuranceBox" style="display: none;">
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="nested2Box"> If Yes, Specify
+                            Limits </span> </label>
+                    <input type="text" id="liability_wsoSubConLiabilityInsuranceLimits"
+                        name="liability_wsoSubConLiabilityInsuranceLimits" class="form-control col-md-4 " value="">
+                </div>
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="nested2Box">Are
+                            sub-contractors required to submit liability certificates? </span> </label>
+
+                    <div class="radio_group">
+                        <input type="radio" id="yes" name="liability_wsoAskSubConSubmitLiabilityInsurance"
+                            value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no"
+                            name="liability_wsoAskSubConSubmitLiabilityInsurance" value="No"><span
+                            class="radio_title">No</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="nested2Box">Is the applicant
+                            added as an additional Insured to their Policy? </span> </label>
+
+                    <div class="radio_group">
+                        <input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceAdditionInsured"
+                            value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no"
+                            name="liability_wsoSubConLiabilityInsuranceAdditionInsured" value="No"><span
+                            class="radio_title">No</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-8" style="float: left;"><span class="nested2Box">Does the applicant
+                            and sub-contractor/s enter into formal agreement/s</span> <span
+                            class="err">*</span></label>
+
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="liability_wsoSubConLiabilityInsuranceFormalAgreement"
+                            value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no"
+                            name="liability_wsoSubConLiabilityInsuranceFormalAgreement" value="No"><span
+                            class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" id="ifwsoSubConLiabilityInsuranceFormalAgreementBox"
+                    style="display: none;">
+                    <label class="col-md-8" style="float: left;"><span class="nested3Box">If yes, does it
+                            include a "Hold Harmless" clause in your favour? (Submit copy of usual contract form)
+                        </span> </label>
+
+                    <div class="radio_group">
+                        <label><input type="radio" id="yes"
+                                name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless"
+                                value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio"
+                                id="no" name="liability_wsoSubConLiabilityInsuranceFormalAgreementHoldHarmless"
+                                value="No"><span class="radio_title">No</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Work Sublet out sub section end-->
+    <div class="row">
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Are all employees covered by Workmen's compensation <span
+                    class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_employeesCoveredByCompensation" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_employeesCoveredByCompensation" value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
     </div>
 
- </div> <!-- Work Sublet out sub section end-->
     <div class="row">
-    <div class="form-group col-md-12 item_flex">     
-        <label class="col-md-6">Are all employees covered by Workmen's compensation <span class="err">*</span></label>                         
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_employeesCoveredByCompensation" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_employeesCoveredByCompensation" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
-        </div>
-    </div>
-    </div>
-  
-    <div class="row">
-        <div class="col-md-12"  id="ifemployeesCoveredByCompensationBox" style="display: none;">
+        <div class="col-md-12" id="ifemployeesCoveredByCompensationBox" style="display: none;">
             <div class="form-group">
-                <label class="col-md-6" style="float: left;"><span class="optionalBox">If No: Give number and types of employees not covered by Workmen's Compensation</span>  <span class="err">*</span></label>
-                <textarea rows="5" class="form-control col-md-6 required" id="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered" name="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered" ></textarea>
+                <label class="col-md-6" style="float: left;"><span class="optionalBox">If No: Give number and
+                        types of employees not covered by Workmen's Compensation</span> <span
+                        class="err">*</span></label>
+                <textarea rows="5" class="form-control col-md-6 required"
+                    id="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered"
+                    name="liability_employeesCoveredByCompensationNumberTypesEmployessNotCovered"></textarea>
             </div>
             <div class="form-group">
-                <label class="col-md-6" style="float: left;"><span class="optionalBox">Actual Payroll of these employees </span> </label>
-                <input type="text" id="liability_employeesCoveredByCompensationActualPayrollIfNo" name="liability_employeesCoveredByCompensationActualPayrollIfNo" class="form-control col-md-6 "  value="">
+                <label class="col-md-6" style="float: left;"><span class="optionalBox">Actual Payroll of
+                        these employees </span> </label>
+                <input type="text" id="liability_employeesCoveredByCompensationActualPayrollIfNo"
+                    name="liability_employeesCoveredByCompensationActualPayrollIfNo" class="form-control col-md-6 "
+                    value="">
             </div>
         </div>
     </div>
 
 
-     <div class="row">
-    <div class="form-group col-md-12 item_flex">   
-        <label class="col-md-6">Is there any use of radioactive materials?<span class="err">*</span></label>                           
-         <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_anyRadioactiveMaterials" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_anyRadioactiveMaterials" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
-        </div>     
-    </div>
-    </div>
-
     <div class="row">
-    <div class="form-group col-md-12 item_flex">             
-        <label class="col-md-6">Is any welding equipment usage (welder, blowtorches, etc)?</label>                 
-         <div class="radio_group">
-        <label><input type="radio" id="yes" name="liability_anyWeldingEquipUsage" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_anyWeldingEquipUsage" value="No"><span class="radio_title">No</span></label>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Is there any use of radioactive materials?<span
+                    class="err">*</span></label>
+            <div class="radio_group">
+                <input type="radio" id="yes" name="liability_anyRadioactiveMaterials" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_anyRadioactiveMaterials" value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Is any welding equipment usage (welder, blowtorches, etc)?</label>
+            <div class="radio_group">
+                <input type="radio" id="yes" name="liability_anyWeldingEquipUsage" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_anyWeldingEquipUsage"
+                    value="No"><span class="radio_title">No</span>
+            </div>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12"  id="ifanyWeldingEquipUsageBox" style="display: none;">
+        <div class="col-md-12" id="ifanyWeldingEquipUsageBox" style="display: none;">
             <div class="form-group">
-                <label class="col-md-8" style="float: left;"><span class="optionalBox">If Yes, Details of operations</span> </label>
-                <input type="text" id="liability_anyWeldingEquipUsageDetails" name="liability_anyWeldingEquipUsageDetails" class="form-control col-md-4 "  value="">
-            </div>    
+                <label class="col-md-8" style="float: left;"><span class="optionalBox">If Yes, Details of
+                        operations</span> </label>
+                <input type="text" id="liability_anyWeldingEquipUsageDetails"
+                    name="liability_anyWeldingEquipUsageDetails" class="form-control col-md-4 " value="">
+            </div>
         </div>
     </div>
 
@@ -315,113 +396,137 @@
     <h5>Does the applicant engage any of the operation/s below:</h5>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                              
-        <label class="col-md-6">Does the insured do any work in buildings with more than four (4) stories?<span class="err">*</span></label>
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_anyFourStories" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_anyFourStories" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Does the insured do any work in buildings with more than four (4)
+                stories?<span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_anyFourStories" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_anyFourStories"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                              
-        <label class="col-md-6">Thawing of pipes <span class="err">*</span></label>
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsThawingOfPipes" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsThawingOfPipes" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Thawing of pipes <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsThawingOfPipes" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_engageOpsThawingOfPipes" value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                              
-        <label class="col-md-6">Demolition or Wrecking <span class="err">*</span></label>
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsDemolition" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsDemolition" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Demolition or Wrecking <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsDemolition" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsDemolition"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                              
-        <label class="col-md-6">Shoring <span class="err">*</span></label>
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsShoring" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsShoring" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Shoring <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsShoring" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsShoring"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">   
-        <label class="col-md-6">Underpinning <span class="err">*</span></label>                         
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsUnderpinning" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsUnderpinning" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Underpinning <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsUnderpinning" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsUnderpinning"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">        
-        <label class="col-md-6">Caisson Work <span class="err">*</span></label>                      
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsCaissonWork" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsCaissonWork" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Caisson Work <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsCaissonWork" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsCaissonWork"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex"> 
-        <label class="col-md-6">Excavation <span class="err">*</span></label>                            
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsExcavation" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsExcavation" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Excavation <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsExcavation" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsExcavation"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">     
-        <label class="col-md-6">Use of Explosives <span class="err">*</span></label>                 
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsExplosives" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsExplosives" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Use of Explosives <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsExplosives" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsExplosives"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                                    
-        <label class="col-md-6">Tunneling <span class="err">*</span></label>
-         <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsTunneling" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsTunneling" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Tunneling <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsTunneling" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_engageOpsTunneling"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                   
-        <label class="col-md-6">Raising or moving of buildings and structures <span class="err">*</span></label>
-          <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_engageOpsRaisingBuildings" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_engageOpsRaisingBuildings" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Raising or moving of buildings and structures <span
+                    class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_engageOpsRaisingBuildings" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no"
+                    name="liability_engageOpsRaisingBuildings" value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-12 item_flex">                   
-        <label class="col-md-6">Eqiuptments rented to others <span class="err">*</span></label>
-          <div class="radio_group required">
-        <label><input type="radio" id="yes" name="liability_equipmentRented" value="Yes"><span class="radio_title">Yes</span></label><label><input type="radio" id="no" name="liability_equipmentRented" value="No"><span class="radio_title">No</span></label>
-        <span class="radio_error" style="display:none;color: red;">Required.</span>
+        <div class="form-group col-md-12 item_flex">
+            <label class="col-md-6">Eqiuptments rented to others <span class="err">*</span></label>
+            <div class="radio_group required">
+                <input type="radio" id="yes" name="liability_equipmentRented" value="Yes"><span
+                    class="radio_title">Yes</span><input type="radio" id="no" name="liability_equipmentRented"
+                    value="No"><span class="radio_title">No</span>
+                <span class="radio_error" style="display:none;color: red;">Required.</span>
+            </div>
         </div>
-    </div>
     </div>
 </section>
