@@ -213,7 +213,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-4" style="float: left;"> Plumbing - Type </label>
+                        <label class="col-md-4" style="float: left;"> Plumbing - Type <span class="err">*</span></label>
                        <!--  <input type="text" id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8"  value=""> -->
                          <select id="buildingConstruction_plumbingType" name="buildingConstruction_plumbingType" class="form-control col-md-8 required">
                             <option value="">-Select Plumbing - Type-</option>
