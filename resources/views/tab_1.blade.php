@@ -95,14 +95,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Did you receive the order direct from the Applicant
-                    <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Did you receive the order direct from the Applicant <span class="err">*</span> </label>
                 <!--                 <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_OrderDirectApplicant" name="brokerSurvey_OrderDirectApplicant"> -->
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="brokerSurvey_OrderDirectApplicant" value="Yes"><span
-                        class="radio_title">Yes</span><input type="radio" id="no"
-                        name="brokerSurvey_OrderDirectApplicant" value="No"><span class="radio_title">No</span>
-
+                    <input type="radio" id="yes" name="brokerSurvey_OrderDirectApplicant" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_OrderDirectApplicant" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -111,10 +107,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifNoOrderDirectApplicant" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">If No, from whom and why
-                    </span> </label>
-                <input type="tel" id="brokerSurvey_OrderDirectApplicantWhomWhy"
-                    name="brokerSurvey_OrderDirectApplicantWhomWhy" class="form-control col-md-8">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If No, from whom and why </span> </label>
+                <input type="tel" id="brokerSurvey_OrderDirectApplicantWhomWhy" name="brokerSurvey_OrderDirectApplicantWhomWhy" class="form-control col-md-8">
             </div>
 
         </div>
@@ -122,13 +116,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Do you handle other Insurance for the Applicant
-                    <span class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Do you handle other Insurance for the Applicant <span class="err">*</span> </label>
                 <!--  <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_handleOtherInsurance" name="brokerSurvey_handleOtherInsurance"> -->
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="brokerSurvey_handleOtherInsurance" value="Yes"><span
-                        class="radio_title">Yes</span><input type="radio" id="no"
-                        name="brokerSurvey_handleOtherInsurance" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="brokerSurvey_handleOtherInsurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_handleOtherInsurance" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -137,10 +128,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifYesHandleOtherInsurance" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">If Yes, Which Coverages
-                    </span> </label>
-                <input type="tel" id="brokerSurvey_handleOtherInsuranceCoverages"
-                    name="brokerSurvey_handleOtherInsuranceCoverages" class="form-control col-md-8">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If Yes, Which Coverages </span> </label>
+                <input type="tel" id="brokerSurvey_handleOtherInsuranceCoverages" name="brokerSurvey_handleOtherInsuranceCoverages" class="form-control col-md-8">
             </div>
 
         </div>
@@ -148,13 +137,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Do you recommend this risk in every Respect <span
-                        class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Do you recommend this risk in every Respect <span class="err">*</span> </label>
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_recommandRisk" name="brokerSurvey_recommandRisk"> -->
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="brokerSurvey_recommandRisk" value="Yes"><span
-                        class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_recommandRisk"
-                        value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="brokerSurvey_recommandRisk" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_recommandRisk" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -163,10 +149,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifNoRecommandRisk" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">If No, please explain
-                    </span> </label>
-                <input type="tel" id="brokerSurvey_recommandRiskExplain" name="brokerSurvey_recommandRiskExplain"
-                    class="form-control col-md-8">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If No, please explain</span> </label>
+                <input type="tel" id="brokerSurvey_recommandRiskExplain" name="brokerSurvey_recommandRiskExplain" class="form-control col-md-8">
             </div>
 
         </div>
@@ -174,13 +158,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Is this risk a renewal to your office <span
-                        class="err">*</span> </label>
+                <label class="col-md-4" style="float: left;"> Is this risk a renewal to your office <span class="err">*</span> </label>
                 <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_riskRenewalToOffice" name="brokerSurvey_riskRenewalToOffice"> -->
                 <div class="radio_group required">
-                    <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span
-                        class="radio_title">Yes</span><input type="radio" id="no"
-                        name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -189,10 +170,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="ifYesRiskRenewalToOffice" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">If yes, how long have
-                        you placed this risk </span> </label>
-                <input type="tel" id="brokerSurvey_riskRenewalToOfficeHowLong"
-                    name="brokerSurvey_riskRenewalToOfficeHowLong" class="form-control col-md-8">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If yes, how long have you placed this risk </span> </label>
+                <input type="tel" id="brokerSurvey_riskRenewalToOfficeHowLong" name="brokerSurvey_riskRenewalToOfficeHowLong" class="form-control col-md-8">
             </div>
 
         </div>
@@ -201,11 +180,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group has-feedback">
-                    <label class="col-md-4" style="float: left;"> Are you a licenced broker in the province where
-                        the risk is located? </label>
+                    <label class="col-md-4" style="float: left;"> Are you a licenced broker in the province where the risk is located? </label>
                     <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_licenced" name="brokerSurvey_licenced">  -->
-                    <input type="tel" id="brokerSurvey_licenced" name="brokerSurvey_licenced"
-                        class="form-control col-md-8">
+                    <input type="tel" id="brokerSurvey_licenced" name="brokerSurvey_licenced" class="form-control col-md-8">
                 </div>
             </div>
         </div>
