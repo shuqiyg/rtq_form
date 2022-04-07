@@ -13,5 +13,10 @@
 	"2" : {
 		"name" : "Contractor",
 		"id" : "plumbing"
-	}
+	},
+	
+	"3" : {
+		"name" : "Motor Truck Cargo(Submit Only)",
+		"id" : "motor_truck_cargo"
+	}	
 }

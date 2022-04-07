@@ -172,7 +172,10 @@
         }
 
         // get forms name and id from json
-        $forms = json_decode(file_get_contents(public_path().'/json/forms.json'), true);
+        if(env('APP_ENV') == 'local')
+            $forms = json_decode(file_get_contents(public_path().'/json/forms-local.json'), true);
+        else
+            $forms = json_decode(file_get_contents(public_path().'/json/forms.json'), true);
         //print_r($forms);
 
         ?>
