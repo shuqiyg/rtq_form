@@ -2077,7 +2077,7 @@ class rtqController extends Controller
         }
 
         // add slashes for word like o'reilly
-        $insuredName =  str_replace(["/", " ", ",", "-", "+", "%", "$", "(", ")", "&", "@", "!"], "", addslashes($insuredName));
+        $insuredName =  str_replace(["/", "'", " ", ",", "-", "+", "%", "$", "(", ")", "&", "@", "!"], "", addslashes($insuredName));
 
         $formData = json_encode($fd);
 
