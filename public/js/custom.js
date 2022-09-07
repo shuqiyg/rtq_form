@@ -1948,11 +1948,11 @@ $('#insured_isRiskAddressSame').change(function() {
 
     // show entire section/Step if buildingCoverage required Yes
     //$("#risk_address_requireBuildingCoverage").on('change',function(){
-       $("input[type=radio][name=risk_address_requireBuildingCoverage]").on('change',function(){
+       $("input:radio[name=risk_address_requireBuildingCoverage]").on('change',function(){
       if(this.value == "No"){
         // hide building construction section and surroundign exposure section
-        //$(".buildingConstruction").hide();
-        //$(".surroundingExposure").hide();
+        $(".buildingConstruction").hide();
+        $(".surroundingExposure").hide();
         $(".includeExclude").hide();  // Hide fields to not show in review
         clearFields("includeExclude"); 
         // hide following how many mortgage field as well 
@@ -1966,8 +1966,8 @@ $('#insured_isRiskAddressSame').change(function() {
         $(".sw-container").css('min-height','auto');
       }else{
         // show building construction section and surroundign exposure section
-        //$(".buildingConstruction").show();
-        //$(".surroundingExposure").show();
+        $(".buildingConstruction").show();
+        $(".surroundingExposure").show();
         $(".includeExclude").show();
         // hide following how many mortgage field as well 
         $(".howManyMortgageesBox").show();
@@ -2768,8 +2768,7 @@ $('#insured_isRiskAddressSame').change(function() {
     
     // set count in hidden fields
     $("#liability_typeOfOpsWorkPerformCount").val(addTOWFCount)+1;
-      
-          $.getJSON(window.location.pathname+'/json/plumbing_iao.json', function( data ) {
+          $.getJSON('json/plumbing_iao.json', function( data ) {
             // object to array
           var arr = Object.keys(data).map(function (key) { return data[key]; });
          
