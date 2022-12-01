@@ -193,13 +193,23 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label class="col-md-4" style="float: left;"> Is the risk address same as above address? <span class="err">*</span> </label>
                     <input type="checkbox" id="insured_isRiskAddressSame" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger">
-                </div>
+                </div> --}}
 
                 <h3>Risk Address</h3>
 
+                <div class="form-group">
+                    <label class="col-md-4" style="float: left;"> Is the risk address same as above address? <span class="err">*</span> </label>
+                    <input type="checkbox" id="insured_isRiskAddressSame" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger">
+                </div> 
+
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+                
                 <div class="form-group riskAddressBOX">
                     <label class="col-md-4" style="float: left;"> Street <span class="err">*</span></label>
                     <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8 required" value="">

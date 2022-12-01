@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" >
-                <label class="col-md-12" style="float: left;"> What are your three (3) largest jobs or porjects in the past three (3) years? </label>
+                <label class="col-md-12" style="float: left;"> What are your three (3) largest jobs or projects in the past three (3) years? </label>
                 <textarea rows="5" class="form-control col-md-12" id="ops_threeLargeJobsOrProjectInPastThreeYear" name="ops_threeLargeJobsOrProjectInPastThreeYear" ></textarea>
             </div>
         </div>

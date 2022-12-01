@@ -182,7 +182,11 @@
                 <div class="form-group has-feedback">
                     <label class="col-md-4" style="float: left;"> Are you a licenced broker in the province where the risk is located? </label>
                     <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_licenced" name="brokerSurvey_licenced">  -->
-                    <input type="tel" id="brokerSurvey_licenced" name="brokerSurvey_licenced" class="form-control col-md-8">
+                    {{-- <input type="tel" id="brokerSurvey_licenced" name="brokerSurvey_licenced" class="form-control col-md-8"> --}}
+                    <div class="radio_group required">
+                        <input type="radio" id="yes" name="brokerSurvey_licenced" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_licenced" value="No"><span class="radio_title">No</span>
+                        <span class="radio_error" style="display:none;color: red;">Required.</span>
+                    </div>
                 </div>
             </div>
         </div>
