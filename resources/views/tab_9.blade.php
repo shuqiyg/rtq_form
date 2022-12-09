@@ -56,7 +56,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Federal-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_government_federal" name="ops_government_federal" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_government_federal" name="ops_government_federal" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Institutional (schools/hospitals)-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_government_institutional" name="ops_government_institutional" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_government_institutional" name="ops_government_institutional" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Provincial, County, Local-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_government_provincial" name="ops_government_provincial" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_government_provincial" name="ops_government_provincial" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Finance/Lending/Mortgage companies-% <span class="err">*</span> </label>
-                <input type="number" id="ops_financial_flm" name="ops_financial_flm" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_financial_flm" name="ops_financial_flm" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  Insurance-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_financial_insurance" name="ops_financial_insurance" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_financial_insurance" name="ops_financial_insurance" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Residential-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_construction_residential" name="ops_construction_residential" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_construction_residential" name="ops_construction_residential" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Commercial-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_construction_commercial" name="ops_construction_commercial" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_construction_commercial" name="ops_construction_commercial" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Existing Industrial-% <span class="err">*</span> </label>
-                <input type="number" id="ops_construction_industrial" name="ops_construction_industrial" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_construction_industrial" name="ops_construction_industrial" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -134,7 +134,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;">  For Agent-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_realEstate_forAgent" name="ops_realEstate_forAgent" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_realEstate_forAgent" name="ops_realEstate_forAgent" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -143,7 +143,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Individual seller-%   <span class="err">*</span> </label>
-                <input type="number" id="ops_realEstate_individualSeller" name="ops_realEstate_individualSeller" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_realEstate_individualSeller" name="ops_realEstate_individualSeller" class="form-control col-md-8  checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
@@ -152,7 +152,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Individual buyer-%  <span class="err">*</span> </label>
-                <input type="number" id="ops_realEstate_individualBuyer" name="ops_realEstate_individualBuyer" class="form-control col-md-8 required checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
+                <input type="number" id="ops_realEstate_individualBuyer" name="ops_realEstate_individualBuyer" class="form-control col-md-8 checkPercentage" onInput="return check(event,value)"  min="0" max="100" step="0.01">
             </div>
         </div>
     </div>
