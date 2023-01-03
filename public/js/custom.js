@@ -1760,6 +1760,24 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
 
+    //******open CEF form if yes is selected */
+    $('input[type=radio][name=cgl_contractorsEquipmentFloater]').change(function() {
+      //fieldOpenHide('brokerSurvey_handleOtherInsurance','Yes','','ifYesHandleOtherInsurance',['brokerSurvey_handleOtherInsuranceCoverages'],'');
+      var cgl_contractorsEquipmentFloater = this.value;
+      if(cgl_contractorsEquipmentFloater=="Yes"){
+        // openUpSubForm("subformCEF",'toggle');
+        $("#accordion").show();
+      }else{
+        $("#accordion").hide();
+        $("cgl_contractorsEquipmentFloater").val(''); // empty value if user fill up anything with yes and then select no again 
+      }
+    });
+
+
+
+
+
+
     // show broker survey If yes, how long have you placed this risk for Is this risk a renewal to your office question
     //$("#brokerSurvey_riskRenewalToOffice").on('change',function(){
     $('input[type=radio][name=brokerSurvey_riskRenewalToOffice]').change(function() {

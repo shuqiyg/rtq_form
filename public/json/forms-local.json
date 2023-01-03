@@ -18,5 +18,9 @@
 	"3" : {
 		"name" : "Motor Truck Cargo(Submit Only)",
 		"id" : "motor_truck_cargo"
-	}	
+	},
+	"4" : {
+		"name" : "Home Inspector",
+		"id" : "homeInspector"
+	}
 }

@@ -22,9 +22,15 @@
                  <div class="radio_group required">
                 <input type="radio" id="yes" name="cgl_contractorsEquipmentFloater" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cgl_contractorsEquipmentFloater" value="No"><span class="radio_title">No</span>
                   <span class="radio_error" style="display:none;color: red;">Required.</span>
+                  <p class="col-md-12" style="width:100%;float: left;display: none;" id="processSF"></p>
+                    <p class="col-md-12" style="width:100%;color: red;float: left;display: none;"
+                        id="subformCEF_MSG">Please complete the CEF form</p>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row subformCEF" id="accordion" style="display: none;">
+        @include('subform/CEF')
     </div>
     <div class="row">
         <div class="col-md-12">

@@ -205,10 +205,10 @@
                     <input type="checkbox" id="insured_isRiskAddressSame" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger">
                 </div> 
 
-                <div class="radio_group required">
+                {{-- <div class="radio_group required">
                     <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
-                </div>
+                </div> --}}
                 
                 <div class="form-group riskAddressBOX">
                     <label class="col-md-4" style="float: left;"> Street <span class="err">*</span></label>

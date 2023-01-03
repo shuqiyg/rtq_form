@@ -1263,7 +1263,7 @@
                 </div>
             </div>
         </div>
-        <div class="row subformCEF" id="accordion" style="display: none;">
+        <div class="row subformCEF" id="accordion" style="display: ;">
             @include('subform/CEF')
         </div>
 
