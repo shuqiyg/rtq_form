@@ -122,7 +122,7 @@
     @endif
 
     <!-- plumbing form has some different fileds to show -->
-    @if ($formVal == 'plumbing')
+    @if ($formVal == 'plumbing' || $formVal == 'dayCare')
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

@@ -16,7 +16,7 @@
                 @if($formVal == "homeInspector" || $formVal == "motor_truck_cargo")
                 <li><a href="#tab-6">Existing Insurance<br /><small>Insurance Info</small></a></li>
                 @endif
-                @if($formVal == "homeInspector" || $formVal == "plumbing" || $formVal == "motor_truck_cargo")
+                @if($formVal == "homeInspector" || $formVal == "plumbing" || $formVal == "motor_truck_cargo" || $formVal == "dayCare")
                 <li><a href="#tab-7">Loss History<br /><small>Claim and loss</small></a></li> 
                 @endif
                 @if($formVal == "homeInspector")
@@ -26,6 +26,9 @@
                 @elseif($formVal == "motor_truck_cargo")
                 <li><a href="#description_of_operation">Description<br /><small>Operation details</small></a></li>
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>  
+                @elseif($formVal == "dayCare")
+                {{-- Operations Tab --}}
+                <li><a href="#tab-13">Operations<br /><small>Operation Details</small></a></li>
                 @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
                     @if($formVal != "plumbing")
@@ -40,6 +43,9 @@
                     @endif
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
                 @endif 
+                @if($formVal == "dayCare")
+
+                @endif
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
             </ul>
          
@@ -68,7 +74,7 @@
                     @include('hi_existingInsurance')
                 </div>
                 @endif
-                @if($formVal == "homeInspector" || $formVal == "plumbing" || $formVal == "motor_truck_cargo")
+                @if($formVal == "homeInspector" || $formVal == "dayCare" ||  $formVal == "plumbing" || $formVal == "motor_truck_cargo")
                 <!-- Claim History -->
                 <div id="tab-7" class="">
                     @include('tab_7')
@@ -121,6 +127,11 @@
                 <div id="tab-5" class="">
                     @include('tab_5')
                 </div>  
+                @endif
+                @if($formVal == 'dayCare')
+                <div id="tab-13" class="">
+                    @include('tab_13')
+                </div>
                 @endif
                 <!-- Final Tab -->
                 <div id="result" class="">

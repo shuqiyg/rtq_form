@@ -41,6 +41,26 @@ input[type=number] {
 }
 /* to remove spin scroll on number field end*/
 
+table.age_table input {
+   width: 25%;
+  padding: 8px 10px;
+  margin: 6px 0;
+  box-sizing: border-box;
+  right:0
+}
+
+#hours_operation {
+	width: 12%
+}
+
+.age_group input{
+	width:15%
+}
+
+/* .age_group tr {
+	display: flex;
+	justify-content: center;
+} */
 
 .work_sublet_style{
 position: relative;
@@ -121,6 +141,12 @@ section{
 	border-left: 2px solid orange;
 	padding-left: 5px;
 	margin-left: 20px;
+}
+
+.optionalBox1 {
+	border-left: 2px solid rgb(146, 96, 3);
+	padding-left: 5px;
+	margin-left: 33px;
 }
 .nestedBox{
 	border-left: 2px solid green;

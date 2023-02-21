@@ -13,5 +13,10 @@
 	"2" : {
 		"name" : "Contractor",
 		"id" : "plumbing"
+	},
+
+	"3" : {
+		"name" : "Day Care",
+		"id" : "dayCare"
 	}
 }

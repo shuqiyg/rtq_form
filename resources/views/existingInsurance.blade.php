@@ -36,7 +36,7 @@
             <input type="text" id="risk_address_existingInsurerNonRenewal" name="risk_address_existingInsurerNonRenewal" class="form-control col-md-8" value="">
         </div>
 
-        @if ($formVal == 'plumbing')
+        @if ($formVal == 'plumbing' || $formVal == 'dayCare')
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"><span class="nestedBox">Expiring Premium</span></label>
                 <input type="text" id="risk_address_existingInsurerExpiringPremium" name="risk_address_existingInsurerExpiringPremium" class="form-control col-md-8 commaValues" value="">

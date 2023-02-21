@@ -687,7 +687,7 @@ class rtqController extends Controller
 
             $valid = $this->validation($fd, $rtqForm);
             //dd($valid);
-        } else if ($rtqForm == "homeInspector") {
+        } else if ($rtqForm == "homeInspector" || $rtqForm == "dayCare") {
             //$fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,'');
             $fdFormattedJson = $this->formatFormDataToProperJson($formData, $referNotMatchReason, $filesRequired, $rtqForm, '');
             $fd = json_decode($fdFormattedJson, true);
@@ -1082,6 +1082,9 @@ class rtqController extends Controller
             array_push($filesRequired, "A copy of the outline from the firm's Quality Assurance / Quality Control (QA/QC) manual");
             return $this->validateHomeInspector($fd, $rtqForm, $filesRequired);
         }
+        else if($rtqForm == "dayCare"){
+            return $this->validateDayCare($fd, $rtqForm, $filesRequired);
+        }
     }
 
     // function to validate home inspector form
@@ -1221,6 +1224,12 @@ class rtqController extends Controller
             //$filesRequired = array();
         }*/
 
+        return array("valid" => $valid, "matchArray" => $referMatchArray, "filesRequired" => $filesRequired);
+    }
+
+    function validateDayCare($fd, $rtqForm, $filesRequired){
+        $valid = true;
+        $referMatchArray = array();
         return array("valid" => $valid, "matchArray" => $referMatchArray, "filesRequired" => $filesRequired);
     }
 
@@ -2098,8 +2107,8 @@ class rtqController extends Controller
         //     $email->setContentType('text/html');
         // });
 
-        $h = file_put_contents('./output/' . $insuredName . "_" . date('Y-m-d_His') . ".json", $formData);
-
+        $h = file_put_contents('../output/' . $insuredName . "_" . date('Y-m-d_His') . ".json", $formData);
+        // print_r(getcwd() . "\n");exit;
         return 0;
     }
 

@@ -53,7 +53,7 @@
                     placeholder="Please use x or ext if there is extention">
             </div>
 
-            @if ($formVal == 'plumbing')
+            @if ($formVal == 'plumbing' || $formVal == 'dayCare')
                 <div class="form-group">
                     <label class="col-md-4" style="float: left;"> Is this quote required for a specific date?
                     </label>
@@ -152,7 +152,6 @@
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">If No, please explain</span> </label>
                 <input type="tel" id="brokerSurvey_recommandRiskExplain" name="brokerSurvey_recommandRiskExplain" class="form-control col-md-8">
             </div>
-
         </div>
     </div>
     <div class="row">
@@ -190,5 +189,28 @@
                 </div>
             </div>
         </div>
+    @endif
+        
+    @if ($formVal == 'dayCare')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-feedback">
+                <label class="col-md-4" style="float: left;"> Has any similar Insurance been applied for, or carried by the applicant, been declined or cancelled by any insurer within the last three years? </label>
+                <!-- <input class="checkbox_custom" type="checkbox"  id="brokerSurvey_licenced" name="brokerSurvey_licenced">  -->
+                {{-- <input type="tel" id="brokerSurvey_licenced" name="brokerSurvey_licenced" class="form-control col-md-8"> --}}
+                <div class="radio_group">
+                    <input type="radio" id="yes" name="dayCare_insurance_declined_or_cancelled" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="dayCare_insurance_declined_or_cancelled" value="No"><span class="radio_title">No</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group" id="ifYesDayCareInsuranceDeclined" style="display: none;">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">If Yes, please provide full details</span> </label>
+                <input type="tel" id="declined_or_cancelled_detail" name="declined_or_cancelled_detail" name="brokerSurvey_recommandRiskExplain" class="form-control col-md-8">
+            </div>
+        </div>
+    </div>
     @endif
 </section>

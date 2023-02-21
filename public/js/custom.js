@@ -1709,6 +1709,157 @@ $('#insured_isRiskAddressSame').change(function() {
       }
     });
 
+
+
+    // Day Care *******************************************
+    $('input[type=radio][name=dayCare_insurance_declined_or_cancelled]').change(function() {
+      var dayCare_insurance_declined_or_cancelled = this.value;
+      if(dayCare_insurance_declined_or_cancelled =="Yes"){
+        $("#ifYesDayCareInsuranceDeclined").show();
+      }else{
+        $("#ifYesDayCareInsuranceDeclined").hide();
+        $("#declined_or_cancelled_detail").val("");
+      }
+    });
+
+    $('input[type=radio][name=meal_served]').change(function() {
+      var meal_served = this.value;
+      if(meal_served =="Yes"){
+        $("#type_of_food_box").show();
+        $("#cooking_facilities_yes_or_no_box").show();
+        $("#food_allergies_items_yes_or_no_box").show();
+      }else{
+        $("#type_of_food_box").hide();
+        $("#type_of_food").val("");
+        $("#cooking_facilities_yes_or_no_box").hide();
+        $("#cooking_facilities_yes_or_no").val("");
+        // $("#cooking_facilities").checked(false);
+        $("#food_allergies_items_yes_or_no_box").hide();
+        $("#food_allergies_items_yes_or_no").val("");
+        $('input[type=radio][name=cooking_facilities_yes_or_no]').prop('checked',false)
+        $('input[type=radio][name=food_allergies_items_yes_or_no]').prop('checked',false)
+      }
+    });
+
+    $('input[type=radio][name=incidents_written_record_kept]').change(function() {
+      var record_kept = this.value;
+      if(record_kept =="Yes"){
+        $("#blank_form_copy_box").show()
+      }else{
+        $("#blank_form_copy_box").hide()
+        $("#blank_form_copy").val("")
+      }
+    });
+
+    $('input[type=radio][name=pool_yes_or_no]').change(function() {
+      var pool = this.value;
+      if(pool =="Yes"){
+        $("#pool_indoor_or_outdoor").show()
+        $("#supplemental_fencing_pool_yes_or_no_box").show()
+      }else{
+        $("#pool_indoor_or_outdoor").hide()
+        $("#indoor_or_outdoor").val("")
+        $("input[type=radio][name=indoor_or_outdoor]").prop('checked',false)
+
+        $("#supplemental_fencing_pool_yes_or_no_box").hide()
+        $("#supplemental_fencing_pool_yes_or_no").val("")
+        $('input[type=radio][name=supplemental_fencing_pool_yes_or_no]').prop('checked',false)
+      }
+    });
+    
+    $('input[type=radio][name=playground_or_equipment]').change(function() {
+      var playground_or_equipment = this.value;
+      if(playground_or_equipment =="Yes"){
+        $("#desc_equipment_box").show()
+        $("#playground_equipment_for_age_box").show()
+        $("#maintenance_frequency_box").show()
+        $("#construction_type_box").show()
+        $("#landing_surface_box").show()
+      }else{
+        $("#desc_equipment_box").hide()
+        $("#desc_equipment").val("")
+        $("#playground_equipment_for_age_box").hide()
+        $("#playground_equipment_for_age").val("")
+        $("#maintenance_frequency_box").hide()
+        $("#maintenance_frequency").val("")
+        $("#construction_type_box").hide()
+        $("#construction_type").val("")
+        $("#landing_surface_box").hide()
+        $("#landing_surface").val("")
+      }
+    });
+
+    $('input[type=radio][name=pet_on_prem_yes_or_no]').change(function() {
+      var pet_on_prem_yes_or_no= this.value;
+      if(pet_on_prem_yes_or_no == "Yes"){
+        $("#pets_desc_box").show()
+      }else{
+        $("#pets_desc_box").hide()
+        $("#pets_desc").val('')
+      }
+    })
+
+    $('input[type=radio][name=daycare_transportation]').change(function() {
+      var daycare_transportation= this.value;
+      if(daycare_transportation =="Yes"){
+        $("#auto_liability_insurance_yes_or_no").show()
+        $("#vehicle_owned_by_dayCare_yes_or_no").show()
+        $("#day_trips_yes_or_no").show()
+      }else{
+        $("#auto_liability_insurance_yes_or_no").hide()
+        $("#auto_liability_insurance").val("")
+        $('input[type=radio][name=auto_liability_insurance]').prop('checked',false)
+        $("#vehicle_owned_by_dayCare_yes_or_no").hide()
+        $("#vehicle_owned_by_dayCare").val("")
+        $('input[type=radio][name=vehicle_owned_by_dayCare]').prop('checked',false)
+        $("#day_trips_yes_or_no").hide()
+        $("#day_trips_detail").val("") 
+        $('input[type=radio][name=day_trips_taken]').prop('checked',false)
+        
+        $("#dayCare_vehicle_current_insurer_box").hide()
+        $("#dayCare_vehicle_current_insurer").val("")
+        $("#dayCare_vehicle_insurance_policyNo_box").hide()
+        $("#dayCare_vehicle_insurance_policyNo").val("")
+        $("#dayCare_vehicle_insurance_policyLimits_box").hide()
+        $("#dayCare_vehicle_insurance_policyLimits").val("")
+
+        $("#day_trips_box").hide()
+        $("#day_trips_detail").val("")
+      }
+    });
+
+    $('input[type=radio][name=vehicle_owned_by_dayCare]').change(function() {
+      var vehicle_owned_by_dayCare= this.value;
+      if(vehicle_owned_by_dayCare =="Yes"){
+        $("#dayCare_vehicle_current_insurer_box").show()
+        $("#dayCare_vehicle_insurance_policyNo_box").show()
+        $("#dayCare_vehicle_insurance_policyLimits_box").show()
+      }else{
+        $("#dayCare_vehicle_current_insurer_box").hide()
+        $("#dayCare_vehicle_current_insurer").val("")
+        $("#dayCare_vehicle_insurance_policyNo_box").hide()
+        $("#dayCare_vehicle_insurance_policyNo").val("")
+        $("#dayCare_vehicle_insurance_policyLimits_box").hide()
+        $("#dayCare_vehicle_insurance_policyLimits").val("")
+      }
+    });
+    
+    $('input[type=radio][name=day_trips_taken]').change(function() {
+      var day_trips_taken = this.value;
+      if(day_trips_taken =="Yes"){
+        $("#day_trips_box").show()
+      }else{
+        $("#day_trips_box").hide()
+        $("#day_trips_detail").val("")
+      }
+    });
+    
+
+
+    //  ***************************
+
+
+
     // show broker survey if yes for how long for do you know applicant personally question
     $('input[type=radio][name=brokerSurvey_applicantPersonally]').change(function() {
       //fieldOpenHide('brokerSurvey_applicantPersonally','Yes','','ifYesApplicantPersonally',['brokerSurvey_applicantPersonally_HowLong'],'');
@@ -2157,7 +2308,7 @@ $('#insured_isRiskAddressSame').change(function() {
             });
       
             var formData = JSON.stringify(result);
-            //console.log(formData);
+            console.log(formData);
             
             var rtqForm = $("#selectedForm").val();//$("#rtq_forms option:selected").val();
 

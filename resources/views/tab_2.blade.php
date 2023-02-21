@@ -11,6 +11,33 @@
     <h3>Insured</h3>
     <div class="row">
         <div class="col-md-12">
+
+            {{-- Day Care --}}
+            @if ($formVal == 'dayCare')
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-4" style="float: left;"> Is this a Licensed Daycare? </label>
+                        <div class="radio_group">
+                            <input type="radio" id="yes" name="licensed_dayCare" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="licensed_dayCare" value="No"><span class="radio_title">No</span>
+                            <span class="radio_error" style="display:none;color: red;">Required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-4" style="float: left;"> Is this a Commercial or Home Daycare? </label>
+                        <div class="radio_group">
+                            <input type="radio" id="yes" name="comm_or_home" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="comm_or_home" value="No"><span class="radio_title">No</span>
+                            <span class="radio_error" style="display:none;color: red;">Required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Insured Name / Legal Entity Name <span
                         class="err">*</span> </label>
@@ -67,6 +94,29 @@
                     <option value="French">French</option>
                 </select>
             </div>
+
+            {{-- Day care --}}
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Year Business Started </label>
+                <input type="text" id="year_started" name="year_started" class="form-control col-md-8" value="" placeholder="yyyy" required="true">
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Year of Experience </label>
+                <input type="text" id="year_experience" name="year_experience" class="form-control col-md-8 " value="" placeholder="">
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> What are the estimated annual receipts? </label>
+                <input type="text" id="annual_receipts" name="annual_receipts" class="form-control col-md-8 " value="" placeholder="">
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Current Insurer </label>
+                <input type="text" id="current_insurer" name="current_insurer" class="form-control col-md-8 " value="">
+            </div>
+            {{-- <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Expiring Premium </label>
+                <input type="text" id="expiring_premium" name="expiring_premium" class="form-control col-md-8 datepicker" value="">
+            </div> --}}
+
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
@@ -91,6 +141,7 @@
         </div>
     </div>
 </section>
+
 <section class="mailing_address">
     <h3>Mailing Address</h3>
     <div class="row">
@@ -149,4 +200,50 @@
             </div>
         </div>
     </div>
+</section>
+
+<section class="risk_address">
+    <h3>Risk Address</h3>
+                {{-- <div class="form-group">
+                    <label class="col-md-4" style="float: left;"> Is the risk address same as above address? <span class="err">*</span> </label>
+                    <input type="checkbox" id="insured_isRiskAddressSame" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger">
+                </div>  --}}
+
+                {{-- <div class="radio_group required">
+                    <input type="radio" id="yes" name="brokerSurvey_riskRenewalToOffice" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="brokerSurvey_riskRenewalToOffice" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div> --}}
+                
+                <div class="form-group riskAddressBOX">
+                    <label class="col-md-4" style="float: left;"> Street <span class="err">*</span></label>
+                    <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8 required" value="">
+                </div>
+                <div class="form-group riskAddressBOX">
+                    <label class="col-md-4" style="float: left;"> City <span class="err">*</span></label>
+                    <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8 required" value="">
+                </div>
+                <div class="form-group riskAddressBOX">
+                    <label class="col-md-4" style="float: left;"> Province <span class="err">*</span></label>
+                    <select class="form-control col-md-8 required" id="risk_address_province" name="risk_address_province">
+                        <option value="">-Select province-</option>
+                        @foreach ($canState as $s)
+                            <option value="{{ $s['name'] }}"> {{ $s['name'] }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group riskAddressBOX">
+                    <p class="validPostalError" style="display: none;color: red;">Please enter valid Postal Code</p>
+                    <label class="col-md-4" style="float: left;"> Postal code <span class="err">*</span> </label>
+                    <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required" value="" maxlength="10">
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4" style="float: left;"> Province of Inspection <span class="err">*</span> </label>
+                    <select class="form-control col-md-8 required" id="risk_address_provinceOfInspection" name="risk_address_provinceOfInspection">
+                        <option value="">-Select province-</option>
+                        @foreach ($canState as $s)
+                            <option value="{{ $s['name'] }}"> {{ $s['name'] }} </option>
+                        @endforeach
+                    </select>
+                </div>
 </section>
