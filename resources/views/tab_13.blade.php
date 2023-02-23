@@ -58,6 +58,18 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-feedback">
+                <label class="col-md-4" style="float: left;">Is there an emergency plan in place and staff are trained in it? (Fires, Hold & Secures, Lockdowns)<span class="err">*</span> </label>
+                <div class="radio_group required">
+                    <input type="radio" id="yes" name="emergencyPlan_in_place" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="emergencyPlan_in_place" value="No"><span class="radio_title">No</span>
+                     <span class="radio_error" style="display:none;color: red;">Required.</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
@@ -104,9 +116,8 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;">Hours of Operation?<span class="err">*</span> </label>
-                <div class="radio_group ">
-                    <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="HH:MM - HH:MM">
-                     <span class="radio_error" style="display:none;color: red;">Required.</span>
+                <div class="radio_group required">
+                    <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="HH:MM - HH:MM"><span class="error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -117,9 +128,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are government guidelines follow in regards to isolating sick children to prevent the spread of infectious diseases?</label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are government guidelines follow in regards to isolating sick children to prevent the spread of infectious diseases?<span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="guidelines_follow_isolating" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="guidelines_follow_isolating" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -128,8 +140,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are meals served on the premises? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are meals served on the premises? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="meal_served" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="meal_served" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -151,8 +163,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="cooking_facilities_yes_or_no_box" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">Are there cooking facilities on the premises?</span> </label>
-                <div class="radio_group ">
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">Are there cooking facilities on the premises?</span><span class="err">*</span> </label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="cooking_facilities_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="cooking_facilities_yes_or_no" value="No"><span class="radio_title">No</span>
             <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -164,7 +176,7 @@
         <div class="col-md-12">
             <div class="form-group" id="food_allergies_items_yes_or_no_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Are specific food items prohibited from the premises based on children's allergies (e.g.: Peanuts)?</span> </label>
-                <div class="radio_group ">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="food_allergies_items_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="food_allergies_items_yes_or_no" value="No"><span class="radio_title">No</span>
                      <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -175,9 +187,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Do any of your clients require special medical accommodation? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Do any of your clients require special medical accommodation? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="special_med_accommodation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="special_med_accommodation" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -186,9 +199,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Do any clients remain in the organization’s care overnight? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Do any clients remain in the organization’s care overnight? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="clients_care_overnight" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="clients_care_overnight" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -198,8 +212,19 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;"> What are the rules relative to delivery or pick-up of children when parents or guardians are delayed and unable to pick children up on time? </label>
+                <div class="radio_group">
+                    <input type="text" id="rules_pickup_delivery" name="rules_pickup_delivery" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-feedback">
+                <label class="col-md-4" style="float: left;"> Are all play materials safe, non-breakable and non-toxic? <span class="err">*</span></label>
                 <div class="radio_group required">
-                    <input type="text" id="rules_pickup_delivery" name="rules_pickup_delivery" class="form-control col-md-8 required" value="">
+                    <input type="radio" id="yes" name="safe_materials" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="safe_materials" value="No"><span class="radio_title">No</span> <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -208,19 +233,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are all play materials safe, non-breakable and non-toxic? </label>
-                <div class="radio_group">
-                    <input type="radio" id="yes" name="safe_materials" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="safe_materials" value="No"><span class="radio_title">No</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are written records kept of all incidents relating to any child? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are written records kept of all incidents relating to any child?  <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="incidents_written_record_kept" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="incidents_written_record_kept" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -239,8 +253,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Is there detailed written documentation outlining each child's allergies and other medical issues? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Is there detailed written documentation outlining each child's allergies and other medical issues?  <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="medical_issues_documentation" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="medical_issues_documentation" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -251,8 +265,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are all medications required, even over the counter meds, accompanied by a doctor's note with dosages, times, signs, and symptoms? (This includes, but is not limited to; Epi-pens, Tylenol, anti-biotics, etc.) </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are all medications required, even over the counter meds, accompanied by a doctor's note with dosages, times, signs, and symptoms? (This includes, but is not limited to; Epi-pens, Tylenol, anti-biotics, etc.) <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="med_doctor_notes" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="med_doctor_notes" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -266,7 +280,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;"> Does the daycare operate out of a commercial or residential building? </label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="commercial" name="dayCare_operate_comm_or_resi" value="commercial"><span class="radio_title">Commercial</span><input type="radio" id="resdidential" name="dayCare_operate_comm_or_resi" value="residential"><span class="radio_title">Residential</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -289,8 +303,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are the premises suitable and properly equipped for this type of occupancy? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are the premises suitable and properly equipped for this type of occupancy? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="suitable_and_equipped" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="suitable_and_equipped" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -308,6 +322,7 @@
                     <option value="basement">Basement</option>
                     <option value="groundFloor">Ground Floor</option>
                     <option value="secondFloor">Second Floor</option>
+                    <option value="entire">Entire</option>
                 </select>
             </div>
         </div>
@@ -316,8 +331,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Have all relevant provincial and municipal regulations been complied with? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Have all relevant provincial and municipal regulations been complied with?<span class="err">*</span> </label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="prov_muni_regulation_complied" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="prov_muni_regulation_complied" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -328,8 +343,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are emergency telephone numbers (i.e. ambulance, fire, police and poison control) posted beside an accessible telephone? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are emergency telephone numbers (i.e. ambulance, fire, police and poison control) posted beside an accessible telephone?<span class="err">*</span> </label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="emergency_num_accessible" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="emergency_num_accessible" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -340,9 +355,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Number of exits in the building </label>
+                <label class="col-md-4" style="float: left;">Number of exits in the building<span class="err">*</span> </label>
                 <div class="radio_group required">
                     <input type="number" id="num_of_exits" name="num_of_exits" class="form-control col-md-8 required" value="">
+                    <span class="error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -351,8 +367,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Are all exits accessible at all times? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;">Are all exits accessible at all times? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="exits_accessible" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="exits_accessible" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -363,8 +379,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;"> Are all exits properly marked as such? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;"> Are all exits properly marked as such?<span class="err">*</span> </label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="exits_marked" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="exits_marked" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -375,8 +391,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Does the building have fire alarms? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;">Does the building have fire alarms?<span class="err">*</span> </label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="fire_alarms_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="fire_alarms_yes_or_no" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -387,8 +403,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Is garbage removed daily from the premises? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;">Is garbage removed daily from the premises? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="garbage_removed_daily" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="garbage_removed_daily" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -399,8 +415,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Is perimeter of premises fenced? </label>
-                <div class="radio_group">
+                <label class="col-md-4" style="float: left;">Is perimeter of premises fenced? <span class="err">*</span></label>
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="perimeter_fenced" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="perimeter_fenced" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -418,7 +434,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;"> Pool </label>
+                <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;"> Pool <span class="err">*</span></label>
                 <div class="radio_group">
                     <input type="radio" id="yes" name="pool_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="pool_yes_or_no" value="No"><span class="radio_title">No</span>
                 </div>
@@ -429,9 +445,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="pool_indoor_or_outdoor" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">Is pool indoor or outdoor? </span> </label>
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">Is pool indoor or outdoor? </span><span class="err">*</span> </label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="indoor_or_outdoor" value="indoor"><span class="radio_title">Indoor</span><input type="radio" id="no" name="indoor_or_outdoor" value="outdoor"><span class="radio_title">Outdoor</span>
+                    <input type="radio" id="yes" name="indoor_or_outdoor" value="indoor"><span class="radio_title">Indoor</span><input type="radio" id="no" name="indoor_or_outdoor" value="outdoor"><span class="radio_title">Outdoor</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -450,9 +466,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="trampoline_box" style="float: left;"> Trampoline </label>
+                <label class="col-md-4" id="trampoline_box" style="float: left;"> Trampoline<span class="err">*</span> </label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="trampoline_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trampoline_yes_or_no" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="trampoline_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trampoline_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -461,9 +477,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="bouncyCastle_box" style="float: left;"> Bouncy Castle</label>
+                <label class="col-md-4" id="bouncyCastle_box" style="float: left;"> Bouncy Castle<span class="err">*</span></label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="bouncyCastle_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="bouncyCastle_yes_or_no" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="bouncyCastle_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="bouncyCastle_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -472,9 +488,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;">Is there a playground or playground equipment located on the premises for use by the Daycare? </label>
+                <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;">Is there a playground or playground equipment located on the premises for use by the Daycare? <span class="err">*</span></label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="playground_or_equipment" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="playground_or_equipment" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="playground_or_equipment" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="playground_or_equipment" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -545,9 +561,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="" style="float: left;">Are play areas contently supervised by the required number of staff (in ratio) </label>
+                <label class="col-md-4" id="" style="float: left;">Are play areas contently supervised by the required number of staff (in ratio) <span class="err">*</span></label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="supervised_by_staff_in_ratio" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="supervised_by_staff_in_ratio" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="supervised_by_staff_in_ratio" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="supervised_by_staff_in_ratio" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -556,9 +572,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">How is access to the play area restricted? (i.e. fence, gate, concrete or brick walls, etc.) </label>
+                <label class="col-md-4" style="float: left;">How is access to the play area restricted? (i.e. fence, gate, concrete or brick walls, etc.) <span class="err">*</span></label>
                 <div class="radio_group required">
-                    <input type="text" id="access_to_restricted" name="access_to_restricted" class="form-control col-md-8 required" value="">
+                    <input type="text" id="access_to_restricted" name="access_to_restricted" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -567,9 +583,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" id="" style="float: left;">Are there any pets on premises? </label>
+                <label class="col-md-4" id="" style="float: left;">Are there any pets on premises? <span class="err">*</span></label>
                 <div class="radio_group">
-                    <input type="radio" id="yes" name="pet_on_prem_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="pet_on_prem_yes_or_no" value="No"><span class="radio_title">No</span>
+                    <input type="radio" id="yes" name="pet_on_prem_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="pet_on_prem_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -578,10 +594,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="pets_desc_box" style="display: none;">
-                <label class="col-md-4" style="float: left;"><span class="optionalBox">Please provide full list of all pets on premises (for dogs, provide specific breed) </span> </label>
+                <label class="col-md-4" style="float: left;"><span class="optionalBox">Please provide full list of all pets on premises (for dogs, provide specific breed) </span><span class="err">*</span> </label>
                 <div class="radio_group">
                     <div class="radio_group ">
-                        <input type="text" id="pets_desc" name="pets_desc" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
+                        <input type="text" id="pets_desc" name="pets_desc" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;"><span class="radio_error" style="display:none;color: red;">Required.</span>
                     </div>
                 </div>
             </div>
@@ -605,7 +621,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="auto_liability_insurance_yes_or_no" style="display: none;">
-                <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, do all drivers/vehciles carry at least $2MM automobile liability insurance wheter vehicle is owned or non-owned?</span> </label>
+                <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, do all drivers/vehciles carry at least $2MM automobile liability insurance wheter vehicle is owned or non-owned?</span><span class="err">*</span> </label>
                 <div class="radio_group ">
                     <input type="radio" id="yes" name="auto_liability_insurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="auto_liability_insurance" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
@@ -660,7 +676,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="day_trips_yes_or_no" style="display: none;">
-                <label class="col-md-4" style="float: left;"> <span class="optionalBox">Are any day trips taken</span> </label>
+                <label class="col-md-4" style="float: left;"> <span class="optionalBox">Are any day trips taken</span> <span class="err">*</span></label>
                 <div class="radio_group">
                     <input type="radio" id="yes" name="day_trips_taken" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="day_trips_taken" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
@@ -671,9 +687,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="day_trips_box" style="display: none;">
-                <label class="col-md-4" style="float: left;"> <span class="optionalBox">If Yes, please provide details: </span> </label>
+                <label class="col-md-4" style="float: left;"> <span class="optionalBox">If Yes, please provide details: </span><span class="err">*</span> </label>
                 <div class="radio_group">
                     <input type="text" id="day_trips_detail" name="day_trips_detail" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
+                    <span class="error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>

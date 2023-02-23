@@ -54,13 +54,15 @@ table.age_table input {
 }
 
 .age_group input{
-	width:15%
+	width:20%
 }
 
-/* .age_group tr {
-	display: flex;
-	justify-content: center;
-} */
+.age_group  td {
+	top:50%;
+	left: 50%;
+	margin-right: 100px;
+	vertical-align: middle;
+}
 
 .work_sublet_style{
 position: relative;

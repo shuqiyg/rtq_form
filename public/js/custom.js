@@ -2339,6 +2339,7 @@ $('#insured_isRiskAddressSame').change(function() {
                     $('#calculateBox').hide();
                     $("#doesCalculated").val('');
                     reviewForm();
+                    console.log("B")
                     $(".bindingBox").hide();
                     
 
@@ -2361,6 +2362,7 @@ $('#insured_isRiskAddressSame').change(function() {
                     $('#calculateBox').hide();
                     $("#doesCalculated").val('');
                     reviewForm();
+                    console.log("A")
                     $(".bindingBox").hide();
                     
                   }else{
@@ -2397,6 +2399,7 @@ $('#insured_isRiskAddressSame').change(function() {
                     $("#referValidationNotMatchBox").empty();
 
                     reviewForm();
+                    console.log("C")
                     
                     
                   }
@@ -2405,6 +2408,7 @@ $('#insured_isRiskAddressSame').change(function() {
                  }else{
                     $("#reviewFormPT").text(""); 
                     reviewForm();
+                    console.log("D")
                     $('#calculateBox').hide();
                     $("#doesCalculated").val('');
                     $(".bindingBox").hide();
@@ -4120,7 +4124,7 @@ $('#insured_isRiskAddressSame').change(function() {
      function to display all form data for review
   **/
   function reviewForm(){
-   
+    console.log("reviewForm Triggerd")
 
     // get all form data step by step
     $.each($(".step-anchor li"),function(k,v){
@@ -4131,7 +4135,7 @@ $('#insured_isRiskAddressSame').change(function() {
           var tabId = $(this).find('a').attr("href");
           tabId = tabId.replace("#", "");
           reviewDataByStep(tabId);
-          //console.log("Data loaded of tab : "+tabId);
+          console.log("Data loaded of tab : "+tabId);
         }
       }
     });
