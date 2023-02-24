@@ -116,12 +116,10 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;">Hours of Operation?<span class="err">*</span> </label>
-                <div class="">
-                    <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="HH:MM - HH:MM"><span class="error" style="display:none;color: red;">Required.</span>
-                </div>
+                <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="HH:MM - HH:MM"><span class="error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
-    </div>    
+    </div>
 
     <h3>Childcare</h3>
     <br>
@@ -153,13 +151,11 @@
         <div class="col-md-12">
             <div class="form-group" id="type_of_food_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Advise the type of food that you offer (i.e. soup, sandwiches, hot meals, snacks, etc.):</span> </label>
-                <div class="">
-                    <input type="text" id="type_of_food" name="type_of_food" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                </div>
+                <input type="text" id="type_of_food" name="type_of_food" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="cooking_facilities_yes_or_no_box" style="display: none;">
@@ -212,9 +208,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;"> What are the rules relative to delivery or pick-up of children when parents or guardians are delayed and unable to pick children up on time? </label>
-                <div class="">
-                    <input type="text" id="rules_pickup_delivery" name="rules_pickup_delivery" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
-                </div>
+                <input type="text" id="rules_pickup_delivery" name="rules_pickup_delivery" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
     </div>
@@ -352,17 +346,15 @@
         </div>
     </div>
 
+   
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Number of exits in the building<span class="err">*</span> </label>
-                <div class="">
-                    <input type="text" id="num_of_exits" name="num_of_exits" class="form-control col-md-8 required" value="">
-                </div>
+            <div class="form-group">
+                <label class="col-md-4" style="float: left;"> Number of exits in the building <span class="err">*</span> </label>
+                <input type="text" id="num_of_exits" name="num_of_exits" class="form-control col-md-8 required" value="">
             </div>
         </div>
-    </div>
-    
+    </div> 
 
     <div class="row">
         <div class="col-md-12">
@@ -500,11 +492,7 @@
         <div class="col-md-12">
             <div class="form-group" id="desc_equipment_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Description of Equipment </span> </label>
-                <div class="radio_group">
-                    <div class="">
-                        <input type="text" id="desc_equipment" name="desc_equipment" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                    </div>
-                </div>
+                <input type="text" id="desc_equipment" name="desc_equipment" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
@@ -513,45 +501,34 @@
         <div class="col-md-12">
             <div class="form-group" id="playground_equipment_for_age_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Age </span> </label>
-                    <div class="radio_group ">
-                        <input type="text" id="playground_equipment_for_age" name="playground_equipment_for_age" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                    </div>
+                <input type="text" id="playground_equipment_for_age" name="playground_equipment_for_age" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="maintenance_frequency_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Maintenance Frequency</span> </label>
-                <div class="radio_group">
-                    <div class="">
-                        <input type="text" id="maintenance_frequency" name="maintenance_frequency" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                    </div>
-                </div>
+                <input type="text" id="maintenance_frequency" name="maintenance_frequency" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="construction_type_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Construction Type </span> </label>
-                <div class="radio_group">
-                    <div class="">
-                        <input type="text" id="construction_type" name="construction_type" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                    </div>
-                </div>
+                <input type="text" id="construction_type" name="construction_type" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="landing_surface_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Landing Surface </span> </label>
-                <div class="radio_group">
-                    <div class="">
-                        <input type="text" id="landing_surface" name="landing_surface" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                    </div>
-                </div>
+                <input type="text" id="landing_surface" name="landing_surface" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
@@ -571,13 +548,12 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;">How is access to the play area restricted? (i.e. fence, gate, concrete or brick walls, etc.) <span class="err">*</span></label>
-                <div class="">
-                    <input type="text" id="access_to_restricted" name="access_to_restricted" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
-                </div>
+                <input type="text" id="access_to_restricted" name="access_to_restricted" class="form-control col-md-8 required" value=""><span class="error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
     </div>
-
+    
+ 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
@@ -593,11 +569,7 @@
         <div class="col-md-12">
             <div class="form-group" id="pets_desc_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"><span class="optionalBox">Please provide full list of all pets on premises (for dogs, provide specific breed) </span><span class="err">*</span> </label>
-                <div class="radio_group">
-                    <div class="">
-                        <input type="text" id="pets_desc" name="pets_desc" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;"><span class="radio_error" style="display:none;color: red;">Required.</span>
-                    </div>
-                </div>
+                <input type="text" id="pets_desc" name="pets_desc" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;"><span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
     </div>
@@ -638,35 +610,30 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="dayCare_vehicle_current_insurer_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox1">Current Insurer</span> </label>
-                <div class="">
-                    <input type="text" id="dayCare_vehicle_current_insurer" name="dayCare_vehicle_current_insurer" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                </div>
+                <input type="text" id="dayCare_vehicle_current_insurer" name="dayCare_vehicle_current_insurer" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="dayCare_vehicle_insurance_policyNo_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox1">Policy Number</span> </label>
-                <div class="">
-                    <input type="text" id="dayCare_vehicle_insurance_policyNo" name="dayCare_vehicle_insurance_policyNo" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                </div>
+                <input type="text" id="dayCare_vehicle_insurance_policyNo" name="dayCare_vehicle_insurance_policyNo" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
-        
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="dayCare_vehicle_insurance_policyLimits_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox1">Policy Limit</span> </label>
-                <div class="">
-                    <input type="text" id="dayCare_vehicle_insurance_policyLimits" name="dayCare_vehicle_insurance_policyLimits" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
-                </div>
+                <input type="text" id="dayCare_vehicle_insurance_policyLimits" name="dayCare_vehicle_insurance_policyLimits" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
             </div>
         </div>
     </div>
@@ -682,15 +649,15 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="day_trips_box" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">If Yes, please provide details: </span><span class="err">*</span> </label>
-                <div class="">
                     <input type="text" id="day_trips_detail" name="day_trips_detail" class="form-control col-md-7 required" style="float: left; margin-bottom: 5px;">
                     <span class="error" style="display:none;color: red;">Required.</span>
-                </div>
             </div>
         </div>
-    </div>   
+    </div>
+    
 </section>
