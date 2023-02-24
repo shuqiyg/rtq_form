@@ -802,6 +802,8 @@ class rtqController extends Controller
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
             $fd[0]['calculation'] = $calculateArray;
+        }else if($rtqForm == "plumbing") {
+            
         }
 
         // Add md5 Hash id to form 

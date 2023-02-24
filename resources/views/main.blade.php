@@ -102,31 +102,32 @@
                 <div id="tab-5" class="">
                     @include('tab_5')
                 </div>
-                @else
+                @elseif($formVal == "dayCare")
+                    {{-- do nothing --}}              
                 <!-- Risk Address -->
-                <div id="tab-3" class="">
+                @else<div id="tab-3" class="">
                     @include('tab_3')
-                </div>
-                @if($formVal != "plumbing")
-                <!-- Occupance , Building Construction, Fire alarm/detectors & liability tab -->
-                <div id="tab-4" class="">
-                    @include('tab_4')
-                </div>
-                @endif
-                @if($formVal == "plumbing")
-                <!-- Protection details like fire alarm/burglary Alarm tab -->
-                <div id="tab-11" class="">
-                    @include('tab_11')
-                </div>
-                <!-- Liability Tab  -->
-                <div id="tab-12" class="">
-                    @include('tab_12')
-                </div>
-                @endif
-                <!-- Coverage Required Tab -->
-                <div id="tab-5" class="">
-                    @include('tab_5')
-                </div>  
+                    </div>
+                    @if($formVal != "plumbing")
+                    <!-- Occupance , Building Construction, Fire alarm/detectors & liability tab -->
+                    <div id="tab-4" class="">
+                        @include('tab_4')
+                    </div>
+                    @endif
+                    @if($formVal == "plumbing")
+                    <!-- Protection details like fire alarm/burglary Alarm tab -->
+                    <div id="tab-11" class="">
+                        @include('tab_11')
+                    </div>
+                    <!-- Liability Tab  -->
+                    <div id="tab-12" class="">
+                        @include('tab_12')
+                    </div>
+                    @endif
+                    <!-- Coverage Required Tab -->
+                    <div id="tab-5" class="">
+                        @include('tab_5')
+                    </div>  
                 @endif
                 @if($formVal == 'dayCare')
                 <div id="tab-13" class="">
