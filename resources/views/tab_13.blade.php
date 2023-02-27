@@ -83,28 +83,28 @@
                         </tr>
                         <tr>
                             <td>Infant (6 weeks - 18 months) </td>
-                            <td><input type="number" id="infant_number" name="infant_number" min="0" max="99"></td>
-                            <td><input type="number" id="infant_staff_number" name="infant_staff_number" min="0" max="99"></td>
+                            <td><input type="text" id="infant_number" name="infant_number" maxlength="2" min="0" max="99"></td>
+                            <td><input type="text" id="infant_staff_number" name="infant_staff_number" maxlength="2" min="0" max="99"></td>
                         </tr>
                         <tr>
                             <td>Toddler (18 months - 2.5) </td>
-                            <td><input type="number" id="toddler_number" name="toddler_number" min="0" max="99"></td>
-                            <td><input type="number" id="toddler__staff_number" name="toddler_staff_number" min="0" max="99"></td>
+                            <td><input type="text" id="toddler_number" name="toddler_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="text" id="toddler__staff_number" name="toddler_staff_number" min="0" max="99" maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>Preschool (2.5 - 3.8)</td>
-                            <td><input type="number" id="preschool_number" name="preschool_number" min="0" max="99"></td>
-                            <td><input type="number" id="preschool_staff_number" name="preschool_staff_number" min="0" max="99"></td>
+                            <td><input type="text" id="preschool_number" name="preschool_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="text" id="preschool_staff_number" name="preschool_staff_number" min="0" max="99" maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>Kinder (3.8 - 6)</td>
-                            <td><input type="number" id="kinder_number" name="kinder_number" min="0" max="99"></td>
-                            <td><input type="number" id="kinder_staff_number" name="kinder_staff_number" min="0" max="99"></td>
+                            <td><input type="text" id="kinder_number" name="kinder_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="text" id="kinder_staff_number" name="kinder_staff_number" min="0" max="99" maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>School Age (6 -12)</td>
-                            <td><input type="number" id="schoolAge_number" name="schoolAge_number" min="0" max="99"></td>
-                            <td><input type="number" id="schoolAge_staff_number" name="schoolAge_staff_number" min="0" max="99"></td>
+                            <td><input type="text" id="schoolAge_number" name="schoolAge_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="text" id="schoolAge_staff_number" name="schoolAge_staff_number" min="0" max="99" maxlength="2"></td>
                         </tr>
                         </table>
                 </div>
@@ -116,7 +116,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;">Hours of Operation?<span class="err">*</span> </label>
-                <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="HH:MM - HH:MM"><span class="error" style="display:none;color: red;">Required.</span>
+                <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="0800-1600"><span class="error" style="display:none;color: red;">Required.</span>
             </div>
         </div>
     </div>
@@ -351,7 +351,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Number of exits in the building <span class="err">*</span> </label>
-                <input type="text" id="num_of_exits" name="num_of_exits" class="form-control col-md-8 required" value="">
+                <input type="text" id="num_of_exits" name="num_of_exits" class="form-control col-md-8 required" value="" maxlength="3">
             </div>
         </div>
     </div> 
@@ -427,8 +427,9 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;"> Pool <span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="pool_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="pool_yes_or_no" value="No"><span class="radio_title">No</span>
+                    <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
         </div>
@@ -459,7 +460,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="trampoline_box" style="float: left;"> Trampoline<span class="err">*</span> </label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="trampoline_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="trampoline_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -470,7 +471,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="bouncyCastle_box" style="float: left;"> Bouncy Castle<span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="bouncyCastle_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="bouncyCastle_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -481,7 +482,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="pool_yes_or_no_box" style="float: left;">Is there a playground or playground equipment located on the premises for use by the Daycare? <span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="playground_or_equipment" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="playground_or_equipment" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -537,7 +538,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="" style="float: left;">Are play areas contently supervised by the required number of staff (in ratio) <span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="supervised_by_staff_in_ratio" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="supervised_by_staff_in_ratio" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -558,7 +559,7 @@
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" id="" style="float: left;">Are there any pets on premises? <span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="pet_on_prem_yes_or_no" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="pet_on_prem_yes_or_no" value="No"><span class="radio_title">No</span><span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
             </div>
@@ -592,7 +593,7 @@
         <div class="col-md-12">
             <div class="form-group" id="auto_liability_insurance_yes_or_no" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">If yes, do all drivers/vehciles carry at least $2MM automobile liability insurance wheter vehicle is owned or non-owned?</span><span class="err">*</span> </label>
-                <div class="radio_group ">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="auto_liability_insurance" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="auto_liability_insurance" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>
@@ -642,7 +643,7 @@
         <div class="col-md-12">
             <div class="form-group" id="day_trips_yes_or_no" style="display: none;">
                 <label class="col-md-4" style="float: left;"> <span class="optionalBox">Are any day trips taken</span> <span class="err">*</span></label>
-                <div class="radio_group">
+                <div class="radio_group required">
                     <input type="radio" id="yes" name="day_trips_taken" value="Yes"><span class="radio_title">Yes</span><input type="radio" id="no" name="day_trips_taken" value="No"><span class="radio_title">No</span>
                     <span class="radio_error" style="display:none;color: red;">Required.</span>
                 </div>

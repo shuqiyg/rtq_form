@@ -58,6 +58,13 @@ table.age_table input {
 }
 
 .age_group  td {
+	/* top:50%;
+	left: 50%;
+	margin-right: 100px;
+	vertical-align: middle; */
+}
+
+td {
 	top:50%;
 	left: 50%;
 	margin-right: 100px;

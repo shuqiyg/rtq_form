@@ -102,7 +102,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Year of Experience </label>
-                <input type="text" id="year_experience" name="year_experience" class="form-control col-md-8 " value="" placeholder="">
+                <input type="text" id="year_experience" name="year_experience" class="form-control col-md-8 " value="" placeholder=""><span class="radio_error" style="display:none;color: red;">Required.</span>
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> What are the estimated annual receipts? </label>
