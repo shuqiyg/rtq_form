@@ -73,6 +73,13 @@ class rtqController extends Controller
             $risk_address_noOfClaims = trim($req['risk_address_noOfClaims']);
             // get calculateArray
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince, $risk_address_noOfClaims, $cgl_cglLimitsOfLiablitiy, $cgl_eoLimitsOfLiablity, $ops_totalGrossAnnualReceipts, $cgl_deductible, $cgl_contractorsEquipmentFloater, $cgl_additionalPropertyFrill, $rtqForm);
+        }else if($rtqForm == "dayCare"){
+            // set all required values
+            $cgl_cglLimitsOfLiablitiy = trim($req['cgl_cglLimitsOfLiablitiy']);
+            $risk_address_noOfClaims = trim($req['risk_address_noOfClaims']);
+            $ops_totalGrossAnnualReceipts = trim($req['dayCare_annual_receipts']);
+            $cgl_deductible = "2500";
+            $calculateArray = $this->getCalculateArrayDayCare($cgl_cglLimitsOfLiablitiy, $risk_address_noOfClaims, $cgl_deductible,$ops_totalGrossAnnualReceipts);
         } else if ($rtqForm == "plumbing") {
             // set all required values
             $province = trim($req['province']);
@@ -476,6 +483,39 @@ class rtqController extends Controller
 
         return $priceArray;
     }
+    // function to set priceArray for Day Care Form
+    public function getCalculateArrayDayCare($cgl_cglLimitsOfLiablitiy, $risk_address_noOfClaims, $cgl_deductible,$ops_totalGrossAnnualReceipts){
+        $baseAmount = 2100;
+        $cglPremium = 0;
+        $fees = 150;
+        $cglCEF = 0;
+        $cglFrill = 0;
+        $priceArray = array();
+
+        $cglLimit = explode('/', $cgl_cglLimitsOfLiablitiy)[1];
+        if($cglLimit == '1mm'){
+            $cglPremium = 500;
+        }else if($cglLimit == '2mm'){
+            $cglPremium = 650;
+        }
+
+        if($risk_address_noOfClaims > 1 || $risk_address_noOfClaims == ""){
+            $priceArray['cglPremium'] = 0;
+            $priceArray['cglCEF'] = $cglCEF;
+            $priceArray['cglFrill'] = $cglFrill;
+            $priceArray['fee'] = $fees;
+            $priceArray['premium'] = 0;
+            $priceArray['total'] = 0;
+        }else{
+            $priceArray['cglPremium'] = $cglPremium;
+            $priceArray['cglCEF'] = $cglCEF;
+            $priceArray['cglFrill'] = $cglFrill;
+            $priceArray['fee'] = $fees;
+            $priceArray['premium'] = $cglPremium;
+            $priceArray['total'] = $cglPremium + $fees;
+        }
+        return $priceArray;
+    }
 
     // function to set priceArray for Home Inspector form
     public function getCalculateArrayHI($inspectionProvince, $risk_address_noOfClaims, $cgl_cglLimitsOfLiablitiy, $cgl_eoLimitsOfLiablity, $ops_totalGrossAnnualReceipts, $cgl_deductible, $cgl_contractorsEquipmentFloater, $cgl_additionalPropertyFrill, $rtqForm)
@@ -758,6 +798,14 @@ class rtqController extends Controller
             $calculateArray = $this->getCalculateArrayHI($inspectionProvince, $risk_address_noOfClaims, $cgl_cglLimitsOfLiablitiy, $cgl_eoLimitsOfLiablity, $ops_totalGrossAnnualReceipts, $cgl_deductible, $cgl_contractorsEquipmentFloater, $cgl_additionalPropertyFrill, $rtqForm);
 
             //$fd[0]['total_value']['value'] = $calculateArray['total_value'];
+            $fd[0]['calculation'] = $calculateArray;
+        } else if($rtqForm == "dayCare"){
+            $cgl_cglLimitsOfLiablitiy = trim($fd[0]['cgl_cglLimitsOfLiablitiy']['value']);
+            $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
+            $cgl_deductible = 2500;
+            $ops_totalGrossAnnualReceipts = trim($fd[0]['ops_totalGrossAnnualReceipts']['value']);
+            $calculateArray = $this->getCalculateArrayDayCare($cgl_cglLimitsOfLiablitiy, $risk_address_noOfClaims, $cgl_deductible,$ops_totalGrossAnnualReceipts);
+
             $fd[0]['calculation'] = $calculateArray;
         } else if ($rtqForm == "plumbing") {
             // set all required values
@@ -1085,6 +1133,12 @@ class rtqController extends Controller
             return $this->validateHomeInspector($fd, $rtqForm, $filesRequired);
         }
         else if($rtqForm == "dayCare"){
+            if(isset($fd[0]['incidents_written_record_kept'])){
+                $written_reord_kept_yes_or_no = trim($fd[0]['incidents_written_record_kept']['value']);
+                if($written_reord_kept_yes_or_no == "Yes"){
+                    array_push($filesRequired, "A copy of Blank Form that records all incidents relating to any child");;
+                }
+            }
             return $this->validateDayCare($fd, $rtqForm, $filesRequired);
         }
     }
@@ -1230,8 +1284,267 @@ class rtqController extends Controller
     }
 
     function validateDayCare($fd, $rtqForm, $filesRequired){
+
+        // //get all required data
+        if(isset($fd[0]['licensed_dayCare']))
+            $licensed_dayCare = trim($fd[0]['licensed_dayCare']['value']);
+
+        if(isset($fd[0]['insured_criminal_record']))
+            $insured_criminal_record = trim($fd[0]['insured_criminal_record']['value']);
+            
+        if(isset($fd[0]['comm_or_home']))
+            $comm_or_home = trim($fd[0]['comm_or_home']['value']);
+            
+        if(isset($fd[0]['mailing_address_country']))
+            $mailing_address_country = trim($fd[0]['mailing_address_country']['value']);
+
+        if(isset($fd[0]['risk_address_country']))
+            $risk_address_country = trim($fd[0]['risk_address_country']['value']);
+
+        if(isset($fd[0]['risk_address_noOfClaims']))
+            $risk_address_country = trim($fd[0]['risk_address_noOfClaims']['value']);
+
+        if(isset($fd[0]['risk_address_incidenceInClaim']))
+            $risk_address_incidenceInClaim = trim($fd[0]['risk_address_incidenceInClaim']['value']);
+        
+        if(isset($fd[0]['claimHistory_abuseEmploymentDisclosure']))
+            $claimHistory_abuseEmploymentDisclosure = trim($fd[0]['claimHistory_abuseEmploymentDisclosure']['value']);
+
+        if(isset($fd[0]['guidelines_follow_isolating']))
+            $guidelines_follow_isolating = trim($fd[0]['guidelines_follow_isolating']['value']);
+
+        if(isset($fd[0]['food_allergies_items_yes_or_no']))
+            $food_allergies_items_yes_or_no = trim($fd[0]['food_allergies_items_yes_or_no']['value']);
+
+        if(isset($fd[0]['special_med_accommodation']))
+            $special_med_accommodation = trim($fd[0]['special_med_accommodation']['value']);
+
+        if(isset($fd[0]['clients_care_overnight']))
+            $clients_care_overnight = trim($fd[0]['clients_care_overnight']['value']);
+
+        if(isset($fd[0]['safe_materials']))
+            $safe_materials = trim($fd[0]['safe_materials']['value']);
+
+        if(isset($fd[0]['incidents_written_record_kept']))
+            $incidents_written_record_kept = trim($fd[0]['incidents_written_record_kept']['value']);
+
+        if(isset($fd[0]['medical_issues_documentation']))
+            $medical_issues_documentation = trim($fd[0]['medical_issues_documentation']['value']);
+
+        if(isset($fd[0]['med_doctor_notes']))
+            $med_doctor_notes = trim($fd[0]['med_doctor_notes']['value']);
+
+        if(isset($fd[0]['dayCare_operate_comm_or_resi']))
+            $dayCare_operate_comm_or_resi = trim($fd[0]['dayCare_operate_comm_or_resi']['value']);
+
+        if(isset($fd[0]['suitable_and_equipped']))
+            $suitable_and_equipped = trim($fd[0]['suitable_and_equipped']['value']);
+
+        if(isset($fd[0]['prov_muni_regulation_complied']))
+            $prov_muni_regulation_complied = trim($fd[0]['prov_muni_regulation_complied']['value']);
+
+        if(isset($fd[0]['emergency_num_accessible']))
+            $emergency_num_accessible = trim($fd[0]['emergency_num_accessible']['value']);
+
+        if(isset($fd[0]['num_of_exits']))
+            $num_of_exits = trim($fd[0]['num_of_exits']['value']);
+
+        if(isset($fd[0]['exits_accessible']))
+            $exits_accessible = trim($fd[0]['exits_accessible']['value']);
+
+        if(isset($fd[0]['exits_marked']))
+            $exits_marked = trim($fd[0]['exits_marked']['value']);
+
+        if(isset($fd[0]['fire_alarms_yes_or_no']))
+            $fire_alarms_yes_or_no = trim($fd[0]['fire_alarms_yes_or_no']['value']);
+
+        if(isset($fd[0]['perimeter_fenced']))
+            $perimeter_fenced = trim($fd[0]['perimeter_fenced']['value']);
+
+        if(isset($fd[0]['pool_yes_or_no']))
+            $pool_yes_or_no = trim($fd[0]['pool_yes_or_no']['value']);
+
+        if(isset($fd[0]['trampoline_yes_or_no']))
+            $trampoline_yes_or_no = trim($fd[0]['trampoline_yes_or_no']['value']);
+
+        if(isset($fd[0]['bouncyCastle_yes_or_no']))
+            $bouncyCastle_yes_or_no = trim($fd[0]['bouncyCastle_yes_or_no']['value']);
+
+        if(isset($fd[0]['supervised_by_staff_in_ratio']))
+            $supervised_by_staff_in_ratio = trim($fd[0]['supervised_by_staff_in_ratio']['value']);
+
+        if(isset($fd[0]['pet_on_prem_yes_or_no']))
+            $pet_on_prem_yes_or_no = trim($fd[0]['pet_on_prem_yes_or_no']['value']);
+
+        if(isset($fd[0]['auto_liability_insurance']))
+            $auto_liability_insurance = trim($fd[0]['auto_liability_insurance']['value']);
+
+        if(isset($fd[0]['infant_number']))
+            $infant_number = trim($fd[0]['infant_number']['value']);
+
+        if(isset($fd[0]['toddler_number']))
+            $toddler_number = trim($fd[0]['toddler_number']['value']);
+
+        if(isset($fd[0]['preschool_number']))
+            $preschool_number = trim($fd[0]['preschool_number']['value']);
+
+        if(isset($fd[0]['kinder_number']))
+            $kinder_number = trim($fd[0]['kinder_number']['value']);
+
+        if(isset($fd[0]['schoolAge_number']))
+            $schoolAge_number = trim($fd[0]['schoolAge_number']['value']);
+        
         $valid = true;
         $referMatchArray = array();
+
+        //check if total kids count over 6
+        $total_kid_amount = $infant_number + $toddler_number + $preschool_number + $kinder_number + $schoolAge_number;
+
+        if($total_kid_amount > 6){
+            array_push($referMatchArray, "Total Kids Counts over 6.");
+            $valid = false;
+        }
+        if(isset($licensed_dayCare) &&  $licensed_dayCare == "No"){
+            array_push($referMatchArray, "This is not a Licensed Daycare.");
+            $valid = false;
+        } 
+
+        if(isset($comm_or_home) &&  $comm_or_home == "commercial"){
+            array_push($referMatchArray, "This is a Commercial Daycare.");
+            $valid = false;
+        } 
+
+        if(isset($mailing_address_country) &&  $mailing_address_country != "Canada"){
+            array_push($referMatchArray, "Mailing address is outside Canada.");
+            $valid = false;
+        } 
+
+        if(isset($insured_criminal_record) &&  $insured_criminal_record == "Yes"){
+            array_push($referMatchArray, "Insured has a criminal record.");
+            $valid = false;
+        } 
+
+        if(isset($risk_address_country) &&  $risk_address_country != "Canada"){
+            array_push($referMatchArray, "Risk address is outside Canada.");
+            $valid = false;
+        } 
+
+        if(isset($risk_address_noOfClaims) &&  $risk_address_noOfClaims != "0"){
+            array_push($referMatchArray, "You or your buisness has at least one claim history.");
+            $valid = false;
+        } 
+
+        if(isset($risk_address_incidenceInClaim) &&  $risk_address_incidenceInClaim == "Yes"){
+            array_push($referMatchArray, "Incidence results in a loss.");
+            $valid = false;
+        } 
+
+        if(isset($claimHistory_abuseEmploymentDisclosure) &&  $claimHistory_abuseEmploymentDisclosure == "Disagree"){
+            array_push($referMatchArray, "You disagree with Abuse and Employment Practices Disclosure.");
+            $valid = false;
+        } 
+
+        if(isset($guidelines_follow_isolating) &&  $guidelines_follow_isolating == "No"){
+            array_push($referMatchArray, "Government Guidelines are not followed.");
+            $valid = false;
+        } 
+
+        if(isset($food_allergies_items_yes_or_no) &&  $food_allergies_items_yes_or_no == "No"){
+            array_push($referMatchArray, "Prohibited food items exist.");
+            $valid = false;
+        } 
+
+        if(isset($special_med_accommodation) &&  $special_med_accommodation == "Yes"){
+            array_push($referMatchArray, "Special Medical Accommodation required.");
+            $valid = false;
+        } 
+
+        if(isset($clients_care_overnight) &&  $clients_care_overnight == "Yes"){
+            array_push($referMatchArray, "You are providing overnight care.");
+            $valid = false;
+        } 
+
+        if(isset($safe_materials) &&  $safe_materials == "No"){
+            array_push($referMatchArray, "Play materials are not safe.");
+            $valid = false;
+        } 
+        if(isset($incidents_written_record_kept) &&  $incidents_written_record_kept == "No"){
+            array_push($referMatchArray, "Written Records of Incidents are not kept.");
+            $valid = false;
+        } 
+        if(isset($medical_issues_documentation) &&  $medical_issues_documentation == "No"){
+            array_push($referMatchArray, "Medical issues and Allergies are not documented.");
+            $valid = false;
+        } 
+        if(isset($med_doctor_notes) &&  $med_doctor_notes == "No"){
+            array_push($referMatchArray, "Required medication are not accompanied by a doctor's note.");
+            $valid = false;
+        } 
+        if(isset($dayCare_operate_comm_or_resi) &&  $dayCare_operate_comm_or_resi == "commercial"){
+            array_push($referMatchArray, "Business operates out of a Commercial Buiding.");
+            $valid = false;
+        } 
+
+        if(isset($suitable_and_equipped ) &&  $suitable_and_equipped  == "No"){
+            array_push($referMatchArray, "Presmises are not suitable or properly equipped.");
+            $valid = false;
+        } 
+
+        if(isset($prov_muni_regulation_complied) &&  $prov_muni_regulation_complied == "No"){
+            array_push($referMatchArray, "Regulations have not been complied with.");
+            $valid = false;
+        } 
+
+        if(isset($num_of_exits) &&  ($num_of_exits == "1" || $num_of_exits == "0")){
+            array_push($referMatchArray, "Emergency Exits is less than 2.");
+            $valid = false;
+        } 
+        if(isset($emergency_num_accessible) &&  $emergency_num_accessible = "No"){
+            array_push($referMatchArray, "Emergency telephone# not accessible.");
+            $valid = false;
+        } 
+        if(isset($exits_accessible) &&  $exits_accessible == "No"){
+            array_push($referMatchArray, "Exits not accessible all the time.");
+            $valid = false;
+        } 
+        if(isset($exits_marked) &&  $exits_marked == "No"){
+            array_push($referMatchArray, "Exits are not properly marked.");
+            $valid = false;
+        } 
+        if(isset($fire_alarms_yes_or_no) &&  $fire_alarms_yes_or_no == "No"){
+            array_push($referMatchArray, "Missing fire alarms.");
+            $valid = false;
+        } 
+        if(isset($perimeter_fenced) &&  $perimeter_fenced == "No"){
+            array_push($referMatchArray, "Perimeter of premises is not fenced.");
+            $valid = false;
+        } 
+        if(isset($pool_yes_or_no) &&  $pool_yes_or_no == "Yes"){
+            array_push($referMatchArray, "A pool inside the premise.");
+            $valid = false;
+        } 
+        if(isset($trampoline_yes_or_no) &&  $trampoline_yes_or_no == "Yes"){
+            array_push($referMatchArray, "A trampline inside the premise.");
+            $valid = false;
+        } 
+        if(isset($bouncyCastle_yes_or_no) &&  $bouncyCastle_yes_or_no == "Yes"){
+            array_push($referMatchArray, "A Bounty Castle inside the premise.");
+            $valid = false;
+        } 
+        if(isset($supervised_by_staff_in_ratio) &&  $supervised_by_staff_in_ratio == "No"){
+            array_push($referMatchArray, "Play areas are not supervised by the required number of staff.");
+            $valid = false;
+        } 
+        if(isset($pet_on_prem_yes_or_no) &&  $pet_on_prem_yes_or_no == "Yes"){
+            array_push($referMatchArray, "Pet on the premise");
+            $valid = false;
+        } 
+        if(isset($auto_liability_insurance) &&  $auto_liability_insurance == "No"){
+            array_push($referMatchArray, "$2MM automobile liability insurance required");
+            $valid = false;
+        } 
+
+
         return array("valid" => $valid, "matchArray" => $referMatchArray, "filesRequired" => $filesRequired);
     }
 
@@ -2170,7 +2483,7 @@ class rtqController extends Controller
             $fd = json_decode($fdFormattedJson, true);
 
             $valid = $this->validation($fd, $rtqForm);
-        } else if ($rtqForm == "homeInspector") {
+        } else if ($rtqForm == "homeInspector" || $rtqForm == "dayCare") {
             //$fdFormattedJson = $this->formatFormDataToProperJson($formData,'',$noOfClaimsArray,$referNotMatchReason,$filesRequired,$rtqForm,$requiredError);
             $fdFormattedJson = $this->formatFormDataToProperJson($formData, $referNotMatchReason, $filesRequired, $rtqForm, $requiredError);
             $fd = json_decode($fdFormattedJson, true);

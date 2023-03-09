@@ -30,7 +30,7 @@
                     <div class="col-md-12">
                         <label class="col-md-4" style="float: left;"> Is this a Commercial or Home Daycare? </label>
                         <div class="radio_group">
-                            <input type="radio" id="comm_or_home" name="comm_or_home" value="commercial"><span class="radio_title">Commercial</span><input type="radio" id="comm_or_home" name="comm_or_home" value="homeDaycare"><span class="radio_title">Home Daycare</span>
+                            <input type="radio" id="comm_or_home" name="comm_or_home" value="commercial"><span class="radio_title">Commercial</span><input type="radio" id="comm_or_home" name="comm_or_home" value="home"><span class="radio_title">Home Daycare</span>
                             <span class="radio_error" style="display:none;color: red;">Required.</span>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> What are the estimated annual receipts? </label>
-                <input type="text" id="annual_receipts" name="annual_receipts" class="form-control col-md-8 " value="" placeholder="">
+                <input type="text" id="ops_totalGrossAnnualReceipts" name="ops_totalGrossAnnualReceipts" class="form-control col-md-8 " value="" placeholder="">
             </div>
             <div class="form-group">
                 <label class="col-md-4" style="float: left;"> Current Insurer </label>
@@ -216,15 +216,15 @@
                 
                 <div class="form-group ">
                     <label class="col-md-4" style="float: left;"> Street <span class="err">*</span></label>
-                    <input type="text" id="risk_address_street_dayCare" name="risk_address_street_dayCare" class="form-control col-md-8 required" value="">
+                    <input type="text" id="risk_address_street" name="risk_address_street" class="form-control col-md-8 required" value="">
                 </div>
                 <div class="form-group ">
                     <label class="col-md-4" style="float: left;"> City <span class="err">*</span></label>
-                    <input type="text" id="risk_address_city_dayCare" name="risk_address_city_dayCare" class="form-control col-md-8 required" value="">
+                    <input type="text" id="risk_address_city" name="risk_address_city" class="form-control col-md-8 required" value="">
                 </div>
                 <div class="form-group ">
                     <label class="col-md-4" style="float: left;"> Province <span class="err">*</span></label>
-                    <select class="form-control col-md-8 required" id="risk_address_province_dayCare" name="risk_address_province_dayCare">
+                    <select class="form-control col-md-8 required" id="risk_address_province" name="risk_address_province">
                         <option value="">-Select province-</option>
                         @foreach ($canState as $s)
                             <option value="{{ $s['name'] }}"> {{ $s['name'] }} </option>
@@ -234,6 +234,16 @@
                 <div class="form-group ">
                     <p class="validPostalError" style="display: none;color: red;">Please enter valid Postal Code</p>
                     <label class="col-md-4" style="float: left;"> Postal code <span class="err">*</span> </label>
-                    <input type="text" id="risk_address_postalCode_dayCare" name="risk_address_postalCode_dayCare" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required" value="" maxlength="10">
+                    <input type="text" id="risk_address_postalCode" name="risk_address_postalCode" class="form-control col-md-8 postalcodeValidation onlyNumbersAndLetters required" value="" maxlength="10">
+                </div>
+                <div class="form-group" id="risk_address_countryBox">
+                    <label class="col-md-4" style="float: left;"> Country <span class="err">*</span></label>
+                    <select class="form-control col-md-8 required" id="risk_address_country"
+                        name="risk_address_country">
+                        <option value="">-Select Country-</option>
+                        <option value="Canada">Canada</option>
+                        <option value="USA">USA</option>
+                        <option value="other">Other Country</option>
+                    </select>
                 </div>
 </section>

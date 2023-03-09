@@ -77,7 +77,7 @@
 	<!-- End Review Form -->
 
 	<!-- Binding Option Lower -->
-	<div class='row ' > 
+	<div class='row' > 
 		<div class='col-md-12'> 
 			<div class="form-group">
 				<button class="btn btn-success" id="submitOnlyLow" style="margin-left: 5px;float: right;">Submit Only</button>

@@ -29,6 +29,7 @@
                 @elseif($formVal == "dayCare")
                 {{-- Operations Tab --}}
                 <li><a href="#tab-13">Operations<br /><small>Operation Details</small></a></li>
+                <li><a href="#tab-14">CGL<br /><small>Required Coverage</small></a></li>
                 @else
                 <li><a href="#tab-3">Risk Address<br /><small>Risk Address</small></a></li>
                     @if($formVal != "plumbing")
@@ -43,9 +44,8 @@
                     @endif
                 <li><a href="#tab-5">Coverage<br /><small>Coverage Required</small></a></li>
                 @endif 
-                @if($formVal == "dayCare")
-
-                @endif
+                {{-- @if($formVal == "dayCare")
+                @endif --}}
                 <li><a href="#result">Result<br /><small>Final</small></a></li>
             </ul>
          
@@ -103,7 +103,13 @@
                     @include('tab_5')
                 </div>
                 @elseif($formVal == "dayCare")
-                    {{-- do nothing --}}              
+                    {{-- do nothing --}}    
+                    <div id="tab-13" class="">
+                        @include('tab_13')
+                    </div>
+                    <div id="tab-14" class="">
+                        @include('tab_14')
+                    </div>          
                 <!-- Risk Address -->
                 @else<div id="tab-3" class="">
                     @include('tab_3')
@@ -130,9 +136,8 @@
                     </div>  
                 @endif
                 @if($formVal == 'dayCare')
-                <div id="tab-13" class="">
-                    @include('tab_13')
-                </div>
+                
+
                 @endif
                 <!-- Final Tab -->
                 <div id="result" class="">

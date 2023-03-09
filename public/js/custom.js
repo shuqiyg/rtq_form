@@ -2245,7 +2245,7 @@ $('#insured_isRiskAddressSame').change(function() {
     $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
       // add min height to auto for smartwizard container
       $(".sw-container").css('min-height','auto');
-        if((stepNumber == 8 && (rtqFormGlobal == "homeInspector" || rtqFormGlobal == "plumbing")) || (stepNumber == 6 && (rtqFormGlobal == "rentedDwelling" || rtqFormGlobal == "ownerOccupied")) || (stepNumber == 5 && rtqFormGlobal == "dayCare")){
+        if((stepNumber == 8 && (rtqFormGlobal == "homeInspector" || rtqFormGlobal == "plumbing")) || (stepNumber == 6 && (rtqFormGlobal == "rentedDwelling" || rtqFormGlobal == "ownerOccupied")) || (stepNumber == 6 && rtqFormGlobal == "dayCare")){
           //console.log('final step');
 
           // hide next button when in final step

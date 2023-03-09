@@ -83,28 +83,28 @@
                         </tr>
                         <tr>
                             <td>Infant (6 weeks - 18 months) </td>
-                            <td><input type="text" id="infant_number" name="infant_number" maxlength="2" min="0" max="99"></td>
-                            <td><input type="text" id="infant_staff_number" name="infant_staff_number" maxlength="2" min="0" max="99"></td>
+                            <td><input type="number" id="infant_number" name="infant_number" maxlength="2" min=0 max=99 value=0></td>
+                            <td><input type="number" id="infant_staff_number" name="infant_staff_number" maxlength="2" min=0 max=99 value=0></td>
                         </tr>
                         <tr>
                             <td>Toddler (18 months - 2.5) </td>
-                            <td><input type="text" id="toddler_number" name="toddler_number" min="0" max="99" maxlength="2"></td>
-                            <td><input type="text" id="toddler__staff_number" name="toddler_staff_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="number" id="toddler_number" name="toddler_number" min=0 max=99 value=0 maxlength="2"></td>
+                            <td><input type="number" id="toddler__staff_number" name="toddler_staff_number" min=0 max=99 value=0 maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>Preschool (2.5 - 3.8)</td>
-                            <td><input type="text" id="preschool_number" name="preschool_number" min="0" max="99" maxlength="2"></td>
-                            <td><input type="text" id="preschool_staff_number" name="preschool_staff_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="number" id="preschool_number" name="preschool_number" min="0" max="99" value=0 maxlength="2"></td>
+                            <td><input type="number" id="preschool_staff_number" name="preschool_staff_number" min=0 max=99 value=0 maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>Kinder (3.8 - 6)</td>
-                            <td><input type="text" id="kinder_number" name="kinder_number" min="0" max="99" maxlength="2"></td>
-                            <td><input type="text" id="kinder_staff_number" name="kinder_staff_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="number" id="kinder_number" name="kinder_number" min="0" max="99" value =0 maxlength="2"></td>
+                            <td><input type="number" id="kinder_staff_number" name="kinder_staff_number" min=0 max=99 value=0 maxlength="2"></td>
                         </tr>
                         <tr>
                             <td>School Age (6 -12)</td>
-                            <td><input type="text" id="schoolAge_number" name="schoolAge_number" min="0" max="99" maxlength="2"></td>
-                            <td><input type="text" id="schoolAge_staff_number" name="schoolAge_staff_number" min="0" max="99" maxlength="2"></td>
+                            <td><input type="number" id="schoolAge_number" name="schoolAge_number" min="0" max="99" value=0 maxlength="2"></td>
+                            <td><input type="number" id="schoolAge_staff_number" name="schoolAge_staff_number" min=0 max=99 value=0 maxlength="2"></td>
                         </tr>
                         </table>
                 </div>
