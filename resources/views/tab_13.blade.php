@@ -75,7 +75,7 @@
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;">Staffing for specific age groups:</label>
                 <div>
-                    <table class="age_group">
+                    <table class="age_group table table-striped">
                         <tr>
                             <th>Age Group</th>
                             <th># of Children</th>
