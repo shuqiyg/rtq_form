@@ -116,6 +116,7 @@
 							<li>Acknowledgement that we have received your Binding instructions.</li>
 							<li>Please note the policy fee and (if applicable) the inspection fee are 100% retained.</li>
 							<li>You must get the application signed and returned to us.</li>
+							<li>You must send any required supporting documents to us.</li>
 							<li>Within 5 business days, you will receive Policy Documents electronically.</li>
 						</ul>
 					</li>

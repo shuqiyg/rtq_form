@@ -496,7 +496,7 @@ class rtqController extends Controller
         if($cglLimit == '1mm'){
             $cglPremium = 500;
         }else if($cglLimit == '2mm'){
-            $cglPremium = 650;
+            $cglPremium = 625;
         }
 
         if($risk_address_noOfClaims > 1 || $risk_address_noOfClaims == ""){
@@ -1334,8 +1334,8 @@ class rtqController extends Controller
         if(isset($fd[0]['med_doctor_notes']))
             $med_doctor_notes = trim($fd[0]['med_doctor_notes']['value']);
 
-        if(isset($fd[0]['dayCare_operate_comm_or_resi']))
-            $dayCare_operate_comm_or_resi = trim($fd[0]['dayCare_operate_comm_or_resi']['value']);
+        // if(isset($fd[0]['dayCare_operate_comm_or_resi']))
+        //     $dayCare_operate_comm_or_resi = trim($fd[0]['dayCare_operate_comm_or_resi']['value']);
 
         if(isset($fd[0]['suitable_and_equipped']))
             $suitable_and_equipped = trim($fd[0]['suitable_and_equipped']['value']);
@@ -1480,10 +1480,10 @@ class rtqController extends Controller
             array_push($referMatchArray, "Required medication are not accompanied by a doctor's note.");
             $valid = false;
         } 
-        if(isset($dayCare_operate_comm_or_resi) &&  $dayCare_operate_comm_or_resi == "commercial"){
-            array_push($referMatchArray, "Business operates out of a Commercial Buiding.");
-            $valid = false;
-        } 
+        // if(isset($dayCare_operate_comm_or_resi) &&  $dayCare_operate_comm_or_resi == "commercial"){
+        //     array_push($referMatchArray, "Business operates out of a Commercial Buiding.");
+        //     $valid = false;
+        // } 
 
         if(isset($suitable_and_equipped ) &&  $suitable_and_equipped  == "No"){
             array_push($referMatchArray, "Presmises are not suitable or properly equipped.");

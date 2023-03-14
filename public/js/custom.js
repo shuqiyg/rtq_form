@@ -700,6 +700,7 @@ $('#insured_isRiskAddressSame').change(function() {
       $("#risk_address_province").val($("#mailing_address_province_other").val());
     }
     $("#risk_address_postalCode").val($("#mailing_address_postalCode").val());
+    $("#risk_address_country").val($("#mailing_address_country").val());
 
     //console.log($("#risk_address_street").val()+" "+$("#risk_address_city").val()+" "+$("#risk_address_province").val()+" "+$("#risk_address_postalCode").val());
   }
@@ -735,7 +736,7 @@ $('#insured_isRiskAddressSame').change(function() {
 
     // if legal step 
     if(stepNumber == 0){
-      if(rtqForm == "homeInspector"){
+      if(rtqForm == "homeInspector" || rtqForm == "dayCare"){
         $('#insured_isRiskAddressSame').bootstrapToggle('off'); // default checkbox is off
         /*if($("input[name=hiAgreeDisAgree]:checked").val() == "agree" || $("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){
           if($("input[name=hiAgreeDisAgree]:checked").val() == "disagree"){

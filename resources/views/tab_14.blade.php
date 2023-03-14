@@ -17,7 +17,6 @@
                 <select class="col-md-8 form-control required" id="cgl_cglLimitsOfLiablitiy" name="cgl_cglLimitsOfLiablitiy">
                     <option value="">-Select CGL Limits-</option>
                     <option value="1mm/1mm">$1mm/$1mm</option>
-                    <option value="1mm/2mm">$1mm/$2mm</option>
                     <option value="2mm/2mm">$2mm/$2mm</option>
                 </select>
             </div>

@@ -83,28 +83,28 @@
                         </tr>
                         <tr>
                             <td>Infant (6 weeks - 18 months) </td>
-                            <td><input type="number" id="infant_number" name="infant_number" maxlength="2" min=0 max=99 value=0></td>
-                            <td><input type="number" id="infant_staff_number" name="infant_staff_number" maxlength="2" min=0 max=99 value=0></td>
+                            <td><input type="number" id="infant_number" name="infant_number" placeholder="" maxlength="2" min=0 max=99 value=0 onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                            <td><input type="number" id="infant_staff_number" name="infant_staff_number" maxlength="2" min=0 max=99 value=0 onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                         </tr>
                         <tr>
                             <td>Toddler (18 months - 2.5) </td>
-                            <td><input type="number" id="toddler_number" name="toddler_number" min=0 max=99 value=0 maxlength="2"></td>
-                            <td><input type="number" id="toddler__staff_number" name="toddler_staff_number" min=0 max=99 value=0 maxlength="2"></td>
+                            <td><input type="number" id="toddler_number" name="toddler_number" min=0 max=99 value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                            <td><input type="number" id="toddler__staff_number" name="toddler_staff_number" min=0 max=99 value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                         </tr>
                         <tr>
                             <td>Preschool (2.5 - 3.8)</td>
-                            <td><input type="number" id="preschool_number" name="preschool_number" min="0" max="99" value=0 maxlength="2"></td>
-                            <td><input type="number" id="preschool_staff_number" name="preschool_staff_number" min=0 max=99 value=0 maxlength="2"></td>
+                            <td><input type="number" id="preschool_number" name="preschool_number" min="0" max="99" value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                            <td><input type="number" id="preschool_staff_number" name="preschool_staff_number" min=0 max=99 value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                         </tr>
                         <tr>
                             <td>Kinder (3.8 - 6)</td>
-                            <td><input type="number" id="kinder_number" name="kinder_number" min="0" max="99" value =0 maxlength="2"></td>
-                            <td><input type="number" id="kinder_staff_number" name="kinder_staff_number" min=0 max=99 value=0 maxlength="2"></td>
+                            <td><input type="number" id="kinder_number" name="kinder_number" min="0" max="99" value =0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                            <td><input type="number" id="kinder_staff_number" name="kinder_staff_number" min=0 max=99 value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                         </tr>
                         <tr>
                             <td>School Age (6 -12)</td>
-                            <td><input type="number" id="schoolAge_number" name="schoolAge_number" min="0" max="99" value=0 maxlength="2"></td>
-                            <td><input type="number" id="schoolAge_staff_number" name="schoolAge_staff_number" min=0 max=99 value=0 maxlength="2"></td>
+                            <td><input type="number" id="schoolAge_number" name="schoolAge_number" min="0" max="99" value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
+                            <td><input type="number" id="schoolAge_staff_number" name="schoolAge_staff_number" min=0 max=99 value=0 maxlength="2" onblur="onBlur(this)" onfocus="onFocus(this)"></td>
                         </tr>
                         </table>
                 </div>
@@ -115,8 +115,22 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
-                <label class="col-md-4" style="float: left;">Hours of Operation?<span class="err">*</span> </label>
-                <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="0800-1600"><span class="error" style="display:none;color: red;">Required.</span>
+                <label class="col-md-4" style="float: left;">Hours of Operation Start<span class="err">*</span> </label>
+                {{-- <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="0800-1600"><span class="error" style="display:none;color: red;">Required.</span> --}}
+                {{-- <div class="required"> --}}
+                    <input type="time" min="00:00" max="23:59" id="hours_operation_start" name="hours_operation_start" class="" style="height: 35px"><span class="error" style="display:none;color: red;">Required.</span>
+                {{-- </div>          --}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-feedback">
+                <label class="col-md-4" style="float: left;">Hours of Operation End<span class="err">*</span> </label>
+                {{-- <input type="text" id="hours_operation" name="hours_operation" class="form-control col-md-8 required" placeholder="0800-1600"><span class="error" style="display:none;color: red;">Required.</span> --}}
+                {{-- <div class="required"> --}}
+                    <input type="time" min="00:00" max="23:59" id="hours_operation_end" name="hours_operation_end" class="" style="height: 35px"><span class="error" style="display:none;color: red;">Required.</span>
+                {{-- </div>          --}}
             </div>
         </div>
     </div>
@@ -239,7 +253,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="blank_form_copy_box" style="display: none;">
-                <label class="col-md-4" style="float: left; color: brown"><span class="optionalBox">Please email us a COPY of the blank form that is used after completing the Quote</span> </label>
+                <label class="col-md-4" style="float: left; color: brown"><span class="">Please email us a COPY of the blank form that is used after completing the Quote</span> </label>
             </div>
         </div>
     </div>
@@ -270,7 +284,7 @@
 
     <h3>Premises</h3>
     <br>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <div class="form-group has-feedback">
                 <label class="col-md-4" style="float: left;"> Does the daycare operate out of a commercial or residential building? </label>
@@ -280,7 +294,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         <div class="col-md-12">
@@ -662,3 +676,15 @@
     </div>
     
 </section>
+<script>
+    function onBlur(el) {
+        if (el.value == '') {
+            el.value = el.defaultValue;
+        }
+    }
+    function onFocus(el) {
+        if (el.value == el.defaultValue) {
+            el.value = '';
+        }
+    }
+</script>
