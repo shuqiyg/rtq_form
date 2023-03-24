@@ -688,6 +688,7 @@ $('#insured_isRiskAddressSame').change(function() {
     $("#risk_address_city").val('');
     $("#risk_address_province").val('');
     $("#risk_address_postalCode").val('');
+    $("#risk_address_country").val('');
 
   }else{
     //$(".riskAddressBOX").hide();

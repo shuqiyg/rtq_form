@@ -1302,7 +1302,7 @@ class rtqController extends Controller
             $risk_address_country = trim($fd[0]['risk_address_country']['value']);
 
         if(isset($fd[0]['risk_address_noOfClaims']))
-            $risk_address_country = trim($fd[0]['risk_address_noOfClaims']['value']);
+            $risk_address_noOfClaims = trim($fd[0]['risk_address_noOfClaims']['value']);
 
         if(isset($fd[0]['risk_address_incidenceInClaim']))
             $risk_address_incidenceInClaim = trim($fd[0]['risk_address_incidenceInClaim']['value']);
@@ -1499,7 +1499,7 @@ class rtqController extends Controller
             array_push($referMatchArray, "Emergency Exits is less than 2.");
             $valid = false;
         } 
-        if(isset($emergency_num_accessible) &&  $emergency_num_accessible = "No"){
+        if(isset($emergency_num_accessible) &&  $emergency_num_accessible == "No"){
             array_push($referMatchArray, "Emergency telephone# not accessible.");
             $valid = false;
         } 
